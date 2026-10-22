@@ -1,4 +1,5 @@
 import Link from "next/link";
+import RobotHero from "@/components/home/RobotHero";
 import Ticker from "@/components/home/Ticker";
 import Metrics from "@/components/shared/Metrics";
 import { Rings } from "@/components/shared/Visuals";
@@ -30,6 +31,7 @@ export default function Home() {
       {/* ------------------------------------------------ Hero */}
       <section className="hero" aria-labelledby="hero-title">
         <div className="hero-glow" aria-hidden="true" />
+        <RobotHero />
         <div className="hero-curve" aria-hidden="true">
           <svg viewBox="0 0 1600 560" preserveAspectRatio="none">
             <defs>

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import RevealObserver from "@/components/effects/RevealObserver";
+import RouteTransition from "@/components/effects/RouteTransition";
 import SiteFooter from "@/components/layout/SiteFooter";
 import SiteHeader from "@/components/layout/SiteHeader";
 import { SITE } from "@/lib/site";
@@ -46,9 +47,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en-IN" className={inter.variable} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "document.documentElement.classList.add('js');try{if(sessionStorage.getItem('strategy-experts:route-transition')==='1'){document.documentElement.classList.add('route-arrival');setTimeout(()=>document.documentElement.classList.remove('route-arrival'),4000)}}catch(e){}",
+          }}
+        />
       </head>
       <body>
+        <RouteTransition />
         <a className="skip" href="#main">Skip to content</a>
         <SiteHeader />
         <main id="main">{children}</main>
