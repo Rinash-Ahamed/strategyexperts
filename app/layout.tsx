@@ -6,11 +6,11 @@ import SiteFooter from "@/components/layout/SiteFooter";
 import SiteHeader from "@/components/layout/SiteHeader";
 import { SITE } from "@/lib/site";
 
-const manrope = localFont({
-  src: "../node_modules/@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2",
+const inter = localFont({
+  src: "../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2",
   weight: "200 800",
   display: "swap",
-  variable: "--font-manrope",
+  variable: "--font-inter",
   preload: true,
 });
 
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f5f8fe",
+  themeColor: "#000000",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -44,7 +44,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" className={manrope.variable} suppressHydrationWarning>
+    <html lang="en-IN" className={inter.variable} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
       </head>

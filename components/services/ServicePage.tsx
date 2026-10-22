@@ -70,7 +70,7 @@ function HeroVisual({ s }: { s: Service }) {
     case "digital":
       return (
         <div className="rings-wrap" data-reveal>
-          <Rings color="#0369a1" />
+          <Rings color="var(--silver-dark)" />
           <div className="pillrow">
             {s.platforms.map((p) => (
               <span key={p}>{p}</span>
@@ -296,7 +296,7 @@ export default function ServicePage({ service: s }: { service: Service }) {
       {/* ---------------- CTA ---------------- */}
       <section className={`section sp-cta on-dark${dark ? " dark" : ""}`} aria-labelledby="sp-cta-title">
         <div className="wrap">
-          <span className="eyebrow" style={{ color: "#cfe0ff" }}>{s.name}</span>
+          <span className="eyebrow">{s.name}</span>
           <h2 className="h1" id="sp-cta-title" style={{ marginTop: 20 }} data-reveal>
             {s.closing.headline}
           </h2>

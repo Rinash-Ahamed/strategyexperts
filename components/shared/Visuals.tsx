@@ -35,8 +35,8 @@ export function HeroArt() {
             y={base - h}
             width={w}
             height={h}
-            fill={isLast ? "#1b4dff" : dark ? "#050d29" : "#e8efff"}
-            stroke={isLast || dark ? "none" : "#b9c7e4"}
+            fill={isLast ? "#e5e5e5" : dark ? "#080808" : "#353535"}
+            stroke={isLast || dark ? "none" : "#707070"}
             strokeWidth="1"
           />
         );
@@ -44,13 +44,13 @@ export function HeroArt() {
       <path className="trace" d={d} fill="none" stroke="#08122e" strokeWidth="2" strokeLinecap="round" />
       <g className="node">
         <circle cx={last.x} cy={last.y - 26} r="16" fill="#fff" stroke="#08122e" strokeWidth="2" />
-        <circle cx={last.x} cy={last.y - 26} r="5" fill="#1b4dff" />
+        <circle cx={last.x} cy={last.y - 26} r="5" fill="#929292" />
       </g>
     </svg>
   );
 }
 
-export function Rings({ color = "#0369a1" }: { color?: string }) {
+export function Rings({ color = "#929292" }: { color?: string }) {
   return (
     <svg className="rings" viewBox="0 0 500 500" role="presentation" aria-hidden="true" focusable="false">
       {[230, 180, 130, 80].map((r, i) => (

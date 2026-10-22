@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Ticker from "@/components/home/Ticker";
 import Metrics from "@/components/shared/Metrics";
-import { HeroArt, Rings } from "@/components/shared/Visuals";
+import { Rings } from "@/components/shared/Visuals";
 import {
   CHALLENGE,
   HOME_FRAMEWORK,
@@ -29,28 +29,40 @@ export default function Home() {
     <>
       {/* ------------------------------------------------ Hero */}
       <section className="hero" aria-labelledby="hero-title">
-        <div className="wrap hero-grid">
-          <div>
-            <div className="hero-top">
-              <span className="eyebrow">{SITE.tagline}</span>
-              <span className="hero-meta">E-Commerce · Restaurants · Hotels · Digital Marketing</span>
-            </div>
-            <div className="hero-title">
-              <h1 className="display" id="hero-title">
-                <Mask>Better</Mask>
-                <Mask d={0.08}>
-                  <span className="blue">strategy.</span>
-                </Mask>
-                <Mask d={0.16}>Stronger</Mask>
-                <Mask d={0.24}>business.</Mask>
-              </h1>
-            </div>
-          </div>
-          <div className="hero-stage">
-            <HeroArt />
-          </div>
+        <div className="hero-glow" aria-hidden="true" />
+        <div className="hero-curve" aria-hidden="true">
+          <svg viewBox="0 0 1600 560" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="curve-fade" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stopColor="#bababa" stopOpacity=".78" />
+                <stop offset=".38" stopColor="#9a9a9a" stopOpacity=".5" />
+                <stop offset=".72" stopColor="#515151" stopOpacity=".16" />
+                <stop offset="1" stopColor="#111111" stopOpacity="0" />
+              </linearGradient>
+              <filter id="curve-blur" x="-20%" y="-50%" width="140%" height="200%">
+                <feGaussianBlur stdDeviation="18" />
+              </filter>
+            </defs>
+            <path className="curve-halo" d="M-100 72C390 142 980 330 1510 650" />
+            <path className="curve-line" d="M-100 72C390 142 980 330 1510 650" />
+          </svg>
         </div>
 
+        <div className="wrap hero-shell">
+          <div className="hero-brand">
+            <h1 className="display" id="hero-title">
+              Strategy Experts<span aria-hidden="true">.</span>
+            </h1>
+            <p>Better strategy. Stronger business.</p>
+          </div>
+          <div className="hero-footnote" aria-hidden="true">
+            <span>Independent growth consultancy</span>
+            <span>India · Digital commerce</span>
+          </div>
+        </div>
+      </section>
+
+      <section className="hero-intro" aria-label="Introduction">
         <div className="wrap">
           <div className="hero-bottom">
             <div className="hero-copy stack-m">
@@ -217,8 +229,8 @@ export default function Home() {
         <article className="sc sc-3 on-dark" aria-labelledby="sc3">
           <div className="wrap pad">
             <div className="sc-head">
-              <span className="sc-num" style={{ color: "#7fa4ff" }}>03 / 04</span>
-              <span className="sc-num" style={{ color: "#b6c3e6" }}>Specialist hospitality service</span>
+              <span className="sc-num">03 / 04</span>
+              <span className="sc-num muted">Specialist hospitality service</span>
             </div>
             <div className="grid">
               <div className="stack-l" data-reveal>
@@ -352,7 +364,7 @@ export default function Home() {
       {/* ------------------------------------------------ Final CTA */}
       <section className="section cta on-dark" aria-labelledby="cta-title">
         <div className="wrap">
-          <span className="eyebrow" style={{ color: "#cfe0ff" }}>Ready when you are</span>
+          <span className="eyebrow">Ready when you are</span>
           <h2 className="h1" id="cta-title" style={{ marginTop: 20 }} data-reveal>
             Let’s find your next growth opportunity.
           </h2>

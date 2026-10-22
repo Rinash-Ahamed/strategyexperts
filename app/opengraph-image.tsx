@@ -7,15 +7,15 @@ export const contentType = "image/png";
 export default function Image() {
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", background: "#f5f8fe", padding: 72, color: "#08122e" }}>
-        <div style={{ fontSize: 34, fontWeight: 800, display: "flex" }}>
-          Strategy<span style={{ color: "#1b4dff" }}>.</span>Experts
+      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", background: "#000000", padding: 72, color: "#f0f0f0" }}>
+        <div style={{ fontSize: 34, fontWeight: 400, display: "flex" }}>
+          Strategy<span style={{ color: "#929292" }}>.</span>Experts
         </div>
         <div style={{ display: "flex", flexDirection: "column", fontSize: 120, fontWeight: 800, lineHeight: 0.95, letterSpacing: -5 }}>
           <span>Better strategy.</span>
-          <span style={{ color: "#1b4dff" }}>Stronger business.</span>
+          <span style={{ color: "#bdbdbd" }}>Stronger business.</span>
         </div>
-        <div style={{ display: "flex", gap: 14, fontSize: 26, color: "#44506b" }}>
+        <div style={{ display: "flex", gap: 14, fontSize: 26, color: "#858585" }}>
           E-Commerce · Restaurants · Hotels · Digital Marketing
         </div>
       </div>
