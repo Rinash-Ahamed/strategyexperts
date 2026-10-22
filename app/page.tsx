@@ -51,7 +51,7 @@ export default function Home() {
         <div className="wrap hero-shell">
           <div className="hero-brand">
             <h1 className="display" id="hero-title">
-              Strategy Experts<span aria-hidden="true">.</span>
+              Strategy Experts
             </h1>
             <p>Better strategy. Stronger business.</p>
           </div>

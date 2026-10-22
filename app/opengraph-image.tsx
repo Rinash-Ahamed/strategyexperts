@@ -9,7 +9,7 @@ export default function Image() {
     (
       <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", background: "#000000", padding: 72, color: "#f0f0f0" }}>
         <div style={{ fontSize: 34, fontWeight: 400, display: "flex" }}>
-          Strategy<span style={{ color: "#929292" }}>.</span>Experts
+          Strategy Experts
         </div>
         <div style={{ display: "flex", flexDirection: "column", fontSize: 120, fontWeight: 800, lineHeight: 0.95, letterSpacing: -5 }}>
           <span>Better strategy.</span>

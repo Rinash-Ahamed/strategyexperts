@@ -5,9 +5,7 @@ type WordmarkProps = {
 export default function Wordmark({ small = true }: WordmarkProps) {
   return (
     <span className="wordmark">
-      Strategy<i aria-hidden="true">.</i>
-      <span className="sr-only"> </span>
-      Experts
+      Strategy Experts
       {small && <small>Growth Partners</small>}
     </span>
   );

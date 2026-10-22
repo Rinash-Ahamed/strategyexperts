@@ -208,7 +208,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
   display: inline-flex; align-items: baseline; gap: 0;
   font-weight: 800; letter-spacing: -0.045em; font-size: 1.28rem; line-height: 1;
 }
-.wordmark i { font-style: normal; color: var(--blue); }
 .wordmark small {
   white-space: nowrap; font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; font-weight: 700;
   color: var(--ink-3); margin-left: 10px; align-self: center;
@@ -526,7 +525,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
 /* ---------- Footer ---------- */
 .footer { background: var(--navy); color: #fff; padding-top: clamp(56px, 8vw, 104px); }
 .footer .wordmark { font-size: clamp(2rem, 5vw, 3.6rem); }
-.footer .wordmark i { color: var(--silver-dark); }
 .footer-grid { display: grid; gap: 40px; padding-bottom: clamp(40px, 6vw, 72px); }
 .footer .footer-h { font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; color: var(--silver-dark); font-weight: 800; margin-bottom: 16px; }
 .footer li + li { margin-top: 10px; }
@@ -880,7 +878,6 @@ body {
   letter-spacing: -.045em;
 }
 
-.wordmark i { color: var(--silver-dark); }
 .wordmark small { color: var(--text-muted, var(--ink-3)); font-weight: 500; }
 
 .nav-links a {
@@ -1022,8 +1019,6 @@ body {
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
-
-.hero-brand .display > span { color: var(--silver-dark); -webkit-text-fill-color: var(--silver-dark); }
 
 .hero-brand p {
   margin-top: clamp(18px, 2.5vw, 30px);
@@ -1186,7 +1181,6 @@ body {
 .consent .practice p { color: var(--ink-2); }
 
 .footer { background: #000; color: var(--ink); border-top: 1px solid var(--line); }
-.footer .wordmark i,
 .footer .footer-h { color: var(--silver-dark); }
 .footer .footer-h { font-weight: 500; }
 .footer li a { color: var(--silver-mid); font-weight: 400; }
