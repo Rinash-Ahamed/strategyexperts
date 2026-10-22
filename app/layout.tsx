@@ -1,0 +1,60 @@
+import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
+import "./globals.css";
+import RevealObserver from "@/components/effects/RevealObserver";
+import SiteFooter from "@/components/layout/SiteFooter";
+import SiteHeader from "@/components/layout/SiteHeader";
+import { SITE } from "@/lib/site";
+
+const manrope = localFont({
+  src: "../node_modules/@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2",
+  weight: "200 800",
+  display: "swap",
+  variable: "--font-manrope",
+  preload: true,
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
+  title: {
+    default: `${SITE.name} — Better strategy. Stronger business.`,
+    template: `%s | ${SITE.name}`,
+  },
+  description: SITE.description,
+  openGraph: {
+    type: "website",
+    siteName: SITE.name,
+    title: `${SITE.name} — Better strategy. Stronger business.`,
+    description: SITE.description,
+    locale: "en_IN",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE.name} — Better strategy. Stronger business.`,
+    description: SITE.description,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#f5f8fe",
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en-IN" className={manrope.variable} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+      </head>
+      <body>
+        <a className="skip" href="#main">Skip to content</a>
+        <SiteHeader />
+        <main id="main">{children}</main>
+        <SiteFooter />
+        <RevealObserver />
+      </body>
+    </html>
+  );
+}

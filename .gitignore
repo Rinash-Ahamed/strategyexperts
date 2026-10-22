@@ -1,0 +1,25 @@
+# Dependencies
+/node_modules
+
+# Next.js output
+/.next
+/out
+
+# Local environment files (keep the documented template)
+.env*
+!.env.example
+
+# TypeScript and tooling output
+*.tsbuildinfo
+next-env.d.ts
+
+# Logs and local platform files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.DS_Store
+Thumbs.db
+
+# Deployment metadata
+.vercel
