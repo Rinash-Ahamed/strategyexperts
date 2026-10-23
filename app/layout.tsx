@@ -54,11 +54,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "document.documentElement.classList.add('js');try{sessionStorage.removeItem('strategy-experts:route-transition')}catch(e){}",
+              "document.documentElement.classList.add('js');if(location.pathname==='/'&&performance.getEntriesByType('navigation')[0]?.type==='reload'){document.documentElement.dataset.openingTrigger='refresh'}try{sessionStorage.removeItem('strategy-experts:route-transition')}catch(e){}",
           }}
         />
       </head>
-      <body>
+      <body id="top">
         <a className="skip" href="#main">Skip to content</a>
         <SiteHeader links={NAV_LINKS} name={SITE.name} tagline={SITE.tagline} />
         <main id="main">{children}</main>

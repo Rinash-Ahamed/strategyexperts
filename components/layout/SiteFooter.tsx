@@ -7,8 +7,19 @@ export default function SiteFooter() {
     <footer className="footer on-dark">
       <div className="wrap">
         <div className="footer-grid">
-          <div>
-            <Wordmark small={false} />
+          <div className="footer-brand">
+            <Link href="/#top" className="footer-brand-link" aria-label="Strategy Experts home">
+              <Wordmark small={false} />
+            </Link>
+            <div className="footer-socials">
+              <a href={SITE.instagram} target="_blank" rel="noopener noreferrer" aria-label="Strategy Experts on Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false">
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none" />
+                </svg>
+              </a>
+            </div>
             <p>Strategy, expertise and execution for businesses ready to perform better.</p>
           </div>
           <nav aria-label="Services">
@@ -40,9 +51,6 @@ export default function SiteFooter() {
                   <a href={`mailto:${email}`}>{email}</a>
                 </li>
               ))}
-              <li>
-                <a href={SITE.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>
-              </li>
             </ul>
           </div>
         </div>

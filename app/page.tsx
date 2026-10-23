@@ -314,10 +314,10 @@ export default function Home() {
           {/* Figures appear only after verification (NEXT_PUBLIC_SHOW_METRICS=true).
               Each set belongs to its own service, so they are never presented as company-wide. */}
           {SITE.showMetrics && (
-            <div style={{ marginTop: "clamp(40px, 6vw, 80px)" }}>
+            <div className="home-metrics">
               {SERVICES.map((s) => (
-                <div key={s.slug} style={{ marginTop: 8 }}>
-                  <h3 className="h3" style={{ marginTop: 32 }}>
+                <div key={s.slug} className={`home-metric-group metric-${s.theme}`}>
+                  <h3 className="h3">
                     {s.name}
                   </h3>
                   <Metrics items={s.metrics} />

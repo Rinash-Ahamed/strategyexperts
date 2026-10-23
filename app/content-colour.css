@@ -51,6 +51,50 @@
 .cta.on-dark,
 .sp-cta.on-dark { background: radial-gradient(ellipse at 90% 100%, #19362f, transparent 65%), #111716; }
 
+/* The orbit should support the copy, not vertically centre it in a tall void. */
+.hero-digital .sp-hero-grid {
+  align-items: start;
+  gap: 28px clamp(32px, 4vw, 64px);
+  padding-block: clamp(24px, 3vw, 48px) clamp(40px, 4vw, 64px);
+}
+.hero-digital .rings-wrap { width: 100%; max-width: 460px; justify-self: center; }
+@media (min-width: 960px) {
+  .hero-digital .rings-wrap { justify-self: end; }
+}
+
+/* Small, service-coloured figures. Never change the approved-metrics gate. */
+.home-metrics { display: grid; gap: 28px; margin-top: clamp(28px, 4vw, 48px); }
+.home-metric-group { --metric-colour: var(--botanical); min-width: 0; }
+.home-metric-group.metric-restaurant { --metric-colour: var(--terracotta); }
+.home-metric-group.metric-hotel { --metric-colour: #685338; }
+.home-metric-group.metric-digital { --metric-colour: var(--deep-teal); }
+.home-metric-group .metrics { margin-top: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.home-metric-group .metric { padding-block: 18px; }
+.home-metric-group .metric b {
+  font-size: clamp(1.5rem, 1.25rem + .8vw, 2rem);
+  font-weight: 400;
+  line-height: 1.16;
+  letter-spacing: -.035em;
+  color: var(--metric-colour);
+}
+.home-metric-group .metric span { margin-top: 6px; font-size: .875rem; font-weight: 400; line-height: 1.45; }
+@media (min-width: 960px) {
+  .home-metric-group .metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* A compositor-only logo breath, with a stationary accessible social target. */
+.footer-brand-link { display: block; width: fit-content; max-width: 100%; transform-origin: left center; animation: footerLogoBreath 7s ease-in-out infinite; }
+.footer-socials { display: flex; gap: 12px; margin-top: 18px; }
+.footer-socials a { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid #505653; border-radius: 50%; color: #d9e7e8; transition: color 180ms ease, border-color 180ms ease, transform 180ms ease; }
+.footer-socials a:hover { color: #fff; border-color: #bfc0c2; transform: translateY(-2px); }
+.footer-socials svg { display: block; width: 20px; height: 20px; }
+@keyframes footerLogoBreath { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.025); } }
+@media (prefers-reduced-motion: reduce) {
+  .footer-brand-link { animation: none; }
+  .footer-socials a { transition: none; }
+  .footer-socials a:hover { transform: none; }
+}
+
 /* Original-colour logos on an open light ribbon, never recoloured or stretched. */
 .platform-ticker.ticker { background: #faf9f6; padding-block: 24px; }
 .platform-ticker .ticker-track { animation-duration: 72s; }
