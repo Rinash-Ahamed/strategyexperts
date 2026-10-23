@@ -3,6 +3,7 @@
   background: none;
   color: var(--silver-white);
   -webkit-text-fill-color: currentColor;
+  line-height: 1.1;
 }
 .static, .current {
   background: var(--silver-gradient);
@@ -10,6 +11,9 @@
   -webkit-background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
+  /* Extend the gradient's paint box beneath g/j/p/q/y without adding a gap. */
+  padding-bottom: .16em;
+  margin-bottom: -.16em;
 }
 /* Permanently hidden measuring text reserves the largest phrase at each width. */
 .headline span.phrases[data-rotating-phrases] {
