@@ -141,10 +141,9 @@ export default function SiteHeader({ links, name, tagline }: Props) {
       <div id="mobile-menu" ref={menuRef} className={`menu${open ? " open" : ""}`} aria-hidden={!open}>
         <nav aria-label="Mobile">
           <ol>
-            {links.map((l, i) => (
+            {links.map((l) => (
               <li key={l.href}>
                 <Link prefetch={false} href={l.href} onClick={() => setOpen(false)} tabIndex={open ? 0 : -1}>
-                  <span>{String(i).padStart(2, "0")}</span>
                   {l.label}
                 </Link>
               </li>

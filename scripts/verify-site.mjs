@@ -98,14 +98,8 @@ try {
   await send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: 1300, y: 280 });
   await delay(600);
   report.rigAfter = await evaluate(rigSnapshot);
-  report.animationControl = await evaluate(`(()=>{const b=document.querySelector('.hero-animation-control');b?.click();return !!b})()`);
-  if (report.animationControl) {
-    await delay(150);
-    report.paused = (await evaluate(rigSnapshot))?.stopped;
-    await evaluate(`document.querySelector('.hero-animation-control').click()`);
-    await delay(150);
-    report.resumed = !(await evaluate(rigSnapshot))?.stopped;
-  }
+  report.heroHasNoPauseControl = await evaluate(`!document.querySelector('.hero-animation-control')`);
+  report.robotRunsAutomatically = report.rigAfter?.stopped === false;
   for (const [width, height, name] of (motionOnly ? [] : [[1440,1000,'desktop'],[820,1180,'tablet'],[390,844,'mobile'],[320,800,'small-mobile']])) {
     await send('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: width < 701 });
     await evaluate('scrollTo(0,0)'); await delay(800);
@@ -139,14 +133,12 @@ try {
     await delay(300);
     report.menuClosesAndRestoresFocus = await evaluate(`!document.getElementById('main').inert && document.activeElement?.matches('.burger')`);
     await evaluate(`document.querySelector('.ticker')?.scrollIntoView({behavior:'instant'})`);
-    for(let attempt=0;attempt<20;attempt++) {
-      if(await evaluate(`document.querySelector('.ticker')?.dataset.visible === 'true'`))break;
-      await delay(100);
-    }
-    report.tickerVisible = await evaluate(`document.querySelector('.ticker')?.dataset.visible`);
-    await evaluate(`document.querySelector('.ticker-control')?.click()`);
     await delay(200);
-    report.tickerPaused = await evaluate(`getComputedStyle(document.querySelector('.ticker-track')).animationPlayState === 'paused'`);
+    report.tickerRunning = await evaluate(`getComputedStyle(document.querySelector('.ticker-track')).animationPlayState === 'running'`);
+    const tickerPoint = await evaluate(`(()=>{const b=document.querySelector('.ticker').getBoundingClientRect();return {x:Math.round(b.left+50),y:Math.round(b.top+20)}})()`);
+    await send('Input.dispatchMouseEvent', {type:'mouseMoved',...tickerPoint});
+    report.tickerRunsOnHover = await evaluate(`getComputedStyle(document.querySelector('.ticker-track')).animationPlayState === 'running'`);
+    report.tickerHasNoPauseControl = await evaluate(`!document.querySelector('.ticker button') && !document.querySelector('.ticker').hasAttribute('data-paused')`);
     await evaluate('scrollTo(0,0)');
     await evaluate(`document.querySelector('.hero-service-nav a[href="/services/e-commerce-support"]').click()`);
     await waitForRoute('/services/e-commerce-support');
@@ -171,7 +163,7 @@ try {
     if (await evaluate(`document.querySelector('.hero-robot')?.dataset.headTracking === 'disabled'`)) break;
     await delay(200);
   }
-  report.reducedMotion = await evaluate(`({modelVisible:!!document.querySelector('.hero-robot.is-loaded canvas'),tracking:document.querySelector('.hero-robot')?.dataset.headTracking,button:document.querySelector('.hero-animation-control')?.innerText})`);
+  report.reducedMotion = await evaluate(`({modelVisible:!!document.querySelector('.hero-robot.is-loaded canvas'),tracking:document.querySelector('.hero-robot')?.dataset.headTracking})`);
   report.reducedMotion.stopped = (await evaluate(rigSnapshot))?.stopped;
   await send('Emulation.setEmulatedMedia', { features: [] });
   const failures = [];
@@ -180,9 +172,10 @@ try {
   if (report.viewports.some(v=>v.scrollWidth>v.width)) failures.push('Homepage horizontal overflow');
   if (report.routes.some(r=>r.overflow||!r.h1)) failures.push('Service/contact route issue');
   if (report.responses.some(r=>r.status!==200)) failures.push('Non-200 route');
-  if (report.animationControl && (!report.paused||!report.resumed)) failures.push('Pause/resume failed');
+  if (!report.heroHasNoPauseControl || !report.robotRunsAutomatically) failures.push('Hero does not animate automatically or has a pause control');
   if (!motionOnly && (!report.menuFocusContained || !report.menuClosesAndRestoresFocus || !report.menuPausesRobot)) failures.push('Menu keyboard/lifecycle issue');
-  if (!motionOnly && (!report.tickerPaused || !report.serviceLinkNavigates)) failures.push('Ticker control or full-page navigation failed');
+  if (!motionOnly && (!report.tickerHasNoPauseControl || !report.serviceLinkNavigates)) failures.push('Unexpected ticker control or full-page navigation failure');
+  if (!motionOnly && (!report.tickerRunning || !report.tickerRunsOnHover)) failures.push('Ticker unexpectedly pauses');
   if (!report.reducedMotion.modelVisible || !report.reducedMotion.stopped || report.reducedMotion.tracking !== 'disabled') failures.push('Reduced-motion behavior failed');
   report.failures = failures;
   if (failures.length) process.exitCode = 1;

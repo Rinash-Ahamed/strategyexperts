@@ -51,7 +51,6 @@ export default function Home() {
 
         <div className="wrap hero-shell">
           <div className="hero-side hero-side-left">
-            <p className="hero-kicker">Independent growth consultancy</p>
             <div className="hero-brand">
               <h1 className="display" id="hero-title">
                 <span>Strategy</span>
@@ -62,7 +61,6 @@ export default function Home() {
             <nav className="hero-service-nav" aria-label="Commerce and hospitality services">
               {[ecom, restaurant].map((service) => (
                 <Link prefetch={false} key={service.slug} href={`/services/${service.slug}`}>
-                  <span className="hero-service-index">{service.index}</span>
                   <span>{service.navName}</span>
                   <span className="hero-service-arrow" aria-hidden="true">{"\u2197"}</span>
                 </Link>
@@ -72,7 +70,6 @@ export default function Home() {
 
           <div className="hero-side hero-side-right">
             <div className="hero-side-copy">
-              <span>Four disciplines</span>
               <p>One clear operating view for ambitious businesses.</p>
             </div>
             <nav className="hero-service-nav" aria-label="Revenue and marketing services">
@@ -83,7 +80,6 @@ export default function Home() {
                   key={service.slug}
                   href={`/services/${service.slug}`}
                 >
-                  <span className="hero-service-index">{service.index}</span>
                   <span>{service.navName}</span>
                   <span className="hero-service-arrow" aria-hidden="true">{"\u2197"}</span>
                 </Link>
@@ -119,7 +115,6 @@ export default function Home() {
             <nav className="hero-index" aria-label="Services">
               {SERVICES.map((s) => (
                 <Link prefetch={false} key={s.slug} href={`/services/${s.slug}`}>
-                  <span>{s.index}</span>
                   {s.navName}
                 </Link>
               ))}
@@ -161,16 +156,14 @@ export default function Home() {
       <section className="section surface-ivory" aria-labelledby="challenge-title">
         <div className="wrap challenge-grid">
           <div className="challenge-sticky stack-m" data-reveal>
-            <span className="eyebrow">The challenge</span>
             <h2 className="h2" id="challenge-title" style={{ maxWidth: "16ch" }}>
               {CHALLENGE.headline}
             </h2>
             <p className="lead">{CHALLENGE.body}</p>
           </div>
           <ul className="challenge-pillars" data-reveal>
-            {CHALLENGE.pillars.map((p, i) => (
+            {CHALLENGE.pillars.map((p) => (
               <li key={p.title}>
-                <span className="n">0{i + 1}</span>
                 <h3>{p.title}</h3>
                 <p>{p.body}</p>
               </li>
@@ -184,7 +177,6 @@ export default function Home() {
         <div className="wrap section-tight" style={{ paddingTop: 0 }}>
           <div className="block-head" style={{ marginBottom: 0 }}>
             <div className="stack-m" data-reveal>
-              <span className="eyebrow">Our expertise</span>
               <h2 className="h2" id="expertise-title">
                 Four disciplines. One commercial mindset.
               </h2>
@@ -199,10 +191,6 @@ export default function Home() {
         {/* 01 - E-Commerce */}
         <article className="sc sc-1 surface-ivory" aria-labelledby="sc1">
           <div className="wrap pad">
-            <div className="sc-head">
-              <span className="sc-num" style={{ color: "var(--blue)" }}>01 / 04</span>
-              <span className="sc-num muted">Marketplaces</span>
-            </div>
             <div className="grid">
               <div className="mk" aria-hidden="true">
                 {ecom.platforms.map((p) => (
@@ -228,17 +216,12 @@ export default function Home() {
         {/* 02 - Restaurant */}
         <article className="sc sc-2 surface-silver" aria-labelledby="sc2">
           <div className="wrap pad">
-            <div className="sc-head">
-              <span className="sc-num" style={{ color: "var(--accent)" }}>02 / 04</span>
-              <span className="sc-num muted">Restaurants & cloud kitchens</span>
-            </div>
             <div className="grid">
               <div className="menu-card" data-reveal>
                 <p className="mini">The menu</p>
-                {restaurant.capabilities.map((c, i) => (
+                {restaurant.capabilities.map((c) => (
                   <div className="menu-line" key={c}>
                     {c}
-                    <em>0{i + 1}</em>
                   </div>
                 ))}
               </div>
@@ -264,10 +247,6 @@ export default function Home() {
         {/* 03 - Hotel */}
         <article className="sc sc-3 on-dark" aria-labelledby="sc3">
           <div className="wrap pad">
-            <div className="sc-head">
-              <span className="sc-num">03 / 04</span>
-              <span className="sc-num muted">Specialist hospitality service</span>
-            </div>
             <div className="grid">
               <div className="stack-l" data-reveal>
                 <h3 className="sc-title" id="sc3">{hotel.name}</h3>
@@ -282,9 +261,8 @@ export default function Home() {
                 </Link>
               </div>
               <ol className="ledger" data-reveal>
-                {hotel.capabilities.map((c, i) => (
+                {hotel.capabilities.map((c) => (
                   <li className="ledger-row" key={c}>
-                    <b>0{i + 1}</b>
                     <span>{c}</span>
                   </li>
                 ))}
@@ -296,10 +274,6 @@ export default function Home() {
         {/* 04 - Digital */}
         <article className="sc sc-4 surface-ivory" aria-labelledby="sc4">
           <div className="wrap pad">
-            <div className="sc-head">
-              <span className="sc-num" style={{ color: "var(--accent)" }}>04 / 04</span>
-              <span className="sc-num muted">Google · Meta · WhatsApp</span>
-            </div>
             <div className="grid">
               <div data-reveal>
                 <Rings />
@@ -332,7 +306,6 @@ export default function Home() {
         <div className="wrap">
           <div className="block-head">
             <div className="stack-m" data-reveal>
-              <span className="eyebrow">How we work</span>
               <h2 className="h2" id="process-title">From where you are to what’s next.</h2>
             </div>
             <p className="lead" data-reveal>
@@ -341,9 +314,8 @@ export default function Home() {
             </p>
           </div>
           <ol className="process-list">
-            {HOME_FRAMEWORK.map((s, i) => (
+            {HOME_FRAMEWORK.map((s) => (
               <li className="process-step" key={s.title} data-reveal>
-                <span className="num" aria-hidden="true">0{i + 1}</span>
                 <h3>{s.title}</h3>
                 <p>{s.body}</p>
               </li>
@@ -360,7 +332,6 @@ export default function Home() {
         <div className="wrap">
           <div className="impact-grid">
             <div className="stack-m" data-reveal>
-              <span className="eyebrow">Business impact</span>
               <h2 className="h2" id="impact-title" style={{ maxWidth: "14ch" }}>
                 Better decisions, made consistently.
               </h2>
@@ -386,9 +357,9 @@ export default function Home() {
             <div style={{ marginTop: "clamp(40px, 6vw, 80px)" }}>
               {SERVICES.map((s) => (
                 <div key={s.slug} style={{ marginTop: 8 }}>
-                  <p className="eyebrow" style={{ ["--accent" as string]: "var(--blue)", marginTop: 32 }}>
+                  <h3 className="h3" style={{ marginTop: 32 }}>
                     {s.name}
-                  </p>
+                  </h3>
                   <Metrics items={s.metrics} />
                 </div>
               ))}
@@ -400,7 +371,6 @@ export default function Home() {
       {/* ------------------------------------------------ Final CTA */}
       <section className="section cta on-dark" aria-labelledby="cta-title">
         <div className="wrap">
-          <span className="eyebrow">Ready when you are</span>
           <h2 className="h1" id="cta-title" style={{ marginTop: 20 }} data-reveal>
             Let’s find your next growth opportunity.
           </h2>

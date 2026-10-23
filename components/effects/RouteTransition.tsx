@@ -2,9 +2,9 @@
 
 import { useLayoutEffect, useRef } from "react";
 
-const DURATION_MS = 520;
-const REVEAL_MS = 220;
-const STROKE_WIDTH = 700;
+const DURATION_MS = 1000;
+const STROKE_MIN = 200;
+const STROKE_MAX = 700;
 const STORAGE_KEY = "strategy-experts:route-transition";
 
 const PATHS = [
@@ -21,18 +21,16 @@ export default function RouteTransition() {
     if (!overlay) return;
 
     const paths = Array.from(overlay.querySelectorAll<SVGPathElement>("path"));
-    const lengths = paths.map((path) => path.getTotalLength());
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let animations: Animation[] = [];
+    const warmed = new Set<string>();
+    let frame = 0;
     let active = true;
 
     const setHidden = () => {
-      animations.forEach((animation) => animation.cancel());
-      animations = [];
-      paths.forEach((path, index) => {
-        path.style.strokeDasharray = String(lengths[index]);
-        path.style.strokeDashoffset = String(lengths[index]);
-        path.style.opacity = "1";
+      cancelAnimationFrame(frame);
+      paths.forEach((path) => {
+        path.style.strokeDashoffset = "1";
+        path.style.strokeWidth = String(STROKE_MIN);
       });
       overlay.style.opacity = "1";
       overlay.dataset.state = "idle";
@@ -40,44 +38,56 @@ export default function RouteTransition() {
       document.documentElement.removeAttribute("data-route-transition");
     };
 
+    // Match the supplied reference: quadratic ease-in/out, drawing and
+    // thickening together, then erasing forwards while thinning on arrival.
+    const brush = (direction: "in" | "out") => new Promise<void>((resolve) => {
+      let started: number | undefined;
+      const tick = (now: number) => {
+        if (!active) { resolve(); return; }
+        started ??= now;
+        const progress = Math.min((now - started) / DURATION_MS, 1);
+        const eased = progress < 0.5
+          ? 2 * progress * progress
+          : 1 - 2 * (1 - progress) * (1 - progress);
+        const offset = direction === "in" ? 1 - eased : -eased;
+        const width = direction === "in"
+          ? STROKE_MIN + (STROKE_MAX - STROKE_MIN) * eased
+          : STROKE_MAX - (STROKE_MAX - STROKE_MIN) * eased;
+        for (const path of paths) {
+          path.style.strokeDashoffset = String(offset);
+          path.style.strokeWidth = String(width);
+        }
+        if (progress < 1) frame = requestAnimationFrame(tick);
+        else resolve();
+      };
+      frame = requestAnimationFrame(tick);
+    });
+
     const revealArrival = async () => {
+      paths.forEach((path) => {
+        path.style.strokeDashoffset = "0";
+        path.style.strokeWidth = String(STROKE_MAX);
+      });
       overlay.dataset.state = "arrival";
       document.documentElement.setAttribute("data-route-transition", "true");
       document.documentElement.classList.remove("route-arrival");
-      const animation = overlay.animate([{ opacity: 1 }, { opacity: 0 }], {
-        duration: REVEAL_MS,
-        easing: "ease-out",
-        fill: "forwards",
-      });
-      animations = [animation];
-      try {
-        await animation.finished;
-      } catch {
-        // A superseded animation needs no recovery.
+      // Let the destination's initial layout paint beneath the opaque cover.
+      // Do not wait for the robot, remote assets, or window.load.
+      await new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+      if (!active) return;
+      await brush("out");
+      if (active) {
+        try { sessionStorage.removeItem(STORAGE_KEY); } catch {}
+        setHidden();
       }
-      if (active) setHidden();
     };
 
-    const sweepIn = async () => {
+    const drawBrush = async () => {
       overlay.dataset.state = "covering";
       document.documentElement.setAttribute("data-route-transition", "true");
-      animations = paths.map((path, index) =>
-        path.animate(
-          [
-            { strokeDashoffset: String(lengths[index]) },
-            { strokeDashoffset: "0" },
-          ],
-          {
-            duration: DURATION_MS,
-            easing: "cubic-bezier(.76, 0, .24, 1)",
-            fill: "forwards",
-          }
-        )
-      );
-      await Promise.all(animations.map((animation) => animation.finished.catch(() => undefined)));
+      await brush("in");
       if (!active) return;
-      paths.forEach((path) => (path.style.opacity = "0"));
-      overlay.dataset.state = "black";
+      overlay.dataset.state = "covered";
     };
 
     setHidden();
@@ -85,7 +95,6 @@ export default function RouteTransition() {
     let arriving = false;
     try {
       arriving = sessionStorage.getItem(STORAGE_KEY) === "1";
-      if (arriving) sessionStorage.removeItem(STORAGE_KEY);
     } catch {
       // Storage can be unavailable in privacy-restricted browsing contexts.
     }
@@ -93,9 +102,31 @@ export default function RouteTransition() {
     if (arriving && !reducedMotion.matches) {
       void revealArrival();
     } else {
+      try { sessionStorage.removeItem(STORAGE_KEY); } catch {}
       document.documentElement.classList.remove("route-arrival");
     }
 
+    const warmDocument = (anchor: HTMLAnchorElement) => {
+      const destination = new URL(anchor.href, window.location.href);
+      if (destination.origin !== location.origin || destination.pathname === location.pathname || warmed.has(destination.href) || anchor.hasAttribute("download") || anchor.dataset.noTransition !== undefined) return;
+      // Native document prefetch only: navigation still loads a separate page.
+      if ((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData) return;
+      warmed.add(destination.href);
+      const link = document.createElement("link");
+      link.rel = "prefetch";
+      link.as = "document";
+      link.href = destination.href;
+      document.head.appendChild(link);
+    };
+    const onIntent = (event: Event) => {
+      const anchor = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>("a[href]") : null;
+      if (anchor) warmDocument(anchor);
+    };
+    const onPageShow = (event: PageTransitionEvent) => {
+      if (!event.persisted) return;
+      busyRef.current = false;
+      setHidden();
+    };
     const onClick = (event: MouseEvent) => {
       if (
         event.defaultPrevented ||
@@ -135,8 +166,9 @@ export default function RouteTransition() {
       }
 
       busyRef.current = true;
+      warmDocument(anchor);
       void (async () => {
-        await sweepIn();
+        await drawBrush();
         if (!active) return;
         try {
           sessionStorage.setItem(STORAGE_KEY, "1");
@@ -148,11 +180,17 @@ export default function RouteTransition() {
     };
 
     document.addEventListener("click", onClick, true);
+    document.addEventListener("pointerover", onIntent, { passive: true });
+    document.addEventListener("focusin", onIntent);
+    window.addEventListener("pageshow", onPageShow);
 
     return () => {
       active = false;
-      animations.forEach((animation) => animation.cancel());
+      cancelAnimationFrame(frame);
       document.removeEventListener("click", onClick, true);
+      document.removeEventListener("pointerover", onIntent);
+      document.removeEventListener("focusin", onIntent);
+      window.removeEventListener("pageshow", onPageShow);
       document.documentElement.removeAttribute("data-route-transition");
     };
   }, []);
@@ -165,9 +203,11 @@ export default function RouteTransition() {
             d={path}
             key={path}
             stroke={index === 0 ? "#e5e5e5" : "#707070"}
-            strokeWidth={STROKE_WIDTH}
+            strokeWidth={STROKE_MIN}
             strokeLinecap="round"
-            style={{ strokeDasharray: 99999, strokeDashoffset: 99999 }}
+            pathLength={1}
+            strokeDasharray="1"
+            strokeDashoffset="1"
           />
         ))}
       </svg>

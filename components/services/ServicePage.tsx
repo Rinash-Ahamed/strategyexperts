@@ -22,10 +22,9 @@ function HeroVisual({ s }: { s: Service }) {
       return (
         <div data-reveal>
           <div className="stackbig" >
-            {s.platforms.map((p, i) => (
+            {s.platforms.map((p) => (
               <div key={p}>
                 <strong>{p}</strong>
-                <em>0{i + 1}</em>
               </div>
             ))}
           </div>
@@ -41,10 +40,9 @@ function HeroVisual({ s }: { s: Service }) {
             <span>Swiggy</span>
           </div>
           <ul>
-            {s.capabilities.map((c, i) => (
+            {s.capabilities.map((c) => (
               <li key={c}>
                 {c}
-                <em>0{i + 1}</em>
               </li>
             ))}
           </ul>
@@ -97,7 +95,7 @@ export default function ServicePage({ service: s }: { service: Service }) {
                 <span aria-hidden="true">/</span>
                 <span>Services</span>
                 <span aria-hidden="true">/</span>
-                <b aria-current="page">{s.index}</b>
+                <b aria-current="page">{s.navName}</b>
               </nav>
               <h1 className="h1" id="sp-title">
                 {s.headline.map((l, i) => (
@@ -133,7 +131,6 @@ export default function ServicePage({ service: s }: { service: Service }) {
         <div className="wrap">
           <div className="block-head">
             <div className="stack-m" data-reveal>
-              <span className="eyebrow">What gets in the way</span>
               <h2 className="h2" id="problems-title">{s.problemsTitle}</h2>
             </div>
           </div>
@@ -153,7 +150,6 @@ export default function ServicePage({ service: s }: { service: Service }) {
         <div className="wrap">
           <div className="block-head">
             <div className="stack-m" data-reveal>
-              <span className="eyebrow">Services & deliverables</span>
               <h2 className="h2" id="deliver-title">{s.deliverablesTitle}</h2>
             </div>
             <p className="lead" data-reveal>{s.deliverablesIntro}</p>
@@ -174,7 +170,6 @@ export default function ServicePage({ service: s }: { service: Service }) {
         <section className="section consent on-dark" aria-labelledby="wa-title">
           <div className="wrap consent-grid">
             <div className="stack-m" data-reveal>
-              <span className="eyebrow">WhatsApp marketing support</span>
               <h2 className="h2" id="wa-title">Direct reach, with permission.</h2>
               <p className="lead">
                 WhatsApp Marketing Support helps businesses communicate directly with customers,
@@ -206,7 +201,6 @@ export default function ServicePage({ service: s }: { service: Service }) {
         <div className="wrap">
           <div className="block-head">
             <div className="stack-m" data-reveal>
-              <span className="eyebrow">Where we focus</span>
               <h2 className="h2" id="focus-title">{s.focusTitle}</h2>
             </div>
           </div>
@@ -226,7 +220,6 @@ export default function ServicePage({ service: s }: { service: Service }) {
         <div className="wrap">
           <div className="block-head">
             <div className="stack-m" data-reveal>
-              <span className="eyebrow">Our approach</span>
               <h2 className="h2" id="approach-title">{s.approachTitle}</h2>
             </div>
           </div>
@@ -234,7 +227,6 @@ export default function ServicePage({ service: s }: { service: Service }) {
             <ol className="approach-cols">
               {s.approach.map((a, i) => (
                 <li key={a.title} data-reveal style={{ ["--d" as string]: `${i * 0.08}s` }}>
-                  <span className="n" aria-hidden="true">0{i + 1}</span>
                   <h3>{a.title}</h3>
                   <p>{a.body}</p>
                 </li>
@@ -257,7 +249,6 @@ export default function ServicePage({ service: s }: { service: Service }) {
       <section className="section-tight" aria-labelledby="aud-title" style={{ paddingTop: 0 }}>
         <div className="wrap">
           <div className="stack-m" data-reveal>
-            <span className="eyebrow">Who we work with</span>
             <h2 className="h2" id="aud-title" style={{ maxWidth: "20ch" }}>{s.audienceTitle}</h2>
           </div>
           <ul className="audience" style={{ marginTop: 32 }} data-reveal>
@@ -273,7 +264,6 @@ export default function ServicePage({ service: s }: { service: Service }) {
         <section className="section-tight" aria-labelledby="metrics-title">
           <div className="wrap">
             <div className="stack-m" data-reveal>
-              <span className="eyebrow">Our impact</span>
               <h2 className="h2" id="metrics-title">{s.metricsTitle}</h2>
               <p className="lead">{s.metricsIntro}</p>
             </div>
@@ -286,7 +276,6 @@ export default function ServicePage({ service: s }: { service: Service }) {
       <section className="section" aria-labelledby="faq-title">
         <div className="wrap faq-grid">
           <div className="stack-m" data-reveal>
-            <span className="eyebrow">Questions</span>
             <h2 className="h2" id="faq-title">Good to know.</h2>
           </div>
           <Faq items={s.faqs} />
@@ -296,7 +285,6 @@ export default function ServicePage({ service: s }: { service: Service }) {
       {/* ---------------- CTA ---------------- */}
       <section className={`section sp-cta on-dark${dark ? " dark" : ""}`} aria-labelledby="sp-cta-title">
         <div className="wrap">
-          <span className="eyebrow">{s.name}</span>
           <h2 className="h1" id="sp-cta-title" style={{ marginTop: 20 }} data-reveal>
             {s.closing.headline}
           </h2>
@@ -315,14 +303,13 @@ export default function ServicePage({ service: s }: { service: Service }) {
       {/* ---------------- Other services ---------------- */}
       <section className="section-tight" aria-labelledby="other-title" style={{ background: "var(--bg)" }}>
         <div className="wrap">
-          <h2 className="eyebrow" id="other-title" style={{ marginBottom: 20, ["--accent" as string]: "var(--blue)" }}>
+          <h2 className="h3" id="other-title" style={{ marginBottom: 20 }}>
             Other services
           </h2>
           <nav className="other-services" aria-label="Other services">
             {others.map((o) => (
               <Link prefetch={false} key={o.slug} href={`/services/${o.slug}`}>
                 {o.name}
-                <span>{o.index}</span>
               </Link>
             ))}
           </nav>

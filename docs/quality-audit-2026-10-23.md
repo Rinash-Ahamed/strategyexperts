@@ -1,5 +1,13 @@
 # Web quality audit - 23 October 2026
 
+This report records version 1.0.15. In 1.0.16, eyebrow labels were removed and
+the ticker's automatic off-screen, hover and focus pauses were removed by user
+request. In 1.0.18, its manual pause control was also removed by user request;
+the ticker is now server-rendered with continuous CSS animation. Reduced-motion
+support remains available. In 1.0.19, the hero's manual pause control was removed
+by user request. The robot runs automatically while visible; reduced-motion,
+hidden-tab, off-screen and menu-occlusion handling remain intact.
+
 ## Scope and conditions
 
 Applied `.agents/skills/web-quality-audit` and the relevant public-site checks from

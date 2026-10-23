@@ -26,8 +26,7 @@ export default function RobotHero() {
   const trackingRef = useRef(false);
   const applicationRef = useRef<Application | null>(null);
   const visibleRef = useRef(true);
-  const pausedRef = useRef(false);
-  const [paused, setPaused] = useState(false);
+  const reducedMotionRef = useRef(false);
   const [loaded, setLoaded] = useState(false);
   const [loaderVisible, setLoaderVisible] = useState(true);
   const [mountScene, setMountScene] = useState(false);
@@ -58,8 +57,7 @@ export default function RobotHero() {
     const precisePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const updatePreferences = () => {
-      pausedRef.current = motion.matches;
-      setPaused(motion.matches);
+      reducedMotionRef.current = motion.matches;
       trackingRef.current = precisePointer.matches && !motion.matches;
       if (containerRef.current) {
         containerRef.current.dataset.headTracking = trackingRef.current ? "enabled" : "disabled";
@@ -80,7 +78,7 @@ export default function RobotHero() {
     };
 
     const updatePointer = (event: PointerEvent) => {
-      if (!trackingRef.current || !visibleRef.current || pausedRef.current || event.pointerType === "touch") return;
+      if (!trackingRef.current || !visibleRef.current || reducedMotionRef.current || event.pointerType === "touch") return;
 
       const bounds = containerRef.current?.getBoundingClientRect();
       if (!bounds) return;
@@ -113,7 +111,7 @@ export default function RobotHero() {
       frameRef.current = null;
       const head = headRef.current;
 
-      if ((head || handsRef.current.length) && trackingRef.current && visibleRef.current && !pausedRef.current) {
+      if ((head || handsRef.current.length) && trackingRef.current && visibleRef.current && !reducedMotionRef.current) {
         const current = currentRef.current;
         const targetYaw = targetRef.current.x * 0.2;
         const targetPitch = targetRef.current.y * 0.1;
@@ -148,7 +146,7 @@ export default function RobotHero() {
       visibleRef.current = inViewport && !document.hidden && !main?.inert;
       const application = applicationRef.current;
       if (!application) return;
-      if (visibleRef.current && !pausedRef.current) application.play();
+      if (visibleRef.current && !reducedMotionRef.current) application.play();
       else application.stop();
     };
     const observer = new IntersectionObserver(([entry]) => {
@@ -218,11 +216,10 @@ export default function RobotHero() {
     setLoaded(true);
     if (containerRef.current) containerRef.current.dataset.loadedAt = performance.now().toFixed(1);
     setLoaderVisible(false);
-    if (!visibleRef.current || pausedRef.current) application.stop();
+    if (!visibleRef.current || reducedMotionRef.current) application.stop();
   }, []);
 
   return (
-    <>
     <div
       className={`hero-robot${loaded ? " is-loaded" : ""}`}
       ref={containerRef}
@@ -241,23 +238,5 @@ export default function RobotHero() {
         onLoad={handleLoad}
       />}
     </div>
-    {loaded && (
-      <button
-        className="hero-animation-control"
-        type="button"
-        aria-pressed={paused}
-        aria-label={paused ? "Resume robot animation" : "Pause robot animation"}
-        onClick={() => {
-          const next = !pausedRef.current;
-          pausedRef.current = next;
-          setPaused(next);
-          if (next) applicationRef.current?.stop();
-          else if (visibleRef.current) applicationRef.current?.play();
-        }}
-      >
-        {paused ? "Resume animation" : "Pause animation"}
-      </button>
-    )}
-    </>
   );
 }
