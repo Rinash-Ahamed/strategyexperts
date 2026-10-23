@@ -32,20 +32,41 @@ export default function RobotHero() {
   const [mountScene, setMountScene] = useState(false);
 
   useEffect(() => {
+    const root = document.documentElement;
+    let firstFrame = 0;
     let secondFrame = 0;
     let idle: number | undefined;
     let timer: number | undefined;
-    // Paint the heading/navigation before parsing and initializing the 3D runtime.
-    const firstFrame = requestAnimationFrame(() => {
-      secondFrame = requestAnimationFrame(() => {
-        if (typeof window.requestIdleCallback === "function") {
-          idle = window.requestIdleCallback(() => setMountScene(true), { timeout: 600 });
-        } else {
-          timer = window.setTimeout(() => setMountScene(true), 0);
-        }
-      });
+    const waitForBrush = () => observer.observe(root, {
+      attributes: true, attributeFilter: ["data-route-transition"],
     });
+    const mountWhenReady = () => {
+      if (root.hasAttribute("data-route-transition")) waitForBrush();
+      else setMountScene(true);
+    };
+    // Avoid parsing/initializing the heavy 3D runtime during the brush reveal.
+    // The original robot starts automatically after the incoming page is clear.
+    const schedule = () => {
+      if (root.hasAttribute("data-route-transition")) { waitForBrush(); return; }
+      firstFrame = requestAnimationFrame(() => {
+        secondFrame = requestAnimationFrame(() => {
+          if (typeof window.requestIdleCallback === "function") {
+            idle = window.requestIdleCallback(mountWhenReady, { timeout: 600 });
+          } else {
+            timer = window.setTimeout(mountWhenReady, 0);
+          }
+        });
+      });
+    };
+    const observer = new MutationObserver(() => {
+      if (!root.hasAttribute("data-route-transition")) {
+        observer.disconnect();
+        schedule();
+      }
+    });
+    schedule();
     return () => {
+      observer.disconnect();
       cancelAnimationFrame(firstFrame);
       cancelAnimationFrame(secondFrame);
       if (idle !== undefined) window.cancelIdleCallback(idle);
