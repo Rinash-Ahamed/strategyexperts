@@ -10,6 +10,8 @@ const base = process.argv[2] || 'http://localhost:3122';
 const label = process.argv[3] || 'brush';
 const blockFramework = process.argv.includes('--block-framework');
 const includeHome = process.argv.includes('--include-home');
+const remountOverlay = process.argv.includes('--remount-overlay');
+const remountDuringDraw = process.argv.includes('--remount-during-draw');
 const output = await mkdtemp(path.join(tmpdir(), `se-${label}-`));
 const browser = spawn(process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe', [
   '--headless=new', '--remote-debugging-port=0', `--user-data-dir=${path.join(output, 'profile')}`,
@@ -77,6 +79,7 @@ try {
     window.__brushCheck = {states: [], longTasks: [], modelMountedDuringBrush: false, documentId: Math.random()};
     const drawSamples = [];
     let drawSent = false;
+    let remounted = false;
     new MutationObserver(() => {
       const state = document.querySelector('.route-transition')?.dataset.state;
       const states = window.__brushCheck.states;
@@ -84,11 +87,19 @@ try {
       if (state === 'arrival' && document.querySelector('.hero-robot canvas')) window.__brushCheck.modelMountedDuringBrush = true;
       if (state === 'covering') {
         const path = document.querySelector('.route-transition path');
-        drawSamples.push({width:+path.style.strokeWidth,offset:+path.style.strokeDashoffset});
+        const overlay = path.closest('.route-transition');
+        const style = getComputedStyle(overlay);
+        drawSamples.push({width:+path.style.strokeWidth,offset:+path.style.strokeDashoffset,
+          visible:overlay.isConnected && style.visibility==='visible' && style.display!=='none' && Number(style.opacity)>0});
+        if (${remountDuringDraw} && !remounted && drawSamples.length >= 3) {
+          remounted = true;
+          const overlay = document.querySelector('.route-transition');
+          overlay.replaceWith(overlay.cloneNode(true));
+        }
       }
       if (state === 'covered' && drawSamples.length && !drawSent) {
         drawSent = true;
-        window.brushTestReport(JSON.stringify({samples:drawSamples.length,first:drawSamples[0],last:drawSamples.at(-1)}));
+        window.brushTestReport(JSON.stringify({samples:drawSamples.length,visibleSamples:drawSamples.filter(s=>s.visible).length,first:drawSamples[0],last:drawSamples.at(-1)}));
       }
     }).observe(document, {subtree:true, childList:true, attributes:true, attributeFilter:['data-state','style']});
     new PerformanceObserver(list => {
@@ -104,6 +115,9 @@ try {
     if (includeHome) routes.push('/');
     for (const route of routes) {
       const before = await evaluate('window.__brushCheck.documentId');
+      if (remountOverlay) {
+        await evaluate(`(()=>{const overlay=document.querySelector('.route-transition');overlay.replaceWith(overlay.cloneNode(true));})()`);
+      }
       drawEvidence = undefined;
       await evaluate(`document.querySelector('a[href=${JSON.stringify(route)}]').click()`);
       await ready(route);
@@ -112,7 +126,7 @@ try {
       // Observe inside the source document rather than relying on wall-clock
       // CDP samples that can miss the animation when software rendering stalls.
       result.drawEvidence = drawEvidence;
-      result.drawsAndThickens = drawEvidence?.samples > 1 && drawEvidence.last.width > drawEvidence.first.width && drawEvidence.last.offset < drawEvidence.first.offset;
+      result.drawsAndThickens = drawEvidence?.samples > 1 && drawEvidence.visibleSamples > 1 && drawEvidence.last.width > drawEvidence.first.width && drawEvidence.last.offset < drawEvidence.first.offset;
       result.fullDocument = before !== result.documentId;
       result.erases = result.states.some(s => s.state === 'arrival');
       result.pass = result.drawsAndThickens && result.fullDocument && result.erases && !result.overflow && !result.modelMountedDuringBrush;
@@ -121,7 +135,7 @@ try {
     const screenshot = await send('Page.captureScreenshot', { format: 'png' });
     await writeFile(path.join(output, `${width}.png`), Buffer.from(screenshot.data, 'base64'));
   }
-  const report = { base, label, blockFramework, blockedRequests, runs, errors, output };
+  const report = { base, label, blockFramework, remountOverlay, remountDuringDraw, blockedRequests, runs, errors, output };
   await writeFile(path.join(output, 'report.json'), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
   if (errors.length || runs.some(r => !r.pass) || (blockFramework && !blockedRequests)) process.exitCode = 1;

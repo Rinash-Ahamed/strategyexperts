@@ -91,11 +91,17 @@ export default function ServicePage({ service: s }: { service: Service }) {
           <div className="sp-hero-grid">
             <div className="stack-m">
               <nav className="crumb" aria-label="Breadcrumb">
-                <Link prefetch={false} href="/">Home</Link>
-                <span aria-hidden="true">/</span>
-                <span>Services</span>
-                <span aria-hidden="true">/</span>
-                <b aria-current="page">{s.navName}</b>
+                <ol>
+                  <li><Link prefetch={false} href="/">Home</Link></li>
+                  <li>
+                    <span aria-hidden="true">/</span>
+                    <span>Services</span>
+                  </li>
+                  <li>
+                    <span aria-hidden="true">/</span>
+                    <span aria-current="page">{s.navName}</span>
+                  </li>
+                </ol>
               </nav>
               <h1 className="h1" id="sp-title">
                 {s.headline.map((l, i) => (

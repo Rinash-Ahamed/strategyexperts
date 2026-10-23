@@ -35,19 +35,6 @@ export default function Home() {
       <section className="hero" aria-labelledby="hero-title">
         <div className="hero-glow" aria-hidden="true" />
         <RobotHero />
-        <div className="hero-silver-streak" aria-hidden="true">
-          <svg viewBox="0 0 1600 120" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="hero-silver" x1="0" x2="1">
-                <stop stopColor="#353535" stopOpacity="0" />
-                <stop offset=".28" stopColor="#C9C9CC" stopOpacity=".65" />
-                <stop offset=".57" stopColor="#F0F0F0" stopOpacity=".35" />
-                <stop offset="1" stopColor="#353535" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-            <path d="M-60 112 Q720 -62 1660 118" fill="none" stroke="url(#hero-silver)" strokeWidth="2" />
-          </svg>
-        </div>
 
         <div className="wrap hero-shell">
           <div className="hero-side hero-side-left">
@@ -87,7 +74,7 @@ export default function Home() {
             </nav>
           </div>
 
-          <div className="hero-footnote" aria-hidden="true">
+          <div className="hero-footnote">
             <span>Independent growth consultancy</span>
             <span>India · Digital commerce</span>
           </div>
@@ -153,7 +140,7 @@ export default function Home() {
       <Ticker />
 
       {/* ------------------------------------------------ Challenge */}
-      <section className="section surface-ivory" aria-labelledby="challenge-title">
+      <section className="section challenge surface-ivory" aria-labelledby="challenge-title">
         <div className="wrap challenge-grid">
           <div className="challenge-sticky stack-m" data-reveal>
             <h2 className="h2" id="challenge-title" style={{ maxWidth: "16ch" }}>

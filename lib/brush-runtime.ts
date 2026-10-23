@@ -1,10 +1,10 @@
 // Runs from server-rendered HTML, independently of React hydration.
 export const BRUSH_RUNTIME = String.raw`(() => {
-  const overlay = document.querySelector('.route-transition');
+  let overlay = document.querySelector('.route-transition');
   if (!overlay || overlay.dataset.brushReady) return;
   overlay.dataset.brushReady = 'true';
   const root = document.documentElement;
-  const paths = [...overlay.querySelectorAll('path')];
+  let paths = [...overlay.querySelectorAll('path')];
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const key = 'strategy-experts:route-transition';
   const warmed = new Set();
@@ -15,6 +15,24 @@ export const BRUSH_RUNTIME = String.raw`(() => {
       path.style.strokeDashoffset = String(offset);
       path.style.strokeWidth = String(width);
     }
+  };
+  // Hot updates can replace the server-rendered overlay without replacing the
+  // document listener. Never draw into the old, detached SVG in that case.
+  const bindOverlay = () => {
+    if (overlay.isConnected) return true;
+    const current = document.querySelector('.route-transition');
+    if (!current) return false;
+    const currentPaths = [...current.querySelectorAll('path')];
+    if (!currentPaths.length) return false;
+    const state = overlay.dataset.state;
+    const offset = Number(paths[0]?.style.strokeDashoffset || '1');
+    const width = Number(paths[0]?.style.strokeWidth || '200');
+    overlay = current;
+    paths = currentPaths;
+    overlay.dataset.brushReady = 'true';
+    overlay.dataset.state = state || 'idle';
+    paint(offset, width);
+    return true;
   };
   const hide = () => {
     cancelAnimationFrame(frame);
@@ -30,6 +48,7 @@ export const BRUSH_RUNTIME = String.raw`(() => {
     finish = resolve;
     let started;
     const tick = now => {
+      if (!bindOverlay()) { finish = undefined; hide(); resolve(false); return; }
       if (started === undefined) started = now;
       const t = Math.min((now - started) / 1000, 1);
       const e = t < .5 ? 2 * t * t : 1 - 2 * (1 - t) * (1 - t);
@@ -88,6 +107,7 @@ export const BRUSH_RUNTIME = String.raw`(() => {
     const anchor = event.target.closest('a[href]');
     const url = destinationFor(anchor);
     if (!url) return;
+    if (!bindOverlay()) return;
     event.preventDefault(); event.stopPropagation();
     if (busy) return;
     if (motion.matches) { location.assign(url.href); return; }
@@ -101,9 +121,9 @@ export const BRUSH_RUNTIME = String.raw`(() => {
     location.assign(url.href);
   }, true);
   addEventListener('pageshow', event => {
-    if (event.persisted) { clearToken(); hide(); }
+    if (event.persisted) { bindOverlay(); clearToken(); hide(); }
   });
   motion.addEventListener('change', () => {
-    if (motion.matches && overlay.dataset.state === 'arrival') { clearToken(); hide(); }
+    if (motion.matches && bindOverlay() && overlay.dataset.state === 'arrival') { clearToken(); hide(); }
   });
 })();`;

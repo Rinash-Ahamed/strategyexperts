@@ -76,6 +76,8 @@ try {
     await delay(300);
   }
   const report = { base, label, loaded, output, viewports: [], routes: [], errors };
+  report.heroLabelsUnobstructed = await evaluate(`!document.querySelector('.hero-silver-streak') && document.querySelectorAll('.hero-footnote span').length === 2 && !document.querySelector('.hero-footnote')?.hasAttribute('aria-hidden')`);
+  report.visualFlow = await evaluate(`({maxSectionPadding:Math.max(...[...document.querySelectorAll('.section')].map(e=>parseFloat(getComputedStyle(e).paddingTop))),menuClip:getComputedStyle(document.querySelector('.menu')).clipPath,heroGlowFilter:getComputedStyle(document.querySelector('.hero-glow')).filter,revealProperties:getComputedStyle(document.querySelector('[data-reveal]')).transitionProperty})`);
   // Read the existing React refs without adding debug globals to the product.
   const rigSnapshot = `(() => {
     const element = document.querySelector('.hero-robot');
@@ -95,6 +97,11 @@ try {
     return null;
   })()`;
   report.rigBefore = await evaluate(rigSnapshot);
+  report.heroHoverBefore = await evaluate(`(()=>{const a=document.querySelector('.hero-service-nav a');const b=a.getBoundingClientRect();return {width:b.width,height:b.height,padding:getComputedStyle(a).paddingLeft}})()`);
+  const hoverPoint = await evaluate(`(()=>{const b=document.querySelector('.hero-service-nav a').getBoundingClientRect();return {x:Math.round(b.left+30),y:Math.round(b.top+b.height/2)}})()`);
+  await send('Input.dispatchMouseEvent', { type: 'mouseMoved', ...hoverPoint });
+  await delay(450);
+  report.heroHoverAfter = await evaluate(`(()=>{const a=document.querySelector('.hero-service-nav a');const b=a.getBoundingClientRect();return {width:b.width,height:b.height,padding:getComputedStyle(a).paddingLeft}})()`);
   await send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: 1300, y: 280 });
   await delay(600);
   report.rigAfter = await evaluate(rigSnapshot);
@@ -165,9 +172,14 @@ try {
   }
   report.reducedMotion = await evaluate(`({modelVisible:!!document.querySelector('.hero-robot.is-loaded canvas'),tracking:document.querySelector('.hero-robot')?.dataset.headTracking})`);
   report.reducedMotion.stopped = (await evaluate(rigSnapshot))?.stopped;
+  report.reducedMotion.scrollBehavior = await evaluate(`getComputedStyle(document.documentElement).scrollBehavior`);
+  report.reducedMotion.revealsVisible = await evaluate(`[...document.querySelectorAll('[data-reveal]')].every(e=>getComputedStyle(e).opacity==='1')`);
   await send('Emulation.setEmulatedMedia', { features: [] });
   const failures = [];
   if (!report.loaded) failures.push('Robot did not load');
+  if (!report.heroLabelsUnobstructed) failures.push('Hero label cleanup failed');
+  if (report.visualFlow.maxSectionPadding > 112 || report.visualFlow.menuClip !== 'none' || report.visualFlow.heroGlowFilter !== 'none') failures.push('Spacing or lightweight visual-flow regression');
+  if (JSON.stringify(report.heroHoverBefore) !== JSON.stringify(report.heroHoverAfter)) failures.push('Hero hover changes layout');
   if (report.errors.length) failures.push('Uncaught browser exceptions');
   if (report.viewports.some(v=>v.scrollWidth>v.width)) failures.push('Homepage horizontal overflow');
   if (report.routes.some(r=>r.overflow||!r.h1)) failures.push('Service/contact route issue');
@@ -177,6 +189,7 @@ try {
   if (!motionOnly && (!report.tickerHasNoPauseControl || !report.serviceLinkNavigates)) failures.push('Unexpected ticker control or full-page navigation failure');
   if (!motionOnly && (!report.tickerRunning || !report.tickerRunsOnHover)) failures.push('Ticker unexpectedly pauses');
   if (!report.reducedMotion.modelVisible || !report.reducedMotion.stopped || report.reducedMotion.tracking !== 'disabled') failures.push('Reduced-motion behavior failed');
+  if (report.reducedMotion.scrollBehavior !== 'auto' || !report.reducedMotion.revealsVisible) failures.push('Reduced-motion scroll/reveal issue');
   report.failures = failures;
   if (failures.length) process.exitCode = 1;
   await writeFile(path.join(output,'report.json'), JSON.stringify(report,null,2));
