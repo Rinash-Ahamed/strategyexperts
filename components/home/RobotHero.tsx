@@ -3,12 +3,11 @@
 import dynamic from "next/dynamic";
 import type { Application, SPEObject } from "@splinetool/runtime";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { ROBOT_SCENE_URL } from "@/lib/robot";
 
 const Spline = dynamic(() => import("@splinetool/react-spline"), {
   ssr: false,
 });
-
-const SCENE_URL = "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode";
 
 type HandRig = {
   object: SPEObject;
@@ -27,13 +26,40 @@ export default function RobotHero() {
   const trackingRef = useRef(false);
   const applicationRef = useRef<Application | null>(null);
   const visibleRef = useRef(true);
+  const pausedRef = useRef(false);
+  const [paused, setPaused] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [loaderVisible, setLoaderVisible] = useState(true);
+  const [mountScene, setMountScene] = useState(false);
+
+  useEffect(() => {
+    let secondFrame = 0;
+    let idle: number | undefined;
+    let timer: number | undefined;
+    // Paint the heading/navigation before parsing and initializing the 3D runtime.
+    const firstFrame = requestAnimationFrame(() => {
+      secondFrame = requestAnimationFrame(() => {
+        if (typeof window.requestIdleCallback === "function") {
+          idle = window.requestIdleCallback(() => setMountScene(true), { timeout: 600 });
+        } else {
+          timer = window.setTimeout(() => setMountScene(true), 0);
+        }
+      });
+    });
+    return () => {
+      cancelAnimationFrame(firstFrame);
+      cancelAnimationFrame(secondFrame);
+      if (idle !== undefined) window.cancelIdleCallback(idle);
+      if (timer !== undefined) window.clearTimeout(timer);
+    };
+  }, []);
 
   useEffect(() => {
     const precisePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const updatePreferences = () => {
+      pausedRef.current = motion.matches;
+      setPaused(motion.matches);
       trackingRef.current = precisePointer.matches && !motion.matches;
       if (containerRef.current) {
         containerRef.current.dataset.headTracking = trackingRef.current ? "enabled" : "disabled";
@@ -49,10 +75,12 @@ export default function RobotHero() {
         applicationRef.current?.requestRender();
       }
       applicationRef.current?.setGlobalEvents(trackingRef.current);
+      if (motion.matches) applicationRef.current?.stop();
+      else if (visibleRef.current) applicationRef.current?.play();
     };
 
     const updatePointer = (event: PointerEvent) => {
-      if (!trackingRef.current || !visibleRef.current || event.pointerType === "touch") return;
+      if (!trackingRef.current || !visibleRef.current || pausedRef.current || event.pointerType === "touch") return;
 
       const bounds = containerRef.current?.getBoundingClientRect();
       if (!bounds) return;
@@ -85,7 +113,7 @@ export default function RobotHero() {
       frameRef.current = null;
       const head = headRef.current;
 
-      if ((head || handsRef.current.length) && trackingRef.current && visibleRef.current) {
+      if ((head || handsRef.current.length) && trackingRef.current && visibleRef.current && !pausedRef.current) {
         const current = currentRef.current;
         const targetYaw = targetRef.current.x * 0.2;
         const targetPitch = targetRef.current.y * 0.1;
@@ -115,11 +143,12 @@ export default function RobotHero() {
     };
 
     let inViewport = true;
+    const main = document.getElementById("main");
     const updateVisibility = () => {
-      visibleRef.current = inViewport && !document.hidden;
+      visibleRef.current = inViewport && !document.hidden && !main?.inert;
       const application = applicationRef.current;
       if (!application) return;
-      if (visibleRef.current) application.play();
+      if (visibleRef.current && !pausedRef.current) application.play();
       else application.stop();
     };
     const observer = new IntersectionObserver(([entry]) => {
@@ -127,6 +156,9 @@ export default function RobotHero() {
       updateVisibility();
     });
     if (containerRef.current) observer.observe(containerRef.current);
+    // The mobile menu makes the covered page inert. Avoid rendering behind it.
+    const menuObserver = new MutationObserver(updateVisibility);
+    if (main) menuObserver.observe(main, { attributes: true, attributeFilter: ["inert"] });
 
     updatePreferences();
     precisePointer.addEventListener("change", updatePreferences);
@@ -144,6 +176,7 @@ export default function RobotHero() {
       document.documentElement.removeEventListener("mouseleave", resetPointer);
       document.removeEventListener("visibilitychange", updateVisibility);
       observer.disconnect();
+      menuObserver.disconnect();
       if (frameRef.current !== null) window.cancelAnimationFrame(frameRef.current);
     };
   }, []);
@@ -183,11 +216,13 @@ export default function RobotHero() {
     }));
 
     setLoaded(true);
+    if (containerRef.current) containerRef.current.dataset.loadedAt = performance.now().toFixed(1);
     setLoaderVisible(false);
-    if (!visibleRef.current) application.stop();
+    if (!visibleRef.current || pausedRef.current) application.stop();
   }, []);
 
   return (
+    <>
     <div
       className={`hero-robot${loaded ? " is-loaded" : ""}`}
       ref={containerRef}
@@ -200,11 +235,29 @@ export default function RobotHero() {
           <small>Loading interactive model</small>
         </div>
       )}
-      <Spline
+      {mountScene && <Spline
         className="hero-robot-canvas"
-        scene={SCENE_URL}
+        scene={ROBOT_SCENE_URL}
         onLoad={handleLoad}
-      />
+      />}
     </div>
+    {loaded && (
+      <button
+        className="hero-animation-control"
+        type="button"
+        aria-pressed={paused}
+        aria-label={paused ? "Resume robot animation" : "Pause robot animation"}
+        onClick={() => {
+          const next = !pausedRef.current;
+          pausedRef.current = next;
+          setPaused(next);
+          if (next) applicationRef.current?.stop();
+          else if (visibleRef.current) applicationRef.current?.play();
+        }}
+      >
+        {paused ? "Resume animation" : "Pause animation"}
+      </button>
+    )}
+    </>
   );
 }

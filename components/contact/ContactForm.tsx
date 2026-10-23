@@ -2,13 +2,12 @@
 
 import { useState, type FormEvent } from "react";
 import { useSearchParams } from "next/navigation";
-import { SERVICES } from "@/lib/site";
 
-type Props = { whatsapp: string; email: string };
+type Props = { whatsapp: string; email: string; services: { slug: string; name: string }[] };
 
-export default function ContactForm({ whatsapp, email }: Props) {
+export default function ContactForm({ whatsapp, email, services }: Props) {
   const params = useSearchParams();
-  const defaultService = SERVICES.find((s) => s.slug === params.get("service"))?.name ?? "";
+  const defaultService = services.find((s) => s.slug === params.get("service"))?.name ?? "";
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "opened">("idle");
   const configured = Boolean(whatsapp || email);
@@ -28,12 +27,14 @@ export default function ContactForm({ whatsapp, email }: Props) {
       .join("\n");
   };
 
-  const validate = (fd: FormData) => {
+  const validate = (fd: FormData, form: HTMLFormElement) => {
     const e: Record<string, string> = {};
     if (!String(fd.get("name") || "").trim()) e.name = "Please enter your name.";
     if (String(fd.get("message") || "").trim().length < 10)
       e.message = "Please tell us a little about your business and goals.";
     setErrors(e);
+    const invalid = form.elements.namedItem(Object.keys(e)[0] ?? "");
+    if (invalid instanceof HTMLElement) invalid.focus();
     return Object.keys(e).length === 0;
   };
 
@@ -41,7 +42,7 @@ export default function ContactForm({ whatsapp, email }: Props) {
     const form = ev.currentTarget.form;
     if (!form) return;
     const fd = new FormData(form);
-    if (!validate(fd)) return;
+    if (!validate(fd, form)) return;
     const text = compose(fd);
     if (channel === "whatsapp") {
       window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent(text)}`, "_blank", "noopener,noreferrer");
@@ -69,7 +70,7 @@ export default function ContactForm({ whatsapp, email }: Props) {
         <label htmlFor="service">What would you like to discuss?</label>
         <select id="service" name="service" defaultValue={defaultService}>
           <option value="">Not sure yet</option>
-          {SERVICES.map((s) => (
+          {services.map((s) => (
             <option key={s.slug} value={s.name}>{s.name}</option>
           ))}
         </select>

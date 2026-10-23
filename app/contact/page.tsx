@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import ContactForm from "@/components/contact/ContactForm";
-import { SITE } from "@/lib/site";
+import { SERVICES, SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Discuss Your Business",
@@ -45,7 +45,7 @@ export default function ContactPage() {
         </div>
 
         <Suspense fallback={<div className="form" aria-busy="true" style={{ minHeight: 420 }} />}>
-          <ContactForm whatsapp={SITE.whatsapp} email={SITE.email} />
+          <ContactForm whatsapp={SITE.whatsapp} email={SITE.email} services={SERVICES.map(({ slug, name }) => ({ slug, name }))} />
         </Suspense>
       </div>
     </div>

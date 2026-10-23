@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import "./refinements.css";
 import RevealObserver from "@/components/effects/RevealObserver";
 import RouteTransition from "@/components/effects/RouteTransition";
 import SiteFooter from "@/components/layout/SiteFooter";
 import SiteHeader from "@/components/layout/SiteHeader";
-import { SITE } from "@/lib/site";
+import { NAV_LINKS, SITE } from "@/lib/site";
 
 const inter = localFont({
   src: "../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2",
@@ -57,7 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <RouteTransition />
         <a className="skip" href="#main">Skip to content</a>
-        <SiteHeader />
+        <SiteHeader links={NAV_LINKS} name={SITE.name} tagline={SITE.tagline} />
         <main id="main">{children}</main>
         <SiteFooter />
         <RevealObserver />

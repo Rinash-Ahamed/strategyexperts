@@ -17,7 +17,7 @@ export default function SiteFooter() {
             <ul>
               {SERVICES.map((s) => (
                 <li key={s.slug}>
-                  <Link href={`/services/${s.slug}`}>{s.name}</Link>
+                  <Link prefetch={false} href={`/services/${s.slug}`}>{s.name}</Link>
                 </li>
               ))}
             </ul>
@@ -26,7 +26,7 @@ export default function SiteFooter() {
             <p className="footer-h">Get in touch</p>
             <ul>
               <li>
-                <Link href="/contact">Discuss your business</Link>
+                <Link prefetch={false} href="/contact">Discuss your business</Link>
               </li>
               {SITE.whatsapp && (
                 <li>

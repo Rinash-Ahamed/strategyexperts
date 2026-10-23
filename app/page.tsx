@@ -1,5 +1,6 @@
 import Link from "next/link";
 import RobotHero from "@/components/home/RobotHero";
+import { ROBOT_SCENE_URL } from "@/lib/robot";
 import Ticker from "@/components/home/Ticker";
 import Metrics from "@/components/shared/Metrics";
 import { Rings } from "@/components/shared/Visuals";
@@ -28,10 +29,25 @@ const Mask = ({ children, d = 0 }: { children: React.ReactNode; d?: number }) =>
 export default function Home() {
   return (
     <>
+      <link rel="preconnect" href="https://prod.spline.design" crossOrigin="anonymous" />
+      <link rel="preload" href={ROBOT_SCENE_URL} as="fetch" crossOrigin="anonymous" fetchPriority="low" />
       {/* ------------------------------------------------ Hero */}
       <section className="hero" aria-labelledby="hero-title">
         <div className="hero-glow" aria-hidden="true" />
         <RobotHero />
+        <div className="hero-silver-streak" aria-hidden="true">
+          <svg viewBox="0 0 1600 120" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="hero-silver" x1="0" x2="1">
+                <stop stopColor="#353535" stopOpacity="0" />
+                <stop offset=".28" stopColor="#C9C9CC" stopOpacity=".65" />
+                <stop offset=".57" stopColor="#F0F0F0" stopOpacity=".35" />
+                <stop offset="1" stopColor="#353535" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            <path d="M-60 112 Q720 -62 1660 118" fill="none" stroke="url(#hero-silver)" strokeWidth="2" />
+          </svg>
+        </div>
 
         <div className="wrap hero-shell">
           <div className="hero-side hero-side-left">
@@ -45,7 +61,7 @@ export default function Home() {
             </div>
             <nav className="hero-service-nav" aria-label="Commerce and hospitality services">
               {[ecom, restaurant].map((service) => (
-                <Link key={service.slug} href={`/services/${service.slug}`}>
+                <Link prefetch={false} key={service.slug} href={`/services/${service.slug}`}>
                   <span className="hero-service-index">{service.index}</span>
                   <span>{service.navName}</span>
                   <span className="hero-service-arrow" aria-hidden="true">{"\u2197"}</span>
@@ -62,6 +78,7 @@ export default function Home() {
             <nav className="hero-service-nav" aria-label="Revenue and marketing services">
               {SERVICES.map((service, index) => (
                 <Link
+                  prefetch={false}
                   className={index < 2 ? "hero-service-mobile-only" : undefined}
                   key={service.slug}
                   href={`/services/${service.slug}`}
@@ -81,7 +98,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="hero-intro" aria-label="Introduction">
+      <section className="hero-intro surface-ivory" aria-label="Introduction">
         <div className="wrap">
           <div className="hero-bottom">
             <div className="hero-copy stack-m">
@@ -91,7 +108,7 @@ export default function Home() {
                 hands-on execution.
               </p>
               <div className="hero-cta">
-                <Link href="/contact" className="btn btn-primary">
+                <Link prefetch={false} href="/contact" className="btn btn-primary">
                   Discuss Your Business <Arrow />
                 </Link>
                 <a href="#expertise" className="btn btn-ghost">
@@ -101,7 +118,7 @@ export default function Home() {
             </div>
             <nav className="hero-index" aria-label="Services">
               {SERVICES.map((s) => (
-                <Link key={s.slug} href={`/services/${s.slug}`}>
+                <Link prefetch={false} key={s.slug} href={`/services/${s.slug}`}>
                   <span>{s.index}</span>
                   {s.navName}
                 </Link>
@@ -112,7 +129,7 @@ export default function Home() {
       </section>
 
       {/* ------------------------------------------------ Credibility strip */}
-      <section className="strip" aria-label="Capabilities">
+      <section className="strip surface-ivory" aria-label="Capabilities">
         <div className="wrap">
           <ul className="strip-grid">
             <li className="strip-item">
@@ -141,7 +158,7 @@ export default function Home() {
       <Ticker />
 
       {/* ------------------------------------------------ Challenge */}
-      <section className="section" aria-labelledby="challenge-title">
+      <section className="section surface-ivory" aria-labelledby="challenge-title">
         <div className="wrap challenge-grid">
           <div className="challenge-sticky stack-m" data-reveal>
             <span className="eyebrow">The challenge</span>
@@ -163,7 +180,7 @@ export default function Home() {
       </section>
 
       {/* ------------------------------------------------ Services */}
-      <section id="expertise" aria-labelledby="expertise-title">
+      <section id="expertise" className="expertise surface-ivory" aria-labelledby="expertise-title">
         <div className="wrap section-tight" style={{ paddingTop: 0 }}>
           <div className="block-head" style={{ marginBottom: 0 }}>
             <div className="stack-m" data-reveal>
@@ -180,7 +197,7 @@ export default function Home() {
         </div>
 
         {/* 01 - E-Commerce */}
-        <article className="sc sc-1" aria-labelledby="sc1">
+        <article className="sc sc-1 surface-ivory" aria-labelledby="sc1">
           <div className="wrap pad">
             <div className="sc-head">
               <span className="sc-num" style={{ color: "var(--blue)" }}>01 / 04</span>
@@ -200,7 +217,7 @@ export default function Home() {
                     <li key={c}>{c}</li>
                   ))}
                 </ul>
-                <Link className="link-arrow" href={`/services/${ecom.slug}`}>
+                <Link prefetch={false} className="link-arrow" href={`/services/${ecom.slug}`}>
                   Explore Service <Arrow />
                 </Link>
               </div>
@@ -209,7 +226,7 @@ export default function Home() {
         </article>
 
         {/* 02 - Restaurant */}
-        <article className="sc sc-2" aria-labelledby="sc2">
+        <article className="sc sc-2 surface-silver" aria-labelledby="sc2">
           <div className="wrap pad">
             <div className="sc-head">
               <span className="sc-num" style={{ color: "var(--accent)" }}>02 / 04</span>
@@ -236,7 +253,7 @@ export default function Home() {
                   <span>Zomato</span>
                   <span>Swiggy</span>
                 </div>
-                <Link className="link-arrow" href={`/services/${restaurant.slug}`}>
+                <Link prefetch={false} className="link-arrow" href={`/services/${restaurant.slug}`}>
                   Explore Service <Arrow />
                 </Link>
               </div>
@@ -260,7 +277,7 @@ export default function Home() {
                   <span>ADR</span>
                   <span>RevPAR</span>
                 </div>
-                <Link className="link-arrow" href={`/services/${hotel.slug}`}>
+                <Link prefetch={false} className="link-arrow" href={`/services/${hotel.slug}`}>
                   Explore Service <Arrow />
                 </Link>
               </div>
@@ -277,7 +294,7 @@ export default function Home() {
         </article>
 
         {/* 04 - Digital */}
-        <article className="sc sc-4" aria-labelledby="sc4">
+        <article className="sc sc-4 surface-ivory" aria-labelledby="sc4">
           <div className="wrap pad">
             <div className="sc-head">
               <span className="sc-num" style={{ color: "var(--accent)" }}>04 / 04</span>
@@ -301,7 +318,7 @@ export default function Home() {
                   <b>WhatsApp, done with permission.</b> Messaging is aimed at customers who have opted
                   in, with the business clearly identified and an easy way to opt out.
                 </p>
-                <Link className="link-arrow" href={`/services/${digital.slug}`}>
+                <Link prefetch={false} className="link-arrow" href={`/services/${digital.slug}`}>
                   Explore Service <Arrow />
                 </Link>
               </div>
@@ -311,7 +328,7 @@ export default function Home() {
       </section>
 
       {/* ------------------------------------------------ How we work */}
-      <section className="section process" aria-labelledby="process-title">
+      <section className="section process surface-silver" aria-labelledby="process-title">
         <div className="wrap">
           <div className="block-head">
             <div className="stack-m" data-reveal>
@@ -339,7 +356,7 @@ export default function Home() {
       </section>
 
       {/* ------------------------------------------------ Impact */}
-      <section className="section impact" aria-labelledby="impact-title">
+      <section className="section impact surface-ivory" aria-labelledby="impact-title">
         <div className="wrap">
           <div className="impact-grid">
             <div className="stack-m" data-reveal>
@@ -392,10 +409,10 @@ export default function Home() {
             identify where the next opportunity lies.
           </p>
           <div className="cta-row">
-            <Link href="/contact" className="btn btn-light">
+            <Link prefetch={false} href="/contact" className="btn btn-light">
               Start a Conversation <Arrow />
             </Link>
-            <Link href={`/services/${ecom.slug}`} className="btn btn-outline-light">
+            <Link prefetch={false} href={`/services/${ecom.slug}`} className="btn btn-outline-light">
               See what we do
             </Link>
           </div>

@@ -86,14 +86,14 @@ export default function ServicePage({ service: s }: { service: Service }) {
   const dark = s.theme === "hotel";
 
   return (
-    <div className={`t-${s.theme}`}>
+    <div className={`service-page surface-ivory t-${s.theme}`}>
       {/* ---------------- Hero ---------------- */}
-      <section className={`sp-hero hero-${s.theme}${dark ? " on-dark" : ""}`} aria-labelledby="sp-title">
+      <section className={`sp-hero on-dark hero-${s.theme}`} aria-labelledby="sp-title">
         <div className="wrap">
           <div className="sp-hero-grid">
             <div className="stack-m">
               <nav className="crumb" aria-label="Breadcrumb">
-                <Link href="/">Home</Link>
+                <Link prefetch={false} href="/">Home</Link>
                 <span aria-hidden="true">/</span>
                 <span>Services</span>
                 <span aria-hidden="true">/</span>
@@ -115,7 +115,7 @@ export default function ServicePage({ service: s }: { service: Service }) {
                 </div>
               )}
               <div className="sp-hero-actions">
-                <Link href={`/contact?service=${s.slug}`} className="btn btn-accent">
+                <Link prefetch={false} href={`/contact?service=${s.slug}`} className="btn btn-accent">
                   Get a Free Consultation <Arrow />
                 </Link>
                 <a href="#deliverables" className="btn btn-ghost">
@@ -302,10 +302,10 @@ export default function ServicePage({ service: s }: { service: Service }) {
           </h2>
           <p className="lead">{s.closing.body}</p>
           <div className="cta-row">
-            <Link href={`/contact?service=${s.slug}`} className="btn btn-light">
+            <Link prefetch={false} href={`/contact?service=${s.slug}`} className="btn btn-light">
               Get a Free Consultation <Arrow />
             </Link>
-            <Link href="/contact" className="btn btn-outline-light">
+            <Link prefetch={false} href="/contact" className="btn btn-outline-light">
               Talk to a Growth Expert
             </Link>
           </div>
@@ -320,7 +320,7 @@ export default function ServicePage({ service: s }: { service: Service }) {
           </h2>
           <nav className="other-services" aria-label="Other services">
             {others.map((o) => (
-              <Link key={o.slug} href={`/services/${o.slug}`}>
+              <Link prefetch={false} key={o.slug} href={`/services/${o.slug}`}>
                 {o.name}
                 <span>{o.index}</span>
               </Link>

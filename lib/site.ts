@@ -9,7 +9,7 @@ export const SITE = {
   tagline: "Digital Growth Partners",
   description:
     "Strategy Experts helps restaurants, hotels, e-commerce brands and local businesses perform better through platform expertise, revenue strategy and hands-on execution.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://strategyexperts.vercel.app",
   whatsapp: (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "").replace(/\D/g, ""),
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "",
   showMetrics: process.env.NEXT_PUBLIC_SHOW_METRICS === "true",
