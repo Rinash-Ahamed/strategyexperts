@@ -107,7 +107,7 @@ export default function SiteHeader() {
             Discuss Your Business <span className="arr" aria-hidden="true">→</span>
           </Link>
           <p className="muted" style={{ fontSize: ".85rem" }}>
-            {SITE.name} — {SITE.tagline}
+            {SITE.name} - {SITE.tagline}
           </p>
         </div>
       </div>

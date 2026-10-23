@@ -18,20 +18,20 @@ const inter = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — Better strategy. Stronger business.`,
+    default: `${SITE.name} - Better strategy. Stronger business.`,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
   openGraph: {
     type: "website",
     siteName: SITE.name,
-    title: `${SITE.name} — Better strategy. Stronger business.`,
+    title: `${SITE.name} - Better strategy. Stronger business.`,
     description: SITE.description,
     locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE.name} — Better strategy. Stronger business.`,
+    title: `${SITE.name} - Better strategy. Stronger business.`,
     description: SITE.description,
   },
 };

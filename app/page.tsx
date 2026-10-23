@@ -32,31 +32,48 @@ export default function Home() {
       <section className="hero" aria-labelledby="hero-title">
         <div className="hero-glow" aria-hidden="true" />
         <RobotHero />
-        <div className="hero-curve" aria-hidden="true">
-          <svg viewBox="0 0 1600 560" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="curve-fade" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stopColor="#bababa" stopOpacity=".78" />
-                <stop offset=".38" stopColor="#9a9a9a" stopOpacity=".5" />
-                <stop offset=".72" stopColor="#515151" stopOpacity=".16" />
-                <stop offset="1" stopColor="#111111" stopOpacity="0" />
-              </linearGradient>
-              <filter id="curve-blur" x="-20%" y="-50%" width="140%" height="200%">
-                <feGaussianBlur stdDeviation="18" />
-              </filter>
-            </defs>
-            <path className="curve-halo" d="M-100 72C390 142 980 330 1510 650" />
-            <path className="curve-line" d="M-100 72C390 142 980 330 1510 650" />
-          </svg>
-        </div>
 
         <div className="wrap hero-shell">
-          <div className="hero-brand">
-            <h1 className="display" id="hero-title">
-              Strategy Experts
-            </h1>
-            <p>Better strategy. Stronger business.</p>
+          <div className="hero-side hero-side-left">
+            <p className="hero-kicker">Independent growth consultancy</p>
+            <div className="hero-brand">
+              <h1 className="display" id="hero-title">
+                <span>Strategy</span>
+                <span>Experts</span>
+              </h1>
+              <p>Better strategy.<br />Stronger business.</p>
+            </div>
+            <nav className="hero-service-nav" aria-label="Commerce and hospitality services">
+              {[ecom, restaurant].map((service) => (
+                <Link key={service.slug} href={`/services/${service.slug}`}>
+                  <span className="hero-service-index">{service.index}</span>
+                  <span>{service.navName}</span>
+                  <span className="hero-service-arrow" aria-hidden="true">{"\u2197"}</span>
+                </Link>
+              ))}
+            </nav>
           </div>
+
+          <div className="hero-side hero-side-right">
+            <div className="hero-side-copy">
+              <span>Four disciplines</span>
+              <p>One clear operating view for ambitious businesses.</p>
+            </div>
+            <nav className="hero-service-nav" aria-label="Revenue and marketing services">
+              {SERVICES.map((service, index) => (
+                <Link
+                  className={index < 2 ? "hero-service-mobile-only" : undefined}
+                  key={service.slug}
+                  href={`/services/${service.slug}`}
+                >
+                  <span className="hero-service-index">{service.index}</span>
+                  <span>{service.navName}</span>
+                  <span className="hero-service-arrow" aria-hidden="true">{"\u2197"}</span>
+                </Link>
+              ))}
+            </nav>
+          </div>
+
           <div className="hero-footnote" aria-hidden="true">
             <span>Independent growth consultancy</span>
             <span>India · Digital commerce</span>
@@ -162,7 +179,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* 01 — E-Commerce */}
+        {/* 01 - E-Commerce */}
         <article className="sc sc-1" aria-labelledby="sc1">
           <div className="wrap pad">
             <div className="sc-head">
@@ -191,7 +208,7 @@ export default function Home() {
           </div>
         </article>
 
-        {/* 02 — Restaurant */}
+        {/* 02 - Restaurant */}
         <article className="sc sc-2" aria-labelledby="sc2">
           <div className="wrap pad">
             <div className="sc-head">
@@ -227,7 +244,7 @@ export default function Home() {
           </div>
         </article>
 
-        {/* 03 — Hotel */}
+        {/* 03 - Hotel */}
         <article className="sc sc-3 on-dark" aria-labelledby="sc3">
           <div className="wrap pad">
             <div className="sc-head">
@@ -259,7 +276,7 @@ export default function Home() {
           </div>
         </article>
 
-        {/* 04 — Digital */}
+        {/* 04 - Digital */}
         <article className="sc sc-4" aria-labelledby="sc4">
           <div className="wrap pad">
             <div className="sc-head">

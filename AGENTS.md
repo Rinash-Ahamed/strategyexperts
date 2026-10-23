@@ -15,3 +15,5 @@ These instructions apply to the entire repository.
 ## Verification
 
 - After changing the version, confirm that `package.json`, the top-level `package-lock.json` version, and `packages[""]` in `package-lock.json` all match.
+- Do not run build or lint commands unless the user explicitly asks for them in the current request.
+- Do not treat a general request to implement, fix, or verify something as permission to run build or lint.
