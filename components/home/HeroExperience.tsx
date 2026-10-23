@@ -11,13 +11,13 @@ export default function HeroExperience() {
   const [dismissed, setDismissed] = useState(false);
   const exiting = deadlineReached || (ready && minimumElapsed);
   const handleReady = useCallback(() => {
-    if (document.documentElement.dataset.heroOpening === "refresh") setReady(true);
+    if (document.documentElement.dataset.openingTrigger === "refresh") setReady(true);
   }, []);
 
   useEffect(() => {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     // The CSS reduced-motion rule hides the opening before hydration too.
-    if (motion.matches || document.documentElement.dataset.heroOpening !== "refresh") return;
+    if (motion.matches || document.documentElement.dataset.openingTrigger !== "refresh") return;
 
     const minimum = window.setTimeout(() => setMinimumElapsed(true), 3000);
     const deadline = window.setTimeout(() => setDeadlineReached(true), 6000);

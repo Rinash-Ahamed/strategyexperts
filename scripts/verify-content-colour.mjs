@@ -105,6 +105,20 @@ try {
       assert(Math.abs(report.titleSize - expectedTitle) < .1, `Title scale mismatch: ${route} at ${width}`);
       assert(report.sectionSizes.every(size => Math.abs(size - expectedSection) < .1), `Section scale mismatch: ${route} at ${width}`);
       assert.equal(report.bodySize, 16);
+      const details = await evaluate(`(()=>{
+        const metrics=[...document.querySelectorAll('.metric b')].map(e=>({size:parseFloat(getComputedStyle(e).fontSize),colour:getComputedStyle(e).color}));
+        const social=document.querySelector('.footer-brand .footer-socials a');
+        const icon=social?.getBoundingClientRect();
+        const digital=document.querySelector('.hero-digital .sp-hero-grid > .stack-m');
+        return {metrics,social:!!social?.querySelector('svg')&&social.href.includes('instagram.com/strategy.experts')&&icon.width>=44&&icon.height>=44,
+          digitalGap:digital?digital.getBoundingClientRect().top-document.querySelector('.nav').getBoundingClientRect().bottom:null,
+          reducedLogo:getComputedStyle(document.querySelector('.footer-brand-link')).animationName};
+      })()`);
+      assert(details.metrics.every(metric=>metric.size>=24&&metric.size<=32.01), "All page metric figures must use the compact scale");
+      assert.equal(details.social, true, "Instagram icon should sit under the logo with a 44px target");
+      assert.equal(details.reducedLogo, "none", "Footer logo must respect reduced motion");
+      if (details.digitalGap!==null) assert(details.digitalGap>=16&&details.digitalGap<=64, `Digital hero has excessive top spacing: ${details.digitalGap}`);
+      report.details=details;
       if (route === "/") assert.equal(report.hero, "rgb(0, 0, 0)");
       else if (route.startsWith("/services/") && !route.includes("digital-marketing")) assert(report.paperGradient.includes("linear-gradient") && report.paperGradient.includes("244, 242, 237"), "Expected the ivory-based service gradient");
       reports.push(report);
@@ -120,6 +134,10 @@ try {
             assert(await evaluate(`(()=>{const image=document.querySelector('${section} [data-industry-photo]');return !image||image.loading==='eager'})()`), "Visible homepage photo should never be lazy");
             await screenshot(`home-${section.slice(1)}-${width}`);
           }
+          await evaluate("document.querySelector('.home-metrics')?.scrollIntoView({block:'center',behavior:'instant'})");
+          await screenshot(`home-metrics-${width}`);
+          await evaluate("document.querySelector('footer').scrollIntoView({block:'start',behavior:'instant'})");
+          await screenshot(`footer-${width}`);
         } else { await delay(900); await screenshot(`${route.split("/").at(-1)}-${width}`); }
       }
     }
@@ -166,6 +184,11 @@ try {
     }
   }
   console.log("Seven headline phrases retain a stationary first line and stable layout on desktop/mobile; menu keyboard checks passed");
+  await evaluate("document.querySelector('footer').scrollIntoView({block:'start',behavior:'instant'})");
+  const logoTransform=await evaluate("getComputedStyle(document.querySelector('.footer-brand-link')).transform");
+  await delay(700);
+  assert.notEqual(await evaluate("getComputedStyle(document.querySelector('.footer-brand-link')).transform"),logoTransform,"Footer logo should gently zoom in and out");
+  console.log("Footer logo breathes with transform-only motion");
   await evaluate("document.querySelector('.platform-ticker').scrollIntoView({block:'center',behavior:'instant'})");
   await delay(600);
   const ribbon = await evaluate("(()=>{const b=document.querySelector('.platform-ticker').getBoundingClientRect();return {x:b.x+b.width/2,y:b.y+b.height/2}})()");

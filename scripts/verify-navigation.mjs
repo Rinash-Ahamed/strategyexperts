@@ -9,6 +9,7 @@ import path from "node:path";
 const base = process.argv[2] || "http://localhost:3126";
 const baseline = process.argv.includes("--baseline-brush");
 const blockFramework = process.argv.includes("--block-framework");
+const homeOnly = process.argv.includes("--home-only");
 const output = await mkdtemp(path.join(tmpdir(), "se-navigation-"));
 const profile = path.join(output, "profile");
 const browser = spawn(process.env.CHROME_PATH || "C:/Program Files/Google/Chrome/Application/chrome.exe", [
@@ -16,7 +17,7 @@ const browser = spawn(process.env.CHROME_PATH || "C:/Program Files/Google/Chrome
 ], { windowsHide: true, stdio: "ignore" });
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 let socket, id = 0;
-const pending = new Map(), requests = [], errors = [], runs = [];
+const pending = new Map(), requests = [], errors = [], runs = [], homeBehavior = [];
 async function send(method, params = {}) {
   const request = ++id;
   return new Promise((resolve, reject) => {
@@ -68,9 +69,9 @@ try {
   if (blockFramework) await send("Network.setBlockedURLs", { urls: ["*/_next/static/chunks/*.js*"] });
   for (const width of [390, 1440]) {
     await send("Emulation.setDeviceMetricsOverride", { width, height: 900, deviceScaleFactor: 1, mobile: width < 700 });
-    await send("Page.navigate", { url: base + "/services/restaurant-consulting" });
-    await ready("/services/restaurant-consulting");
-    for (const route of ["/services/e-commerce-support", "/services/hotel-revenue-management", "/services/digital-marketing", "/contact", "/"]) {
+    await send("Page.navigate", { url: base + (homeOnly ? "/" : "/services/restaurant-consulting") });
+    await ready(homeOnly ? "/" : "/services/restaurant-consulting");
+    for (const route of (homeOnly ? [] : ["/services/e-commerce-support", "/services/hotel-revenue-management", "/services/digital-marketing", "/contact", "/"])) {
       const before = await evaluate("performance.timeOrigin");
       const clickedAt = await evaluate(`(()=>{const anchor=document.querySelector('a[href=${JSON.stringify(route)}]');if(!anchor)throw Error('Missing link');const start=Date.now();anchor.click();return start})()`);
       await ready(route);
@@ -84,9 +85,41 @@ try {
       if (!baseline) assert(requestDelayMs < 750, `Navigation delayed by ${requestDelayMs}ms`);
       runs.push({ width, route, requestDelayMs, fullDocument: true });
     }
+    if (!baseline) {
+      const origin = await evaluate("performance.timeOrigin");
+      assert(await evaluate("getComputedStyle(document.querySelector('[data-hero-opening]')).display==='none'"), "Navigating home must not play the opening");
+      for (const target of ["logo", "home"]) {
+        await evaluate("scrollTo({top:600,behavior:'instant'})");
+        if (target === "home" && width < 700 && !blockFramework) {
+          await evaluate("document.querySelector('.burger').click()"); await delay(200);
+        }
+        const selector = target === "logo" ? ".nav-inner > a" : width < 700 ? "#mobile-menu a[href='#']" : ".nav-links a[href='#']";
+        await evaluate(`document.querySelector(${JSON.stringify(selector)}).click()`);
+        for (let attempt=0;attempt<30;attempt++) {
+          if (await evaluate("scrollY<1")) break;
+          await delay(100);
+        }
+        assert.equal(await evaluate("performance.timeOrigin"), origin, "Home/logo on home must not reload");
+        const position=await evaluate("({y:scrollY,hash:location.hash,target:document.getElementById('top')?.tagName,logo:document.querySelector('.nav-inner>a').getAttribute('href')})");
+        assert(position.y<1, `Home/logo should return to the top: ${JSON.stringify({width,target,...position})}`);
+      }
+      if (!blockFramework) {
+        await send("Page.reload"); await ready("/");
+        assert(await evaluate("document.documentElement.dataset.openingTrigger==='refresh'&&getComputedStyle(document.querySelector('[data-hero-opening]')).display==='grid'"), "Refresh should play the opening");
+        assert.equal(await evaluate("getComputedStyle(document.querySelector('.nav')).visibility"), "hidden");
+        await evaluate("document.querySelector('[data-hero-opening] button').click()"); await delay(200);
+        assert.equal(await evaluate("getComputedStyle(document.querySelector('.nav')).visibility"), "visible");
+        await send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "reduce" }] });
+        await send("Page.reload"); await ready("/");
+        assert.equal(await evaluate("getComputedStyle(document.querySelector('[data-hero-opening]')).display"), "none");
+        assert.equal(await evaluate("getComputedStyle(document.querySelector('.nav')).visibility"), "visible");
+        await send("Emulation.setEmulatedMedia", { features: [] });
+      }
+      homeBehavior.push({ width, samePageLogoAndHomeReturnToTop: true, reloadOpeningAndReducedMotion: !blockFramework });
+    }
   }
   assert.deepEqual(errors, []);
-  const report = { base, baseline, blockFramework, conditions: "Production; external scene held pending; navigation-only checks.", runs, errors };
+  const report = { base, baseline, blockFramework, conditions: "External scene held pending; navigation-only checks. Use production for timing claims.", runs, homeBehavior, errors };
   await writeFile(path.join(output, "report.json"), JSON.stringify(report, null, 2));
   console.log(JSON.stringify({ output, ...report }, null, 2));
 } finally {

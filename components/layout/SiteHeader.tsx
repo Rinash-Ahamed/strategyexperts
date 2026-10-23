@@ -66,7 +66,7 @@ export default function SiteHeader({ links, name, tagline }: Props) {
       .filter((element): element is HTMLElement => element instanceof HTMLElement);
     const previousInert = background.map((element) => element.inert);
     background.forEach((element) => { element.inert = true; });
-    const frame = requestAnimationFrame(() => menuRef.current?.querySelector<HTMLAnchorElement>("a")?.focus());
+    const frame = requestAnimationFrame(() => menuRef.current?.querySelector<HTMLAnchorElement>("a")?.focus({ preventScroll: true }));
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
@@ -87,7 +87,7 @@ export default function SiteHeader({ links, name, tagline }: Props) {
       cancelAnimationFrame(frame);
       document.body.style.overflow = previousOverflow;
       background.forEach((element, index) => { element.inert = previousInert[index]; });
-      burger?.focus();
+      burger?.focus({ preventScroll: true });
     };
   }, [open]);
 
@@ -98,7 +98,7 @@ export default function SiteHeader({ links, name, tagline }: Props) {
     <>
       <header className={`nav${scrolled || open ? " scrolled" : ""}`} style={open ? { background: "transparent", borderColor: "transparent", backdropFilter: "none" } : undefined}>
         <div className="wrap nav-inner">
-          <Link prefetch={false} href={pathname === "/" ? "#top" : "/"} style={{ position: "relative", zIndex: 120, color: open ? "#fff" : undefined }}>
+          <Link prefetch={false} href={pathname === "/" ? "#" : "/"} style={{ position: "relative", zIndex: 120, color: open ? "#fff" : undefined }}>
             <Wordmark />
           </Link>
 
@@ -107,7 +107,7 @@ export default function SiteHeader({ links, name, tagline }: Props) {
               <Link
                 prefetch={false}
                 key={l.href}
-                href={l.href === "/" && pathname === "/" ? "#top" : l.href}
+                href={l.href === "/" && pathname === "/" ? "#" : l.href}
                 aria-current={isActive(l.href) ? "page" : undefined}
               >
                 {l.label}
@@ -142,7 +142,7 @@ export default function SiteHeader({ links, name, tagline }: Props) {
           <ol>
             {links.map((l) => (
               <li key={l.href}>
-                <Link prefetch={false} href={l.href === "/" && pathname === "/" ? "#top" : l.href} onClick={() => setOpen(false)} tabIndex={open ? 0 : -1}>
+                <Link prefetch={false} href={l.href === "/" && pathname === "/" ? "#" : l.href} onClick={() => setOpen(false)} tabIndex={open ? 0 : -1}>
                   {l.label}
                 </Link>
               </li>

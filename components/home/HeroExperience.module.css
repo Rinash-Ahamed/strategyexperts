@@ -12,9 +12,9 @@
   /* CSS fail-open also works if hydration or the scene fails. */
   animation: safetyExit 450ms 6s forwards;
 }
-:global(html[data-hero-opening="refresh"]) .opening { display: grid; }
+:global(html[data-opening-trigger="refresh"]) .opening { display: grid; }
 @media (prefers-reduced-motion: no-preference) {
-  :global(html[data-hero-opening="refresh"]):has(.opening) :global(.nav) {
+  :global(html[data-opening-trigger="refresh"]):has(.opening) :global(.nav) {
     visibility: hidden;
     pointer-events: none;
     /* Restore even if hydration fails and only the CSS intro timeout runs. */
@@ -54,7 +54,7 @@
 }
 @keyframes safetyExit { to { opacity: 0; visibility: hidden; } }
 @media (prefers-reduced-motion: reduce) {
-  :global(.js) .opening { display: none; }
+  :global(html[data-opening-trigger="refresh"]) .opening { display: none; }
   .opening, .words span { animation: none; transition: none; }
 }
 @media (forced-colors: active) {

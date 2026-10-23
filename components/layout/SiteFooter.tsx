@@ -8,7 +8,7 @@ export default function SiteFooter() {
       <div className="wrap">
         <div className="footer-grid">
           <div className="footer-brand">
-            <Link href="/#top" className="footer-brand-link" aria-label="Strategy Experts home">
+            <Link href="/#" className="footer-brand-link" aria-label="Strategy Experts home">
               <Wordmark small={false} />
             </Link>
             <div className="footer-socials">

@@ -62,22 +62,24 @@
   .hero-digital .rings-wrap { justify-self: end; }
 }
 
-/* Small, service-coloured figures. Never change the approved-metrics gate. */
+/* One compact metric scale across home and services; approval gate unchanged. */
+.metrics { margin-top: clamp(18px, 2.4vw, 32px); }
 .home-metrics { display: grid; gap: 28px; margin-top: clamp(28px, 4vw, 48px); }
 .home-metric-group { --metric-colour: var(--botanical); min-width: 0; }
 .home-metric-group.metric-restaurant { --metric-colour: var(--terracotta); }
 .home-metric-group.metric-hotel { --metric-colour: #685338; }
 .home-metric-group.metric-digital { --metric-colour: var(--deep-teal); }
 .home-metric-group .metrics { margin-top: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.home-metric-group .metric { padding-block: 18px; }
-.home-metric-group .metric b {
+.metrics .metric { padding-block: 18px; }
+.metrics .metric b {
   font-size: clamp(1.5rem, 1.25rem + .8vw, 2rem);
   font-weight: 400;
   line-height: 1.16;
   letter-spacing: -.035em;
-  color: var(--metric-colour);
+  color: var(--metric-colour, var(--service-colour, var(--botanical)));
 }
-.home-metric-group .metric span { margin-top: 6px; font-size: .875rem; font-weight: 400; line-height: 1.45; }
+.metrics .metric span { margin-top: 6px; font-size: .875rem; font-weight: 400; line-height: 1.45; }
+.on-dark .metrics .metric b { color: var(--silver-white); }
 @media (min-width: 960px) {
   .home-metric-group .metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
