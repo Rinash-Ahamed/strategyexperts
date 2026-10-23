@@ -4,14 +4,24 @@
  * Nothing is invented: no client names, testimonials, awards or contact details.
  */
 
+import { normalizeSiteUrl } from "./site-url";
+
+const contactEmails = (
+  process.env.NEXT_PUBLIC_CONTACT_EMAIL || "Info.strategyexperts@gmail.com,Info@strategyexperts.in"
+).split(",").map((email) => email.trim()).filter(Boolean);
+
 export const SITE = {
   name: "Strategy Experts",
   tagline: "Digital Growth Partners",
   description:
     "Strategy Experts helps restaurants, hotels, e-commerce brands and local businesses perform better through platform expertise, revenue strategy and hands-on execution.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://strategyexperts.vercel.app",
+  url: normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
   whatsapp: (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "").replace(/\D/g, ""),
-  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "",
+  phone: "+919037870007",
+  phoneDisplay: "+91 9037870007",
+  instagram: "https://www.instagram.com/strategy.experts?exln=MWZpbmR0NTNzY3J5Mw%3D%3D&utm_source=qr",
+  emails: contactEmails,
+  email: contactEmails.join(","),
   showMetrics: process.env.NEXT_PUBLIC_SHOW_METRICS === "true",
 };
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
-import RobotHero from "@/components/home/RobotHero";
+import HeroExperience from "@/components/home/HeroExperience";
+import HeroHeadline from "@/components/home/HeroHeadline";
 import { ROBOT_SCENE_URL } from "@/lib/robot";
 import Ticker from "@/components/home/Ticker";
 import Metrics from "@/components/shared/Metrics";
@@ -30,19 +31,16 @@ export default function Home() {
   return (
     <>
       <link rel="preconnect" href="https://prod.spline.design" crossOrigin="anonymous" />
-      <link rel="preload" href={ROBOT_SCENE_URL} as="fetch" crossOrigin="anonymous" fetchPriority="low" />
+      <link rel="preload" href={ROBOT_SCENE_URL} as="fetch" crossOrigin="anonymous" fetchPriority="high" />
       {/* ------------------------------------------------ Hero */}
       <section className="hero" aria-labelledby="hero-title">
-        <div className="hero-glow" aria-hidden="true" />
-        <RobotHero />
+        <div className="hero-glow hero-background-glow" aria-hidden="true" />
+        <HeroExperience />
 
         <div className="wrap hero-shell">
           <div className="hero-side hero-side-left">
             <div className="hero-brand">
-              <h1 className="display" id="hero-title">
-                <span>Strategy</span>
-                <span>Experts</span>
-              </h1>
+              <HeroHeadline />
               <p>Better strategy.<br />Stronger business.</p>
             </div>
             <nav className="hero-service-nav" aria-label="Commerce and hospitality services">

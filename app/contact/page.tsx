@@ -23,8 +23,11 @@ export default function ContactPage() {
             lies.
           </p>
 
-          {(SITE.whatsapp || SITE.email) && (
             <ul className="channel-list" style={{ marginTop: 24 }}>
+              <li>
+                <span>Phone</span>
+                <a href={`tel:${SITE.phone}`}>{SITE.phoneDisplay}</a>
+              </li>
               {SITE.whatsapp && (
                 <li>
                   <span>WhatsApp</span>
@@ -33,14 +36,13 @@ export default function ContactPage() {
                   </a>
                 </li>
               )}
-              {SITE.email && (
-                <li>
+              {SITE.emails.map((email) => (
+                <li key={email}>
                   <span>Email</span>
-                  <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+                  <a href={`mailto:${email}`}>{email}</a>
                 </li>
-              )}
+              ))}
             </ul>
-          )}
         </div>
 
         <Suspense fallback={<div className="form" aria-busy="true" style={{ minHeight: 420 }} />}>

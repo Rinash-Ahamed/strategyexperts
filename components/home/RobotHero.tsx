@@ -15,7 +15,7 @@ type HandRig = {
   mirror: number;
 };
 
-export default function RobotHero() {
+export default function RobotHero({ onReady }: { onReady?: () => void } = {}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const headRef = useRef<SPEObject | null>(null);
   const headOriginRef = useRef({ x: 0, y: 0 });
@@ -28,63 +28,56 @@ export default function RobotHero() {
   const visibleRef = useRef(true);
   const reducedMotionRef = useRef(false);
   const [loaded, setLoaded] = useState(false);
-  const [loaderVisible, setLoaderVisible] = useState(true);
   const [mountScene, setMountScene] = useState(false);
 
   useEffect(() => {
-    const root = document.documentElement;
-    let firstFrame = 0;
-    let secondFrame = 0;
-    let idle: number | undefined;
-    let timer: number | undefined;
-    const waitForBrush = () => observer.observe(root, {
-      attributes: true, attributeFilter: ["data-route-transition"],
+    if (!loaded || !onReady) return;
+    let nextFrame = 0;
+    const frame = requestAnimationFrame(() => {
+      nextFrame = requestAnimationFrame(onReady);
     });
-    const mountWhenReady = () => {
-      if (root.hasAttribute("data-route-transition")) waitForBrush();
-      else setMountScene(true);
+    return () => {
+      cancelAnimationFrame(frame);
+      cancelAnimationFrame(nextFrame);
     };
-    // Avoid parsing/initializing the heavy 3D runtime during the brush reveal.
-    // The original robot starts automatically after the incoming page is clear.
-    const schedule = () => {
-      if (root.hasAttribute("data-route-transition")) { waitForBrush(); return; }
-      firstFrame = requestAnimationFrame(() => {
-        secondFrame = requestAnimationFrame(() => {
-          if (typeof window.requestIdleCallback === "function") {
-            idle = window.requestIdleCallback(mountWhenReady, { timeout: 600 });
-          } else {
-            timer = window.setTimeout(mountWhenReady, 0);
-          }
-        });
-      });
-    };
+  }, [loaded, onReady]);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    // Start immediately on direct visits, but do not compete with the brush.
     const observer = new MutationObserver(() => {
       if (!root.hasAttribute("data-route-transition")) {
         observer.disconnect();
-        schedule();
+        setMountScene(true);
       }
     });
-    schedule();
+    if (root.hasAttribute("data-route-transition")) {
+      observer.observe(root, { attributes: true, attributeFilter: ["data-route-transition"] });
+    } else {
+      setMountScene(true);
+    }
     return () => {
       observer.disconnect();
-      cancelAnimationFrame(firstFrame);
-      cancelAnimationFrame(secondFrame);
-      if (idle !== undefined) window.cancelIdleCallback(idle);
-      if (timer !== undefined) window.clearTimeout(timer);
     };
   }, []);
 
   useEffect(() => {
     const precisePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mobile = window.matchMedia("(max-width: 767px), (hover: none), (pointer: coarse)");
     const updatePreferences = () => {
       reducedMotionRef.current = motion.matches;
-      trackingRef.current = precisePointer.matches && !motion.matches;
+      trackingRef.current = precisePointer.matches && !motion.matches && !mobile.matches;
       if (containerRef.current) {
         containerRef.current.dataset.headTracking = trackingRef.current ? "enabled" : "disabled";
+        containerRef.current.dataset.renderMode = motion.matches ? "idle" : "animated";
       }
 
       if (!trackingRef.current) {
+        if (frameRef.current !== null) {
+          window.cancelAnimationFrame(frameRef.current);
+          frameRef.current = null;
+        }
         targetRef.current = { x: 0, y: 0 };
         currentRef.current = { x: 0, y: 0 };
         for (const hand of handsRef.current) {
@@ -94,7 +87,9 @@ export default function RobotHero() {
         applicationRef.current?.requestRender();
       }
       applicationRef.current?.setGlobalEvents(trackingRef.current);
-      if (motion.matches) applicationRef.current?.stop();
+      window.removeEventListener("pointermove", updatePointer);
+      if (trackingRef.current) window.addEventListener("pointermove", updatePointer, { passive: true });
+      if (motion.matches || !visibleRef.current) applicationRef.current?.stop();
       else if (visibleRef.current) applicationRef.current?.play();
     };
 
@@ -182,7 +177,7 @@ export default function RobotHero() {
     updatePreferences();
     precisePointer.addEventListener("change", updatePreferences);
     motion.addEventListener("change", updatePreferences);
-    window.addEventListener("pointermove", updatePointer, { passive: true });
+    mobile.addEventListener("change", updatePreferences);
     window.addEventListener("blur", resetPointer);
     document.documentElement.addEventListener("mouseleave", resetPointer);
     document.addEventListener("visibilitychange", updateVisibility);
@@ -190,6 +185,7 @@ export default function RobotHero() {
     return () => {
       precisePointer.removeEventListener("change", updatePreferences);
       motion.removeEventListener("change", updatePreferences);
+      mobile.removeEventListener("change", updatePreferences);
       window.removeEventListener("pointermove", updatePointer);
       window.removeEventListener("blur", resetPointer);
       document.documentElement.removeEventListener("mouseleave", resetPointer);
@@ -199,12 +195,6 @@ export default function RobotHero() {
       if (frameRef.current !== null) window.cancelAnimationFrame(frameRef.current);
     };
   }, []);
-
-  useEffect(() => {
-    if (loaded) return;
-    const timeout = window.setTimeout(() => setLoaderVisible(false), 6000);
-    return () => window.clearTimeout(timeout);
-  }, [loaded]);
 
   const handleLoad = useCallback((application: Application) => {
     applicationRef.current = application;
@@ -236,7 +226,6 @@ export default function RobotHero() {
 
     setLoaded(true);
     if (containerRef.current) containerRef.current.dataset.loadedAt = performance.now().toFixed(1);
-    setLoaderVisible(false);
     if (!visibleRef.current || reducedMotionRef.current) application.stop();
   }, []);
 
@@ -247,12 +236,6 @@ export default function RobotHero() {
       aria-hidden="true"
     >
       <div className="hero-robot-light" />
-      {loaderVisible && !loaded && (
-        <div className="hero-robot-loader">
-          <span />
-          <small>Loading interactive model</small>
-        </div>
-      )}
       {mountScene && <Spline
         className="hero-robot-canvas"
         scene={ROBOT_SCENE_URL}

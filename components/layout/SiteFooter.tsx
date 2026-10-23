@@ -3,7 +3,6 @@ import { SERVICES, SITE } from "@/lib/site";
 import Wordmark from "./Wordmark";
 
 export default function SiteFooter() {
-  const hasContact = SITE.email || SITE.whatsapp;
   return (
     <footer className="footer on-dark">
       <div className="wrap">
@@ -33,15 +32,18 @@ export default function SiteFooter() {
                   <a href={`https://wa.me/${SITE.whatsapp}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
                 </li>
               )}
-              {SITE.email && (
-                <li>
-                  <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+              <li>
+                <a href={`tel:${SITE.phone}`}>{SITE.phoneDisplay}</a>
+              </li>
+              {SITE.emails.map((email) => (
+                <li key={email}>
+                  <a href={`mailto:${email}`}>{email}</a>
                 </li>
-              )}
+              ))}
+              <li>
+                <a href={SITE.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>
+              </li>
             </ul>
-            {!hasContact && (
-              <p style={{ fontSize: ".85rem" }}>Use the contact page to start a conversation.</p>
-            )}
           </div>
         </div>
         <div className="footer-base">

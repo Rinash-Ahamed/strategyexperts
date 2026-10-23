@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Faq from "@/components/shared/Faq";
 import Metrics from "@/components/shared/Metrics";
-import { Rings } from "@/components/shared/Visuals";
+import DigitalGrowthOrbit from "./DigitalGrowthOrbit";
 import { SERVICES, SITE, type Service } from "@/lib/site";
 
 const Arrow = () => (
@@ -68,7 +68,7 @@ function HeroVisual({ s }: { s: Service }) {
     case "digital":
       return (
         <div className="rings-wrap" data-reveal>
-          <Rings color="var(--silver-dark)" />
+          <DigitalGrowthOrbit />
           <div className="pillrow">
             {s.platforms.map((p) => (
               <span key={p}>{p}</span>

@@ -1,0 +1,46 @@
+/* Paint the gradient on each visible text layer, not on an ancestor text mask. */
+:global(.hero-brand) h1.headline {
+  background: none;
+  color: var(--silver-white);
+  -webkit-text-fill-color: currentColor;
+}
+.static, .current {
+  background: var(--silver-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+/* Permanently hidden measuring text reserves the largest phrase at each width. */
+.headline span.phrases[data-rotating-phrases] {
+  display: grid;
+  min-width: 0;
+  width: 100%;
+  isolation: isolate;
+  pointer-events: none;
+}
+.measure, .current { grid-area: 1 / 1; overflow-wrap: normal; }
+.measure { visibility: hidden; }
+.current { opacity: 1; transform: translateY(0); transition: opacity 200ms ease-in, transform 200ms ease-in; }
+.current.leaving { opacity: 0; transform: translateY(-3px); }
+.phrases[data-animate="true"] .current:not(.leaving) { animation: arrive 200ms ease-out; }
+@keyframes arrive {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.headline .accessible {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@media (max-width: 700px) {
+  :global(.hero-brand) .headline { font-size: clamp(2rem, 8.8vw, 3rem); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .phrases[data-animate="true"] .current { animation: none; transition: none; opacity: 1; transform: none; }
+}

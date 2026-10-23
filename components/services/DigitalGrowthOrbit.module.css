@@ -1,0 +1,56 @@
+.figure {
+  --orbit-accent: #00cfff;
+  --orbit-line: rgb(71 190 224 / 42%);
+  --orbit-glow: rgb(0 177 225 / 10%);
+  --orbit-duration: 68s;
+  position: relative;
+  margin: 0;
+  width: 100%;
+  min-width: 0;
+  container-type: inline-size;
+}
+
+.scene { position: relative; width: 100%; aspect-ratio: 1; }
+.art { position: absolute; inset: 0; overflow: hidden; background: radial-gradient(ellipse at 50% 48%, var(--orbit-glow), transparent 65%); }
+.ring { position: absolute; top: 50%; left: 50%; aspect-ratio: 1; transform: translate(-50%, -50%); border: 1px solid var(--orbit-line); border-radius: 50%; pointer-events: none; }
+.outer { width: 68%; }
+.middle { width: 48%; opacity: .65; }
+.inner { width: 30%; opacity: .35; }
+.ring::after { content: ""; position: absolute; width: 4px; height: 4px; top: 14%; left: 14%; border-radius: 50%; background: var(--orbit-accent); }
+.middle::after { top: 84%; left: 84%; }
+.inner::after { top: 50%; left: 99%; }
+
+.runner { position: absolute; top: 50%; left: 50%; width: 68%; aspect-ratio: 1; pointer-events: none; animation: orbit var(--orbit-duration) linear infinite; }
+.member { position: absolute; left: 50%; top: 0; transform: translate(-50%, -50%); }
+.upright { animation: counterOrbit var(--orbit-duration) linear infinite; }
+.message { display: flex; align-items: center; gap: clamp(5px, 1.2cqw, 8px); width: clamp(88px, 29cqw, 156px); min-height: clamp(38px, 10cqw, 56px); padding: 6px; border: 1px solid rgb(115 242 255 / 45%); border-radius: 999px; background: linear-gradient(135deg, #04758b, #045668); color: #effeff; box-shadow: 0 5px 18px -12px #00cfff80; }
+.channelIcon { display: grid; place-items: center; flex: 0 0 auto; width: clamp(22px, 7cqw, 38px); aspect-ratio: 1; border: 1px solid rgb(232 252 255 / 35%); border-radius: 50%; background: rgb(0 207 255 / 12%); }
+.channelIcon svg { width: 58%; height: 58%; }
+.messageCopy { display: grid; gap: 3px; min-width: 0; line-height: 1.2; }
+.messageCopy strong { font-size: clamp(9px, 2.35cqw, 13px); font-weight: 500; }
+.messageCopy > span { color: #c5edf2; font-size: clamp(7px, 1.8cqw, 10px); white-space: nowrap; }
+.customerRunner { width: 48%; --orbit-duration: 55s; animation-direction: reverse; }
+.customerRunner .upright { animation-direction: reverse; }
+.customer { display: grid; place-items: center; width: clamp(27px, 8cqw, 44px); aspect-ratio: 1; border: 1px solid var(--orbit-line); border-radius: 50%; background: #08171c; color: #b6e7ef; }
+.customer svg { width: 60%; height: 60%; }
+.center { position: absolute; inset: 50% auto auto 50%; transform: translate(-50%, -50%); width: 30%; text-align: center; }
+.pin { display: block; width: clamp(26px, 8cqw, 44px); height: auto; margin: 0 auto 10px; color: var(--orbit-accent); }
+.center strong { display: block; color: #f0f0f0; font-size: clamp(16px, 5.1cqw, 28px); font-weight: 400; letter-spacing: -.04em; line-height: 1.06; }
+.center > span { display: block; margin-top: 10px; color: #a7cbd2; font-size: clamp(8px, 2cqw, 11px); }
+.caption { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px 12px; color: #a2a2a2; font-size: .72rem; line-height: 1.5; }
+.pause { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.motionControl { display: inline-flex; align-items: center; min-height: 44px; padding-inline: 8px; color: #c9c9cc; cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
+.pause:focus-visible ~ .caption .motionControl { outline: 2px solid #c9c9cc; outline-offset: 3px; }
+.resumeLabel { display: none; }
+.pause:checked ~ .scene .runner, .pause:checked ~ .scene .upright { animation-play-state: paused; }
+.pause:checked ~ .caption .pauseLabel { display: none; }
+.pause:checked ~ .caption .resumeLabel { display: inline; }
+
+@keyframes orbit { from { transform: translate(-50%, -50%) rotate(var(--angle)); } to { transform: translate(-50%, -50%) rotate(calc(var(--angle) + 360deg)); } }
+@keyframes counterOrbit { from { transform: rotate(calc(-1 * var(--angle))); } to { transform: rotate(calc(-1 * var(--angle) - 360deg)); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .runner { animation: none; transform: translate(-50%, -50%) rotate(var(--angle)); }
+  .upright { animation: none; transform: rotate(calc(-1 * var(--angle))); }
+  .motionControl, .pause { display: none; }
+}

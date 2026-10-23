@@ -19,8 +19,8 @@ Next.js (App Router, TypeScript), plain CSS, no animation libraries.
 - `lib/` - typed site configuration and content.
 
 ## Configuration (.env.local - see .env.example)
-- NEXT_PUBLIC_WHATSAPP_NUMBER / NEXT_PUBLIC_CONTACT_EMAIL: enable the contact form's send buttons and footer contact details. Nothing is invented; with both blank the form shows a "not configured" notice.
-- NEXT_PUBLIC_SITE_URL: used for metadata, sitemap, social sharing.
+- NEXT_PUBLIC_WHATSAPP_NUMBER: optionally enable WhatsApp enquiries using an international-format number. NEXT_PUBLIC_CONTACT_EMAIL optionally overrides the confirmed business email addresses with comma-separated recipients. Email enquiries open a draft addressed to both configured recipients; visitors review and send it in their email app.
+- NEXT_PUBLIC_SITE_URL: public site origin (for example, https://www.strategyexperts.in), used for metadata, sitemap and social sharing. Bare domains are normalized to HTTPS; blank or invalid values safely use the existing fallback origin.
 - NEXT_PUBLIC_SHOW_METRICS=true: reveals the per-service impact figures (lib/site.ts). They were transcribed from screenshots and must be verified first. Each set stays scoped to its own service.
 
 ## Content

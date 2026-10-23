@@ -1,0 +1,56 @@
+.opening {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: none;
+  place-items: center;
+  background: #000;
+  color: #e5e5e5;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 450ms ease;
+  /* CSS fail-open also works if hydration or the scene fails. */
+  animation: safetyExit 450ms 6s forwards;
+}
+:global(.js) .opening { display: grid; }
+:global(html[data-route-transition]) .opening { display: none; }
+.exiting { opacity: 0; }
+.composition { width: 100%; padding: 24px; text-align: center; }
+.words { display: grid; place-items: center; }
+.words span {
+  grid-area: 1 / 1;
+  font-size: clamp(3.5rem, 13vw, 10rem);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: -.065em;
+  color: #c4c4c4;
+  background: linear-gradient(105deg, #707070, #f4f4f4 48%, #929292);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+  animation: wordReveal 1s both;
+}
+.words span:nth-child(2) { animation-delay: 1s; }
+.words span:nth-child(3) { animation: finalWord 1s 2s both; }
+.composition p { margin-top: 28px; color: #929292; font-size: .85rem; letter-spacing: -.02em; }
+.skip { position: absolute; right: max(24px, env(safe-area-inset-right)); bottom: max(24px, env(safe-area-inset-bottom)); display: inline-flex; align-items: center; gap: 20px; min-height: 44px; padding: 8px 12px; border: 0; background: transparent; color: #bdbdbd; font-size: .8rem; pointer-events: auto; }
+.skip:hover { color: #fff; }
+@keyframes wordReveal {
+  0% { opacity: 0; transform: translateY(18px); }
+  22%, 72% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-12px); }
+}
+@keyframes finalWord {
+  from { opacity: 0; transform: translateY(18px); }
+  45%, to { opacity: 1; transform: translateY(0); }
+}
+@keyframes safetyExit { to { opacity: 0; visibility: hidden; } }
+@media (prefers-reduced-motion: reduce) {
+  :global(.js) .opening { display: none; }
+  .opening, .words span { animation: none; transition: none; }
+}
+@media (forced-colors: active) {
+  .opening { background: Canvas; color: CanvasText; }
+  .words span { background: none; -webkit-text-fill-color: currentColor; color: CanvasText; }
+  .composition p, .skip { color: CanvasText; }
+}
