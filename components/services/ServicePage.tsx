@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/shared/PageLink";
 import Faq from "@/components/shared/Faq";
 import Metrics from "@/components/shared/Metrics";
 import DigitalGrowthOrbit from "./DigitalGrowthOrbit";
@@ -20,10 +20,10 @@ const Mask = ({ children, d = 0 }: { children: React.ReactNode; d?: number }) =>
 
 function HeroVisual({ s }: { s: Service }) {
   if (s.theme !== "digital") {
-    return <div data-reveal><IndustryVisual theme={s.theme} platforms={s.platforms} priority /></div>;
+    return <div><IndustryVisual theme={s.theme} platforms={s.platforms} placement="service" /></div>;
   }
   return (
-    <div className="rings-wrap" data-reveal>
+    <div className="rings-wrap">
       <DigitalGrowthOrbit />
       <PlatformMarks platforms={s.platforms} disclaimer />
     </div>

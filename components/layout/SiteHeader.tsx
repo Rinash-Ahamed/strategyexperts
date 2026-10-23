@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/shared/PageLink";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Wordmark from "./Wordmark";
@@ -50,8 +50,6 @@ export default function SiteHeader({ links, name, tagline }: Props) {
     };
   }, []);
 
-  useEffect(() => setOpen(false), [pathname]);
-
   useEffect(() => {
     const desktop = window.matchMedia("(min-width: 1280px)");
     const closeOnDesktop = () => { if (desktop.matches) setOpen(false); };
@@ -61,6 +59,7 @@ export default function SiteHeader({ links, name, tagline }: Props) {
 
   useEffect(() => {
     if (!open) return;
+    const burger = burgerRef.current;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const background = [document.getElementById("main"), document.querySelector("footer")]
@@ -88,7 +87,7 @@ export default function SiteHeader({ links, name, tagline }: Props) {
       cancelAnimationFrame(frame);
       document.body.style.overflow = previousOverflow;
       background.forEach((element, index) => { element.inert = previousInert[index]; });
-      burgerRef.current?.focus();
+      burger?.focus();
     };
   }, [open]);
 

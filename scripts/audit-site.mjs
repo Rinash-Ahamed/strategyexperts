@@ -55,7 +55,7 @@ try {
   const targets=await fetch(`http://127.0.0.1:${port}/json`).then(r=>r.json());
   socket=new WebSocket(targets.find(t=>t.type==='page').webSocketDebuggerUrl);
   await new Promise((resolve,reject)=>{socket.onopen=resolve;socket.onerror=reject;});
-  socket.onmessage=e=>{const m=JSON.parse(e.data);if(m.method==='Runtime.exceptionThrown')report.errors.push(m.params.exceptionDetails.text);const p=pending.get(m.id);if(!p)return;clearTimeout(p.timer);pending.delete(m.id);m.error?p.reject(new Error(JSON.stringify(m.error))):p.resolve(m.result);};
+    socket.onmessage=e=>{const m=JSON.parse(e.data);if(m.method==='Runtime.exceptionThrown')report.errors.push(m.params.exceptionDetails.text);const p=pending.get(m.id);if(!p)return;clearTimeout(p.timer);pending.delete(m.id);if(m.error)p.reject(new Error(JSON.stringify(m.error)));else p.resolve(m.result);};
   await send('Page.enable');await send('Runtime.enable');
   await send('Page.addScriptToEvaluateOnNewDocument',{source:instrumentation});
   const viewports = mobileOnly ? [[390,844,'mobile']] : [[1440,1000,'desktop'],[390,844,'mobile']];
@@ -69,7 +69,13 @@ try {
     metrics.modelReady=modelReady;metrics.viewport=name;
     metrics.runtime=await evaluate(appState);
     metrics.frames=await evaluate(`new Promise(resolve=>{let first=0,last=0;const deltas=[];function tick(now){if(!first)first=now;if(last)deltas.push(now-last);last=now;if(now-first<1500)requestAnimationFrame(tick);else{deltas.sort((a,b)=>a-b);resolve({samples:deltas.length,p50Ms:deltas[Math.floor(deltas.length*.5)],p95Ms:deltas[Math.floor(deltas.length*.95)],worstMs:deltas.at(-1)})}}requestAnimationFrame(tick)})`);
-    await evaluate(`scrollTo({top:document.querySelector('.hero-intro').offsetTop+500,behavior:'instant'})`);await delay(300);
+    await evaluate(`scrollTo({top:document.querySelector('.hero-intro').offsetTop+500,behavior:'instant'})`);
+    // Software WebGL can delay the next observer delivery by more than 300ms.
+    // Wait for the existing lifecycle handler rather than reporting a stale ref.
+    for (let attempt=0;attempt<20;attempt++) {
+      if ((await evaluate(appState))?.stopped) break;
+      await delay(250);
+    }
     metrics.offscreenRuntime=await evaluate(appState);
     report.runs.push(metrics);
     await writeFile(path.join(output,'report.json'),JSON.stringify(report,null,2));

@@ -105,6 +105,11 @@ try {
   await send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: 1300, y: 280 });
   await delay(600);
   report.rigAfter = await evaluate(rigSnapshot);
+  const headName = await evaluate("document.querySelector('.hero-robot')?.dataset.headTarget");
+  const headBefore = report.rigBefore?.objects.find(object => object.name === headName);
+  const headAfter = report.rigAfter?.objects.find(object => object.uuid === headBefore?.uuid);
+  report.robotHeadResponds = Boolean(headBefore && headAfter &&
+    Math.abs(headBefore.rotation.y - headAfter.rotation.y) + Math.abs(headBefore.rotation.x - headAfter.rotation.x) > .002);
   report.heroHasNoPauseControl = await evaluate(`!document.querySelector('.hero-animation-control')`);
   report.robotRunsAutomatically = report.rigAfter?.stopped === false;
   for (const [width, height, name] of (motionOnly ? [] : [[1440,1000,'desktop'],[820,1180,'tablet'],[390,844,'mobile'],[320,800,'small-mobile']])) {
@@ -120,10 +125,10 @@ try {
     }
   }
   await evaluate('scrollTo(0,0)');
-  await evaluate(`document.querySelector('button[aria-controls]')?.click()`);
-  await delay(150);
-  report.mobileMenuExpanded = await evaluate(`document.querySelector('button[aria-controls]')?.getAttribute('aria-expanded')`);
   if (!motionOnly) {
+    await evaluate(`document.querySelector('button[aria-controls]')?.click()`);
+    await delay(150);
+    report.mobileMenuExpanded = await evaluate(`document.querySelector('button[aria-controls]')?.getAttribute('aria-expanded')`);
     for (let attempt=0; attempt<30; attempt++) {
       if (await evaluate(`Boolean(document.getElementById('main')?.inert)`)) break;
       await delay(100);
@@ -165,6 +170,27 @@ try {
     if (await evaluate('Boolean(document.querySelector(".hero-robot.is-loaded canvas"))')) break;
     await delay(200);
   }
+  await evaluate("scrollTo({top:document.querySelector('.hero-intro').offsetTop+500,behavior:'instant'})");
+  for (let attempt=0;attempt<50;attempt++) {
+    if ((await evaluate(rigSnapshot))?.stopped) break;
+    await delay(100);
+  }
+  report.offscreenStops = (await evaluate(rigSnapshot))?.stopped === true;
+  await evaluate("scrollTo({top:0,behavior:'instant'})");
+  for (let attempt=0;attempt<50;attempt++) {
+    if ((await evaluate(rigSnapshot))?.stopped === false) break;
+    await delay(100);
+  }
+  report.visibleResumes = (await evaluate(rigSnapshot))?.stopped === false;
+  await send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
+  await send('Emulation.setTouchEmulationEnabled', { enabled: true });
+  await delay(600);
+  report.touch = {
+    tracking: await evaluate("document.querySelector('.hero-robot')?.dataset.headTracking"),
+    stopped: (await evaluate(rigSnapshot))?.stopped,
+  };
+  await send('Emulation.setTouchEmulationEnabled', { enabled: false });
+  await send('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1000, deviceScaleFactor: 1, mobile: false });
   await send('Emulation.setEmulatedMedia', { features: [{ name:'prefers-reduced-motion',value:'reduce' }] });
   for (let attempt=0; attempt<50; attempt++) {
     if (await evaluate(`document.querySelector('.hero-robot')?.dataset.headTracking === 'disabled'`)) break;
@@ -177,6 +203,9 @@ try {
   await send('Emulation.setEmulatedMedia', { features: [] });
   const failures = [];
   if (!report.loaded) failures.push('Robot did not load');
+  if (!report.robotHeadResponds) failures.push('Robot head did not respond to the cursor');
+  if (!report.offscreenStops || !report.visibleResumes) failures.push('Robot offscreen lifecycle failed');
+  if (report.touch.tracking !== 'disabled' || report.touch.stopped !== false) failures.push('Touch devices should retain live animation without cursor tracking');
   if (!report.heroLabelsUnobstructed) failures.push('Hero label cleanup failed');
   if (report.visualFlow.maxSectionPadding > 112 || report.visualFlow.menuClip !== 'none' || report.visualFlow.heroGlowFilter !== 'none') failures.push('Spacing or lightweight visual-flow regression');
   if (JSON.stringify(report.heroHoverBefore) !== JSON.stringify(report.heroHoverAfter)) failures.push('Hero hover changes layout');

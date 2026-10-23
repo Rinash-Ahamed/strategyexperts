@@ -15,7 +15,7 @@ export default function ContactPage() {
     <div className="wrap">
       <div className="contact-grid">
         <div className="stack-m">
-          <h1 className="h1" style={{ fontSize: "clamp(2.6rem, 6.4vw, 5.6rem)" }}>
+          <h1 className="h1">
             Ready to grow smarter?
           </h1>
           <p className="lead">

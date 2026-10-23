@@ -43,21 +43,15 @@ export default function RobotHero({ onReady }: { onReady?: () => void } = {}) {
   }, [loaded, onReady]);
 
   useEffect(() => {
-    const root = document.documentElement;
-    // Start immediately on direct visits, but do not compete with the brush.
-    const observer = new MutationObserver(() => {
-      if (!root.hasAttribute("data-route-transition")) {
-        observer.disconnect();
-        setMountScene(true);
-      }
+    // Let the server-rendered copy paint before evaluating the heavy 3D runtime.
+    // The scene file still preloads immediately; only initialization yields.
+    let secondFrame = 0;
+    const firstFrame = requestAnimationFrame(() => {
+      secondFrame = requestAnimationFrame(() => setMountScene(true));
     });
-    if (root.hasAttribute("data-route-transition")) {
-      observer.observe(root, { attributes: true, attributeFilter: ["data-route-transition"] });
-    } else {
-      setMountScene(true);
-    }
     return () => {
-      observer.disconnect();
+      cancelAnimationFrame(firstFrame);
+      cancelAnimationFrame(secondFrame);
     };
   }, []);
 

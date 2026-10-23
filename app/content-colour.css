@@ -1,17 +1,25 @@
 /* Colour belongs to the content. The signature robot hero remains untouched. */
-:root { --mist: #d9e7e8; --platinum: #bfc0c2; --botanical: #315b50; }
+:root {
+  --mist: #d9e7e8;
+  --platinum: #bfc0c2;
+  --botanical: #315b50;
+  --terracotta: #82432e;
+  --sand: #e9ddcb;
+  --deep-teal: #285762;
+}
+.surface-ivory, .surface-silver { --ink-3: #555d59; --silver-dark: #555d59; }
 
 .expertise .sc .grid { align-items: center; }
 .expertise .sc .grid > * { min-width: 0; }
-.sc-2.surface-silver { --bg: var(--mist); background: linear-gradient(180deg, var(--ivory), var(--mist) 30%); }
-.sc-3.surface-ivory { --accent: var(--botanical); background: var(--ivory); color: var(--ink); border-radius: 0; }
+.sc-2.surface-silver { --bg: #f0e2d9; --botanical: var(--terracotta); background: linear-gradient(180deg, var(--ivory), #f0e2d9 30%); }
+.sc-3.surface-ivory { --accent: var(--botanical); background: linear-gradient(160deg, var(--ivory) 12%, var(--sand)); color: var(--ink); border-radius: 0; }
 .sc-3.surface-ivory .sc-summary { color: var(--ink-2); opacity: 1; }
 .sc-3.surface-ivory .sc-caps li { font-weight: 400; }
 .sc-4.surface-ivory { background: var(--ivory); }
 .expertise .sc-caps li::before { background: var(--botanical); border-radius: 50%; width: 5px; height: 5px; }
 .expertise .link-arrow:hover { color: var(--botanical); border-color: var(--botanical); }
 .expertise .consent-note { border-left-color: var(--botanical); background: #e8ede7; }
-.process.surface-silver { --bg: var(--mist); background: var(--mist); }
+.process.surface-silver { --bg: var(--mist); background: linear-gradient(135deg, var(--mist), #dce8de); }
 .service-page .focus-block { background: var(--mist); }
 .service-page .audience li:hover { background: var(--botanical); }
 .service-page .sp-hero.service-hero-paper { background: var(--ivory); color: #202020; }
@@ -21,6 +29,27 @@
 .service-page .service-hero-paper .btn-ghost:hover { border-color: var(--botanical); color: var(--botanical); }
 .service-hero-paper .sp-hero-grid { gap: clamp(32px, 4vw, 64px); }
 .service-page .hero-digital [data-platform-marks] { margin-top: 20px; }
+.service-page .sp-hero .line-mask > span { animation: none; }
+
+/* Pigmented paper, not animated decoration. Original platform colours stay intact. */
+.service-page.t-ecom { --service-colour: var(--botanical); --service-paper: #e2e9de; }
+.service-page.t-restaurant { --service-colour: var(--terracotta); --service-paper: #f0e2d9; }
+.service-page.t-hotel { --service-colour: #685338; --service-paper: var(--sand); }
+.service-page.t-digital { --service-colour: var(--deep-teal); --service-paper: var(--mist); }
+.service-page .sp-hero.service-hero-paper {
+  background: linear-gradient(125deg, var(--ivory) 35%, var(--service-paper));
+}
+.service-page .focus-block { background: var(--service-paper); }
+.service-page .focus-grid h3 { color: var(--service-colour); }
+.service-page .deliver li:hover { background: var(--service-paper); }
+.service-page .audience li:hover { background: var(--service-colour); }
+.service-page .service-hero-paper .btn-accent:hover { background: var(--service-colour); }
+.service-page .service-hero-paper .btn-ghost:hover { color: var(--service-colour); border-color: var(--service-colour); }
+.hero-intro .hero-index a:hover,
+.hero-intro .btn-ghost:hover { color: var(--botanical); border-color: var(--botanical); }
+.process .process-step h3 { color: var(--deep-teal); }
+.cta.on-dark,
+.sp-cta.on-dark { background: radial-gradient(ellipse at 90% 100%, #19362f, transparent 65%), #111716; }
 
 /* Original-colour logos on an open light ribbon, never recoloured or stretched. */
 .platform-ticker.ticker { background: #faf9f6; padding-block: 24px; }

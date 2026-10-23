@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/shared/PageLink";
 import { SERVICES, SITE } from "@/lib/site";
 import Wordmark from "./Wordmark";
 

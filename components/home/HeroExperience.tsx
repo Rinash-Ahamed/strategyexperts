@@ -7,19 +7,18 @@ import styles from "./HeroExperience.module.css";
 export default function HeroExperience() {
   const [ready, setReady] = useState(false);
   const [minimumElapsed, setMinimumElapsed] = useState(false);
-  const [exiting, setExiting] = useState(false);
+  const [deadlineReached, setDeadlineReached] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const exiting = deadlineReached || (ready && minimumElapsed);
   const handleReady = useCallback(() => setReady(true), []);
 
   useEffect(() => {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (motion.matches || document.documentElement.hasAttribute("data-route-transition")) {
-      setDismissed(true);
-      return;
-    }
+    // The CSS reduced-motion rule hides the opening before hydration too.
+    if (motion.matches) return;
 
     const minimum = window.setTimeout(() => setMinimumElapsed(true), 3000);
-    const deadline = window.setTimeout(() => setExiting(true), 6000);
+    const deadline = window.setTimeout(() => setDeadlineReached(true), 6000);
     // Never trap navigation or keyboard focus behind a decorative introduction.
     const dismiss = () => setDismissed(true);
     const onKey = (event: KeyboardEvent) => {
@@ -39,10 +38,6 @@ export default function HeroExperience() {
       motion.removeEventListener("change", onMotionChange);
     };
   }, []);
-
-  useEffect(() => {
-    if (ready && minimumElapsed) setExiting(true);
-  }, [ready, minimumElapsed]);
 
   useEffect(() => {
     if (!exiting) return;

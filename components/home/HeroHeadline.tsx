@@ -20,11 +20,7 @@ export default function HeroHeadline() {
   const [leaving, setLeaving] = useState(false);
 
   useEffect(() => {
-    if (!animate) {
-      setIndex(0);
-      setLeaving(false);
-      return;
-    }
+    if (!animate) return;
     let timer: number;
     const hold = () => {
       // Allow 200ms for the incoming fade, then hold fully visible for 1500ms.
@@ -44,7 +40,11 @@ export default function HeroHeadline() {
   useEffect(() => {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let inView = true;
-    const update = () => setAnimate(inView && !document.hidden && !motion.matches);
+    const update = () => {
+      const active = inView && !document.hidden && !motion.matches;
+      setAnimate(active);
+      if (!active) setLeaving(false);
+    };
     const observer = new IntersectionObserver(([entry]) => {
       inView = entry.isIntersecting;
       update();

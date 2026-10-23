@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/shared/PageLink";
 import HeroExperience from "@/components/home/HeroExperience";
 import HeroHeadline from "@/components/home/HeroHeadline";
 import { ROBOT_SCENE_URL } from "@/lib/robot";
@@ -19,12 +19,6 @@ const [ecom, restaurant, hotel, digital] = SERVICES;
 const Arrow = () => (
   <span className="arr" aria-hidden="true">
     →
-  </span>
-);
-
-const Mask = ({ children, d = 0 }: { children: React.ReactNode; d?: number }) => (
-  <span className="line-mask">
-    <span style={{ ["--d" as string]: `${d}s` }}>{children}</span>
   </span>
 );
 

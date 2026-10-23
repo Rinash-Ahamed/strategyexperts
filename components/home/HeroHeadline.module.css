@@ -27,6 +27,7 @@
 .measure { visibility: hidden; }
 .current { opacity: 1; transform: translateY(0); transition: opacity 200ms ease-in, transform 200ms ease-in; }
 .current.leaving { opacity: 0; transform: translateY(-3px); }
+.phrases[data-animate="false"] .current { opacity: 1; transform: none; transition: none; }
 .phrases[data-animate="true"] .current:not(.leaving) { animation: arrive 200ms ease-out; }
 @keyframes arrive {
   from { opacity: 0; transform: translateY(6px); }
@@ -43,7 +44,7 @@
   white-space: nowrap;
 }
 @media (max-width: 700px) {
-  :global(.hero-brand) .headline { font-size: clamp(2rem, 8.8vw, 3rem); }
+  :global(.hero-brand) .headline { font-size: var(--type-hero); }
 }
 @media (prefers-reduced-motion: reduce) {
   .phrases[data-animate="true"] .current { animation: none; transition: none; opacity: 1; transform: none; }

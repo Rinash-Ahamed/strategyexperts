@@ -13,9 +13,8 @@
   animation: safetyExit 450ms 6s forwards;
 }
 :global(.js) .opening { display: grid; }
-:global(html[data-route-transition]) .opening { display: none; }
 @media (prefers-reduced-motion: no-preference) {
-  :global(html.js:not([data-route-transition])):has(.opening) :global(.nav) {
+  :global(html.js):has(.opening) :global(.nav) {
     visibility: hidden;
     pointer-events: none;
     /* Restore even if hydration fails and only the CSS intro timeout runs. */
