@@ -2,6 +2,8 @@ import Link from "next/link";
 import Faq from "@/components/shared/Faq";
 import Metrics from "@/components/shared/Metrics";
 import DigitalGrowthOrbit from "./DigitalGrowthOrbit";
+import IndustryVisual from "@/components/shared/IndustryVisual";
+import PlatformMarks from "@/components/shared/PlatformMarks";
 import { SERVICES, SITE, type Service } from "@/lib/site";
 
 const Arrow = () => (
@@ -17,66 +19,15 @@ const Mask = ({ children, d = 0 }: { children: React.ReactNode; d?: number }) =>
 );
 
 function HeroVisual({ s }: { s: Service }) {
-  switch (s.theme) {
-    case "ecom":
-      return (
-        <div data-reveal>
-          <div className="stackbig" >
-            {s.platforms.map((p) => (
-              <div key={p}>
-                <strong>{p}</strong>
-              </div>
-            ))}
-          </div>
-          <p className="plat-label">{s.platformsLabel}</p>
-        </div>
-      );
-    case "restaurant":
-      return (
-        <div className="ticket" data-reveal>
-          <p className="mini">Order up</p>
-          <div className="big">
-            <span>Zomato</span>
-            <span>Swiggy</span>
-          </div>
-          <ul>
-            {s.capabilities.map((c) => (
-              <li key={c}>
-                {c}
-              </li>
-            ))}
-          </ul>
-        </div>
-      );
-    case "hotel":
-      return (
-        <div className="kpis" data-reveal>
-          <div>
-            <strong>Occupancy</strong>
-            <em>Rooms sold</em>
-          </div>
-          <div>
-            <strong>ADR</strong>
-            <em>Average daily rate</em>
-          </div>
-          <div>
-            <strong>RevPAR</strong>
-            <em>Revenue per available room</em>
-          </div>
-        </div>
-      );
-    case "digital":
-      return (
-        <div className="rings-wrap" data-reveal>
-          <DigitalGrowthOrbit />
-          <div className="pillrow">
-            {s.platforms.map((p) => (
-              <span key={p}>{p}</span>
-            ))}
-          </div>
-        </div>
-      );
+  if (s.theme !== "digital") {
+    return <div data-reveal><IndustryVisual theme={s.theme} platforms={s.platforms} priority /></div>;
   }
+  return (
+    <div className="rings-wrap" data-reveal>
+      <DigitalGrowthOrbit />
+      <PlatformMarks platforms={s.platforms} disclaimer />
+    </div>
+  );
 }
 
 export default function ServicePage({ service: s }: { service: Service }) {
@@ -86,7 +37,7 @@ export default function ServicePage({ service: s }: { service: Service }) {
   return (
     <div className={`service-page surface-ivory t-${s.theme}`}>
       {/* ---------------- Hero ---------------- */}
-      <section className={`sp-hero on-dark hero-${s.theme}`} aria-labelledby="sp-title">
+      <section className={`sp-hero ${s.theme === "digital" ? "on-dark" : "service-hero-paper"} hero-${s.theme}`} aria-labelledby="sp-title">
         <div className="wrap">
           <div className="sp-hero-grid">
             <div className="stack-m">
@@ -111,13 +62,6 @@ export default function ServicePage({ service: s }: { service: Service }) {
                 ))}
               </h1>
               <p className="lead">{s.intro}</p>
-              {s.theme === "hotel" && (
-                <div className="otas">
-                  {s.platforms.map((p) => (
-                    <span key={p}>{p}</span>
-                  ))}
-                </div>
-              )}
               <div className="sp-hero-actions">
                 <Link prefetch={false} href={`/contact?service=${s.slug}`} className="btn btn-accent">
                   Get a Free Consultation <Arrow />

@@ -1,0 +1,28 @@
+.visual { min-width: 0; width: 100%; }
+.photo { margin: 0; }
+.photo > img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; filter: none; border-radius: 3px 3px 32px 3px; }
+.restaurant .photo > img { aspect-ratio: 5 / 4; border-radius: 32px 3px 3px 3px; }
+.hotel .photo > img { aspect-ratio: 3 / 2; border-radius: 3px; }
+.photo figcaption { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 16px; padding-block: 12px 20px; color: #555d59; font-size: .75rem; line-height: 1.5; }
+.photo figcaption > span:last-child { color: #68706c; font-size: .68rem; }
+.platforms { padding: 20px clamp(16px, 2vw, 28px); background: #faf9f6; color: #202020; border-radius: 3px; }
+.logos { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 28px; padding: 0; margin: 0; list-style: none; }
+.logos > li { display: grid; place-items: center; min-height: 44px; flex: 0 1 auto; }
+.logos img { display: block; width: auto; height: auto; max-width: 140px; max-height: 38px; object-fit: contain; filter: none; }
+.disclaimer { margin-top: 18px; color: #606762; font-size: .67rem; line-height: 1.6; max-width: 65ch; }
+.growth { padding: clamp(24px, 4vw, 48px); background: #d9e7e8; color: #202020; border-radius: 3px 40px 3px 3px; }
+.growth .growthTitle { max-width: 13ch; color: #202020; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 350; line-height: 1.08; letter-spacing: -.045em; margin: 0 0 36px; }
+.growth ol { display: grid; gap: 0; padding: 0; margin: 0; list-style: none; }
+.growth li { position: relative; display: grid; grid-template-columns: 12px 1fr; gap: 20px; padding-bottom: 26px; }
+.growth li:not(:last-child)::before { content: ""; position: absolute; left: 5px; top: 12px; bottom: 0; width: 1px; background: #91aaa0; }
+.growth li::after { content: ""; grid-area: 1 / 1; width: 11px; height: 11px; margin-top: 7px; border-radius: 50%; background: #315b50; }
+.growth li > div { grid-column: 2; }
+.growth strong { font-size: 1.05rem; font-weight: 500; }
+.growth p { font-size: .88rem; line-height: 1.6; color: #475b53; margin-top: 5px; }
+.growth > p { margin-top: 6px; font-size: .69rem; }
+.growth + .platforms { margin-top: 16px; }
+@media (max-width: 600px) {
+  .logos { gap: 16px 22px; }
+  .logos img { max-width: 114px; max-height: 32px; }
+  .growth { border-top-right-radius: 24px; }
+}

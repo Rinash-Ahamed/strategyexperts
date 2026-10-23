@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import "./refinements.css";
+import "./content-colour.css";
 import RevealObserver from "@/components/effects/RevealObserver";
 import RouteTransition from "@/components/effects/RouteTransition";
 import SiteFooter from "@/components/layout/SiteFooter";

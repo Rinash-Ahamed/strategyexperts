@@ -1,0 +1,38 @@
+/* Colour belongs to the content. The signature robot hero remains untouched. */
+:root { --mist: #d9e7e8; --platinum: #bfc0c2; --botanical: #315b50; }
+
+.expertise .sc .grid { align-items: center; }
+.expertise .sc .grid > * { min-width: 0; }
+.sc-2.surface-silver { --bg: var(--mist); background: linear-gradient(180deg, var(--ivory), var(--mist) 30%); }
+.sc-3.surface-ivory { --accent: var(--botanical); background: var(--ivory); color: var(--ink); border-radius: 0; }
+.sc-3.surface-ivory .sc-summary { color: var(--ink-2); opacity: 1; }
+.sc-3.surface-ivory .sc-caps li { font-weight: 400; }
+.sc-4.surface-ivory { background: var(--ivory); }
+.expertise .sc-caps li::before { background: var(--botanical); border-radius: 50%; width: 5px; height: 5px; }
+.expertise .link-arrow:hover { color: var(--botanical); border-color: var(--botanical); }
+.expertise .consent-note { border-left-color: var(--botanical); background: #e8ede7; }
+.process.surface-silver { --bg: var(--mist); background: var(--mist); }
+.service-page .focus-block { background: var(--mist); }
+.service-page .audience li:hover { background: var(--botanical); }
+.service-page .sp-hero.service-hero-paper { background: var(--ivory); color: #202020; }
+.service-page .service-hero-paper .btn-accent { background: #202020; color: var(--ivory); }
+.service-page .service-hero-paper .btn-ghost { color: #202020; border-color: #9b9e97; }
+.service-page .service-hero-paper .btn-accent:hover { background: var(--botanical); }
+.service-page .service-hero-paper .btn-ghost:hover { border-color: var(--botanical); color: var(--botanical); }
+.service-hero-paper .sp-hero-grid { gap: clamp(32px, 4vw, 64px); }
+.service-page .hero-digital [data-platform-marks] { margin-top: 20px; }
+
+/* Original-colour logos on an open light ribbon, never recoloured or stretched. */
+.platform-ticker.ticker { background: #faf9f6; padding-block: 24px; }
+.platform-ticker .ticker-track { animation-duration: 72s; }
+.platform-ticker .ticker-logo { display: grid; place-items: center; flex: 0 0 190px; width: 190px; padding-inline: 30px; }
+.platform-ticker .ticker-logo img { display: block; width: auto; height: auto; max-width: 130px; max-height: 36px; object-fit: contain; filter: none; }
+@media (max-width: 700px) {
+  .platform-ticker .ticker-logo { flex-basis: 150px; width: 150px; padding-inline: 24px; }
+  .platform-ticker .ticker-logo img { max-width: 102px; max-height: 30px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .platform-ticker .ticker-track { width: auto; display: block; }
+  .platform-ticker .ticker-group { flex-wrap: wrap; justify-content: center; row-gap: 20px; }
+  .platform-ticker .ticker-group[aria-hidden="true"] { display: none; }
+}

@@ -4,7 +4,8 @@ import HeroHeadline from "@/components/home/HeroHeadline";
 import { ROBOT_SCENE_URL } from "@/lib/robot";
 import Ticker from "@/components/home/Ticker";
 import Metrics from "@/components/shared/Metrics";
-import { Rings } from "@/components/shared/Visuals";
+import IndustryVisual from "@/components/shared/IndustryVisual";
+import GrowthPath from "@/components/shared/GrowthPath";
 import {
   CHALLENGE,
   HOME_FRAMEWORK,
@@ -177,11 +178,7 @@ export default function Home() {
         <article className="sc sc-1 surface-ivory" aria-labelledby="sc1">
           <div className="wrap pad">
             <div className="grid">
-              <div className="mk" aria-hidden="true">
-                {ecom.platforms.map((p) => (
-                  <span key={p}>{p}</span>
-                ))}
-              </div>
+              <div data-reveal><IndustryVisual theme="ecom" platforms={ecom.platforms} /></div>
               <div className="stack-m" data-reveal>
                 <h3 className="sc-title" id="sc1">{ecom.name}</h3>
                 <p className="sc-summary">{ecom.summary}</p>
@@ -202,14 +199,7 @@ export default function Home() {
         <article className="sc sc-2 surface-silver" aria-labelledby="sc2">
           <div className="wrap pad">
             <div className="grid">
-              <div className="menu-card" data-reveal>
-                <p className="mini">The menu</p>
-                {restaurant.capabilities.map((c) => (
-                  <div className="menu-line" key={c}>
-                    {c}
-                  </div>
-                ))}
-              </div>
+              <div data-reveal><IndustryVisual theme="restaurant" platforms={restaurant.platforms} /></div>
               <div className="stack-m" data-reveal>
                 <h3 className="sc-title" id="sc2" style={{ color: "var(--accent-ink)" }}>
                   {restaurant.name}
@@ -217,10 +207,9 @@ export default function Home() {
                 <p className="sc-summary" style={{ color: "var(--ink-2)", opacity: 1 }}>
                   {restaurant.summary}
                 </p>
-                <div className="plats" aria-hidden="true">
-                  <span>Zomato</span>
-                  <span>Swiggy</span>
-                </div>
+                <ul className="sc-caps">
+                  {restaurant.capabilities.map((capability) => <li key={capability}>{capability}</li>)}
+                </ul>
                 <Link prefetch={false} className="link-arrow" href={`/services/${restaurant.slug}`}>
                   Explore Service <Arrow />
                 </Link>
@@ -230,28 +219,20 @@ export default function Home() {
         </article>
 
         {/* 03 - Hotel */}
-        <article className="sc sc-3 on-dark" aria-labelledby="sc3">
+        <article className="sc sc-3 surface-ivory" aria-labelledby="sc3">
           <div className="wrap pad">
             <div className="grid">
               <div className="stack-l" data-reveal>
                 <h3 className="sc-title" id="sc3">{hotel.name}</h3>
                 <p className="sc-summary">{hotel.summary}</p>
-                <div className="bigterms">
-                  <span>Occupancy</span>
-                  <span>ADR</span>
-                  <span>RevPAR</span>
-                </div>
+                <ul className="sc-caps">
+                  {hotel.capabilities.map((capability) => <li key={capability}>{capability}</li>)}
+                </ul>
                 <Link prefetch={false} className="link-arrow" href={`/services/${hotel.slug}`}>
                   Explore Service <Arrow />
                 </Link>
               </div>
-              <ol className="ledger" data-reveal>
-                {hotel.capabilities.map((c) => (
-                  <li className="ledger-row" key={c}>
-                    <span>{c}</span>
-                  </li>
-                ))}
-              </ol>
+              <div data-reveal><IndustryVisual theme="hotel" platforms={hotel.platforms} /></div>
             </div>
           </div>
         </article>
@@ -261,7 +242,7 @@ export default function Home() {
           <div className="wrap pad">
             <div className="grid">
               <div data-reveal>
-                <Rings />
+                <GrowthPath platforms={digital.platforms} />
               </div>
               <div className="stack-m" data-reveal>
                 <h3 className="sc-title" id="sc4">{digital.name}</h3>

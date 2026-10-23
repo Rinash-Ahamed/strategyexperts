@@ -1,3 +1,6 @@
+import Image from "next/image";
+import { PLATFORM_ASSETS } from "@/lib/platform-assets";
+
 const NAMES = [
   "Amazon", "Flipkart", "Meesho", "Zomato", "Swiggy",
   "MakeMyTrip", "Booking.com", "Agoda", "Goibibo", "Expedia",
@@ -8,15 +11,14 @@ export default function Ticker() {
   const group = (hidden: boolean) => (
     <div className="ticker-group" aria-hidden={hidden || undefined}>
       {NAMES.map((n) => (
-        <span key={n} style={{ display: "contents" }}>
-          <span>{n}</span>
-          <i />
+        <span key={n} className="ticker-logo">
+          <Image {...PLATFORM_ASSETS[n]} sizes="140px" alt={hidden ? "" : n} />
         </span>
       ))}
     </div>
   );
   return (
-    <div className="ticker on-dark" role="region" aria-label="Platforms we work across">
+    <div className="ticker platform-ticker surface-ivory" role="region" aria-label="Platforms referenced in our services">
       <div className="ticker-track">
         {group(false)}
         {group(true)}
