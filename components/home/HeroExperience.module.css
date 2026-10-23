@@ -14,6 +14,15 @@
 }
 :global(.js) .opening { display: grid; }
 :global(html[data-route-transition]) .opening { display: none; }
+@media (prefers-reduced-motion: no-preference) {
+  :global(html.js:not([data-route-transition])):has(.opening) :global(.nav) {
+    visibility: hidden;
+    pointer-events: none;
+    /* Restore even if hydration fails and only the CSS intro timeout runs. */
+    animation: restoreNavigation 0s 6450ms forwards;
+  }
+}
+@keyframes restoreNavigation { to { visibility: visible; pointer-events: auto; } }
 .exiting { opacity: 0; }
 .composition { width: 100%; padding: 24px; text-align: center; }
 .words { display: grid; place-items: center; }
