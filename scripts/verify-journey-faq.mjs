@@ -66,7 +66,7 @@ try {
     clearTimeout(entry.timer); pending.delete(message.id);
     if (message.error) entry.reject(new Error(JSON.stringify(message.error))); else entry.resolve(message.result);
   };
-  await send('Page.enable'); await send('Runtime.enable');
+  await send('Page.enable'); await send('Runtime.enable'); await send('Page.bringToFront');
   await send('Fetch.enable', { patterns: [{ urlPattern: '*scene.splinecode*', requestStage: 'Request' }] });
   await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
   for (const width of [390, 820, 1440]) {
@@ -82,19 +82,30 @@ try {
       assert.equal(await evaluate("document.querySelector('.faq-consultation').getAttribute('href')"), `/contact?service=${slug}`);
       assert(await evaluate('document.documentElement.scrollWidth<=innerWidth'), `${slug} overflow ${width}`);
       await evaluate("document.querySelector('.service-faq summary').focus()");
-      for (const type of ['keyDown', 'keyUp']) await send('Input.dispatchKeyEvent', { type, key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13 });
-      assert(await evaluate("document.querySelector('.service-faq details').open"), 'Enter opens native FAQ');
-      for (const type of ['keyDown', 'keyUp']) await send('Input.dispatchKeyEvent', { type, key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13 });
+      assert(await evaluate("document.activeElement.matches('.service-faq summary')"), 'Summary receives keyboard focus');
+      for (const type of ['keyDown', 'keyUp']) await send('Input.dispatchKeyEvent', { type, key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13, ...(type === 'keyDown' ? { text: '\r' } : {}) });
+      await delay(150);
+      assert(await evaluate("document.querySelector('.service-faq details').open"), `Enter opens native FAQ: ${slug} at ${width}`);
+      for (const type of ['keyDown', 'keyUp']) await send('Input.dispatchKeyEvent', { type, key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13, ...(type === 'keyDown' ? { text: '\r' } : {}) });
+      await delay(150);
       assert.equal(await evaluate("document.querySelector('.service-faq details').open"), false);
     }
   }
+  await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'no-preference' }] });
+  await open('/'); await shot('.process', 'journey-desktop-motion');
+  const marker = await evaluate("(()=>{const r=document.querySelector('.process ol span').getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2}})()");
+  await send('Input.dispatchMouseEvent', { type: 'mouseMoved', ...marker });
+  await delay(500);
+  assert.equal(await evaluate("new DOMMatrix(getComputedStyle(document.querySelector('.process ol span')).transform).f"), -4);
+  await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
+  assert.equal(await evaluate("new DOMMatrix(getComputedStyle(document.querySelector('.process ol span')).transform).f"), 0);
   await send('Emulation.setScriptExecutionDisabled', { value: true });
   await open('/services/digital-marketing');
   await evaluate("document.querySelector('.service-faq summary').click()");
   assert(await evaluate("document.querySelector('.service-faq details').open"), 'Native accordion works without JavaScript');
   await open('/');
   assert.equal(await evaluate("[...document.querySelectorAll('.process ol h3')].filter(e=>getComputedStyle(e).visibility!=='hidden'&&getComputedStyle(e).opacity!=='0').length"), 4);
-  console.log('PASS: 3 journey layouts, 12 service FAQ layouts, keyboard toggles, consultation links and no-JavaScript content.');
+  console.log('PASS: 3 journey layouts, 12 service FAQ layouts, keyboard toggles, consultation links, hover/reduced motion and no-JavaScript content.');
 } finally {
   if (socket?.readyState === WebSocket.OPEN) { try { await send('Browser.close'); } catch {} socket.close(); }
   for (const entry of pending.values()) clearTimeout(entry.timer);
