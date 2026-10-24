@@ -66,6 +66,9 @@ export type Service = {
   metricsTitle: string;
   metricsIntro: string;
   metrics: Metric[];
+  faqTitle: string;
+  faqIntro: string;
+  faqCta: string;
   faqs: Faq[];
   closing: { headline: string; body: string };
 };
@@ -197,6 +200,9 @@ export const SERVICES: Service[] = [
       { value: "₹1.75 Cr+", label: "Client revenue facilitated" },
       { value: "5X", label: "Average sales growth" },
     ],
+    faqTitle: "Before your next marketplace move.",
+    faqIntro: "Practical answers about marketplace support, listing optimisation and working together.",
+    faqCta: "Discuss your marketplace strategy",
     faqs: [
       {
         q: "Which marketplaces do you support?",
@@ -350,6 +356,9 @@ export const SERVICES: Service[] = [
       { value: "5X", label: "Average profit increase" },
       { value: "₹1.75 Cr+", label: "Client growth facilitated" },
     ],
+    faqTitle: "Behind a stronger restaurant business.",
+    faqIntro: "What to expect from menu optimisation, platform support and review management.",
+    faqCta: "Discuss your restaurant",
     faqs: [
       {
         q: "Which platforms do you work on?",
@@ -512,6 +521,9 @@ export const SERVICES: Service[] = [
       { value: "₹1.75 Cr+", label: "Client savings facilitated" },
       { value: "5X", label: "Average revenue growth" },
     ],
+    faqTitle: "Clarity before your next booking.",
+    faqIntro: "A closer look at OTA distribution, pricing, inventory and revenue performance.",
+    faqCta: "Discuss your hotel strategy",
     faqs: [
       {
         q: "Which OTAs do you manage?",
@@ -675,6 +687,9 @@ export const SERVICES: Service[] = [
       { value: "₹1.75 Cr+", label: "Client revenue facilitated" },
       { value: "5X", label: "Average profit increase" },
     ],
+    faqTitle: "Before your next campaign.",
+    faqIntro: "How local visibility, reviews and permission-based WhatsApp support fit together.",
+    faqCta: "Discuss your digital presence",
     faqs: [
       {
         q: "What does Google Business Profile management cover?",

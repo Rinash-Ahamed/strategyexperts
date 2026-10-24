@@ -223,10 +223,14 @@ export default function ServicePage({ service: s }: { service: Service }) {
       )}
 
       {/* ---------------- FAQ ---------------- */}
-      <section className="section" aria-labelledby="faq-title">
+      <section className="section service-faq" aria-labelledby="faq-title">
         <div className="wrap faq-grid">
-          <div className="stack-m" data-reveal>
-            <h2 className="h2" id="faq-title">Good to know.</h2>
+          <div className="stack-m faq-introduction" data-reveal>
+            <h2 className="h2" id="faq-title">{s.faqTitle}</h2>
+            <p>{s.faqIntro}</p>
+            <Link href={`/contact?service=${s.slug}`} className="faq-consultation">
+              {s.faqCta} <Arrow />
+            </Link>
           </div>
           <Faq items={s.faqs} />
         </div>

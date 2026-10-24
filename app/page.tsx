@@ -6,9 +6,9 @@ import Ticker from "@/components/home/Ticker";
 import Metrics from "@/components/shared/Metrics";
 import IndustryVisual from "@/components/shared/IndustryVisual";
 import GrowthPath from "@/components/shared/GrowthPath";
+import StrategyJourney from "@/components/home/StrategyJourney";
 import {
   CHALLENGE,
-  HOME_FRAMEWORK,
   IMPACT_PRINCIPLES,
   SERVICES,
   SITE,
@@ -273,14 +273,7 @@ export default function Home() {
               platforms, market and goals.
             </p>
           </div>
-          <ol className="process-list">
-            {HOME_FRAMEWORK.map((s) => (
-              <li className="process-step" key={s.title} data-reveal>
-                <h3>{s.title}</h3>
-                <p>{s.body}</p>
-              </li>
-            ))}
-          </ol>
+          <StrategyJourney />
           <p className="note" style={{ marginTop: 20 }}>
             A suggested working framework. Each service page outlines its own approach.
           </p>

@@ -3,7 +3,7 @@ export const PLATFORM_ASSETS: Record<string, { src: string; width: number; heigh
   Amazon: { src: "/Brand/Ecommerce/Amazon.png", width: 800, height: 268 },
   Flipkart: { src: "/Brand/Ecommerce/Flipkart_Logo.png", width: 800, height: 209 },
   Meesho: { src: "/Brand/Ecommerce/meesho.png", width: 200, height: 64 },
-  Zomato: { src: "/Brand/Restaurant/Zomato.png", width: 820, height: 820 },
+  Zomato: { src: "/Brand/Restaurant/Zomata.png", width: 1253, height: 266 },
   Swiggy: { src: "/Brand/Restaurant/Swiggy.png", width: 800, height: 247 },
   MakeMyTrip: { src: "/Brand/Hotel/mmt.png", width: 800, height: 255 },
   "Booking.com": { src: "/Brand/Hotel/booking.com.png", width: 1900, height: 326 },
