@@ -56,7 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "document.documentElement.classList.add('js');if(location.pathname==='/'&&performance.getEntriesByType('navigation')[0]?.type==='reload'){document.documentElement.dataset.openingTrigger='refresh'}addEventListener('pageshow',e=>{if(e.persisted)delete document.documentElement.dataset.openingTrigger});try{sessionStorage.removeItem('strategy-experts:route-transition')}catch(e){}",
+              "document.documentElement.classList.add('js');if(location.pathname==='/'&&(performance.getEntriesByType('navigation')[0]?.type==='reload'||performance.navigation?.type===1)){document.documentElement.dataset.openingTrigger='refresh';history.scrollRestoration='manual';scrollTo(0,0);addEventListener('pageshow',e=>{if(!e.persisted)scrollTo(0,0);history.scrollRestoration='auto'},{once:true})}addEventListener('pageshow',e=>{if(e.persisted)delete document.documentElement.dataset.openingTrigger});try{sessionStorage.removeItem('strategy-experts:route-transition')}catch(e){}",
           }}
         />
       </head>

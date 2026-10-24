@@ -114,9 +114,13 @@ try {
         assert(position.y<1, `Home/logo should return to the top: ${JSON.stringify({width,target,...position})}`);
       }
       if (!blockFramework) {
+        await evaluate("scrollTo({top:600,behavior:'instant'})");
         await send("Page.reload"); await ready("/");
         assert(await evaluate("document.documentElement.dataset.openingTrigger==='refresh'&&getComputedStyle(document.querySelector('[data-hero-opening]')).display==='grid'"), "Refresh should play the opening");
+        assert.equal(await evaluate("scrollY"), 0, 'Refresh opening starts at the top, not the old scroll position');
         assert.equal(await evaluate("getComputedStyle(document.querySelector('.nav')).visibility"), "hidden");
+        assert.equal(await evaluate("getComputedStyle(document.querySelector('[data-hero-opening]')).pointerEvents"), 'auto', 'Opening must block accidental clicks on covered links');
+        assert.equal(await evaluate("getComputedStyle(document.querySelector('[data-hero-opening]')).animationDelay"), '12s', 'CSS must not hide the scene before the cold robot is ready');
         await evaluate("document.querySelector('[data-hero-opening] button').click()"); await delay(200);
         assert.equal(await evaluate("getComputedStyle(document.querySelector('.nav')).visibility"), "visible");
         await send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "reduce" }] });
@@ -170,6 +174,9 @@ try {
     await evaluate("document.querySelector('.nav-inner>a').click()"); await ready('/');
     assert.equal(await evaluate("window.__navigationTransition.active"), false, 'Reduced motion disables cross-document transitions');
   }
+  const footerSocials = await evaluate(`(()=>{const links=[...document.querySelectorAll('.footer-socials a')];return links.map(a=>({href:a.href,label:a.getAttribute('aria-label'),size:a.getBoundingClientRect().width}))})()`);
+  assert.equal(footerSocials.length, 2);
+  assert(footerSocials.some(a=>a.href.startsWith('https://wa.me/')&&a.label.includes('WhatsApp')&&a.size>=44), 'Footer WhatsApp icon is labelled and touch-sized');
   const report = { base, baseline, blockFramework, conditions: "External scene held pending; navigation-only checks. Use production for timing claims.", runs, homeBehavior, transitions, historyChecks, errors };
   await writeFile(path.join(output, "report.json"), JSON.stringify(report, null, 2));
   console.log(JSON.stringify({ output, ...report }, null, 2));

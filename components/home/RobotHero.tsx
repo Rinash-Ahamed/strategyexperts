@@ -45,11 +45,22 @@ export default function RobotHero({ onReady }: { onReady?: () => void } = {}) {
   useEffect(() => {
     // Let the server-rendered copy paint before evaluating the heavy 3D runtime.
     // The scene file still preloads immediately; only initialization yields.
+    let firstFrame = 0;
     let secondFrame = 0;
-    const firstFrame = requestAnimationFrame(() => {
-      secondFrame = requestAnimationFrame(() => setMountScene(true));
-    });
+    let cancelled = false;
+    const mount = () => {
+      if (cancelled) return;
+      firstFrame = requestAnimationFrame(() => {
+        secondFrame = requestAnimationFrame(() => setMountScene(true));
+      });
+    };
+    // Do not compile shaders over the browser's short page-entry animation.
+    // The HTML and navigation are already visible; only 3D startup yields.
+    const transition = document.activeViewTransition;
+    if (transition) void transition.finished.then(mount, mount);
+    else mount();
     return () => {
+      cancelled = true;
       cancelAnimationFrame(firstFrame);
       cancelAnimationFrame(secondFrame);
     };

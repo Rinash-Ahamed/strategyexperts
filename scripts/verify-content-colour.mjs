@@ -208,8 +208,9 @@ try {
     const bounds=image.getBoundingClientRect();
     return {loading:image.loading,priority:image.fetchPriority,inView:bounds.top<innerHeight&&bounds.bottom>0};
   })()`);
-  assert.deepEqual(restored, { loading: "eager", priority: "low", inView: true });
-  console.log("Reload at a restored photo position keeps the LCP candidate eager");
+  assert.deepEqual(restored, { loading: "eager", priority: "low", inView: false });
+  assert.equal(await evaluate("scrollY"), 0, "Home refresh now deliberately starts at the opening/hero, not an old photo scroll position");
+  console.log("Home refresh returns to the hero; content photos retain eager/low-priority loading");
   assert.deepEqual(errors, []);
   assert.deepEqual(lcpWarnings, [], "No lazy-LCP image warnings should be emitted");
   await writeFile(path.join(output, "report.json"), JSON.stringify({ base, reports, accessibility, headlines, errors, lcpWarnings }, null, 2));

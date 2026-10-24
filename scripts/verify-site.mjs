@@ -201,6 +201,25 @@ try {
   report.reducedMotion.scrollBehavior = await evaluate(`getComputedStyle(document.documentElement).scrollBehavior`);
   report.reducedMotion.revealsVisible = await evaluate(`[...document.querySelectorAll('[data-reveal]')].every(e=>getComputedStyle(e).opacity==='1')`);
   await send('Emulation.setEmulatedMedia', { features: [] });
+  if (process.argv.includes('--verify-opening')) {
+    const origin = await evaluate('performance.timeOrigin');
+    await evaluate("scrollTo({top:600,behavior:'instant'})");
+    await send('Page.reload', { ignoreCache: true });
+    let firstOpening = null, closedBeforeRobot = false, finished = false;
+    for (let attempt = 0; attempt < 160; attempt++) {
+      try {
+        const state = await evaluate(`(()=>{if(performance.timeOrigin===${origin}||!document.querySelector('footer'))return null;const e=document.querySelector('[data-hero-opening]'),style=e&&getComputedStyle(e);return {trigger:document.documentElement.dataset.openingTrigger,showing:!!e&&style.display==='grid'&&style.visibility!=='hidden'&&Number(style.opacity)>0,robotLoaded:!!document.querySelector('.hero-robot.is-loaded canvas'),top:scrollY,navVisible:getComputedStyle(document.querySelector('.nav')).visibility,at:performance.now()}})()`);
+        if (state) {
+          if (!firstOpening && state.showing) { firstOpening = state; await capture('refresh-opening'); }
+          if (!state.showing && !state.robotLoaded) closedBeforeRobot = true;
+          if (firstOpening && !state.showing) { finished = true; break; }
+        }
+      } catch { /* A reload replaces the execution context. */ }
+      await delay(150);
+    }
+    report.refreshOpening = { firstOpening, closedBeforeRobot, finished, finalTop: await evaluate('scrollY') };
+    await capture('refresh-home-ready');
+  }
   const failures = [];
   if (!report.loaded) failures.push('Robot did not load');
   if (!report.robotHeadResponds) failures.push('Robot head did not respond to the cursor');
@@ -219,6 +238,7 @@ try {
   if (!motionOnly && (!report.tickerRunning || !report.tickerRunsOnHover)) failures.push('Ticker unexpectedly pauses');
   if (!report.reducedMotion.modelVisible || !report.reducedMotion.stopped || report.reducedMotion.tracking !== 'disabled') failures.push('Reduced-motion behavior failed');
   if (report.reducedMotion.scrollBehavior !== 'auto' || !report.reducedMotion.revealsVisible) failures.push('Reduced-motion scroll/reveal issue');
+  if (report.refreshOpening && (!report.refreshOpening.firstOpening || report.refreshOpening.closedBeforeRobot || !report.refreshOpening.finished || report.refreshOpening.finalTop !== 0)) failures.push('Refresh opening must cover the real robot load, then reveal the homepage at the top');
   report.failures = failures;
   if (failures.length) process.exitCode = 1;
   await writeFile(path.join(output,'report.json'), JSON.stringify(report,null,2));

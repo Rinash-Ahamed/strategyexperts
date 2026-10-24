@@ -6,11 +6,12 @@
   place-items: center;
   background: #000;
   color: #e5e5e5;
-  pointer-events: none;
+  /* Do not let a click accidentally activate a covered service link. */
+  pointer-events: auto;
   opacity: 1;
   transition: opacity 450ms ease;
   /* CSS fail-open also works if hydration or the scene fails. */
-  animation: safetyExit 450ms 6s forwards;
+  animation: safetyExit 450ms 12s forwards;
 }
 :global(html[data-opening-trigger="refresh"]) .opening { display: grid; }
 @media (prefers-reduced-motion: no-preference) {
@@ -18,7 +19,7 @@
     visibility: hidden;
     pointer-events: none;
     /* Restore even if hydration fails and only the CSS intro timeout runs. */
-    animation: restoreNavigation 0s 6450ms forwards;
+    animation: restoreNavigation 0s 12450ms forwards;
   }
 }
 @keyframes restoreNavigation { to { visibility: visible; pointer-events: auto; } }

@@ -20,23 +20,22 @@ export default function HeroExperience() {
     if (motion.matches || document.documentElement.dataset.openingTrigger !== "refresh") return;
 
     const minimum = window.setTimeout(() => setMinimumElapsed(true), 3000);
-    const deadline = window.setTimeout(() => setDeadlineReached(true), 6000);
+    // The published scene can take longer than six seconds on a cold device.
+    // Normally reveal as soon as its first frame and the three-second intro
+    // are ready; retain a bounded escape if the scene/network fails.
+    const deadline = window.setTimeout(() => setDeadlineReached(true), 10000);
     // Never trap navigation or keyboard focus behind a decorative introduction.
     const dismiss = () => setDismissed(true);
     const onKey = (event: KeyboardEvent) => {
       if (["Escape", "Tab", "Enter", " "].includes(event.key)) dismiss();
     };
     const onMotionChange = () => { if (motion.matches) dismiss(); };
-    window.addEventListener("pointerdown", dismiss, { once: true, passive: true });
     window.addEventListener("keydown", onKey);
-    window.addEventListener("wheel", dismiss, { once: true, passive: true });
     motion.addEventListener("change", onMotionChange);
     return () => {
       window.clearTimeout(minimum);
       window.clearTimeout(deadline);
-      window.removeEventListener("pointerdown", dismiss);
       window.removeEventListener("keydown", onKey);
-      window.removeEventListener("wheel", dismiss);
       motion.removeEventListener("change", onMotionChange);
     };
   }, []);
@@ -46,6 +45,13 @@ export default function HeroExperience() {
     const timeout = window.setTimeout(() => setDismissed(true), 450);
     return () => window.clearTimeout(timeout);
   }, [exiting]);
+
+  useEffect(() => {
+    if (!dismissed || document.documentElement.dataset.openingTrigger !== "refresh") return;
+    // A refresh is a new opening, not history navigation to an old scroll spot.
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    window.history.scrollRestoration = "auto";
+  }, [dismissed]);
 
   return (
     <>
