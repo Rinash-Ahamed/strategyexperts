@@ -7,12 +7,13 @@ import path from 'node:path';
 const base = process.argv[2] || 'http://localhost:3112';
 const label = process.argv[3] || 'refined';
 const motionOnly = process.argv.includes('--motion-only');
+const nativeGpu = process.argv.includes('--native-gpu');
 const output = await mkdtemp(path.join(tmpdir(), `strategy-experts-${label}-`));
 const profile = path.join(output, 'profile');
 const chrome = spawn(process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe', [
   '--headless=new', '--remote-debugging-port=0', `--user-data-dir=${profile}`,
   '--no-first-run', '--no-default-browser-check', '--enable-unsafe-swiftshader',
-  '--use-angle=swiftshader', 'about:blank',
+  ...(!nativeGpu ? ['--use-angle=swiftshader'] : []), 'about:blank',
 ], { windowsHide: true, stdio: 'ignore' });
 chrome.on('error', error => { console.error(error); process.exitCode = 1; });
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -75,7 +76,7 @@ try {
     if (loaded) break;
     await delay(300);
   }
-  const report = { base, label, loaded, output, viewports: [], routes: [], errors };
+  const report = { base, label, loaded, output, rendering: nativeGpu ? 'Chrome automatic renderer; software fallback allowed, hardware GPU not assumed' : 'Forced software WebGL', viewports: [], routes: [], errors };
   report.heroLabelsUnobstructed = await evaluate(`!document.querySelector('.hero-silver-streak') && document.querySelectorAll('.hero-footnote span').length === 2 && !document.querySelector('.hero-footnote')?.hasAttribute('aria-hidden')`);
   report.visualFlow = await evaluate(`({maxSectionPadding:Math.max(...[...document.querySelectorAll('.section')].map(e=>parseFloat(getComputedStyle(e).paddingTop))),menuClip:getComputedStyle(document.querySelector('.menu')).clipPath,heroGlowFilter:getComputedStyle(document.querySelector('.hero-glow')).filter,revealProperties:getComputedStyle(document.querySelector('[data-reveal]')).transitionProperty})`);
   // Read the existing React refs without adding debug globals to the product.

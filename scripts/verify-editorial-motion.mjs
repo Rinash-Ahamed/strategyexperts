@@ -134,6 +134,35 @@ try {
   assert(await evaluate("getComputedStyle(document.querySelector('[data-industry-frame] img')).transitionDuration.split(',').every(value=>parseFloat(value)<.00001)"));
   checks.push('Reduced motion disables card lift, photo zoom and their transitions');
 
+  const ctaContrast = selector => evaluate(`(()=>{
+    const e=document.querySelector(${JSON.stringify(selector)}),s=getComputedStyle(e),r=e.getBoundingClientRect();
+    const luminance=value=>{const c=value.match(/[\\d.]+/g).slice(0,3).map(Number).map(n=>n/255).map(n=>n<=.04045?n/12.92:((n+.055)/1.055)**2.4);return c[0]*.2126+c[1]*.7152+c[2]*.0722};
+    const a=luminance(s.color),b=luminance(s.backgroundColor);
+    return {ratio:(Math.max(a,b)+.05)/(Math.min(a,b)+.05),colour:s.color,background:s.backgroundColor,visible:r.width>0&&r.height>=44&&s.visibility==='visible'&&s.opacity==='1',focus:e.matches(':focus-visible'),outline:parseFloat(s.outlineWidth)};
+  })()`);
+  for (const width of [1440,390]) {
+    await send('Emulation.setDeviceMetricsOverride', { width, height: 1000, deviceScaleFactor: 1, mobile: width < 700 });
+    for (const slug of ['e-commerce-support','restaurant-consulting','hotel-revenue-management','digital-marketing']) {
+      await open(`/services/${slug}`);
+      for (const selector of ['.sp-hero .btn-accent','.sp-cta .btn-light']) {
+        await reveal(selector);
+        await evaluate('document.activeElement?.blur()');
+        await send('Input.dispatchMouseEvent', { type:'mouseMoved',x:0,y:0 }); await delay(400);
+        const resting = await ctaContrast(selector);
+        assert(resting.visible && resting.ratio>=4.5, `Resting CTA contrast: ${slug} ${width} ${selector} ${JSON.stringify(resting)}`);
+        if (slug==='restaurant-consulting' && selector.includes('sp-cta')) await screenshot(`restaurant-consultation-visible-${width}`);
+        await hover(selector);
+        const hovered = await ctaContrast(selector);
+        assert(hovered.visible && hovered.ratio>=4.5, `Hover CTA contrast: ${slug} ${width}`);
+        for (const type of ['keyDown','keyUp']) await send('Input.dispatchKeyEvent', { type,key:'Tab',code:'Tab',windowsVirtualKeyCode:9 });
+        await evaluate(`document.querySelector(${JSON.stringify(selector)}).focus({preventScroll:true})`); await delay(100);
+        const focused = await ctaContrast(selector);
+        assert(focused.visible && focused.ratio>=4.5 && focused.focus && focused.outline>=2, `Focus CTA contrast: ${slug} ${width} ${JSON.stringify(focused)}`);
+      }
+      checks.push(`Hero and closing CTAs readable at rest, hover and keyboard focus: ${slug} ${width}px`);
+    }
+  }
+
   await send('Emulation.setScriptExecutionDisabled', { value: true });
   await open('/services/restaurant-consulting'); await reveal('.focus-grid');
   assert(await evaluate("[...document.querySelectorAll('.focus-grid>li')].every(e=>getComputedStyle(e).opacity==='1')"));

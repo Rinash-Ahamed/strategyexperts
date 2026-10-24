@@ -50,6 +50,11 @@
 .process .process-step h3 { color: var(--deep-teal); }
 .cta.on-dark,
 .sp-cta.on-dark { background: radial-gradient(ellipse at 90% 100%, #19362f, transparent 65%), #111716; }
+/* Dark section tokens describe surrounding copy, not a light button's ink. */
+.service-page .sp-cta .btn-light { background: #f0f0f0; color: #111716; }
+.service-page .sp-cta .btn-light:hover,
+.service-page .sp-cta .btn-light:focus-visible { background: var(--mist); color: #111716; }
+.service-page .sp-cta .btn-light:focus-visible { outline: 2px solid var(--mist); outline-offset: 4px; }
 
 /* The orbit should support the copy, not vertically centre it in a tall void. */
 .hero-digital .sp-hero-grid {
