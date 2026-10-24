@@ -14,7 +14,7 @@ const browser = spawn(process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome
 ], { windowsHide: true, stdio: 'ignore' });
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 let socket, id = 0;
-const pending = new Map(), errors = [], checks = [];
+const pending = new Map(), errors = [], checks = [], ctaChecks = [];
 function send(method, params = {}) {
   return new Promise((resolve, reject) => {
     const request = ++id;
@@ -158,6 +158,7 @@ try {
         await evaluate(`document.querySelector(${JSON.stringify(selector)}).focus({preventScroll:true})`); await delay(100);
         const focused = await ctaContrast(selector);
         assert(focused.visible && focused.ratio>=4.5 && focused.focus && focused.outline>=2, `Focus CTA contrast: ${slug} ${width} ${JSON.stringify(focused)}`);
+        ctaChecks.push({ width, slug, selector, resting, hovered, focused });
       }
       checks.push(`Hero and closing CTAs readable at rest, hover and keyboard focus: ${slug} ${width}px`);
     }
@@ -168,7 +169,7 @@ try {
   assert(await evaluate("[...document.querySelectorAll('.focus-grid>li')].every(e=>getComputedStyle(e).opacity==='1')"));
   checks.push('Focus-grid content remains visible without JavaScript');
   assert.deepEqual(errors, []);
-  await writeFile(path.join(output, 'report.json'), JSON.stringify({ base, conditions: 'Functional development preview; remote 3D fetch held; no FPS/performance claim.', checks, errors }, null, 2));
+  await writeFile(path.join(output, 'report.json'), JSON.stringify({ base, conditions: 'Functional preview; remote 3D fetch held; no FPS/performance claim.', checks, ctaChecks, errors }, null, 2));
   console.log(JSON.stringify({ output, checks, errors }, null, 2));
 } finally {
   if (socket?.readyState === WebSocket.OPEN) {
