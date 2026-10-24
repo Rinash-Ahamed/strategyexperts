@@ -185,6 +185,19 @@ export default function RobotHero({ onReady }: { onReady?: () => void } = {}) {
       inViewport = entry.isIntersecting;
       updateVisibility();
     });
+    const hidePage = (event: PageTransitionEvent) => {
+      visibleRef.current = false;
+      cancelTrackingFrame();
+      const application = applicationRef.current;
+      application?.stop();
+      // Keep BFCache documents resumable; release the GPU on a real unload.
+      if (!event.persisted && application) {
+        applicationRef.current = null;
+        headRef.current = null;
+        handsRef.current = [];
+        application.dispose();
+      }
+    };
     if (containerRef.current) observer.observe(containerRef.current);
     // The mobile menu makes the covered page inert. Avoid rendering behind it.
     const menuObserver = new MutationObserver(updateVisibility);
@@ -197,6 +210,8 @@ export default function RobotHero({ onReady }: { onReady?: () => void } = {}) {
     window.addEventListener("blur", resetPointer);
     document.documentElement.addEventListener("mouseleave", resetPointer);
     document.addEventListener("visibilitychange", updateVisibility);
+    window.addEventListener("pagehide", hidePage);
+    window.addEventListener("pageshow", updateVisibility);
 
     return () => {
       precisePointer.removeEventListener("change", updatePreferences);
@@ -206,6 +221,8 @@ export default function RobotHero({ onReady }: { onReady?: () => void } = {}) {
       window.removeEventListener("blur", resetPointer);
       document.documentElement.removeEventListener("mouseleave", resetPointer);
       document.removeEventListener("visibilitychange", updateVisibility);
+      window.removeEventListener("pagehide", hidePage);
+      window.removeEventListener("pageshow", updateVisibility);
       observer.disconnect();
       menuObserver.disconnect();
       cancelTrackingFrame();

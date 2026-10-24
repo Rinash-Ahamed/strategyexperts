@@ -120,7 +120,11 @@ try {
         assert.equal(await evaluate("scrollY"), 0, 'Refresh opening starts at the top, not the old scroll position');
         assert.equal(await evaluate("getComputedStyle(document.querySelector('.nav')).visibility"), "hidden");
         assert.equal(await evaluate("getComputedStyle(document.querySelector('[data-hero-opening]')).pointerEvents"), 'auto', 'Opening must block accidental clicks on covered links');
-        assert.equal(await evaluate("getComputedStyle(document.querySelector('[data-hero-opening]')).animationDelay"), '12s', 'CSS must not hide the scene before the cold robot is ready');
+        const opening = await evaluate("({managed:document.documentElement.dataset.openingManaged,animation:getComputedStyle(document.querySelector('[data-hero-opening]')).animationName,delay:getComputedStyle(document.querySelector('[data-hero-opening]')).animationDelay})");
+        assert(opening.managed === 'true' ? opening.animation === 'none' : opening.delay === '60s', 'Robot readiness owns the managed reveal; CSS timeout is only a no-hydration failsafe');
+        await delay(300);
+        const introShot = await send('Page.captureScreenshot', { format: 'png' });
+        await writeFile(path.join(output, `refresh-opening-${width}.png`), Buffer.from(introShot.data, 'base64'));
         await evaluate("document.querySelector('[data-hero-opening] button').click()"); await delay(200);
         assert.equal(await evaluate("getComputedStyle(document.querySelector('.nav')).visibility"), "visible");
         await send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "reduce" }] });
@@ -130,6 +134,13 @@ try {
         await send("Emulation.setEmulatedMedia", { features: [] });
       }
       homeBehavior.push({ width, samePageLogoAndHomeReturnToTop: true, reloadOpeningAndReducedMotion: !blockFramework });
+      if (blockFramework) {
+        await send('Page.reload'); await ready('/');
+        assert.equal(await evaluate("getComputedStyle(document.querySelector('[data-hero-opening]')).display"), 'grid');
+        await evaluate("document.querySelector('[data-opening-skip]').click()");
+        assert.equal(await evaluate("getComputedStyle(document.querySelector('[data-hero-opening]')).display"), 'none', 'Skip works before framework hydration');
+        assert.equal(await evaluate("getComputedStyle(document.querySelector('.nav')).visibility"), 'visible');
+      }
       if (!homeOnly && !blockFramework) {
         await evaluate("document.querySelector('footer a[href=\"/contact\"]').click()"); await ready('/contact');
         await evaluate("scrollTo({top:400,behavior:'instant'})"); await delay(350);
@@ -177,6 +188,12 @@ try {
   const footerSocials = await evaluate(`(()=>{const links=[...document.querySelectorAll('.footer-socials a')];return links.map(a=>({href:a.href,label:a.getAttribute('aria-label'),size:a.getBoundingClientRect().width}))})()`);
   assert.equal(footerSocials.length, 2);
   assert(footerSocials.some(a=>a.href.startsWith('https://wa.me/')&&a.label.includes('WhatsApp')&&a.size>=44), 'Footer WhatsApp icon is labelled and touch-sized');
+  for (const width of [1440, 390]) {
+    await send('Emulation.setDeviceMetricsOverride', { width, height: 900, deviceScaleFactor: 1, mobile: width < 700 });
+    await evaluate("document.querySelector('.footer-brand').scrollIntoView({block:'center',behavior:'instant'})"); await delay(200);
+    const footerShot = await send('Page.captureScreenshot', { format: 'png' });
+    await writeFile(path.join(output, `footer-socials-${width}.png`), Buffer.from(footerShot.data, 'base64'));
+  }
   const report = { base, baseline, blockFramework, conditions: "External scene held pending; navigation-only checks. Use production for timing claims.", runs, homeBehavior, transitions, historyChecks, errors };
   await writeFile(path.join(output, "report.json"), JSON.stringify(report, null, 2));
   console.log(JSON.stringify({ output, ...report }, null, 2));

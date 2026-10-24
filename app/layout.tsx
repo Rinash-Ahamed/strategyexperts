@@ -10,6 +10,7 @@ import RevealObserver from "@/components/effects/RevealObserver";
 import SiteFooter from "@/components/layout/SiteFooter";
 import SiteHeader from "@/components/layout/SiteHeader";
 import { NAV_LINKS, SITE } from "@/lib/site";
+import { PAGE_BOOTSTRAP } from "@/lib/page-bootstrap";
 
 const inter = localFont({
   src: "../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2",
@@ -54,10 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en-IN" className={inter.variable} suppressHydrationWarning>
       <head>
         <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "document.documentElement.classList.add('js');if(location.pathname==='/'&&(performance.getEntriesByType('navigation')[0]?.type==='reload'||performance.navigation?.type===1)){document.documentElement.dataset.openingTrigger='refresh';history.scrollRestoration='manual';scrollTo(0,0);addEventListener('pageshow',e=>{if(!e.persisted)scrollTo(0,0);history.scrollRestoration='auto'},{once:true})}addEventListener('pageshow',e=>{if(e.persisted)delete document.documentElement.dataset.openingTrigger});try{sessionStorage.removeItem('strategy-experts:route-transition')}catch(e){}",
-          }}
+          dangerouslySetInnerHTML={{ __html: PAGE_BOOTSTRAP }}
         />
       </head>
       <body>

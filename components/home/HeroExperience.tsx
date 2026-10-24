@@ -7,9 +7,8 @@ import styles from "./HeroExperience.module.css";
 export default function HeroExperience() {
   const [ready, setReady] = useState(false);
   const [minimumElapsed, setMinimumElapsed] = useState(false);
-  const [deadlineReached, setDeadlineReached] = useState(false);
   const [dismissed, setDismissed] = useState(false);
-  const exiting = deadlineReached || (ready && minimumElapsed);
+  const exiting = ready && minimumElapsed;
   const handleReady = useCallback(() => {
     if (document.documentElement.dataset.openingTrigger === "refresh") setReady(true);
   }, []);
@@ -19,11 +18,10 @@ export default function HeroExperience() {
     // The CSS reduced-motion rule hides the opening before hydration too.
     if (motion.matches || document.documentElement.dataset.openingTrigger !== "refresh") return;
 
+    document.documentElement.dataset.openingManaged = "true";
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+
     const minimum = window.setTimeout(() => setMinimumElapsed(true), 3000);
-    // The published scene can take longer than six seconds on a cold device.
-    // Normally reveal as soon as its first frame and the three-second intro
-    // are ready; retain a bounded escape if the scene/network fails.
-    const deadline = window.setTimeout(() => setDeadlineReached(true), 10000);
     // Never trap navigation or keyboard focus behind a decorative introduction.
     const dismiss = () => setDismissed(true);
     const onKey = (event: KeyboardEvent) => {
@@ -34,9 +32,9 @@ export default function HeroExperience() {
     motion.addEventListener("change", onMotionChange);
     return () => {
       window.clearTimeout(minimum);
-      window.clearTimeout(deadline);
       window.removeEventListener("keydown", onKey);
       motion.removeEventListener("change", onMotionChange);
+      delete document.documentElement.dataset.openingManaged;
     };
   }, []);
 
@@ -51,6 +49,7 @@ export default function HeroExperience() {
     // A refresh is a new opening, not history navigation to an old scroll spot.
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     window.history.scrollRestoration = "auto";
+    window.dispatchEvent(new Event("strategy-experts:opening-finished"));
   }, [dismissed]);
 
   return (
@@ -66,7 +65,7 @@ export default function HeroExperience() {
             </div>
             <p>Strategy Experts</p>
           </div>
-          <button className={styles.skip} type="button" onClick={() => setDismissed(true)}>Skip intro <span aria-hidden="true">↗</span></button>
+          <button className={styles.skip} type="button" data-opening-skip onClick={() => setDismissed(true)}>Skip intro <span aria-hidden="true">↗</span></button>
         </div>
       )}
     </>

@@ -11,16 +11,20 @@
   opacity: 1;
   transition: opacity 450ms ease;
   /* CSS fail-open also works if hydration or the scene fails. */
-  animation: safetyExit 450ms 12s forwards;
+  animation: safetyExit 450ms 60s forwards;
 }
 :global(html[data-opening-trigger="refresh"]) .opening { display: grid; }
+/* Once hydrated, the robot-ready callback owns the reveal. The CSS timeout
+   remains only as a fail-open when JavaScript never takes over. */
+:global(html[data-opening-managed="true"]) .opening { animation: none; }
 @media (prefers-reduced-motion: no-preference) {
   :global(html[data-opening-trigger="refresh"]):has(.opening) :global(.nav) {
     visibility: hidden;
     pointer-events: none;
     /* Restore even if hydration fails and only the CSS intro timeout runs. */
-    animation: restoreNavigation 0s 12450ms forwards;
+    animation: restoreNavigation 0s 60450ms forwards;
   }
+  :global(html[data-opening-managed="true"]):has(.opening) :global(.nav) { animation: none; }
 }
 @keyframes restoreNavigation { to { visibility: visible; pointer-events: auto; } }
 .exiting { opacity: 0; }

@@ -112,6 +112,7 @@ try {
     Math.abs(headBefore.rotation.y - headAfter.rotation.y) + Math.abs(headBefore.rotation.x - headAfter.rotation.x) > .002);
   report.heroHasNoPauseControl = await evaluate(`!document.querySelector('.hero-animation-control')`);
   report.robotRunsAutomatically = report.rigAfter?.stopped === false;
+  if (motionOnly && process.argv.includes('--capture-robot')) await capture('robot-desktop');
   for (const [width, height, name] of (motionOnly ? [] : [[1440,1000,'desktop'],[820,1180,'tablet'],[390,844,'mobile'],[320,800,'small-mobile']])) {
     await send('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: width < 701 });
     await evaluate('scrollTo(0,0)'); await delay(800);
@@ -189,6 +190,7 @@ try {
     tracking: await evaluate("document.querySelector('.hero-robot')?.dataset.headTracking"),
     stopped: (await evaluate(rigSnapshot))?.stopped,
   };
+  if (motionOnly && process.argv.includes('--capture-robot')) await capture('robot-touch');
   await send('Emulation.setTouchEmulationEnabled', { enabled: false });
   await send('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1000, deviceScaleFactor: 1, mobile: false });
   await send('Emulation.setEmulatedMedia', { features: [{ name:'prefers-reduced-motion',value:'reduce' }] });
@@ -210,15 +212,15 @@ try {
       try {
         const state = await evaluate(`(()=>{if(performance.timeOrigin===${origin}||!document.querySelector('footer'))return null;const e=document.querySelector('[data-hero-opening]'),style=e&&getComputedStyle(e);return {trigger:document.documentElement.dataset.openingTrigger,showing:!!e&&style.display==='grid'&&style.visibility!=='hidden'&&Number(style.opacity)>0,robotLoaded:!!document.querySelector('.hero-robot.is-loaded canvas'),top:scrollY,navVisible:getComputedStyle(document.querySelector('.nav')).visibility,at:performance.now()}})()`);
         if (state) {
-          if (!firstOpening && state.showing) { firstOpening = state; await capture('refresh-opening'); }
+          if (!firstOpening && state.showing) firstOpening = state;
           if (!state.showing && !state.robotLoaded) closedBeforeRobot = true;
-          if (firstOpening && !state.showing) { finished = true; break; }
+          if (firstOpening && !state.showing && state.navVisible === 'visible') { finished = true; break; }
         }
       } catch { /* A reload replaces the execution context. */ }
       await delay(150);
     }
     report.refreshOpening = { firstOpening, closedBeforeRobot, finished, finalTop: await evaluate('scrollY') };
-    await capture('refresh-home-ready');
+    if (process.argv.includes('--capture-robot')) await capture('refresh-home-ready');
   }
   const failures = [];
   if (!report.loaded) failures.push('Robot did not load');
