@@ -4,6 +4,7 @@ import "./globals.css";
 import "./refinements.css";
 import "./content-colour.css";
 import "./typography.css";
+import "./editorial.css";
 import RevealObserver from "@/components/effects/RevealObserver";
 import SiteFooter from "@/components/layout/SiteFooter";
 import SiteHeader from "@/components/layout/SiteHeader";

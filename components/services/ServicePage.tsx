@@ -154,9 +154,9 @@ export default function ServicePage({ service: s }: { service: Service }) {
               <h2 className="h2" id="focus-title">{s.focusTitle}</h2>
             </div>
           </div>
-          <ul className={`focus-grid${s.focus.length === 5 ? " three" : ""}`} data-reveal>
-            {s.focus.map((f) => (
-              <li key={f.title}>
+          <ul className={`focus-grid${s.focus.length === 5 ? " three" : ""}`}>
+            {s.focus.map((f, index) => (
+              <li key={f.title} data-reveal style={{ ["--d" as string]: `${Math.min(index, 4) * 0.055}s` }}>
                 <h3>{f.title}</h3>
                 <p>{f.body}</p>
               </li>

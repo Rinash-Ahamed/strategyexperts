@@ -28,7 +28,7 @@ body { font-size: var(--type-body); }
   font-size: var(--type-subheading);
   line-height: 1.3;
   letter-spacing: -.02em;
-  font-weight: 400;
+  font-weight: 450;
 }
 .lead, .hero-intro .lead, .sc-summary {
   font-size: var(--type-lead);

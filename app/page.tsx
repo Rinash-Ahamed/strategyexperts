@@ -119,12 +119,12 @@ export default function Home() {
             </li>
             <li className="strip-item">
               <span className="k">Hotel revenue optimisation</span>
-              <span className="v">MakeMyTrip · Booking.com · Agoda</span>
+              <span className="v">MMT · Booking.com · Agoda</span>
               <span className="s">Pricing, inventory and distribution across OTAs.</span>
             </li>
             <li className="strip-item">
               <span className="k">Digital customer acquisition</span>
-              <span className="v">Google Business Profile · WhatsApp</span>
+              <span className="v">Google · Meta · WhatsApp</span>
               <span className="s">Reputation, local visibility and lead generation.</span>
             </li>
           </ul>

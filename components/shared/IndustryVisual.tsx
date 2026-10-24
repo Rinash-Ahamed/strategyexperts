@@ -20,17 +20,19 @@ export default function IndustryVisual({ theme, platforms, placement = "home" }:
   return (
     <div className={`${styles.visual} ${styles[theme]}`} data-industry-visual>
       <figure className={styles.photo}>
-        <Image
-          src={photo.src}
-          alt={photo.alt}
-          width={1200}
-          height={900}
-          sizes="(min-width: 960px) 46vw, 100vw"
-          loading="eager"
-          fetchPriority={placement === "service" ? "high" : "low"}
-          data-industry-photo
-          data-photo-placement={placement === "service" ? "hero" : "content"}
-        />
+        <div className={styles.frame} data-industry-frame>
+          <Image
+            src={photo.src}
+            alt={photo.alt}
+            width={1200}
+            height={900}
+            sizes="(min-width: 960px) 46vw, 100vw"
+            loading="eager"
+            fetchPriority={placement === "service" ? "high" : "low"}
+            data-industry-photo
+            data-photo-placement={placement === "service" ? "hero" : "content"}
+          />
+        </div>
         <figcaption><span>{photo.caption}</span><span>Industry imagery, not client work.</span></figcaption>
       </figure>
       <PlatformMarks platforms={platforms} disclaimer />
