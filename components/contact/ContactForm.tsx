@@ -1,13 +1,18 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 
 type Props = { whatsapp: string; email: string; services: { slug: string; name: string }[] };
 
 export default function ContactForm({ whatsapp, email, services }: Props) {
-  const params = useSearchParams();
-  const defaultService = services.find((s) => s.slug === params.get("service"))?.name ?? "";
+  const serviceRef = useRef<HTMLSelectElement>(null);
+  // Keep the complete form in the static HTML. Reading this optional query on
+  // mount avoids useSearchParams' client-rendering fallback and layout shift.
+  useEffect(() => {
+    const slug = new URLSearchParams(window.location.search).get("service");
+    const service = services.find((s) => s.slug === slug);
+    if (serviceRef.current && service) serviceRef.current.value = service.name;
+  }, [services]);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "opened">("idle");
   const configured = Boolean(whatsapp || email);
@@ -68,7 +73,7 @@ export default function ContactForm({ whatsapp, email, services }: Props) {
 
       <div className="field">
         <label htmlFor="service">What would you like to discuss?</label>
-        <select id="service" name="service" defaultValue={defaultService}>
+        <select id="service" name="service" ref={serviceRef} defaultValue="">
           <option value="">Not sure yet</option>
           {services.map((s) => (
             <option key={s.slug} value={s.name}>{s.name}</option>

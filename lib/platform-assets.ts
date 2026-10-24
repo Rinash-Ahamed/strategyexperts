@@ -15,5 +15,5 @@ export const PLATFORM_ASSETS: Record<string, { src: string; width: number; heigh
   Yatra: { src: "/Brand/Hotel/yatra.png", width: 400, height: 181 },
   Google: { src: "/Brand/DigitalMarketting/Google.png", width: 800, height: 253 },
   Meta: { src: "/Brand/DigitalMarketting/Meta.png", width: 800, height: 345 },
-  WhatsApp: { src: "/Brand/DigitalMarketting/whatsapp.png", width: 1659, height: 2500 },
+  WhatsApp: { src: "/Brand/DigitalMarketting/whatsapp.png", width: 1486, height: 346 },
 };

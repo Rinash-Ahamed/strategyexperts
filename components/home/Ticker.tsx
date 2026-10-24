@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import { PLATFORM_ASSETS } from "@/lib/platform-assets";
 
 const NAMES = [
@@ -12,7 +13,7 @@ export default function Ticker() {
     <div className="ticker-group" aria-hidden={hidden || undefined}>
       {NAMES.map((n) => (
         <span key={n} className="ticker-logo">
-          <Image {...PLATFORM_ASSETS[n]} sizes="140px" alt={hidden ? "" : n} />
+          <Image {...PLATFORM_ASSETS[n]} sizes="140px" alt={hidden ? "" : n} style={{ "--logo-ratio": PLATFORM_ASSETS[n].width / PLATFORM_ASSETS[n].height } as CSSProperties} />
         </span>
       ))}
     </div>

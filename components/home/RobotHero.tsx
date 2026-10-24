@@ -59,6 +59,16 @@ export default function RobotHero({ onReady }: { onReady?: () => void } = {}) {
     const precisePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const mobile = window.matchMedia("(max-width: 767px), (hover: none), (pointer: coarse)");
+    let pointerX = 0;
+    let pointerY = 0;
+    let pointerPending = false;
+    let previousTime = 0;
+    const cancelTrackingFrame = () => {
+      if (frameRef.current !== null) window.cancelAnimationFrame(frameRef.current);
+      frameRef.current = null;
+      previousTime = 0;
+      pointerPending = false;
+    };
     const updatePreferences = () => {
       reducedMotionRef.current = motion.matches;
       trackingRef.current = precisePointer.matches && !motion.matches && !mobile.matches;
@@ -68,12 +78,9 @@ export default function RobotHero({ onReady }: { onReady?: () => void } = {}) {
       }
 
       if (!trackingRef.current) {
-        if (frameRef.current !== null) {
-          window.cancelAnimationFrame(frameRef.current);
-          frameRef.current = null;
-        }
-        targetRef.current = { x: 0, y: 0 };
-        currentRef.current = { x: 0, y: 0 };
+        cancelTrackingFrame();
+        targetRef.current.x = targetRef.current.y = 0;
+        currentRef.current.x = currentRef.current.y = 0;
         for (const hand of handsRef.current) {
           Object.assign(hand.object.rotation, hand.origin);
         }
@@ -90,36 +97,39 @@ export default function RobotHero({ onReady }: { onReady?: () => void } = {}) {
     const updatePointer = (event: PointerEvent) => {
       if (!trackingRef.current || !visibleRef.current || reducedMotionRef.current || event.pointerType === "touch") return;
 
-      const bounds = containerRef.current?.getBoundingClientRect();
-      if (!bounds) return;
-      if (event.clientY < bounds.top || event.clientY > bounds.bottom || event.clientX < bounds.left || event.clientX > bounds.right) {
-        resetPointer();
-        return;
-      }
-      const x = Math.max(-1, Math.min(1, ((event.clientX - bounds.left) / bounds.width) * 2 - 1));
-      const y = Math.max(-1, Math.min(1, ((event.clientY - bounds.top) / bounds.height) * 2 - 1));
-      targetRef.current = { x, y };
-
-      const container = containerRef.current;
-      if (container) {
-        container.dataset.pointerTarget = `${x.toFixed(2)},${y.toFixed(2)}`;
-      }
+      // A high-polling mouse can dispatch many events per display frame. Store
+      // only the latest coordinates; read layout once in the rig frame below.
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+      pointerPending = true;
       if (frameRef.current === null) {
         frameRef.current = window.requestAnimationFrame(animateRig);
       }
     };
 
     const resetPointer = () => {
-      targetRef.current = { x: 0, y: 0 };
+      pointerPending = false;
+      targetRef.current.x = targetRef.current.y = 0;
       if (trackingRef.current && visibleRef.current && frameRef.current === null) {
         frameRef.current = window.requestAnimationFrame(animateRig);
       }
     };
 
-    let previousTime = 0;
     const animateRig = (time: number) => {
       frameRef.current = null;
       const head = headRef.current;
+
+      if (pointerPending) {
+        pointerPending = false;
+        const bounds = containerRef.current?.getBoundingClientRect();
+        const target = targetRef.current;
+        if (bounds?.width && bounds.height && pointerX >= bounds.left && pointerX <= bounds.right && pointerY >= bounds.top && pointerY <= bounds.bottom) {
+          target.x = ((pointerX - bounds.left) / bounds.width) * 2 - 1;
+          target.y = ((pointerY - bounds.top) / bounds.height) * 2 - 1;
+        } else {
+          target.x = target.y = 0;
+        }
+      }
 
       if ((head || handsRef.current.length) && trackingRef.current && visibleRef.current && !reducedMotionRef.current) {
         const current = currentRef.current;
@@ -155,6 +165,7 @@ export default function RobotHero({ onReady }: { onReady?: () => void } = {}) {
     const updateVisibility = () => {
       visibleRef.current = inViewport && !document.hidden && !main?.inert;
       const application = applicationRef.current;
+      if (!visibleRef.current) cancelTrackingFrame();
       if (!application) return;
       if (visibleRef.current && !reducedMotionRef.current) application.play();
       else application.stop();
@@ -186,7 +197,7 @@ export default function RobotHero({ onReady }: { onReady?: () => void } = {}) {
       document.removeEventListener("visibilitychange", updateVisibility);
       observer.disconnect();
       menuObserver.disconnect();
-      if (frameRef.current !== null) window.cancelAnimationFrame(frameRef.current);
+      cancelTrackingFrame();
     };
   }, []);
 

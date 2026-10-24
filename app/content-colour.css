@@ -101,7 +101,7 @@
 .platform-ticker.ticker { background: #faf9f6; padding-block: 24px; }
 .platform-ticker .ticker-track { animation-duration: 72s; }
 .platform-ticker .ticker-logo { display: grid; place-items: center; flex: 0 0 190px; width: 190px; padding-inline: 30px; }
-.platform-ticker .ticker-logo img { display: block; width: auto; height: auto; max-width: 130px; max-height: 36px; object-fit: contain; filter: none; }
+.platform-ticker .ticker-logo img { display: block; width: min(130px, calc(36px * var(--logo-ratio))); height: 36px; object-fit: contain; filter: none; }
 @media (max-width: 700px) {
   .platform-ticker .ticker-logo { flex-basis: 150px; width: 150px; padding-inline: 24px; }
   .platform-ticker .ticker-logo img { max-width: 102px; max-height: 30px; }

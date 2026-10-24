@@ -17,7 +17,7 @@ const browser = spawn(process.env.CHROME_PATH || "C:/Program Files/Google/Chrome
 ], { windowsHide: true, stdio: "ignore" });
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 let socket, id = 0;
-const pending = new Map(), requests = [], errors = [], runs = [], homeBehavior = [];
+const pending = new Map(), requests = [], errors = [], runs = [], homeBehavior = [], transitions = [], historyChecks = [];
 async function send(method, params = {}) {
   const request = ++id;
   return new Promise((resolve, reject) => {
@@ -65,6 +65,7 @@ try {
     if (message.error) entry.reject(new Error(JSON.stringify(message.error))); else entry.resolve(message.result);
   };
   await send("Page.enable"); await send("Runtime.enable"); await send("Network.enable");
+  await send("Page.addScriptToEvaluateOnNewDocument", { source: `window.__navigationTransition={supported:'onpagereveal' in window,active:false};addEventListener('pagereveal',event=>{const transition=event.viewTransition;if(!transition)return;__navigationTransition.active=true;transition.ready.then(()=>{const style=getComputedStyle(document.documentElement,'::view-transition-new(root)');__navigationTransition.animation=style.animationName;__navigationTransition.duration=style.animationDuration;__navigationTransition.ready=true}).catch(()=>{__navigationTransition.skipped=true});transition.finished.then(()=>{__navigationTransition.finished=true})});` });
   await send("Fetch.enable", { patterns: [{ urlPattern: "*scene.splinecode*", requestStage: "Request" }] });
   if (blockFramework) await send("Network.setBlockedURLs", { urls: ["*/_next/static/chunks/*.js*"] });
   for (const width of [390, 1440]) {
@@ -84,6 +85,15 @@ try {
       const requestDelayMs = Math.max(0, request.start - clickedAt);
       if (!baseline) assert(requestDelayMs < 750, `Navigation delayed by ${requestDelayMs}ms`);
       runs.push({ width, route, requestDelayMs, fullDocument: true });
+      if (!baseline) {
+        const transition = await evaluate("window.__navigationTransition");
+        if (transition.supported) {
+          assert.equal(transition.active, true, `Missing native transition: ${route}`);
+          assert.equal(transition.animation, "page-arrive");
+          assert.equal(transition.duration, "0.3s");
+        }
+        transitions.push({ width, route, ...transition });
+      }
     }
     if (!baseline) {
       const origin = await evaluate("performance.timeOrigin");
@@ -116,10 +126,51 @@ try {
         await send("Emulation.setEmulatedMedia", { features: [] });
       }
       homeBehavior.push({ width, samePageLogoAndHomeReturnToTop: true, reloadOpeningAndReducedMotion: !blockFramework });
+      if (!homeOnly && !blockFramework) {
+        await evaluate("document.querySelector('footer a[href=\"/contact\"]').click()"); await ready('/contact');
+        await evaluate("scrollTo({top:400,behavior:'instant'})"); await delay(350);
+        const position = await evaluate("scrollY");
+        await evaluate("document.querySelector('.nav-inner>a').click()"); await ready('/');
+        const history = await send("Page.getNavigationHistory");
+        await send("Page.navigateToHistoryEntry", { entryId: history.entries[history.currentIndex - 1].id });
+        await ready('/contact'); await delay(500);
+        const restored = await evaluate("scrollY");
+        assert(Math.abs(restored - position) < 2, `Back should restore scroll: ${position} vs ${restored}`);
+        await send("Page.navigateToHistoryEntry", { entryId: history.entries[history.currentIndex].id });
+        await ready('/'); await delay(400);
+        assert.equal(await evaluate("scrollY"), 0);
+        assert(await evaluate("!document.documentElement.dataset.openingTrigger"), "History must not replay refresh intro");
+        historyChecks.push({ width, backRestoredScroll: true, forwardReturnedToTop: true });
+      }
     }
   }
   assert.deepEqual(errors, []);
-  const report = { base, baseline, blockFramework, conditions: "External scene held pending; navigation-only checks. Use production for timing claims.", runs, homeBehavior, errors };
+  if (!baseline && !homeOnly && !blockFramework) {
+    const services = [
+      ['e-commerce-support', 'E-Commerce Support'],
+      ['restaurant-consulting', 'Restaurant Consulting'],
+      ['hotel-revenue-management', 'Hotel Revenue Management'],
+      ['digital-marketing', 'Digital Marketing & WhatsApp Marketing'],
+    ];
+    for (const [slug, name] of services) {
+      const html = await (await fetch(`${base}/contact?service=${slug}`)).text();
+      assert(html.includes('<form') && html.includes('name="message"'), 'Contact form must be in static HTML');
+      await send("Page.navigate", { url: `${base}/contact?service=${slug}` }); await ready('/contact');
+      let matched = false;
+      for (let attempt = 0; attempt < 50; attempt++) {
+        matched = await evaluate(`document.querySelector('#service').value===${JSON.stringify(name)}`);
+        if (matched) break;
+        await delay(100);
+      }
+      assert(matched, `Contact query preselection: ${slug}`);
+    }
+    await evaluate("document.querySelector('.form button').click()"); await delay(100);
+    assert.equal(await evaluate("document.activeElement.id"), 'name', 'Validation focuses first invalid field without opening external apps');
+    await send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "reduce" }] });
+    await evaluate("document.querySelector('.nav-inner>a').click()"); await ready('/');
+    assert.equal(await evaluate("window.__navigationTransition.active"), false, 'Reduced motion disables cross-document transitions');
+  }
+  const report = { base, baseline, blockFramework, conditions: "External scene held pending; navigation-only checks. Use production for timing claims.", runs, homeBehavior, transitions, historyChecks, errors };
   await writeFile(path.join(output, "report.json"), JSON.stringify(report, null, 2));
   console.log(JSON.stringify({ output, ...report }, null, 2));
 } finally {

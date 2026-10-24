@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import { PLATFORM_ASSETS } from "@/lib/platform-assets";
 import styles from "./IndustryVisual.module.css";
 
@@ -10,7 +11,7 @@ export default function PlatformMarks({ platforms, disclaimer = false }: { platf
           const asset = PLATFORM_ASSETS[name];
           return (
             <li key={name}>
-              {asset ? <Image src={asset.src} width={asset.width} height={asset.height} sizes="140px" alt={name} /> : name}
+              {asset ? <Image src={asset.src} width={asset.width} height={asset.height} sizes="140px" alt={name} style={{ "--logo-ratio": asset.width / asset.height } as CSSProperties} /> : name}
             </li>
           );
         })}
