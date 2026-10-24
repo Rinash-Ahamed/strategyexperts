@@ -93,21 +93,22 @@ export default function SiteHeader({ links, name, tagline }: Props) {
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
+  const homeHref = pathname === "/" ? "#" : "/";
+  const linkHref = (href: string) => href === "/" ? homeHref : href;
 
   return (
     <>
       <header className={`nav${scrolled || open ? " scrolled" : ""}`} style={open ? { background: "transparent", borderColor: "transparent", backdropFilter: "none" } : undefined}>
         <div className="wrap nav-inner">
-          <Link prefetch={false} href={pathname === "/" ? "#" : "/"} style={{ position: "relative", zIndex: 120, color: open ? "#fff" : undefined }}>
+          <Link href={homeHref} style={{ position: "relative", zIndex: 120, color: open ? "#fff" : undefined }}>
             <Wordmark />
           </Link>
 
           <nav aria-label="Primary" className="nav-links">
             {links.map((l) => (
               <Link
-                prefetch={false}
                 key={l.href}
-                href={l.href === "/" && pathname === "/" ? "#" : l.href}
+                href={linkHref(l.href)}
                 aria-current={isActive(l.href) ? "page" : undefined}
               >
                 {l.label}
@@ -116,7 +117,7 @@ export default function SiteHeader({ links, name, tagline }: Props) {
           </nav>
 
           <div className="nav-actions" style={{ position: "relative", zIndex: 120 }}>
-            <Link prefetch={false} href="/contact" className="btn btn-primary nav-cta">
+            <Link href="/contact" className="btn btn-primary nav-cta">
               Discuss Your Business <span className="arr" aria-hidden="true">→</span>
             </Link>
             <button
@@ -142,7 +143,7 @@ export default function SiteHeader({ links, name, tagline }: Props) {
           <ol>
             {links.map((l) => (
               <li key={l.href}>
-                <Link prefetch={false} href={l.href === "/" && pathname === "/" ? "#" : l.href} onClick={() => setOpen(false)} tabIndex={open ? 0 : -1}>
+                <Link href={linkHref(l.href)} onClick={() => setOpen(false)} tabIndex={open ? 0 : -1}>
                   {l.label}
                 </Link>
               </li>
@@ -150,7 +151,7 @@ export default function SiteHeader({ links, name, tagline }: Props) {
           </ol>
         </nav>
         <div className="menu-foot">
-          <Link prefetch={false} href="/contact" className="btn btn-light" onClick={() => setOpen(false)} tabIndex={open ? 0 : -1}>
+          <Link href="/contact" className="btn btn-light" onClick={() => setOpen(false)} tabIndex={open ? 0 : -1}>
             Discuss Your Business <span className="arr" aria-hidden="true">→</span>
           </Link>
           <p className="muted" style={{ fontSize: ".85rem" }}>

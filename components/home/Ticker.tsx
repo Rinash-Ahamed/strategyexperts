@@ -11,11 +11,14 @@ const NAMES = [
 export default function Ticker() {
   const group = (hidden: boolean) => (
     <div className="ticker-group" aria-hidden={hidden || undefined}>
-      {NAMES.map((n) => (
-        <span key={n} className="ticker-logo">
-          <Image {...PLATFORM_ASSETS[n]} sizes="140px" alt={hidden ? "" : n} style={{ "--logo-ratio": PLATFORM_ASSETS[n].width / PLATFORM_ASSETS[n].height } as CSSProperties} />
-        </span>
-      ))}
+      {NAMES.map((name) => {
+        const asset = PLATFORM_ASSETS[name];
+        return (
+          <span key={name} className="ticker-logo">
+            <Image {...asset} sizes="140px" alt={hidden ? "" : name} style={{ "--logo-ratio": asset.width / asset.height } as CSSProperties} />
+          </span>
+        );
+      })}
     </div>
   );
   return (

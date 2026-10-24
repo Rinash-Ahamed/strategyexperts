@@ -347,13 +347,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
   min-height: 300px;
   margin-top: clamp(-30px, -2vw, -8px);
 }
-.hero-art { width: 100%; height: auto; }
-.hero-art .bar { transform-origin: bottom; transform: scaleY(0); animation: rise 1.4s var(--ease) forwards; animation-delay: calc(0.25s + var(--i) * 0.09s); }
-.hero-art .trace { stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: draw 2.2s .8s var(--ease) forwards; }
-.hero-art .node { opacity: 0; animation: fade .6s 2.4s forwards; }
-@keyframes rise { to { transform: scaleY(1); } }
-@keyframes draw { to { stroke-dashoffset: 0; } }
-@keyframes fade { to { opacity: 1; } }
 
 .hero-bottom {
   display: grid; gap: 28px;
@@ -479,9 +472,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
 /* 04 - rings on white to sky */
 .sc-4 { background: var(--paper); --accent: var(--silver-white); }
 .sc-4 .grid { display: grid; gap: 40px; align-items: center; }
-.rings { width: min(100%, 520px); margin-inline: auto; }
-.rings .ring { transform-origin: 250px 250px; animation: pulse 7s var(--ease) infinite; animation-delay: calc(var(--i) * .6s); }
-@keyframes pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.035); opacity: .75; } }
 .consent-note { margin-top: 28px; padding: 20px 22px; background: var(--accent-soft, #101010); border-left: 3px solid var(--accent); font-size: .94rem; color: var(--ink-2); }
 .consent-note b { color: var(--ink); }
 .sc-4 { --accent-soft: #101010; }
@@ -571,7 +561,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .crumb b { color: var(--accent); }
 .sp-hero .h1 .line-mask:nth-child(2) { color: var(--accent); }
 .sp-hero .h1 .line-mask:nth-child(3) { color: transparent; -webkit-text-stroke: 1.5px var(--ink); }
-.sp-hero-grid { display: grid; gap: clamp(36px, 5vw, 72px); padding-block: clamp(36px, 6vw, 88px) clamp(56px, 8vw, 120px); }
+.sp-hero-grid { display: grid; gap: clamp(36px, 5vw, 72px); padding-block: clamp(28px, 3.5vw, 48px) clamp(36px, 4.5vw, 56px); }
 .sp-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
 
 /* hero A - ecom: oversized marketplace roll-call */
@@ -790,9 +780,7 @@ body { min-height: 100dvh; }
 /* phones & tablets: drop the costliest paints */
 @media (max-width: 1023px) {
   .nav.scrolled { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(245,248,254,.97); }
-  .rings .ring { animation: none; }
   .hero-hotel::before { mask-image: none; -webkit-mask-image: none; opacity: .55; }
-  .hero-art .trace { animation-duration: 1.6s; }
 }
 
 /* safe areas on notched devices */
@@ -1333,7 +1321,6 @@ body {
 .sc-3 .bigterms span:nth-child(2),
 .sc-3 .bigterms span:nth-child(3) { color: var(--silver-dark); -webkit-text-stroke: 0; }
 
-.rings .ring { stroke: var(--graphite-light); }
 .consent-note,
 .consent .practice,
 .notice {

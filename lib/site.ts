@@ -35,7 +35,6 @@ export type ServiceTheme = "ecom" | "restaurant" | "hotel" | "digital";
 
 export type Service = {
   slug: string;
-  index: string;
   theme: ServiceTheme;
   name: string;
   navName: string;
@@ -45,7 +44,6 @@ export type Service = {
   intro: string;
   /** Platforms named in the supplied documents */
   platforms: string[];
-  platformsLabel: string;
   /** Short line for homepage showcase */
   summary: string;
   /** Concise capability list (homepage + page) */
@@ -76,7 +74,6 @@ export type Service = {
 export const SERVICES: Service[] = [
   {
     slug: "e-commerce-support",
-    index: "01",
     theme: "ecom",
     name: "E-Commerce Support",
     navName: "E-Commerce Support",
@@ -87,7 +84,6 @@ export const SERVICES: Service[] = [
     intro:
       "End-to-end e-commerce consulting, account management, product optimisation and performance-driven strategy for brands and sellers on Amazon, Flipkart and Meesho.",
     platforms: ["Amazon", "Flipkart", "Meesho"],
-    platformsLabel: "Three platforms. Endless opportunities.",
     summary:
       "From account setup to sales growth, we manage the marketplace details so you can focus on scaling the business.",
     capabilities: [
@@ -232,7 +228,6 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "restaurant-consulting",
-    index: "02",
     theme: "restaurant",
     name: "Restaurant Consulting",
     navName: "Restaurant Consulting",
@@ -243,7 +238,6 @@ export const SERVICES: Service[] = [
     intro:
       "We help restaurants grow on Zomato and Swiggy with data-driven strategy, platform expertise and end-to-end execution, turning digital channels into consistent revenue drivers.",
     platforms: ["Zomato", "Swiggy"],
-    platformsLabel: "Built around the two platforms your orders come from.",
     summary:
       "From your online presence to menus and promotions, we turn Zomato and Swiggy into steady revenue channels.",
     capabilities: [
@@ -388,7 +382,6 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "hotel-revenue-management",
-    index: "03",
     theme: "hotel",
     name: "Hotel Revenue Management",
     navName: "Hotel Revenue Management",
@@ -408,7 +401,6 @@ export const SERVICES: Service[] = [
       "EaseMyTrip",
       "Yatra",
     ],
-    platformsLabel: "Manage & optimise across leading OTAs",
     summary:
       "A specialist service for hotel commercial performance: pricing, distribution and the numbers that matter.",
     capabilities: [
@@ -553,7 +545,6 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "digital-marketing",
-    index: "04",
     theme: "digital",
     name: "Digital Marketing & WhatsApp Marketing",
     navName: "Digital Marketing",
@@ -564,7 +555,6 @@ export const SERVICES: Service[] = [
     intro:
       "We help businesses increase their online visibility, build a stronger reputation and attract more customers through expert Google Business Profile management and result-driven digital marketing.",
     platforms: ["Google", "Meta", "WhatsApp"],
-    platformsLabel: "Where your customers already look",
     summary:
       "Be found locally, build trust through reviews, and reach customers directly, with permission-based WhatsApp support.",
     capabilities: [

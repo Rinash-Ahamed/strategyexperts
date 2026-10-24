@@ -1,3 +1,4 @@
+import Arrow from "@/components/shared/Arrow";
 import Link from "@/components/shared/PageLink";
 import Faq from "@/components/shared/Faq";
 import Metrics from "@/components/shared/Metrics";
@@ -6,11 +7,6 @@ import IndustryVisual from "@/components/shared/IndustryVisual";
 import PlatformMarks from "@/components/shared/PlatformMarks";
 import { SERVICES, SITE, type Service } from "@/lib/site";
 
-const Arrow = () => (
-  <span className="arr" aria-hidden="true">
-    →
-  </span>
-);
 
 const Mask = ({ children, d = 0 }: { children: React.ReactNode; d?: number }) => (
   <span className="line-mask">
@@ -43,7 +39,7 @@ export default function ServicePage({ service: s }: { service: Service }) {
             <div className="stack-m">
               <nav className="crumb" aria-label="Breadcrumb">
                 <ol>
-                  <li><Link prefetch={false} href="/">Home</Link></li>
+                  <li><Link href="/">Home</Link></li>
                   <li>
                     <span aria-hidden="true">/</span>
                     <span>Services</span>
@@ -63,7 +59,7 @@ export default function ServicePage({ service: s }: { service: Service }) {
               </h1>
               <p className="lead">{s.intro}</p>
               <div className="sp-hero-actions">
-                <Link prefetch={false} href={`/contact?service=${s.slug}`} className="btn btn-accent">
+                <Link href={`/contact?service=${s.slug}`} className="btn btn-accent">
                   Get a Free Consultation <Arrow />
                 </Link>
                 <a href="#deliverables" className="btn btn-ghost">
@@ -244,10 +240,10 @@ export default function ServicePage({ service: s }: { service: Service }) {
           </h2>
           <p className="lead">{s.closing.body}</p>
           <div className="cta-row">
-            <Link prefetch={false} href={`/contact?service=${s.slug}`} className="btn btn-light">
+            <Link href={`/contact?service=${s.slug}`} className="btn btn-light">
               Get a Free Consultation <Arrow />
             </Link>
-            <Link prefetch={false} href="/contact" className="btn btn-outline-light">
+            <Link href="/contact" className="btn btn-outline-light">
               Talk to a Growth Expert
             </Link>
           </div>
@@ -255,6 +251,7 @@ export default function ServicePage({ service: s }: { service: Service }) {
       </section>
 
       {/* ---------------- Other services ---------------- */}
+      {s.theme !== "digital" && (
       <section className="section-tight" aria-labelledby="other-title" style={{ background: "var(--bg)" }}>
         <div className="wrap">
           <h2 className="h3" id="other-title" style={{ marginBottom: 20 }}>
@@ -262,13 +259,14 @@ export default function ServicePage({ service: s }: { service: Service }) {
           </h2>
           <nav className="other-services" aria-label="Other services">
             {others.map((o) => (
-              <Link prefetch={false} key={o.slug} href={`/services/${o.slug}`}>
+              <Link key={o.slug} href={`/services/${o.slug}`}>
                 {o.name}
               </Link>
             ))}
           </nav>
         </div>
       </section>
+      )}
     </div>
   );
 }

@@ -16,7 +16,8 @@ const SERVICE_PHOTOS = {
 };
 
 export default function IndustryVisual({ theme, platforms, placement = "home" }: { theme: Exclude<ServiceTheme, "digital">; platforms: readonly string[]; placement?: "home" | "service" }) {
-  const photo = { ...HOME_PHOTOS[theme], ...(placement === "service" ? SERVICE_PHOTOS[theme] : {}) };
+  const photo = placement === "service" ? SERVICE_PHOTOS[theme] : HOME_PHOTOS[theme];
+  const { caption } = HOME_PHOTOS[theme];
   return (
     <div className={`${styles.visual} ${styles[theme]}`} data-industry-visual>
       <figure className={styles.photo}>
@@ -33,7 +34,7 @@ export default function IndustryVisual({ theme, platforms, placement = "home" }:
             data-photo-placement={placement === "service" ? "hero" : "content"}
           />
         </div>
-        <figcaption><span>{photo.caption}</span><span>Industry imagery, not client work.</span></figcaption>
+        <figcaption><span>{caption}</span><span>Industry imagery, not client work.</span></figcaption>
       </figure>
       <PlatformMarks platforms={platforms} disclaimer />
     </div>

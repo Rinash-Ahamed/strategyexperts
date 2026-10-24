@@ -27,7 +27,7 @@ The live robot was tested separately. Forced-software WebGL profiling and a fina
 - Robot startup yields until a native transition completes. Existing offscreen/tab/menu pausing remains; `pagehide` now stops rendering and disposes a genuinely unloaded application while keeping BFCache documents resumable.
 - Refresh opening detection, refresh-to-top and Skip now work before React hydration. Normal exit follows the first robot frames and the existing three-second minimum, not the old six-second cutoff. A 60-second failure watchdog and pre-hydration Skip/keyboard controls prevent an indefinite overlay if the scene/client fails. Normal navigation Home does not replay the opening. Reduced motion bypasses it.
 - Added the requested WhatsApp footer icon beside Instagram using an inline SVG and the configured WhatsApp number, falling back to the supplied business phone. No external icon library or extra image request.
-- Reproduced a shared closing consultation CTA conflict: light section tokens made light button text almost invisible until hover (1.05:1 measured contrast). Scoped solid foreground/background colours fix the normal state without changing layout. Final button-state regression is recorded below after the production recheck.
+- Reproduced a shared closing consultation CTA conflict: light section tokens made light button text almost invisible until hover (1.05:1 measured contrast). Scoped solid foreground/background colours fix the normal state without changing layout. The production regression passed all 48 normal, hover and keyboard-focus states across both buttons, all four services and desktop/mobile widths, with at least 4.5:1 text contrast.
 
 No significant initial-JavaScript reduction was demonstrated: initial HTML script gzip totals remained approximately 188KB for Home, 184KB for services and 179KB for Contact. Spline stays route-isolated rather than being loaded on service pages. Individual route LCP timings varied; there is no blanket LCP-speedup claim.
 
@@ -48,6 +48,7 @@ LCP <=2.5s, field INP <=200ms and a sustained high refresh rate are targets, not
 - With framework chunks blocked, document navigation, transitions and the opening's native Skip fallback passed. All four service-query selections and invalid-form focus behaviour passed with normal hydration.
 - Live-model check passed: cursor-responsive head, unchanged body motion, offscreen stop/resume, live touch animation without cursor tracking, reduced-motion still scene, and an uncached refresh that kept the opening visible until the robot loaded, then ended at Home's top.
 - Footer icons and opening screenshots inspected at desktop/mobile sizes. Ten unique internal destinations returned HTTP 200; external contact/social URL syntax was checked without sending messages.
+- Editorial motion and consultation-button regressions passed; refresh bootstrap unit checks also passed, including BFCache listener/timer cleanup without a scroll jump.
 
 Physical phones, Safari, Firefox, screen readers and real-user INP remain unverified. Some test conditions isolate content from the robot; those checks must not be presented as complete 3D performance scores.
 
@@ -63,8 +64,9 @@ node scripts/verify-navigation.mjs http://localhost:3126 --block-framework
 node scripts/verify-content-colour.mjs http://localhost:3126
 node scripts/verify-site.mjs http://localhost:3126 robot --motion-only --verify-opening --native-gpu
 node scripts/verify-editorial-motion.mjs http://localhost:3126
+node scripts/test-page-bootstrap.mjs
 ```
 
-Scripts print temporary report/screenshot directories. Relevant completed artifacts from this audit are `se-baseline-content-xyG2NR`, `se-after-content-onKdCF`, `se-navigation-No2ABw`, `se-navigation-UTadJI`, `se-content-colour-n9mfGx` and `strategy-experts-live-opening-final-q8OhAZ`. The Lighthouse diagnostic is `se-lh-baseline-home.json` in the OS temporary directory.
+Scripts print temporary report/screenshot directories. Relevant completed artifacts from this audit are `se-baseline-content-xyG2NR`, `se-after-content-onKdCF`, `se-navigation-No2ABw`, `se-navigation-UTadJI`, `se-content-colour-n9mfGx`, `strategy-experts-live-opening-final-q8OhAZ` and `se-editorial-NKOvVJ`. The Lighthouse diagnostic is `se-lh-baseline-home.json` in the OS temporary directory.
 
 Implementation references: [Chrome cross-document transitions](https://developer.chrome.com/docs/web-platform/view-transitions/cross-document) and [Spline scene optimization guidance](https://docs.spline.design/exporting-your-scene/how-to-optimize-your-scene).

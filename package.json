@@ -1,12 +1,13 @@
 {
   "name": "strategy-experts",
-  "version": "1.4.16",
+  "version": "2.5.20",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
+    "test": "node scripts/test-page-bootstrap.mjs && node --test scripts/test-site-url.mjs",
     "lint": "eslint . --max-warnings=0"
   },
   "dependencies": {

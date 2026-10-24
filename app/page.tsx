@@ -1,3 +1,4 @@
+import Arrow from "@/components/shared/Arrow";
 import Link from "@/components/shared/PageLink";
 import HeroExperience from "@/components/home/HeroExperience";
 import HeroHeadline from "@/components/home/HeroHeadline";
@@ -16,11 +17,6 @@ import {
 
 const [ecom, restaurant, hotel, digital] = SERVICES;
 
-const Arrow = () => (
-  <span className="arr" aria-hidden="true">
-    →
-  </span>
-);
 
 export default function Home() {
   return (
@@ -40,7 +36,7 @@ export default function Home() {
             </div>
             <nav className="hero-service-nav" aria-label="Commerce and hospitality services">
               {[ecom, restaurant].map((service) => (
-                <Link prefetch={false} key={service.slug} href={`/services/${service.slug}`}>
+                <Link key={service.slug} href={`/services/${service.slug}`}>
                   <span>{service.navName}</span>
                   <span className="hero-service-arrow" aria-hidden="true">{"\u2197"}</span>
                 </Link>
@@ -55,7 +51,6 @@ export default function Home() {
             <nav className="hero-service-nav" aria-label="Revenue and marketing services">
               {SERVICES.map((service, index) => (
                 <Link
-                  prefetch={false}
                   className={index < 2 ? "hero-service-mobile-only" : undefined}
                   key={service.slug}
                   href={`/services/${service.slug}`}
@@ -84,7 +79,7 @@ export default function Home() {
                 hands-on execution.
               </p>
               <div className="hero-cta">
-                <Link prefetch={false} href="/contact" className="btn btn-primary">
+                <Link href="/contact" className="btn btn-primary">
                   Discuss Your Business <Arrow />
                 </Link>
                 <a href="#expertise" className="btn btn-ghost">
@@ -94,7 +89,7 @@ export default function Home() {
             </div>
             <nav className="hero-index" aria-label="Services">
               {SERVICES.map((s) => (
-                <Link prefetch={false} key={s.slug} href={`/services/${s.slug}`}>
+                <Link key={s.slug} href={`/services/${s.slug}`}>
                   {s.navName}
                 </Link>
               ))}
@@ -181,7 +176,7 @@ export default function Home() {
                     <li key={c}>{c}</li>
                   ))}
                 </ul>
-                <Link prefetch={false} className="link-arrow" href={`/services/${ecom.slug}`}>
+                <Link className="link-arrow" href={`/services/${ecom.slug}`}>
                   Explore Service <Arrow />
                 </Link>
               </div>
@@ -204,7 +199,7 @@ export default function Home() {
                 <ul className="sc-caps">
                   {restaurant.capabilities.map((capability) => <li key={capability}>{capability}</li>)}
                 </ul>
-                <Link prefetch={false} className="link-arrow" href={`/services/${restaurant.slug}`}>
+                <Link className="link-arrow" href={`/services/${restaurant.slug}`}>
                   Explore Service <Arrow />
                 </Link>
               </div>
@@ -222,7 +217,7 @@ export default function Home() {
                 <ul className="sc-caps">
                   {hotel.capabilities.map((capability) => <li key={capability}>{capability}</li>)}
                 </ul>
-                <Link prefetch={false} className="link-arrow" href={`/services/${hotel.slug}`}>
+                <Link className="link-arrow" href={`/services/${hotel.slug}`}>
                   Explore Service <Arrow />
                 </Link>
               </div>
@@ -252,7 +247,7 @@ export default function Home() {
                   <b>WhatsApp, done with permission.</b> Messaging is aimed at customers who have opted
                   in, with the business clearly identified and an easy way to opt out.
                 </p>
-                <Link prefetch={false} className="link-arrow" href={`/services/${digital.slug}`}>
+                <Link className="link-arrow" href={`/services/${digital.slug}`}>
                   Explore Service <Arrow />
                 </Link>
               </div>
@@ -332,10 +327,10 @@ export default function Home() {
             identify where the next opportunity lies.
           </p>
           <div className="cta-row">
-            <Link prefetch={false} href="/contact" className="btn btn-light">
+            <Link href="/contact" className="btn btn-light">
               Start a Conversation <Arrow />
             </Link>
-            <Link prefetch={false} href={`/services/${ecom.slug}`} className="btn btn-outline-light">
+            <Link href={`/services/${ecom.slug}`} className="btn btn-outline-light">
               See what we do
             </Link>
           </div>
