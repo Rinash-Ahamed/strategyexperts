@@ -749,7 +749,7 @@ export const IMPACT_PRINCIPLES: Step[] = [
 
 export const CHALLENGE = {
   headline: "Your business is online. But is it performing at its potential?",
-  body: "Being present on digital platforms is no longer enough. Poor visibility, inefficient pricing, weak listings, missed promotional opportunities and inconsistent platform management can directly affect revenue.",
+  body: "Digital presence alone isn't enough. Poor visibility, pricing, listings, promotions, and platform management can cost you revenue.",
   pillars: [
     { title: "Visibility", body: "Be found by the right customers." },
     { title: "Performance", body: "Turn traffic into measurable results." },

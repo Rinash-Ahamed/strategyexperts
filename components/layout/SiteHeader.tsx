@@ -4,6 +4,7 @@ import Link from "@/components/shared/PageLink";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Wordmark from "./Wordmark";
+import styles from "./SiteHeader.module.css";
 
 type Props = { links: { href: string; label: string }[]; name: string; tagline: string };
 
@@ -14,6 +15,26 @@ export default function SiteHeader({ links, name, tagline }: Props) {
   const progressRef = useRef<HTMLSpanElement>(null);
   const burgerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const servicesRef = useRef<HTMLDetailsElement>(null);
+
+  useEffect(() => {
+    const closeOutside = (event: PointerEvent) => {
+      if (event.target instanceof Node && !servicesRef.current?.contains(event.target)) {
+        servicesRef.current?.removeAttribute("open");
+      }
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape" || !servicesRef.current?.open) return;
+      servicesRef.current.open = false;
+      servicesRef.current.querySelector("summary")?.focus();
+    };
+    document.addEventListener("pointerdown", closeOutside);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOutside);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, []);
 
   useEffect(() => {
     let raf = 0;
@@ -52,7 +73,10 @@ export default function SiteHeader({ links, name, tagline }: Props) {
 
   useEffect(() => {
     const desktop = window.matchMedia("(min-width: 1280px)");
-    const closeOnDesktop = () => { if (desktop.matches) setOpen(false); };
+    const closeOnDesktop = () => {
+      if (desktop.matches) setOpen(false);
+      else servicesRef.current?.removeAttribute("open");
+    };
     desktop.addEventListener("change", closeOnDesktop);
     return () => desktop.removeEventListener("change", closeOnDesktop);
   }, []);
@@ -98,26 +122,38 @@ export default function SiteHeader({ links, name, tagline }: Props) {
 
   return (
     <>
-      <header className={`nav${scrolled || open ? " scrolled" : ""}`} style={open ? { background: "transparent", borderColor: "transparent", backdropFilter: "none" } : undefined}>
-        <div className="wrap nav-inner">
-          <Link href={homeHref} style={{ position: "relative", zIndex: 120, color: open ? "#fff" : undefined }}>
+      <header className={`nav ${styles.header}${scrolled || open ? " scrolled" : ""}`} style={open ? { background: "transparent", borderColor: "transparent", backdropFilter: "none" } : undefined}>
+        <div className={`wrap nav-inner ${styles.inner}`}>
+          <Link href={homeHref} aria-label={`${name} home`} style={{ position: "relative", zIndex: 120, color: open ? "#fff" : undefined }}>
             <Wordmark />
           </Link>
 
-          <nav aria-label="Primary" className="nav-links">
-            {links.map((l) => (
-              <Link
-                key={l.href}
-                href={linkHref(l.href)}
-                aria-current={isActive(l.href) ? "page" : undefined}
-              >
-                {l.label}
-              </Link>
-            ))}
+          <nav aria-label="Primary" className={`nav-links ${styles.desktop}`}>
+            <Link href={homeHref} aria-current={pathname === "/" ? "page" : undefined}>Home</Link>
+            <details
+              className={styles.services}
+              ref={servicesRef}
+              onBlur={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget)) event.currentTarget.open = false;
+              }}
+            >
+              <summary className={styles.trigger} data-active={pathname.startsWith("/services/") || undefined}>
+                Services
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="m3 4.5 3 3 3-3" stroke="currentColor" strokeWidth="1.2" /></svg>
+              </summary>
+              <div className={styles.panel}>
+                {links.filter((link) => link.href.startsWith("/services/")).map((link) => (
+                  <Link key={link.href} href={link.href} aria-current={isActive(link.href) ? "page" : undefined}>
+                    <span>{link.label}</span><span aria-hidden="true">↗</span>
+                  </Link>
+                ))}
+              </div>
+            </details>
+            <Link href="/contact" aria-current={isActive("/contact") ? "page" : undefined}>Contact</Link>
           </nav>
 
-          <div className="nav-actions" style={{ position: "relative", zIndex: 120 }}>
-            <Link href="/contact" className="btn btn-primary nav-cta">
+          <div className={`nav-actions ${styles.actions}`} style={{ position: "relative", zIndex: 120 }}>
+            <Link href="/contact" className={`btn btn-primary nav-cta ${styles.cta}`}>
               Discuss Your Business <span className="arr" aria-hidden="true">→</span>
             </Link>
             <button
