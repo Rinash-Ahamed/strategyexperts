@@ -5,6 +5,8 @@ export const PLATFORM_ASSETS: Record<string, { src: string; width: number; heigh
   Meesho: { src: "/Brand/Ecommerce/meesho.png", width: 200, height: 64 },
   Zomato: { src: "/Brand/Restaurant/Zomata.png", width: 1253, height: 266 },
   Swiggy: { src: "/Brand/Restaurant/Swiggy.png", width: 800, height: 247 },
+  Toing: { src: "/Brand/Restaurant/toing.png", width: 1600, height: 973 },
+  "Flipkart Minutes": { src: "/Brand/Restaurant/Flipkart_Minutes.png", width: 1500, height: 900 },
   MakeMyTrip: { src: "/Brand/Hotel/mmt.png", width: 800, height: 255 },
   "Booking.com": { src: "/Brand/Hotel/booking.com.png", width: 1900, height: 326 },
   Agoda: { src: "/Brand/Hotel/agoda.png", width: 1256, height: 646 },

@@ -1,0 +1,25 @@
+.gradient { color: #d7c4f5; }
+
+@supports (background-clip: text) {
+  .gradient {
+    background: linear-gradient(110deg, #faf5ff 5%, #b38ae8 30%, #ead9ff 50%, #b38ae8 70%, #faf5ff 95%);
+    background-size: 220% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: headlineFlow 8s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes headlineFlow {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gradient { animation: none; }
+}
+
+@media (forced-colors: active) {
+  .gradient { background: none; color: CanvasText; animation: none; }
+}

@@ -3,10 +3,10 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
   padding-block: 14px 24px;
 }
-.stage { --stage-colour: #315b50; position: relative; min-width: 0; }
-.stage:nth-child(2) { --stage-colour: #82432e; }
-.stage:nth-child(3) { --stage-colour: #685338; }
-.stage:nth-child(4) { --stage-colour: #285762; }
+.stage { --stage-colour: #cccccc; position: relative; min-width: 0; }
+.stage:nth-child(2) { --stage-colour: #cccccc; }
+.stage:nth-child(3) { --stage-colour: #cccccc; }
+.stage:nth-child(4) { --stage-colour: #cccccc; }
 .stage:not(:last-child)::before {
   content: "";
   position: absolute;
@@ -14,7 +14,7 @@
   left: 60px;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, #63766d66, #ffffffcc, #63766d66);
+  background: linear-gradient(90deg, #aaaaaa44, #aaaaaa66, #aaaaaa44);
 }
 .content { position: relative; }
 .marker {
@@ -25,8 +25,8 @@
   border: 1px solid color-mix(in srgb, var(--stage-colour) 24%, transparent);
   border-radius: 50%;
   color: var(--stage-colour);
-  background: linear-gradient(145deg, #ffffffbf, #ffffff24);
-  box-shadow: inset 0 1px 0 #fff9;
+  background: linear-gradient(145deg, #ffffff0c, #ffffff04);
+  box-shadow: inset 0 1px 0 #ffffff12;
   transition: transform 350ms cubic-bezier(.22, .8, .2, 1);
 }
 .marker svg { width: 25px; height: 25px; }
@@ -35,7 +35,7 @@
   max-width: 16ch; color: var(--stage-colour);
   font-size: var(--type-subheading); font-weight: 450; line-height: 1.3; letter-spacing: -.02em;
 }
-.copy p { margin-top: 14px; max-width: 29ch; color: #49534d; line-height: 1.75; }
+.copy p { margin-top: 14px; max-width: 29ch; color: #bdbdbd; line-height: 1.75; }
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .stage:hover .marker { transform: translateY(-4px); }
@@ -44,7 +44,7 @@
   .journey { grid-template-columns: 1fr; padding-block: 0 12px; }
   .stage:not(:last-child)::before {
     top: 52px; bottom: 0; left: 25px; right: auto; width: 1px; height: auto;
-    background: linear-gradient(#63766d66, #ffffffcc, #63766d66);
+    background: linear-gradient(#aaaaaa44, #aaaaaa66, #aaaaaa44);
   }
   .content { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 24px; }
   .marker { width: 52px; height: 52px; }

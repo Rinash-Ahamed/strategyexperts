@@ -5,6 +5,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     "",
     "/contact",
+    "/pricing",
     ...SERVICES.map((s) => `/services/${s.slug}`),
   ].map((p) => ({ url: `${SITE.url}${p}` }));
 }

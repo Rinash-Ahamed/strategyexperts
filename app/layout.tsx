@@ -6,6 +6,7 @@ import "./content-colour.css";
 import "./typography.css";
 import "./editorial.css";
 import "./transitions.css";
+import "./monochrome.css";
 import RevealObserver from "@/components/effects/RevealObserver";
 import SiteFooter from "@/components/layout/SiteFooter";
 import SiteHeader from "@/components/layout/SiteHeader";
@@ -59,7 +60,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <a className="skip" href="#main">Skip to content</a>
         <SiteHeader links={NAV_LINKS} name={SITE.name} tagline={SITE.tagline} />
         <main id="main">{children}</main>
         <SiteFooter />

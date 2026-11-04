@@ -1,0 +1,158 @@
+/* Site-wide black/silver finish. Original brand assets remain unaltered. */
+:root,
+body .surface-ivory,
+body .surface-silver,
+body .service-page,
+body .service-page .on-dark,
+body .surface-ivory .on-dark {
+  --bg: #000;
+  --paper: #0b0b0b;
+  --ink: #f0f0f0;
+  --ink-2: #bdbdbd;
+  --ink-3: #a2a2a2;
+  --line: #242424;
+  --line-strong: #383838;
+  --accent: #e5e5e5;
+  --accent-ink: #f0f0f0;
+  --accent-soft: #111;
+  --accent-line: #444;
+  --blue: #e5e5e5;
+  --silver-white: #f0f0f0;
+  --silver-mid: #c4c4c4;
+  --silver-dark: #a2a2a2;
+  --graphite-light: #888;
+  --ivory: #000;
+  --mist: #dedede;
+  --sand: #111;
+  --botanical: #c4c4c4;
+  --terracotta: #c4c4c4;
+  --deep-teal: #c4c4c4;
+  --service-colour: #d0d0d0;
+  --service-paper: #111;
+  --metric-colour: #dedede;
+  color-scheme: dark;
+}
+body { background: #000; isolation: isolate; }
+body::before {
+  content: "";
+  position: fixed;
+  inset: -12%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 18% 25%, #ffffff0c, transparent 45%),
+    radial-gradient(ellipse at 82% 72%, #ffffff08, transparent 42%);
+  animation: graphite-drift 26s ease-in-out infinite alternate;
+}
+@keyframes graphite-drift {
+  from { transform: translate3d(-3%, -2%, 0); opacity: .65; }
+  to { transform: translate3d(3%, 2%, 0); opacity: 1; }
+}
+body .surface-ivory,
+body .surface-silver,
+body .service-page,
+body .service-page .sp-hero,
+body .service-page .focus-block,
+body .service-page > .sp-hero + .section,
+body .service-page .consent,
+body .service-page .sp-cta,
+body .cta.on-dark,
+body .footer,
+body .hero,
+body .hero-bottom { background: transparent; color: var(--ink); }
+/* Match the legacy three-class light-hero selector, not just its base rule. */
+body .service-page .sp-hero.service-hero-paper { background: transparent; color: var(--ink); }
+body .service-page .sp-hero .h1 { color: #f0f0f0; }
+body .service-page.t-ecom,
+body .service-page.t-restaurant,
+body .service-page.t-hotel,
+body .service-page.t-digital { --service-colour: #d0d0d0; --service-paper: #111; }
+body .hero-background-glow { display: none; }
+/* One continuous surface from the navigation arc to the conveyor's lower edge. */
+body .hero.hero-frame {
+  background: transparent;
+  padding-bottom: 12px;
+}
+/* Full-bleed soft light; only transform/opacity animate, never blur or layout. */
+.hero.hero-frame::before {
+  content: "";
+  position: absolute;
+  inset: -10%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 42% 52% at 50% 42%, #ae7cfb55, #8971e522 42%, transparent 74%);
+  animation: hero-lavender-flow 10s ease-in-out -3s infinite alternate;
+}
+@keyframes hero-lavender-flow {
+  0% { transform: translate3d(-22%, -6%, 0); opacity: .8; }
+  50% { transform: translate3d(0, 5%, 0); opacity: 1; }
+  100% { transform: translate3d(22%, -3%, 0); opacity: .85; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero.hero-frame::before { animation: none; transform: none; opacity: .75; }
+}
+@media (forced-colors: active) {
+  .hero.hero-frame::before { display: none; }
+}
+.hero-frame .hero-shell { padding-top: clamp(32px, 5vw, 64px); padding-bottom: 12px; }
+.hero-frame-edge { position: absolute; bottom: 0; left: 0; width: 100%; height: 24px; max-width: none; pointer-events: none; }
+@media (max-width: 700px) {
+  .hero-frame-edge { height: 16px; }
+}
+body .cta::before, body .sp-cta::before { background: none; }
+body .platform-ticker.ticker { background: #080808; }
+body .platform-ticker .ticker-logo img { background: transparent; }
+body .hero-intro .hero-index a,
+body .service-page .focus-grid h3,
+body .service-page .other-services a:hover,
+body .surface-ivory .link-arrow,
+body .surface-silver .link-arrow { color: #e5e5e5; }
+body .service-page .focus-grid p { color: var(--ink-2); }
+/* Shared CTA finish, including legacy service and outlined button variants. */
+body .btn,
+body :is(.surface-ivory, .surface-silver, .service-page .sp-hero, .service-page .sp-cta) .btn {
+  background: #fff;
+  color: #111;
+  border-color: transparent;
+}
+body .btn:hover,
+body :is(.surface-ivory, .surface-silver, .service-page .sp-hero, .service-page .sp-cta) .btn:hover {
+  background: #fff;
+  color: #111;
+  border-color: transparent;
+}
+body .btn .arr { display: inline-block; transition: transform 220ms ease; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  body .btn:hover .arr { transform: translateX(4px); }
+}
+body .btn:focus-visible .arr { transform: translateX(4px); }
+@media (prefers-reduced-motion: reduce) {
+  body .btn .arr { transition: none; }
+  body .btn:hover .arr, body .btn:focus-visible .arr { transform: none; }
+}
+body .service-page .focus-grid > li { background: linear-gradient(145deg, #ffffff07, #ffffff02); box-shadow: inset 0 1px 0 #ffffff08; }
+body .service-page .focus-grid > li::after { background: #ffffff05; }
+body .service-page .audience li { background: #090909; color: #dedede; border-color: #444; }
+body .service-page .audience li:hover { background: #202020; color: #fff; }
+body .service-page .deliver > li:hover { background: transparent; }
+body .expertise .consent-note { background: #111; color: #bdbdbd; border-color: #777; }
+body .expertise .consent-note b { color: #eee; }
+body .surface-ivory :focus-visible,
+body .surface-silver :focus-visible { outline-color: #dedede; }
+body .footer-socials a { color: #ddd; border-color: #555; }
+.footer .footer-brand-link .wordmark { flex-direction: column; align-items: flex-start; gap: 14px; }
+.footer .footer-brand-link .wordmark small { display: block; margin-left: 0; align-self: auto; font-size: .6875rem; line-height: 1.5; letter-spacing: .18em; color: #a2a2a2; }
+body .metrics .metric b { color: #dedede; }
+body .hero .hero-service-nav a { background: linear-gradient(120deg, #ffffff09, #ffffff03), #0c0c0c; color: #ccc; }
+body .hero .hero-service-nav a:hover { background-color: #1a1a1a; }
+body .hero .hero-service-arrow { color: #aaa; }
+body .field .err { color: #eee; }
+body .field input::placeholder,
+body .field textarea::placeholder { color: #aaa; opacity: 1; }
+body .field [aria-invalid="true"] { border-color: #dedede; }
+@media (prefers-reduced-motion: reduce) {
+  body::before { animation: none; transform: none; }
+}
+@media (forced-colors: active) {
+  body::before { display: none; }
+}

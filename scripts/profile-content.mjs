@@ -1,4 +1,4 @@
-// Isolate document/content loading from the independently profiled external 3D scene.
+// Production route measurements with the real page resources and animations.
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { mkdtemp, readFile, writeFile } from 'node:fs/promises';
@@ -42,7 +42,7 @@ async function open(route) {
 }
 const onlyRoute = process.argv.find(arg => arg.startsWith('--route='))?.slice(8);
 const routes = onlyRoute ? [onlyRoute] : ['/', '/services/e-commerce-support', '/services/restaurant-consulting', '/services/hotel-revenue-management', '/services/digital-marketing', '/contact'];
-const report = { conditions: 'Production localhost; Chrome DPR 1; no CPU/network throttling. External scene fetch held pending to isolate content, NOT whole-homepage/robot performance. 2 cold-cache samples per route/viewport; LCP observation window 2 seconds after DOM ready.', runs: [], bundles: [], errors: [] };
+const report = { conditions: 'Production localhost; Chrome DPR 1; no CPU/network throttling or intercepted resources. 2 cold-browser-cache samples per route/viewport; server caches not cleared; LCP observation window 2 seconds after DOM ready. Lab diagnostics, not field INP or a Lighthouse score.', runs: [], bundles: [], errors: [] };
 try {
   let port;
   for (let i = 0; i < 100; i++) {
@@ -63,7 +63,6 @@ try {
   };
   await send('Page.enable'); await send('Runtime.enable'); await send('Network.enable');
   await send('Network.setCacheDisabled', { cacheDisabled: true });
-  await send('Fetch.enable', { patterns: [{ urlPattern: '*scene.splinecode*', requestStage: 'Request' }] });
   await send('Page.addScriptToEvaluateOnNewDocument', { source: `window.__content={lcp:0,cls:0,blockingMs:0,shifts:[]};for(const type of ['largest-contentful-paint','layout-shift','longtask'])new PerformanceObserver(list=>{for(const e of list.getEntries()){if(type==='largest-contentful-paint')__content.lcp=e.startTime;if(type==='layout-shift'&&!e.hadRecentInput){__content.cls+=e.value;__content.shifts.push({at:e.startTime,value:e.value,sources:e.sources.map(s=>({node:s.node?.outerHTML.slice(0,200),before:s.previousRect.toJSON(),after:s.currentRect.toJSON()}))})}if(type==='longtask')__content.blockingMs+=Math.max(0,e.duration-50)}}).observe({type,buffered:true});` });
   for (const width of (process.argv.includes('--desktop-only') ? [1440] : [390, 1440])) {
     await send('Emulation.setDeviceMetricsOverride', { width, height: 900, deviceScaleFactor: 1, mobile: width < 700 });
@@ -73,9 +72,6 @@ try {
       const result = await evaluate(`(()=>{const n=performance.getEntriesByType('navigation')[0];return {...__content,fcp:performance.getEntriesByName('first-contentful-paint')[0]?.startTime,ttfb:n.responseStart,domReady:n.domContentLoadedEventEnd,overflow:document.documentElement.scrollWidth>innerWidth,resources:performance.getEntriesByType('resource').reduce((sum,e)=>sum+e.transferSize,0)}})()`);
       report.runs.push({ route, width, sample, ...result });
       assert.equal(result.overflow, false);
-      if (route === '/' && width === 1440 && sample === 2) {
-        report.pointerBurst = await evaluate(`(()=>{const e=document.querySelector('.hero-robot'),original=e.getBoundingClientRect;let reads=0;e.getBoundingClientRect=function(){reads++;return original.call(this)};const start=performance.now();for(let i=0;i<100;i++)window.dispatchEvent(new PointerEvent('pointermove',{clientX:600+i,clientY:280,pointerType:'mouse'}));const syncMs=performance.now()-start;const synchronousReads=reads;return new Promise(resolve=>setTimeout(()=>{e.getBoundingClientRect=original;resolve({events:100,synchronousReads,totalReads:reads,syncMs,tracking:e.dataset.headTracking})},100))})()`);
-      }
     }
   }
   for (const route of routes) {

@@ -72,25 +72,6 @@ export default function ServicePage({ service: s }: { service: Service }) {
         </div>
       </section>
 
-      {/* ---------------- Problems ---------------- */}
-      <section className="section" aria-labelledby="problems-title">
-        <div className="wrap">
-          <div className="block-head">
-            <div className="stack-m" data-reveal>
-              <h2 className="h2" id="problems-title">{s.problemsTitle}</h2>
-            </div>
-          </div>
-          <ul className={`problems-list${s.theme === "ecom" || s.theme === "digital" ? " two" : ""}`} data-reveal>
-            {s.problems.map((p) => (
-              <li key={p.title}>
-                <h3>{p.title}</h3>
-                <p>{p.body}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
       {/* ---------------- Deliverables ---------------- */}
       <section id="deliverables" className="section" style={{ paddingTop: 0 }} aria-labelledby="deliver-title">
         <div className="wrap">
@@ -108,56 +89,7 @@ export default function ServicePage({ service: s }: { service: Service }) {
               </li>
             ))}
           </ul>
-        </div>
-      </section>
-
-      {/* ---------------- WhatsApp consent (digital only) ---------------- */}
-      {s.theme === "digital" && (
-        <section className="section consent on-dark" aria-labelledby="wa-title">
-          <div className="wrap consent-grid">
-            <div className="stack-m" data-reveal>
-              <h2 className="h2" id="wa-title">Direct reach, with permission.</h2>
-              <p className="lead">
-                WhatsApp Marketing Support helps businesses communicate directly with customers,
-                promote relevant offers and improve engagement through planned, permission-based
-                messaging.
-              </p>
-              <div className="practice">
-                <h3>Best practice</h3>
-                <p>
-                  Message customers who have opted in, identify the business clearly, provide an easy
-                  opt-out option and follow WhatsApp’s current business messaging policies.
-                </p>
-              </div>
-            </div>
-            <ul className="msgs" data-reveal>
-              <li>Promotional campaigns and approved broadcast messages</li>
-              <li>New product, service, offer and event announcements</li>
-              <li>Appointment, booking and customer service updates</li>
-              <li>Customer follow-ups and feedback requests</li>
-              <li>Lead enquiries and customer engagement workflows</li>
-              <li>Campaign planning and performance tracking</li>
-            </ul>
-          </div>
-        </section>
-      )}
-
-      {/* ---------------- Focus ---------------- */}
-      <section className="section focus-block" aria-labelledby="focus-title">
-        <div className="wrap">
-          <div className="block-head">
-            <div className="stack-m" data-reveal>
-              <h2 className="h2" id="focus-title">{s.focusTitle}</h2>
-            </div>
-          </div>
-          <ul className={`focus-grid${s.focus.length === 5 ? " three" : ""}`}>
-            {s.focus.map((f, index) => (
-              <li key={f.title} data-reveal style={{ ["--d" as string]: `${Math.min(index, 4) * 0.055}s` }}>
-                <h3>{f.title}</h3>
-                <p>{f.body}</p>
-              </li>
-            ))}
-          </ul>
+          {s.theme === "digital" && <p className="note" style={{ marginTop: 20 }}>WhatsApp campaigns are permission-based, with clear business identification and an easy opt-out.</p>}
         </div>
       </section>
 
@@ -188,20 +120,6 @@ export default function ServicePage({ service: s }: { service: Service }) {
               ))}
             </ol>
           )}
-        </div>
-      </section>
-
-      {/* ---------------- Audience ---------------- */}
-      <section className="section-tight" aria-labelledby="aud-title" style={{ paddingTop: 0 }}>
-        <div className="wrap">
-          <div className="stack-m" data-reveal>
-            <h2 className="h2" id="aud-title" style={{ maxWidth: "20ch" }}>{s.audienceTitle}</h2>
-          </div>
-          <ul className="audience" style={{ marginTop: 32 }} data-reveal>
-            {s.audience.map((a) => (
-              <li key={a}>{a}</li>
-            ))}
-          </ul>
         </div>
       </section>
 

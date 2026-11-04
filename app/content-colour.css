@@ -11,15 +11,15 @@
 
 .expertise .sc .grid { align-items: center; }
 .expertise .sc .grid > * { min-width: 0; }
-.sc-2.surface-silver { --bg: #f0e2d9; --botanical: var(--terracotta); background: linear-gradient(180deg, var(--ivory), #f0e2d9 30%); }
-.sc-3.surface-ivory { --accent: var(--botanical); background: linear-gradient(160deg, var(--ivory) 12%, var(--sand)); color: var(--ink); border-radius: 0; }
+.sc-2.surface-silver { background: transparent; }
+.sc-3.surface-ivory { --accent: var(--botanical); background: transparent; color: var(--ink); border-radius: 0; }
 .sc-3.surface-ivory .sc-summary { color: var(--ink-2); opacity: 1; }
 .sc-3.surface-ivory .sc-caps li { font-weight: 400; }
-.sc-4.surface-ivory { background: var(--ivory); }
+.sc-4.surface-ivory { background: transparent; }
 .expertise .sc-caps li::before { background: var(--botanical); border-radius: 50%; width: 5px; height: 5px; }
 .expertise .link-arrow:hover { color: var(--botanical); border-color: var(--botanical); }
 .expertise .consent-note { border-left-color: var(--botanical); background: #e8ede7; }
-.process.surface-silver { --bg: var(--mist); background: linear-gradient(135deg, var(--mist), #dce8de); }
+.process.surface-silver { background: transparent; }
 .service-page .focus-block { background: var(--mist); }
 .service-page .audience li:hover { background: var(--botanical); }
 .service-page .sp-hero.service-hero-paper { background: var(--ivory); color: #202020; }

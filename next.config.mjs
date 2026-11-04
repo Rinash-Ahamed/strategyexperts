@@ -10,6 +10,10 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  images: {
+    // Permit the default photo quality and crisp high-quality asset requests.
+    qualities: [75, 90],
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

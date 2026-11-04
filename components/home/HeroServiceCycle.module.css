@@ -1,0 +1,13 @@
+/* One shared phase definition keeps hero highlights and platform groups aligned. */
+.phase {
+  animation: serviceCycle 24s linear infinite;
+  animation-delay: calc((var(--group) - 4) * 6s);
+}
+@keyframes serviceCycle {
+  0%, 23% { opacity: 1; }
+  25%, 99% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .phase { animation: none; }
+}

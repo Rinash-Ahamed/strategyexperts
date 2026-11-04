@@ -1,6 +1,55 @@
 /* A quieter editorial hierarchy, with the existing font and responsive scale. */
 :root { --editorial-ease: cubic-bezier(.22, .8, .2, 1); }
 
+/* Text-led hero: no reserved central column or mobile scene space. */
+.hero.hero-text-only { min-height: 0; }
+.hero-text-only .hero-shell {
+  min-height: 0;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr);
+  grid-template-rows: auto auto;
+  gap: 36px clamp(32px, 6vw, 96px);
+  padding-block: clamp(40px, 6vw, 88px) 28px;
+}
+.hero-text-only .hero-side-left { grid-column: 1; grid-row: 1; padding-top: 0; }
+.hero-text-only .hero-brand { margin-top: 0; }
+.hero-text-only .hero-side-right { grid-column: 2; grid-row: 1; align-self: end; padding-bottom: 0; gap: 24px; }
+.hero-text-only .hero-footnote { grid-column: 1 / -1; grid-row: 2; padding-top: 0; }
+.hero-text-only .hero-background-glow { inset: 0; }
+@media (max-width: 700px) {
+  .hero-text-only .hero-shell { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; gap: 28px; }
+  .hero-text-only .hero-side-right { grid-column: 1; grid-row: 2; }
+}
+
+/* Hero service links: quiet outlined buttons, secondary to the main CTA. */
+.hero-service-nav { display: grid; gap: 8px; }
+.hero .hero-service-nav { border-top: 0; }
+.hero .hero-service-nav a {
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  min-height: 52px;
+  padding: 12px 14px;
+  border: 1px solid #ffffff26;
+  border-radius: 10px;
+  background: linear-gradient(120deg, #ffffff09, #ffffff03), #0c0e0e;
+  box-shadow: inset 0 1px 0 #ffffff05;
+  color: #c9cccc;
+  transition: border-color 220ms ease, color 220ms ease, background-color 220ms ease;
+}
+.hero .hero-service-nav a:hover { padding: 12px 14px; }
+.hero .hero-service-arrow { color: #a0a8a5; }
+.hero .hero-service-nav a:focus-visible { outline: 2px solid #bfc0c2; outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .hero .hero-service-nav a:hover { background-color: #1a1e1d; border-color: #ffffff4d; color: #fff; }
+  .hero .hero-service-nav a:hover .hero-service-arrow { color: #f0f0f0; }
+}
+@media (max-width: 700px) {
+  .hero .hero-service-nav a { min-height: 48px; font-size: .8125rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero .hero-service-nav a, .hero .hero-service-arrow { transition: none; }
+  .hero .hero-service-nav a:hover .hero-service-arrow { transform: none; }
+}
+
 /* Service-specific editorial introductions with native, keyboard-safe accordions. */
 .service-faq .faq-introduction { align-self: start; }
 .service-faq .faq-introduction h2 { max-width: 18ch; }

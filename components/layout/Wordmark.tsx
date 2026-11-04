@@ -6,7 +6,7 @@ export default function Wordmark({ small = true }: WordmarkProps) {
   return (
     <span className="wordmark">
       Strategy Experts
-      {small && <small>Growth Partners</small>}
+      {small && <small>Your Growth Partner</small>}
     </span>
   );
 }

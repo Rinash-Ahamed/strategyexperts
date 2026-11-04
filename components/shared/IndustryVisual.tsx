@@ -28,7 +28,7 @@ export default function IndustryVisual({ theme, platforms, placement = "home" }:
             width={1200}
             height={900}
             sizes="(min-width: 960px) 46vw, 100vw"
-            loading="eager"
+            loading={placement === "service" ? "eager" : "lazy"}
             fetchPriority={placement === "service" ? "high" : "low"}
             data-industry-photo
             data-photo-placement={placement === "service" ? "hero" : "content"}

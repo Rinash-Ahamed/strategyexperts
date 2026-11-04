@@ -1,5 +1,4 @@
-// Native full-document navigation regression. The external robot is held pending
-// to isolate navigation; these measurements are NOT robot performance scores.
+// Native full-document navigation regression with real page resources.
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { mkdtemp, readFile, writeFile } from "node:fs/promises";
@@ -66,7 +65,6 @@ try {
   };
   await send("Page.enable"); await send("Runtime.enable"); await send("Network.enable");
   await send("Page.addScriptToEvaluateOnNewDocument", { source: `window.__navigationTransition={supported:'onpagereveal' in window,active:false};addEventListener('pagereveal',event=>{const transition=event.viewTransition;if(!transition)return;__navigationTransition.active=true;transition.ready.then(()=>{const style=getComputedStyle(document.documentElement,'::view-transition-new(root)');__navigationTransition.animation=style.animationName;__navigationTransition.duration=style.animationDuration;__navigationTransition.ready=true}).catch(()=>{__navigationTransition.skipped=true});transition.finished.then(()=>{__navigationTransition.finished=true})});` });
-  await send("Fetch.enable", { patterns: [{ urlPattern: "*scene.splinecode*", requestStage: "Request" }] });
   if (blockFramework) await send("Network.setBlockedURLs", { urls: ["*/_next/static/chunks/*.js*"] });
   for (const width of [390, 1440]) {
     await send("Emulation.setDeviceMetricsOverride", { width, height: 900, deviceScaleFactor: 1, mobile: width < 700 });
@@ -97,7 +95,7 @@ try {
     }
     if (!baseline) {
       const origin = await evaluate("performance.timeOrigin");
-      assert(await evaluate("getComputedStyle(document.querySelector('[data-hero-opening]')).display==='none'"), "Navigating home must not play the opening");
+      assert(await evaluate("!document.querySelector('[data-hero-opening]')"), "Navigating home must not show an opening screen");
       for (const target of ["logo", "home"]) {
         await evaluate("scrollTo({top:600,behavior:'instant'})");
         if (target === "home" && width < 700 && !blockFramework) {
@@ -113,34 +111,10 @@ try {
         const position=await evaluate("({y:scrollY,hash:location.hash,target:document.getElementById('top')?.tagName,logo:document.querySelector('.nav-inner>a').getAttribute('href')})");
         assert(position.y<1, `Home/logo should return to the top: ${JSON.stringify({width,target,...position})}`);
       }
-      if (!blockFramework) {
-        await evaluate("scrollTo({top:600,behavior:'instant'})");
-        await send("Page.reload"); await ready("/");
-        assert(await evaluate("document.documentElement.dataset.openingTrigger==='refresh'&&getComputedStyle(document.querySelector('[data-hero-opening]')).display==='grid'"), "Refresh should play the opening");
-        assert.equal(await evaluate("scrollY"), 0, 'Refresh opening starts at the top, not the old scroll position');
-        assert.equal(await evaluate("getComputedStyle(document.querySelector('.nav')).visibility"), "hidden");
-        assert.equal(await evaluate("getComputedStyle(document.querySelector('[data-hero-opening]')).pointerEvents"), 'auto', 'Opening must block accidental clicks on covered links');
-        const opening = await evaluate("({managed:document.documentElement.dataset.openingManaged,animation:getComputedStyle(document.querySelector('[data-hero-opening]')).animationName,delay:getComputedStyle(document.querySelector('[data-hero-opening]')).animationDelay})");
-        assert(opening.managed === 'true' ? opening.animation === 'none' : opening.delay === '60s', 'Robot readiness owns the managed reveal; CSS timeout is only a no-hydration failsafe');
-        await delay(300);
-        const introShot = await send('Page.captureScreenshot', { format: 'png' });
-        await writeFile(path.join(output, `refresh-opening-${width}.png`), Buffer.from(introShot.data, 'base64'));
-        await evaluate("document.querySelector('[data-hero-opening] button').click()"); await delay(200);
-        assert.equal(await evaluate("getComputedStyle(document.querySelector('.nav')).visibility"), "visible");
-        await send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "reduce" }] });
-        await send("Page.reload"); await ready("/");
-        assert.equal(await evaluate("getComputedStyle(document.querySelector('[data-hero-opening]')).display"), "none");
-        assert.equal(await evaluate("getComputedStyle(document.querySelector('.nav')).visibility"), "visible");
-        await send("Emulation.setEmulatedMedia", { features: [] });
-      }
-      homeBehavior.push({ width, samePageLogoAndHomeReturnToTop: true, reloadOpeningAndReducedMotion: !blockFramework });
-      if (blockFramework) {
-        await send('Page.reload'); await ready('/');
-        assert.equal(await evaluate("getComputedStyle(document.querySelector('[data-hero-opening]')).display"), 'grid');
-        await evaluate("document.querySelector('[data-opening-skip]').click()");
-        assert.equal(await evaluate("getComputedStyle(document.querySelector('[data-hero-opening]')).display"), 'none', 'Skip works before framework hydration');
-        assert.equal(await evaluate("getComputedStyle(document.querySelector('.nav')).visibility"), 'visible');
-      }
+      await send("Page.reload"); await ready("/");
+      assert(await evaluate("!document.querySelector('[data-hero-opening]')"), "Refresh must show the homepage directly");
+      assert.equal(await evaluate("getComputedStyle(document.querySelector('.nav')).visibility"), "visible");
+      homeBehavior.push({ width, samePageLogoAndHomeReturnToTop: true, reloadWithoutOpening: true });
       if (!homeOnly && !blockFramework) {
         await evaluate("document.querySelector('footer a[href=\"/contact\"]').click()"); await ready('/contact');
         await evaluate("scrollTo({top:400,behavior:'instant'})"); await delay(350);
@@ -194,7 +168,7 @@ try {
     const footerShot = await send('Page.captureScreenshot', { format: 'png' });
     await writeFile(path.join(output, `footer-socials-${width}.png`), Buffer.from(footerShot.data, 'base64'));
   }
-  const report = { base, baseline, blockFramework, conditions: "External scene held pending; navigation-only checks. Use production for timing claims.", runs, homeBehavior, transitions, historyChecks, errors };
+  const report = { base, baseline, blockFramework, conditions: "Real page resources; navigation-only checks. Use production for timing claims.", runs, homeBehavior, transitions, historyChecks, errors };
   await writeFile(path.join(output, "report.json"), JSON.stringify(report, null, 2));
   console.log(JSON.stringify({ output, ...report }, null, 2));
 } finally {

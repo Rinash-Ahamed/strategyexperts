@@ -6,12 +6,19 @@ type Props = { whatsapp: string; email: string; services: { slug: string; name: 
 
 export default function ContactForm({ whatsapp, email, services }: Props) {
   const serviceRef = useRef<HTMLSelectElement>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
   // Keep the complete form in the static HTML. Reading this optional query on
   // mount avoids useSearchParams' client-rendering fallback and layout shift.
   useEffect(() => {
-    const slug = new URLSearchParams(window.location.search).get("service");
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get("service");
     const service = services.find((s) => s.slug === slug);
     if (serviceRef.current && service) serviceRef.current.value = service.name;
+    const plan = params.get("plan");
+    if (plan && ["starter", "pro", "custom"].includes(plan) && messageRef.current && !messageRef.current.value) {
+      const name = plan.charAt(0).toUpperCase() + plan.slice(1);
+      messageRef.current.value = `I'm interested in the ${name} plan. Please help me get started.`;
+    }
   }, [services]);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "opened">("idle");
@@ -83,7 +90,7 @@ export default function ContactForm({ whatsapp, email, services }: Props) {
 
       <div className="field">
         <label htmlFor="message">Where is your business today?</label>
-        <textarea id="message" name="message" required aria-invalid={!!errors.message} aria-describedby={errors.message ? "err-message" : undefined} placeholder="Tell us about your business, the platforms you sell on and what you’d like to improve." />
+        <textarea ref={messageRef} id="message" name="message" required aria-invalid={!!errors.message} aria-describedby={errors.message ? "err-message" : undefined} placeholder="Tell us about your business, the platforms you sell on and what you’d like to improve." />
         {errors.message && <span className="err" id="err-message" role="alert">{errors.message}</span>}
       </div>
 

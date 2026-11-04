@@ -8,6 +8,8 @@ import styles from "./SiteHeader.module.css";
 
 type Props = { links: { href: string; label: string }[]; name: string; tagline: string };
 
+const PRODUCT_URL = "https://dashboard.strategyexperts.in/login";
+
 export default function SiteHeader({ links, name, tagline }: Props) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -119,13 +121,18 @@ export default function SiteHeader({ links, name, tagline }: Props) {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
   const homeHref = pathname === "/" ? "#" : "/";
   const linkHref = (href: string) => href === "/" ? homeHref : href;
+  const mobileLinks = [
+    ...links,
+    { href: PRODUCT_URL, label: "Product" },
+    { href: "/pricing", label: "Pricing" },
+  ];
 
   return (
     <>
-      <header className={`nav ${styles.header}${scrolled || open ? " scrolled" : ""}`} style={open ? { background: "transparent", borderColor: "transparent", backdropFilter: "none" } : undefined}>
+      <header className={`nav ${styles.header}${scrolled || open ? " scrolled" : ""}`} style={open ? { background: "transparent", borderColor: "transparent", backdropFilter: "none", WebkitBackdropFilter: "none" } : undefined}>
         <div className={`wrap nav-inner ${styles.inner}`}>
           <Link href={homeHref} aria-label={`${name} home`} style={{ position: "relative", zIndex: 120, color: open ? "#fff" : undefined }}>
-            <Wordmark />
+            <Wordmark small={false} />
           </Link>
 
           <nav aria-label="Primary" className={`nav-links ${styles.desktop}`}>
@@ -144,11 +151,13 @@ export default function SiteHeader({ links, name, tagline }: Props) {
               <div className={styles.panel}>
                 {links.filter((link) => link.href.startsWith("/services/")).map((link) => (
                   <Link key={link.href} href={link.href} aria-current={isActive(link.href) ? "page" : undefined}>
-                    <span>{link.label}</span><span aria-hidden="true">↗</span>
+                    <span>{link.label}</span>
                   </Link>
                 ))}
               </div>
             </details>
+            <Link href={PRODUCT_URL} target="_blank" rel="noopener noreferrer" aria-label="Product (opens in a new tab)">Product</Link>
+            <Link href="/pricing" aria-current={isActive("/pricing") ? "page" : undefined}>Pricing</Link>
             <Link href="/contact" aria-current={isActive("/contact") ? "page" : undefined}>Contact</Link>
           </nav>
 
@@ -172,14 +181,25 @@ export default function SiteHeader({ links, name, tagline }: Props) {
           </div>
         </div>
         <span className="progress" ref={progressRef} aria-hidden="true" />
+        <svg className={styles.curve} viewBox="0 0 1440 16" preserveAspectRatio="none" aria-hidden="true" focusable="false" style={open ? { display: "none" } : undefined}>
+          <defs>
+            <linearGradient id="navigation-arc-silver" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#929292" stopOpacity=".08" />
+              <stop offset=".5" stopColor="#d9d9d9" stopOpacity=".45" />
+              <stop offset="1" stopColor="#929292" stopOpacity=".08" />
+            </linearGradient>
+          </defs>
+          <path d="M0 0 H1440 V1 Q720 25 0 1 Z" fill="var(--nav-glass)" />
+          <path d="M0 1 Q720 25 1440 1" fill="none" stroke="url(#navigation-arc-silver)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+        </svg>
       </header>
 
       <div id="mobile-menu" ref={menuRef} className={`menu${open ? " open" : ""}`} aria-hidden={!open}>
         <nav aria-label="Mobile">
           <ol>
-            {links.map((l) => (
+            {mobileLinks.map((l) => (
               <li key={l.href}>
-                <Link href={linkHref(l.href)} onClick={() => setOpen(false)} tabIndex={open ? 0 : -1}>
+                <Link href={linkHref(l.href)} target={l.href === PRODUCT_URL ? "_blank" : undefined} rel={l.href === PRODUCT_URL ? "noopener noreferrer" : undefined} aria-label={l.href === PRODUCT_URL ? "Product (opens in a new tab)" : undefined} aria-current={isActive(l.href) ? "page" : undefined} onClick={() => setOpen(false)} tabIndex={open ? 0 : -1}>
                   {l.label}
                 </Link>
               </li>

@@ -12,7 +12,7 @@ const contactEmails = (
 
 export const SITE = {
   name: "Strategy Experts",
-  tagline: "Digital Growth Partners",
+  tagline: "Your Growth Partner",
   description:
     "Strategy Experts helps restaurants, hotels, e-commerce brands and local businesses perform better through platform expertise, revenue strategy and hands-on execution.",
   url: normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
@@ -80,9 +80,9 @@ export const SERVICES: Service[] = [
     metaTitle: "E-Commerce Support for Amazon, Flipkart & Meesho",
     metaDescription:
       "Account management, listing optimisation and sales growth strategy for brands and sellers on Amazon, Flipkart and Meesho.",
-    headline: ["More visibility.", "Better listings.", "Higher sales."],
+    headline: ["Better listings.","Stronger sales."],
     intro:
-      "End-to-end e-commerce consulting, account management, product optimisation and performance-driven strategy for brands and sellers on Amazon, Flipkart and Meesho.",
+      "Hands-on marketplace support for Amazon, Flipkart and Meesho, from account health and product listings to promotions and sales strategy.",
     platforms: ["Amazon", "Flipkart", "Meesho"],
     summary:
       "From account setup to sales growth, we manage the marketplace details so you can focus on scaling the business.",
@@ -112,30 +112,26 @@ export const SERVICES: Service[] = [
         body: "Account health, issue resolution and day-to-day operations need steady, hands-on attention.",
       },
     ],
-    deliverablesTitle: "What we take on",
+    deliverablesTitle: "Marketplace support, without the complexity.",
     deliverablesIntro:
-      "From account setup to sales growth, we manage the details so you can focus on scaling your business.",
+      "Four areas of support to keep your store running and your products performing.",
     deliverables: [
       {
-        title: "E-commerce account management",
-        body: "Complete account setup, health monitoring and issue resolution.",
+        "title": "Account setup & management",
+        "body": "Set up accounts, monitor account health and resolve day-to-day marketplace issues."
       },
       {
-        title: "Product listing & optimisation",
-        body: "Compelling titles, descriptions, images and keyword optimisation for better visibility.",
+        "title": "Product listing optimisation",
+        "body": "Improve titles, descriptions, images and keywords to help customers find and choose your products."
       },
       {
-        title: "Sales & revenue growth strategies",
-        body: "Data-driven strategies to improve rankings, traffic and conversions.",
+        "title": "Pricing & promotions",
+        "body": "Plan pricing, deals and campaigns around your category, competitors and business goals."
       },
       {
-        title: "Marketplace performance monitoring",
-        body: "Track performance, analyse trends and take proactive actions.",
-      },
-      {
-        title: "Promotional & visibility strategies",
-        body: "Campaigns, deals and marketplace tools to boost your sales.",
-      },
+        "title": "Performance & growth strategy",
+        "body": "Track rankings, traffic and conversions, then use those insights to refine your sales strategy."
+      }
     ],
     focusTitle: "Your growth. Our expertise.",
     focus: [
@@ -156,29 +152,21 @@ export const SERVICES: Service[] = [
         body: "Build sustainable marketplace performance and brand presence.",
       },
     ],
-    approachTitle: "A structured process for sustainable e-commerce growth",
+    approachTitle: "A clear path to better performance.",
     approachLayout: "columns",
     approach: [
       {
-        title: "Understand",
-        body: "We analyse your products, target audience, category and market position.",
+        "title": "Review",
+        "body": "Understand your products, category, audience and current marketplace performance."
       },
       {
-        title: "Optimise",
-        body: "We improve listings, keywords, images and product content.",
+        "title": "Optimise",
+        "body": "Improve listings, pricing and promotions while managing daily account operations."
       },
       {
-        title: "Strategise",
-        body: "We create growth plans based on data, market trends and competitor analysis.",
-      },
-      {
-        title: "Execute",
-        body: "We implement campaigns, optimise pricing and manage platform operations.",
-      },
-      {
-        title: "Monitor & improve",
-        body: "We track performance, measure results and continuously refine strategies.",
-      },
+        "title": "Refine",
+        "body": "Review results and adjust the strategy as your business and market change."
+      }
     ],
     audienceTitle: "For every e-commerce business",
     audience: [
@@ -201,29 +189,21 @@ export const SERVICES: Service[] = [
     faqCta: "Discuss your marketplace strategy",
     faqs: [
       {
-        q: "Which marketplaces do you support?",
-        a: "We support brands and sellers on Amazon, Flipkart and Meesho.",
+        "q": "Which marketplaces do you support?",
+        "a": "Amazon, Flipkart and Meesho, with account management, listing optimisation, promotions and performance support."
       },
       {
-        q: "What does listing optimisation involve?",
-        a: "It covers titles, descriptions, images and keyword optimisation, with the aim of improving how easily your products are found and how well product pages convert visits into orders.",
+        "q": "What does listing optimisation cover?",
+        "a": "Product titles, descriptions, images and keywords, with attention to discoverability and conversion."
       },
       {
-        q: "Is this only account management?",
-        a: "No. Alongside account setup, health monitoring and issue resolution, we build growth strategies around rankings, traffic, conversions, promotions and performance monitoring.",
-      },
-      {
-        q: "Who do you work with?",
-        a: "D2C brands, established brands, small and medium sellers, and new market entrants.",
-      },
-      {
-        q: "How do we get started?",
-        a: "Start a conversation and tell us about your products, category and goals. Scope and next steps are discussed from there.",
-      },
+        "q": "Who is this for, and how do we start?",
+        "a": "D2C brands, established businesses, small and medium sellers, and new market entrants. Tell us about your products and goals to discuss the right scope."
+      }
     ],
     closing: {
-      headline: "More visibility. More sales. More growth.",
-      body: "Let’s build a strategy that works for your brand on Amazon, Flipkart and Meesho.",
+      headline: "Your next stage of marketplace growth.",
+      body: "Tell us about your products and goals. We will help you plan the next steps.",
     },
   },
   {
@@ -234,10 +214,10 @@ export const SERVICES: Service[] = [
     metaTitle: "Restaurant Consulting for Zomato & Swiggy",
     metaDescription:
       "Growth strategy, account management, promotions and menu optimisation for restaurants and cloud kitchens on Zomato and Swiggy.",
-    headline: ["More visibility.", "Higher orders.", "Greater revenue."],
+    headline: ["Better visibility.","More orders."],
     intro:
-      "We help restaurants grow on Zomato and Swiggy with data-driven strategy, platform expertise and end-to-end execution, turning digital channels into consistent revenue drivers.",
-    platforms: ["Zomato", "Swiggy"],
+      "Practical support for restaurants and cloud kitchens, combining platform management, menu optimisation, promotions and revenue strategy.",
+    platforms: ["Zomato", "Swiggy", "Toing", "Flipkart Minutes"],
     summary:
       "From your online presence to menus and promotions, we turn Zomato and Swiggy into steady revenue channels.",
     capabilities: [
@@ -266,30 +246,26 @@ export const SERVICES: Service[] = [
         body: "Pricing, promotions and costs need data-led decisions to protect profitability.",
       },
     ],
-    deliverablesTitle: "The menu of what we do",
+    deliverablesTitle: "Built around your restaurant.",
     deliverablesIntro:
-      "End-to-end support to help your restaurant perform better on Zomato and Swiggy and across digital channels.",
+      "Focused support for the platforms, menus and customer experiences that shape your business.",
     deliverables: [
       {
-        title: "Restaurant growth & revenue strategies",
-        body: "Build the right strategy to increase visibility, attract more customers and improve profitability.",
+        "title": "Platform operations",
+        "body": "Manage listings, store operations and account issues on Zomato and Swiggy."
       },
       {
-        title: "Zomato & Swiggy account management",
-        body: "Optimise your listings, manage store operations, resolve issues and ensure smooth platform performance.",
+        "title": "Menu & pricing strategy",
+        "body": "Refine descriptions, images, add-ons and best-seller placement, with pricing and costs in mind."
       },
       {
-        title: "Promotions & campaign planning",
-        body: "Run targeted campaigns, special offers and seasonal promotions to drive orders and footfall.",
+        "title": "Promotions & campaigns",
+        "body": "Plan relevant offers and seasonal campaigns to support orders, visibility and footfall."
       },
       {
-        title: "Menu optimisation",
-        body: "Improve menu descriptions, images, pricing, add-ons and best-seller positioning to boost conversion.",
-      },
-      {
-        title: "Online visibility & performance improvement",
-        body: "Enhance search rankings, manage reviews and improve overall platform performance.",
-      },
+        "title": "Reviews & performance",
+        "body": "Respond to reviews, monitor platform results and use the insights to guide revenue decisions."
+      }
     ],
     focusTitle: "More than platform management.",
     focus: [
@@ -310,29 +286,21 @@ export const SERVICES: Service[] = [
         body: "Improve visibility and consistency across digital channels.",
       },
     ],
-    approachTitle: "A structured process for sustainable growth",
+    approachTitle: "From insight to everyday execution.",
     approachLayout: "stack",
     approach: [
       {
-        title: "Understand",
-        body: "We analyse your current performance, goals and market opportunities.",
+        "title": "Understand",
+        "body": "Review your restaurant, current performance, market and growth priorities."
       },
       {
-        title: "Strategise",
-        body: "We create a customised growth plan based on data, trends and business needs.",
+        "title": "Implement",
+        "body": "Put the agreed menu, platform and campaign improvements into action."
       },
       {
-        title: "Execute",
-        body: "Our team implements the necessary changes across platforms and channels.",
-      },
-      {
-        title: "Monitor",
-        body: "We track performance in real time and measure impact.",
-      },
-      {
-        title: "Optimise",
-        body: "We refine strategies continuously for better results and higher revenue.",
-      },
+        "title": "Improve",
+        "body": "Track results and refine pricing, promotions and operations over time."
+      }
     ],
     audienceTitle: "For every kind of food business",
     audience: [
@@ -355,29 +323,21 @@ export const SERVICES: Service[] = [
     faqCta: "Discuss your restaurant",
     faqs: [
       {
-        q: "Which platforms do you work on?",
-        a: "Zomato and Swiggy, along with wider digital channels that support your restaurant’s visibility.",
+        "q": "Which platforms do you manage?",
+        "a": "Zomato and Swiggy, alongside relevant digital channels that support your restaurant's visibility."
       },
       {
-        q: "What does menu optimisation cover?",
-        a: "Menu descriptions, images, pricing, add-ons and best-seller positioning, aimed at improving conversion.",
+        "q": "Do you support menus and customer reviews?",
+        "a": "Yes. We refine menu content, pricing, add-ons and best-seller placement, and support review responses and reputation management."
       },
       {
-        q: "Do you help with reviews and ratings?",
-        a: "Yes. Online visibility work includes managing reviews and improving overall platform performance, alongside search ranking.",
-      },
-      {
-        q: "Which kinds of food businesses do you work with?",
-        a: "Fine dining restaurants, casual dining and cafés, cloud kitchens and QSR, and food brands and franchises.",
-      },
-      {
-        q: "How do we get started?",
-        a: "Get in touch with your current situation and goals. We’ll talk through a personalised growth plan for your restaurant.",
-      },
+        "q": "Which food businesses can get started?",
+        "a": "Fine dining restaurants, casual dining and cafes, cloud kitchens, QSRs, food brands and franchises. Share your current situation and goals to discuss a suitable plan."
+      }
     ],
     closing: {
-      headline: "Ready to increase your orders and revenue?",
-      body: "Start a conversation about a personalised growth plan for your restaurant on Zomato and Swiggy.",
+      headline: "Make your next growth move.",
+      body: "Tell us about your restaurant. We will help you identify where to focus next.",
     },
   },
   {
@@ -388,9 +348,9 @@ export const SERVICES: Service[] = [
     metaTitle: "Hotel Revenue Management & OTA Optimisation",
     metaDescription:
       "OTA management, pricing and inventory, revenue strategy and forecasting for hotels: aimed at better occupancy, ADR and RevPAR.",
-    headline: ["Higher occupancy.", "Better rates.", "Greater revenue."],
+    headline: ["Smarter rates.","Stronger revenue."],
     intro:
-      "We help hotels maximise online revenue through data-driven strategy, expert OTA management and performance-focused execution, from pricing and inventory to visibility and distribution.",
+      "Revenue support for hotels through OTA management, responsive pricing and a balanced distribution strategy, guided by your market and performance.",
     platforms: [
       "MakeMyTrip",
       "Booking.com",
@@ -429,30 +389,26 @@ export const SERVICES: Service[] = [
         body: "Ranking and visibility across OTAs shape how many guests ever reach your property.",
       },
     ],
-    deliverablesTitle: "Revenue management, end to end",
+    deliverablesTitle: "Your revenue essentials, managed.",
     deliverablesIntro:
-      "End-to-end support to optimise your distribution, pricing and performance across leading OTA platforms and digital channels.",
+      "Coordinated support for distribution, pricing, visibility and commercial performance.",
     deliverables: [
       {
-        title: "OTA platform management",
-        body: "Manage and optimise your presence on top OTAs and travel platforms.",
+        "title": "OTA & distribution management",
+        "body": "Manage listings and channel presence across the travel platforms your guests use."
       },
       {
-        title: "Pricing & inventory management",
-        body: "Dynamic pricing, demand forecasting and inventory optimisation.",
+        "title": "Pricing & inventory",
+        "body": "Align rates and availability with demand, competitor positioning and your property's goals."
       },
       {
-        title: "Promotion & visibility strategy",
-        body: "Plan targeted campaigns and improve your ranking and visibility.",
+        "title": "Promotions & visibility",
+        "body": "Plan targeted offers and platform improvements to strengthen your property's visibility."
       },
       {
-        title: "Revenue strategy & forecasting",
-        body: "Data-driven strategies to increase occupancy, ADR and RevPAR.",
-      },
-      {
-        title: "Performance monitoring & reporting",
-        body: "Track performance with clear insights and actionable recommendations.",
-      },
+        "title": "Revenue strategy & reporting",
+        "body": "Forecast demand and track occupancy, average daily rate and revenue per available room to guide decisions."
+      }
     ],
     focusTitle: "More than OTA management. A revenue growth partner.",
     focus: [
@@ -473,29 +429,21 @@ export const SERVICES: Service[] = [
         body: "Use ongoing performance analysis to support sustainable growth.",
       },
     ],
-    approachTitle: "A structured process for sustainable results",
+    approachTitle: "A focused approach to hotel revenue.",
     approachLayout: "stack",
     approach: [
       {
-        title: "Analyse",
-        body: "We study your current performance, market trends and competitor positioning.",
+        "title": "Analyse",
+        "body": "Review your property's performance, market demand and competitor positioning."
       },
       {
-        title: "Strategise",
-        body: "We build a customised revenue and distribution strategy for your property.",
+        "title": "Implement",
+        "body": "Apply the agreed pricing, inventory, distribution and promotion strategy."
       },
       {
-        title: "Implement",
-        body: "We execute changes across OTAs, pricing, inventory and promotions.",
-      },
-      {
-        title: "Monitor",
-        body: "We track performance and identify opportunities in real time.",
-      },
-      {
-        title: "Optimise",
-        body: "We refine strategies based on data, feedback and market conditions.",
-      },
+        "title": "Optimise",
+        "body": "Monitor commercial results and refine the plan as market conditions change."
+      }
     ],
     audienceTitle: "Hotels of every size, across segments",
     audience: [
@@ -518,29 +466,21 @@ export const SERVICES: Service[] = [
     faqCta: "Discuss your hotel strategy",
     faqs: [
       {
-        q: "Which OTAs do you manage?",
-        a: "MakeMyTrip, Booking.com, Agoda, Goibibo, Expedia, Cleartrip, EaseMyTrip and Yatra.",
+        "q": "Which OTAs do you manage?",
+        "a": "MakeMyTrip, Booking.com, Agoda, Goibibo, Expedia, Cleartrip, EaseMyTrip and Yatra."
       },
       {
-        q: "What do pricing and inventory management include?",
-        a: "Dynamic pricing, demand forecasting and inventory optimisation.",
+        "q": "How do you assess revenue performance?",
+        "a": "We track occupancy, average daily rate (ADR) and revenue per available room (RevPAR), alongside demand and channel performance."
       },
       {
-        q: "Which metrics does the service focus on?",
-        a: "Occupancy, average daily rate (ADR) and revenue per available room (RevPAR), tracked through performance monitoring and reporting with actionable recommendations.",
-      },
-      {
-        q: "What kinds of hotels do you work with?",
-        a: "Business hotels, resorts and leisure properties, boutique hotels, and heritage and independent hotels.",
-      },
-      {
-        q: "How do we get started?",
-        a: "Start a conversation about your property and goals. Strategy is built around your performance, market trends and competitor positioning.",
-      },
+        "q": "Which properties do you work with?",
+        "a": "Business hotels, resorts, boutique hotels, and heritage and independent properties. Share your market and goals to discuss a tailored revenue strategy."
+      }
     ],
     closing: {
-      headline: "Let’s build a stronger revenue strategy for your hotel.",
-      body: "Start a conversation and discover new opportunities to grow your hotel’s revenue.",
+      headline: "A stronger revenue strategy starts here.",
+      body: "Tell us about your property and goals. Let us explore the opportunities together.",
     },
   },
   {
@@ -551,9 +491,9 @@ export const SERVICES: Service[] = [
     metaTitle: "Digital Marketing, Google Business Profile & WhatsApp",
     metaDescription:
       "Google Business Profile management, reputation and review management, local visibility, lead generation and consent-based WhatsApp marketing support.",
-    headline: ["Stronger local presence.", "More customers.", "Greater growth."],
+    headline: ["Be found.", "Build connections."],
     intro:
-      "We help businesses increase their online visibility, build a stronger reputation and attract more customers through expert Google Business Profile management and result-driven digital marketing.",
+      "Grow your local visibility, build trust and reach the right customers through search, Google and Meta campaigns, and permission-based WhatsApp marketing.",
     platforms: ["Google", "Meta", "WhatsApp"],
     summary:
       "Be found locally, build trust through reviews, and reach customers directly, with permission-based WhatsApp support.",
@@ -583,34 +523,14 @@ export const SERVICES: Service[] = [
         body: "Without planned, permission-based messaging, follow-ups and updates rely on chance.",
       },
     ],
-    deliverablesTitle: "What we take on",
+    deliverablesTitle: "Your digital presence, connected.",
     deliverablesIntro:
-      "Everything you need to improve your online presence, build trust and drive more customers.",
+      "Focused support across the channels your customers use.",
     deliverables: [
-      {
-        title: "Google Business Profile management",
-        body: "Optimise your profile, keep your information updated and improve local search visibility.",
-      },
-      {
-        title: "Online reputation & review management",
-        body: "Monitor reviews, respond to customers and build a stronger brand reputation.",
-      },
-      {
-        title: "Local visibility improvement",
-        body: "Rank higher in local search and maps to help nearby customers find you.",
-      },
-      {
-        title: "Digital presence optimisation",
-        body: "Improve your overall online presence across search, maps and directories.",
-      },
-      {
-        title: "Customer engagement & lead generation",
-        body: "Attract, engage and convert potential customers through targeted digital strategies.",
-      },
-      {
-        title: "WhatsApp marketing support",
-        body: "Reach customers directly with campaign broadcasts, promotional messages, customer updates and engagement strategies.",
-      },
+      { title: "Search & local visibility", body: "An accurate, active Google Business Profile and a consistent presence across search, maps and directories." },
+      { title: "Reputation & reviews", body: "Thoughtful review responses and customer engagement that build trust in your business." },
+      { title: "Google & Meta campaigns", body: "Targeted campaigns to reach relevant customers, generate enquiries and track what works." },
+      { title: "WhatsApp marketing", body: "Opt-in offers, updates and follow-ups that keep your customers connected." },
     ],
     focusTitle: "More than visibility. We build real connections.",
     focus: [
@@ -635,29 +555,12 @@ export const SERVICES: Service[] = [
         body: "Planned, permission-based messaging that reaches customers directly.",
       },
     ],
-    approachTitle: "A structured process for measurable results",
+    approachTitle: "Clear direction. Consistent progress.",
     approachLayout: "columns",
     approach: [
-      {
-        title: "Understand",
-        body: "We analyse your business, target audience, location and goals.",
-      },
-      {
-        title: "Optimise",
-        body: "We enhance your Google Business Profile with accurate information, photos and services.",
-      },
-      {
-        title: "Engage",
-        body: "We manage reviews, respond to customers and keep your profile active.",
-      },
-      {
-        title: "Promote",
-        body: "We run targeted campaigns, add location-based ads and increase reach and visibility.",
-      },
-      {
-        title: "Improve",
-        body: "We track performance, measure results and continuously refine strategies.",
-      },
+      { title: "Understand", body: "Review your audience, local presence and business goals." },
+      { title: "Connect", body: "Optimise profiles, manage reviews and launch focused campaigns." },
+      { title: "Improve", body: "Track enquiries and engagement, then refine the strategy." },
     ],
     audienceTitle: "For businesses that rely on local customers",
     audience: [
@@ -681,30 +584,13 @@ export const SERVICES: Service[] = [
     faqIntro: "How local visibility, reviews and permission-based WhatsApp support fit together.",
     faqCta: "Discuss your digital presence",
     faqs: [
-      {
-        q: "What does Google Business Profile management cover?",
-        a: "Optimising your profile, keeping information updated, adding accurate details, photos and services, and improving local search visibility. It sits alongside review management and targeted campaigns.",
-      },
-      {
-        q: "Is WhatsApp marketing permission-based?",
-        a: "Yes. The approach is to message customers who have opted in, identify the business clearly, provide an easy opt-out option and follow WhatsApp’s current business messaging policies.",
-      },
-      {
-        q: "What kinds of WhatsApp messages can you support?",
-        a: "Promotional campaigns and approved broadcast messages, announcements of new products, services, offers and events, appointment, booking and customer service updates, follow-ups and feedback requests, and lead enquiry workflows.",
-      },
-      {
-        q: "Which businesses do you work with?",
-        a: "Restaurants and cafés, retail stores, service businesses, healthcare and clinics, salons and spas, and other local brands.",
-      },
-      {
-        q: "How do we get started?",
-        a: "Start a conversation about your business, audience, location and goals, and we’ll take it from there.",
-      },
+      { q: "What does the service cover?", a: "Google Business Profile management, reviews, local visibility, Google and Meta campaigns, and permission-based WhatsApp support." },
+      { q: "Is WhatsApp marketing permission-based?", a: "Yes. We work with opted-in customers, identify your business clearly and include an easy opt-out." },
+      { q: "How do we get started?", a: "Tell us about your business, location and goals. We will recommend the channels and support that fit." },
     ],
     closing: {
       headline: "Let’s turn online searches into real customers.",
-      body: "Start a conversation and discover how we can help your business get noticed, gain more engagement and drive consistent growth.",
+      body: "Tell us about your business. Let’s find the right channels for your next stage of growth.",
     },
   },
 ];

@@ -10,7 +10,7 @@ export default function SiteFooter() {
         <div className="footer-grid">
           <div className="footer-brand">
             <Link href="/#" className="footer-brand-link" aria-label="Strategy Experts home">
-              <Wordmark small={false} />
+              <Wordmark />
             </Link>
             <div className="footer-socials">
               <a href={SITE.instagram} target="_blank" rel="noopener noreferrer" aria-label="Strategy Experts on Instagram">
