@@ -1,4 +1,4 @@
-import { readdir } from "node:fs/promises";
+import { readdir, stat } from "node:fs/promises";
 import path from "node:path";
 import { PLATFORM_ASSETS } from "./platform-assets";
 import type { ServiceTheme } from "./site";
@@ -42,8 +42,16 @@ async function readLogos(folder: string, names: Record<string, string>, preferre
 
 // Server-rendered discovery: development refreshes and production builds pick
 // up additions/removals without changing imports or maintaining a manifest.
-export function getClientLogos() {
-  return readLogos("clients", CLIENT_NAMES, Object.values(CLIENT_NAMES));
+export async function getClientLogos() {
+  const logos = await readLogos("clients", CLIENT_NAMES, Object.values(CLIENT_NAMES));
+  return Promise.all(logos.map(async logo => {
+    const filename = decodeURIComponent(logo.src.slice("/clients/".length));
+    const file = await stat(path.join(process.cwd(), "public", "clients", filename));
+    // Replacing a file under the same name must invalidate optimized copies
+    // after the next render/build, without a separate asset manifest.
+    const version = `${file.size.toString(36)}-${Math.trunc(file.mtimeMs).toString(36)}`;
+    return { ...logo, src: `${logo.src}?v=${version}` };
+  }));
 }
 
 export function getPlatformLogos(theme: ServiceTheme, preferred: readonly string[]) {

@@ -41,7 +41,7 @@ async function open(route) {
   throw new Error(`Not ready: ${route}`);
 }
 const onlyRoute = process.argv.find(arg => arg.startsWith('--route='))?.slice(8);
-const routes = onlyRoute ? [onlyRoute] : ['/', '/services/e-commerce-support', '/services/restaurant-consulting', '/services/hotel-revenue-management', '/services/digital-marketing', '/contact'];
+const routes = onlyRoute ? [onlyRoute] : ['/', '/services/e-commerce-support', '/services/restaurant-consulting', '/services/hotel-revenue-management', '/services/digital-marketing', '/pricing', '/contact'];
 const report = { conditions: 'Production localhost; Chrome DPR 1; no CPU/network throttling or intercepted resources. 2 cold-browser-cache samples per route/viewport; server caches not cleared; LCP observation window 2 seconds after DOM ready. Lab diagnostics, not field INP or a Lighthouse score.', runs: [], bundles: [], errors: [] };
 try {
   let port;

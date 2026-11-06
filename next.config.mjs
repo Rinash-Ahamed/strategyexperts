@@ -11,6 +11,12 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   images: {
+    // Client artwork replacements use a file fingerprint to refresh optimized
+    // copies. Only that library needs local image query strings.
+    localPatterns: [
+      { pathname: "/clients/**" },
+      { pathname: "/**", search: "" },
+    ],
     // Permit the default photo quality and crisp high-quality asset requests.
     qualities: [75, 90],
   },

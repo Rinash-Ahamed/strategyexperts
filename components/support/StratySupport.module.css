@@ -44,8 +44,7 @@
 .send:disabled { opacity: .45; cursor: not-allowed; }
 .send span { transition: transform 180ms ease; }
 .send:enabled:hover span { transform: translateX(3px); }
-.status { margin: 0; color: #bfc0c2; font-size: .75rem; line-height: 1.65; }
-.status { border-left: 2px solid #bfc0c2; padding-left: 12px; overflow-wrap: anywhere; }
+.status { margin: 0; color: #bfc0c2; font-size: .75rem; line-height: 1.65; border-left: 2px solid #bfc0c2; padding-left: 12px; overflow-wrap: anywhere; }
 .status a { text-decoration: underline; }
 .contact { display: inline-block; margin-top: 22px; color: #bfc0c2; font-size: .75rem; line-height: 1.6; text-decoration: underline; text-underline-offset: 4px; }
 @media (max-width: 480px) { .dialog { right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); } .launcher { right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); } .launcher img { width: 46px; height: 46px; } }

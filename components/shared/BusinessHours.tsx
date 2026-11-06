@@ -1,10 +1,10 @@
 import { SITE } from "@/lib/site";
 import styles from "./BusinessHours.module.css";
 
-export default function BusinessHours({ compact = false }: { compact?: boolean }) {
+export default function BusinessHours() {
   const hours = SITE.businessHours;
   return (
-    <div className={`${styles.hours}${compact ? ` ${styles.compact}` : ""}`} data-motion-region>
+    <div className={styles.hours} data-motion-region>
       <div className={styles.header}>
         <span className={styles.icon} aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" focusable="false">
