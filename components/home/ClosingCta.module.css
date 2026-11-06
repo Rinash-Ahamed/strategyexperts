@@ -1,7 +1,9 @@
 .closing {
   --button-fill: #fff;
+  --closing-bottom: clamp(96px, 10vw, 140px);
+  --horizon-height: 72px;
   position: relative; isolation: isolate; overflow: hidden;
-  padding-block: clamp(48px, 6vw, 88px) clamp(96px, 10vw, 140px);
+  padding-block: clamp(48px, 6vw, 88px) var(--closing-bottom);
   background: #000; text-align: center;
 }
 .content { position: relative; max-width: 840px; margin-inline: auto; }
@@ -13,10 +15,19 @@
 .label, .button :global(.arr) { position: relative; z-index: 1; }
 .closing .button:hover, .closing .button:focus-visible { background: var(--button-fill); color: #21162e; }
 .button:focus-visible { outline: 2px solid #ead6ff; outline-offset: 5px; }
-.horizon { position: absolute; top: calc(100% + 22px); left: 50%; z-index: -1; width: min(680px, 110vw); height: 150px; border: 1px solid #d4aaff30; border-radius: 50%; transform: translateX(-50%); pointer-events: none; mask-image: linear-gradient(#000, transparent 65%); }
-.horizon::before { content: ""; position: absolute; inset: 16px -50px -16px; border: 1px solid #b993ed1c; border-radius: 50%; }
+.horizon { position: absolute; bottom: calc(var(--closing-bottom) - 22px - var(--horizon-height)); left: 50%; z-index: -1; width: min(420px, 80vw); height: var(--horizon-height); border: 1px solid #d4aaff26; border-radius: 50%; background: radial-gradient(ellipse at 50% 0, #b38ae84d, #8c5eb522 45%, transparent 78%); mask-image: linear-gradient(#000, transparent 85%); opacity: .75; transform: translateX(-50%); transform-origin: 50% 100%; pointer-events: none; }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .closing { view-timeline-name: --closing-halo; view-timeline-axis: block; }
+    .horizon { animation: horizonLift linear both; animation-timeline: --closing-halo; animation-range: entry 45% cover 55%; }
+  }
+}
+@keyframes horizonLift {
+  from { transform: translateX(-50%) scale(.94); opacity: .55; }
+  to { transform: translate(-50%, -6px) scale(1.18, 1.12); opacity: .9; }
+}
 @keyframes conversationSweep { 0%, 62% { opacity: 0; transform: translateX(-180%) skewX(-18deg); } 68% { opacity: 1; transform: translateX(-180%) skewX(-18deg); } 86% { opacity: 1; transform: translateX(300%) skewX(-18deg); } 90%, 100% { opacity: 0; transform: translateX(300%) skewX(-18deg); } }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) { .closing .button:hover { transform: translateY(-2px); } }
-@media (max-width: 600px) { .heading { max-width: 22ch; } .closing .button { max-width: 100%; padding-inline: 22px; white-space: normal; } .horizon { height: 120px; } }
+@media (max-width: 600px) { .closing { --horizon-height: 60px; } .heading { max-width: 22ch; } .closing .button { max-width: 100%; padding-inline: 22px; white-space: normal; } }
 @media (prefers-reduced-motion: reduce) { .button::before { animation: none; display: none; } .closing .button { transition: none; } }
 @media (forced-colors: active) { .accent { color: CanvasText; } .button::before, .horizon { display: none; } .closing .button { border-color: ButtonText; background: ButtonFace; color: ButtonText; box-shadow: none; } }

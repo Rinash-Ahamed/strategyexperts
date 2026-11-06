@@ -1,0 +1,7 @@
+.consent { display: flex; align-items: flex-start; gap: 12px; min-height: 44px; padding-block: 10px; color: #c8bfd2; font-size: .875rem; line-height: 1.65; cursor: pointer; }
+.consent input { width: 18px; height: 18px; flex-shrink: 0; margin: 3px 0 0; accent-color: #c7a1fa; cursor: pointer; }
+.consent input:focus-visible { outline: 2px solid #d6bdfd; outline-offset: 4px; }
+.actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.actions button:disabled { opacity: .45; cursor: not-allowed; }
+.actions button:disabled :global(.arr) { transform: none !important; }
+.honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }

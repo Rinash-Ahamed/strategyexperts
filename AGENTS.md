@@ -22,3 +22,12 @@ These instructions apply to the entire repository.
 - After changing the version, confirm that `package.json`, the top-level `package-lock.json` version, and `packages[""]` in `package-lock.json` all match.
 - Do not run build or lint commands unless the user explicitly asks for them in the current request.
 - Do not treat a general request to implement, fix, or verify something as permission to run build or lint.
+
+## Folder-driven logo libraries
+
+- Client logos are discovered from `public/clients` by `lib/logo-library.ts`.
+- Homepage service-banner logos are discovered from the matching `public/Brand/Restaurant`, `Hotel`, `Ecommerce`, or `DigitalMarketting` folder.
+- PNG, JPG/JPEG, WebP, AVIF and SVG files are included automatically. Use descriptive filenames for accessible names; preserve original brand colours and proportions.
+- Do not add manual image imports or a separate logo manifest for new assets. Existing name overrides are optional accessibility refinements, not an inclusion list.
+- PDFs are source artwork, not browser logos. Convert and visually verify requested artwork before removing source PDFs, and only remove sources when the user authorizes it.
+- Folder discovery runs during server rendering: refresh in development; rebuild/redeploy production after adding, replacing or removing files. This is not a live-upload CMS.

@@ -1,0 +1,11 @@
+.page { composes: atmosphere from "@/components/home/SectionAtmosphere.module.css"; overflow: clip; }
+.intro, .formColumn { min-width: 0; }
+.accent { composes: gradient from "@/components/home/GradientText.module.css"; display: block; margin-top: 8px; }
+
+/* Follow the form without a scroll handler, but only when the complete
+   contact introduction fits comfortably below the fixed navigation. */
+@supports (overflow: clip) {
+  @media (min-width: 960px) and (min-height: 800px) {
+    .intro { position: sticky; top: 116px; align-self: start; }
+  }
+}

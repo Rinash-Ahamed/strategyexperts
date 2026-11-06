@@ -1,43 +1,67 @@
-.section { padding-block: clamp(40px, 5vw, 72px); }
+.section {
+  --section-curve-depth: 24px;
+  position: relative;
+  isolation: isolate;
+  margin-top: calc(-1 * var(--section-curve-depth));
+  padding-block: calc(clamp(40px, 5vw, 72px) + var(--section-curve-depth)) clamp(40px, 5vw, 72px);
+}
+.section > .surface {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  /* One continuous, static lighting field using the Pricing page palette. */
+  background-color: #050509;
+  background-image: radial-gradient(ellipse at 50% 0, #7c5cff50, transparent 48%), radial-gradient(ellipse at 0 85%, #22d3ee13, transparent 38%), radial-gradient(ellipse at 100% 80%, #d946ef16, transparent 38%);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  /* Match the hero's silver quadratic exactly. The gradient and grid rise
+     into the arc instead of starting at a separate rectangular boundary. */
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 24' preserveAspectRatio='none'%3E%3Cpath d='M0 23 Q720 -19 1440 23 V24 H0 Z' fill='white'/%3E%3C/svg%3E"), linear-gradient(#000, #000);
+  mask-size: 100% var(--section-curve-depth), 100% calc(100% - var(--section-curve-depth));
+  mask-position: top, bottom;
+  mask-repeat: no-repeat;
+}
+.section > .surface::before { display: none; }
 .heading { max-width: 850px; margin: 0 auto; color: #f3f0f7; font-size: var(--type-section); font-weight: var(--heading-weight); line-height: var(--heading-leading); letter-spacing: var(--heading-tracking); text-align: center; text-wrap: balance; }
 .accent { composes: gradient from "./GradientText.module.css"; display: block; margin-top: 8px; }
 .introduction { max-width: 52ch; margin: 20px auto clamp(40px, 5vw, 72px); color: #beb5cc; font-size: clamp(.9375rem, .9rem + .2vw, 1.0625rem); line-height: 1.7; text-align: center; text-wrap: pretty; }
 .sequence { display: grid; gap: clamp(56px, 7vw, 104px); }
-.slide { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.65fr); align-items: center; gap: clamp(24px, 4vw, 60px); min-width: 0; margin: 0; }
-.slide::before { content: ""; position: absolute; inset: -16% -4%; z-index: -1; pointer-events: none; background: radial-gradient(ellipse at 65% 50%, #9061d521, transparent 65%); }
-.slide:nth-child(even) { grid-template-columns: minmax(0, 1.65fr) minmax(0, .75fr); }
-.slide:nth-child(even)::before { background: radial-gradient(ellipse at 35% 50%, #a88ae51c, transparent 65%); }
-.copy { position: relative; min-width: 0; }
-.copy::before { content: ""; display: block; width: 40px; height: 3px; margin-bottom: 22px; border-radius: 999px; background: linear-gradient(90deg, #d9bdff, #9975d840, transparent); }
+.slide { --copy-offset: -36px; --copy-inset: 36px; position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.65fr); align-items: center; gap: clamp(24px, 4vw, 60px); min-width: 0; margin: 0; }
+.slide:nth-child(even) { --copy-offset: 36px; grid-template-columns: minmax(0, 1.65fr) minmax(0, .75fr); }
+.copy { position: relative; min-width: 0; padding-inline: var(--copy-inset); }
+.signal { position: relative; display: block; width: 72px; height: 3px; margin-bottom: 22px; overflow: hidden; border-radius: 999px; background: #b38ae82e; }
+.signal::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 32px; border-radius: inherit; background: linear-gradient(90deg, transparent, #e8d4ff, #b38ae8, transparent); transform: translateX(20px); }
 .copy h3 { margin: 0; color: #f3eefb; font-size: clamp(1.5rem, 1rem + 1.4vw, 2.35rem); font-weight: var(--heading-weight); line-height: 1.15; letter-spacing: var(--heading-tracking); text-wrap: balance; }
+.titleText { position: relative; display: inline-block; }
+.titleLight { position: absolute; inset: 0; color: #d8b9ff; opacity: 0; pointer-events: none; }
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .titleLight { background: linear-gradient(115deg, #f4eaff 5%, #bd92f0 45%, #ecd9ff 80%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .titleText { animation: title-float 8s ease-in-out infinite; }
+  .titleLight { animation: title-light 8s ease-in-out infinite; }
+  .signal::after { animation: signal-flow 3.8s ease-in-out infinite; }
+}
+@keyframes title-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+@keyframes title-light { 0%, 100% { opacity: .15; } 50% { opacity: 1; } }
+@keyframes signal-flow { 0% { transform: translateX(-32px); opacity: 0; } 12% { opacity: 1; } 75% { transform: translateX(72px); opacity: 0; } 100% { transform: translateX(72px); opacity: 0; } }
 .copy p { max-width: 36ch; margin: 18px 0 0; color: #beb5cc; font-size: clamp(.9375rem, .9rem + .15vw, 1rem); line-height: 1.75; text-wrap: pretty; }
 .frame { position: relative; min-width: 0; padding: 1px; overflow: hidden; border-radius: 18px; background: linear-gradient(140deg, #dfc7ff9c, #a376d521 45%, #d6b5ff59); }
 .image { display: block; width: 100%; height: auto; border-radius: 17px; }
-@media (min-width: 901px) {
-  .slide:nth-child(even) .copy { grid-column: 2; grid-row: 1; }
-  .slide:nth-child(even) .frame { grid-column: 1; grid-row: 1; }
-}
+@media (min-width: 901px) { .slide:nth-child(even) .copy { grid-column: 2; grid-row: 1; } .slide:nth-child(even) .frame { grid-column: 1; grid-row: 1; } }
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .slide { view-timeline-name: --dashboard-feature; view-timeline-axis: block; }
-    .frame { animation: screen-arrive linear both; animation-timeline: --dashboard-feature; animation-range: entry 0% entry 100%; }
-    .copy { animation: copy-arrive linear both; animation-timeline: --dashboard-feature; animation-range: entry 0% entry 90%; }
+    .copy { animation: copy-slide linear both; animation-timeline: --dashboard-feature; animation-range: contain 0% contain 100%; }
+    .signal { transform-origin: left; animation: accent-arrive linear both; animation-timeline: --dashboard-feature; animation-range: entry 0% entry 55%; }
   }
 }
-@keyframes screen-arrive { from { opacity: .7; transform: translateY(28px); } to { opacity: 1; transform: none; } }
-@keyframes copy-arrive { from { opacity: .65; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-@media (max-width: 900px) {
-  .slide, .slide:nth-child(even) { grid-template-columns: minmax(0, 1fr); gap: 24px; }
-  .copy { max-width: 600px; }
-  .copy h3 { text-wrap: pretty; }
-  .copy p { max-width: 54ch; margin-top: 12px; }
-  .copy::before { margin-bottom: 16px; }
-}
+/* Travel continues while the whole feature is on screen, not just on entry.
+   Reserved side space keeps the moving text clear of the image and viewport. */
+@keyframes copy-slide { from { transform: translateX(var(--copy-offset)); } to { transform: translateX(calc(-1 * var(--copy-offset))); } }
+@keyframes accent-arrive { from { transform: scaleX(.15); opacity: .4; } to { transform: scaleX(1); opacity: 1; } }
+@media (max-width: 900px) { .slide, .slide:nth-child(even) { grid-template-columns: minmax(0, 1fr); gap: 24px; } .slide { --copy-offset: -16px; --copy-inset: 16px; } .slide:nth-child(even) { --copy-offset: 16px; } .copy { max-width: 600px; } .copy h3 { text-wrap: pretty; } .copy p { max-width: 54ch; margin-top: 12px; } .signal { margin-bottom: 16px; } }
 @media (max-width: 600px) { .frame { border-radius: 12px; } .image { border-radius: 11px; } }
-@media (forced-colors: active) {
-  .heading span { background: none; color: CanvasText; -webkit-text-fill-color: currentColor; }
-  .frame { border: 1px solid CanvasText; }
-  .slide::before { display: none; }
-  .copy::before { background: CanvasText; }
-  .copy, .frame { animation: none; }
-}
+@media (max-width: 700px) { .section { --section-curve-depth: 16px; } }
+@media (forced-colors: active) { .section > .surface { background: Canvas; } .frame { border: 1px solid CanvasText; } .titleLight, .signal::after { display: none; } .signal { background: CanvasText; } .copy, .signal, .titleText { animation: none; } }

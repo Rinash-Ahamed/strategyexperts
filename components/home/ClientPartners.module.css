@@ -7,13 +7,45 @@
 .states { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 22px; margin: 16px 0 0; padding: 0; list-style: none; }
 .states li { display: flex; align-items: center; gap: 22px; color: #dbd0e9; font-size: .875rem; line-height: 1.6; }
 .states li + li::before { content: ""; width: 4px; height: 4px; flex-shrink: 0; border-radius: 50%; background: #b99bdc; }
-.logos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; max-width: 960px; margin: 0 auto; padding: 0; list-style: none; }
-.logoFrame { display: flex; align-items: center; justify-content: center; min-width: 0; aspect-ratio: 4 / 3; padding: 18px; overflow: hidden; border: 1px solid #ffffff14; border-radius: 14px; background: #090909; }
-.logo { display: block; width: 100%; height: 100%; max-width: 180px; max-height: 180px; object-fit: contain; }
+.gallery { position: relative; isolation: isolate; max-width: 1180px; margin-inline: auto; padding: 32px 24px 0; }
+/* An oblique light orbit grounds the floating plaques, not a second ticker. */
+.orbit { position: absolute; z-index: -1; inset: 4% 4% 24%; border: 1px solid #d4c2ef24; border-radius: 50%; transform: perspective(800px) rotateX(62deg) rotateZ(-12deg); pointer-events: none; }
+.orbit::before, .orbit::after { content: ""; position: absolute; inset: -26px; border: 1px solid #d4c2ef0c; border-radius: inherit; }
+.orbit::after { inset: 26px; border-color: #d4c2ef12; }
+.logos { position: relative; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 42px 34px; margin: 0; padding: 28px 0 56px; list-style: none; }
+.logoFrame { --lift: 0px; --yaw: -10deg; --roll: -3deg; --delay: -1s; flex: 0 0 calc((100% - 136px) / 5); max-width: 180px; min-width: 0; aspect-ratio: 1; transform: translateY(var(--lift)); }
+.logoFrame:nth-child(5n + 2) { --lift: -20px; --yaw: 10deg; --roll: 3deg; --delay: -3s; }
+.logoFrame:nth-child(5n + 3) { --lift: 14px; --yaw: -5deg; --roll: -2deg; --delay: -5s; }
+.logoFrame:nth-child(5n + 4) { --lift: -12px; --yaw: -12deg; --roll: 4deg; --delay: -2s; }
+.logoFrame:nth-child(5n) { --lift: 8px; --yaw: 9deg; --roll: -4deg; --delay: -6s; }
+.plaque { position: relative; display: block; width: 100%; height: 100%; padding: 12px; box-sizing: border-box; border: 1px solid #fff; border-radius: 18px; background: #fff; box-shadow: 1px 5px 0 #bcb8c7, 2px 9px 0 #777180, 0 24px 28px #0006; transform: perspective(800px) rotateX(9deg) rotateY(var(--yaw)) rotateZ(var(--roll)); transition: transform 350ms ease; }
+.plaque::after { content: ""; position: absolute; inset: -1px; border: 1px solid #ffffff80; border-radius: inherit; pointer-events: none; }
+.logoBox { position: relative; display: block; width: 100%; height: 100%; overflow: hidden; border-radius: 8px; }
+.logo { object-fit: contain; }
+.more { display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 12px 0 8px; text-align: center; }
+.moreMark { display: flex; align-items: center; justify-content: center; gap: 7px; height: 18px; }
+.moreMark span { width: 6px; height: 6px; border-radius: 50%; background: #c8b5e2; }
+.more p { margin: 0; color: #f3edf9; font-size: clamp(1.375rem, 2vw, 1.875rem); font-weight: 450; line-height: 1.3; letter-spacing: -.035em; }
+.more p span { display: block; margin-top: 8px; color: #bdb9c5; font-size: .8125rem; font-weight: 400; line-height: 1.6; letter-spacing: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .logoFrame { animation: levitate 7s ease-in-out var(--delay) infinite alternate; }
+  .moreMark span { animation: continuePulse 2.4s ease-in-out infinite; }
+  .moreMark span:nth-child(2) { animation-delay: .25s; }
+  .moreMark span:nth-child(3) { animation-delay: .5s; }
+}
+@keyframes levitate { from { transform: translateY(calc(var(--lift) - 6px)); } to { transform: translateY(calc(var(--lift) + 6px)); } }
+@keyframes continuePulse { 0%, 100% { transform: translateY(0); opacity: .5; } 50% { transform: translateY(-4px); opacity: 1; } }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) { .logoFrame:hover .plaque { transform: perspective(800px) translateY(-5px) rotateX(0) rotateY(0) rotateZ(0); } }
+@media (max-width: 1000px) and (min-width: 601px) { .logoFrame { flex-basis: calc((100% - 68px) / 3); max-width: 170px; } }
 @media (max-width: 600px) {
-  .logos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-  .logoFrame { aspect-ratio: 1; padding: 12px; }
-  .logoFrame:last-child:nth-child(odd) { grid-column: 1 / -1; width: calc((100% - 12px) / 2); justify-self: center; }
+  .gallery { padding: 24px 12px 0; }
+  .logos { gap: 34px 24px; padding: 20px 0 40px; }
+  .logoFrame { flex-basis: calc((100% - 24px) / 2); max-width: 150px; }
+  .logoFrame:nth-child(n) { --lift: 0px; }
+  .logoFrame:nth-child(even) { --lift: 14px; }
+  .plaque { padding: 10px; border-radius: 15px; }
+  .orbit { inset: 16% 0 30%; }
   .states, .states li { gap: 10px; }
 }
-@media (forced-colors: active) { .logoFrame { border-color: CanvasText; } }
+@media (prefers-reduced-motion: reduce) { .plaque { transition: none; } }
+@media (forced-colors: active) { .plaque { background: Canvas; border-color: CanvasText; box-shadow: none; } .orbit, .plaque::after { display: none; } .more p, .more p span { color: CanvasText; } .moreMark span { background: CanvasText; } }

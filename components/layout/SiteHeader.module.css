@@ -1,34 +1,53 @@
 .header:global(.nav) {
   --nav-glass: #090909;
-  background: var(--nav-glass);
+  --nav-curve-height: 16px;
+  background: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
   border-bottom: 0;
   box-shadow: inset 0 1px 0 #ffffff06;
 }
 .header:global(.nav.scrolled) {
   --nav-glass: #08080880;
-  background: var(--nav-glass);
+  background: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
   border-bottom: 0;
 }
-.curve { position: absolute; top: 100%; left: 0; width: 100%; height: 16px; max-width: none; overflow: visible; pointer-events: none; }
-.header :global(.progress) { top: 0; bottom: auto; }
+.glass {
+  position: absolute;
+  inset: 0 0 calc(-1 * var(--nav-curve-height));
+  z-index: 0;
+  pointer-events: none;
+  background: var(--nav-glass);
+  /* One filter surface covers both the rectangular bar and its exact SVG arc.
+     Only the background is masked, so dropdowns remain unclipped. */
+  mask-image: linear-gradient(#000, #000), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 16' preserveAspectRatio='none'%3E%3Cpath d='M0 0 H1440 V1 Q720 25 0 1 Z' fill='white'/%3E%3C/svg%3E");
+  mask-size: 100% calc(100% - var(--nav-curve-height)), 100% var(--nav-curve-height);
+  mask-position: top, bottom;
+  mask-repeat: no-repeat;
+}
+.header[data-menu-open] .glass { display: none; }
+.curve { position: absolute; z-index: 1; top: 100%; left: 0; width: 100%; height: var(--nav-curve-height); max-width: none; overflow: visible; pointer-events: none; }
+.header :global(.progress) { z-index: 2; top: 0; bottom: auto; }
 @media (max-width: 700px) {
-  .curve { height: 10px; }
+  .header:global(.nav) { --nav-curve-height: 10px; }
 }
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .header:global(.nav) {
     --nav-glass: #080808b8;
-    background: var(--nav-glass);
-    -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
   }
   .header:global(.nav.scrolled) {
     --nav-glass: #08080826;
-    background: var(--nav-glass);
+  }
+  .glass {
     -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
   }
 }
 .header .inner {
+  position: relative;
+  z-index: 1;
   height: 76px;
   width: 100%;
   max-width: none;
@@ -44,6 +63,8 @@
   border-radius: 999px;
   background: #ffffff04;
 }
+.header .inner:has(.services[open]) { z-index: 3; }
+.header .desktop:has(.services[open]) { z-index: 121; }
 .header .desktop > a,
 .trigger {
   min-height: 44px;
@@ -72,36 +93,51 @@
 .services[open] .trigger svg { transform: rotate(180deg); }
 .panel {
   position: absolute;
+  z-index: 1;
   top: calc(100% + 14px);
   left: 50%;
   transform: translateX(-50%);
-  width: 560px;
+  width: min(680px, calc(100vw - 48px));
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 6px;
-  padding: 10px;
-  border: 1px solid #ffffff1c;
-  border-radius: 18px;
-  background: linear-gradient(145deg, #202020, #101010);
-  box-shadow: 0 20px 50px #0006;
+  padding: 16px;
+  border: 1px solid #ffffff18;
+  border-radius: 22px;
+  background: #090909;
+  box-shadow: 0 24px 60px #0009, inset 0 1px 0 #ffffff06;
 }
+.panel::before { content: ""; position: absolute; top: -1px; left: 32px; right: 32px; height: 1px; background: linear-gradient(90deg, transparent, #bfc0c280, transparent); pointer-events: none; }
 .header .panel a {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
   align-items: center;
-  gap: 18px;
-  padding: 18px;
-  min-height: 76px;
+  gap: 14px;
+  padding: 16px 12px;
+  min-height: 112px;
   white-space: normal;
   border: 1px solid transparent;
-  border-radius: 10px;
+  border-radius: 14px;
   font-size: .875rem;
   line-height: 1.5;
   color: #cccccc;
   transition: background-color 180ms ease, border-color 180ms ease;
 }
 .header .panel a:hover,
-.header .panel a[aria-current="page"] { color: #fff; background: #ffffff07; border-color: #ffffff12; }
+.header .panel a:focus-visible,
+.header .panel a[aria-current="page"] { color: #fff; background: #ffffff0c; border-color: #ffffff18; }
+.previewIcon { display: grid; place-items: center; width: 42px; height: 46px; border: 1px solid #ffffff18; border-radius: 12px; background: #ffffff04; color: #bfc0c2; transition: transform 220ms ease, border-color 220ms ease, color 220ms ease; }
+.previewIcon svg { width: 23px; height: 23px; }
+.previewCopy { display: grid; gap: 6px; min-width: 0; }
+.previewTitle { color: #f4f2ed; font-size: .875rem; font-weight: 500; letter-spacing: -.02em; line-height: 1.45; }
+.previewDescription { max-width: 28ch; color: #bfc0c2; font-size: .75rem; line-height: 1.6; }
+.header .panel a:is(:hover, :focus-visible, [aria-current="page"]) .previewIcon { border-color: #bfc0c28c; color: #fff; }
+.header .panel a:focus-visible { outline: 2px solid #bfc0c2; outline-offset: 2px; }
+@media (prefers-reduced-motion: no-preference) {
+  .services[open] .panel { animation: panelReveal 180ms ease-out both; }
+}
+@keyframes panelReveal { from { opacity: 0; transform: translate(-50%, -6px); } to { opacity: 1; transform: translate(-50%, 0); } }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) { .header .panel a:hover .previewIcon { transform: translateY(-2px); } }
 .header .desktop :focus-visible { outline: 2px solid #bfc0c2; outline-offset: 3px; }
 .header .cta {
   min-height: 44px;
@@ -122,13 +158,17 @@
   .header .desktop { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .header .desktop > a, .trigger, .trigger svg, .header .panel a { transition: none; }
+  .header .desktop > a, .trigger, .trigger svg, .header .panel a, .previewIcon { transition: none; }
 }
 @media (forced-colors: active) {
   .header:global(.nav), .header:global(.nav.scrolled) {
     --nav-glass: Canvas;
-    background: var(--nav-glass);
+    background: transparent;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
+  .glass { -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .panel, .previewIcon { background: Canvas; border-color: CanvasText; box-shadow: none; }
+  .panel::before { display: none; }
+  .previewIcon, .previewTitle, .previewDescription { color: CanvasText; }
 }

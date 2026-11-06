@@ -58,10 +58,10 @@ html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   scroll-padding-top: 88px;
-  scrollbar-color: #858585 #080808;
+  scrollbar-color: #bc96e8 #080808;
 }
 
-/* Native scrolling, with a graphite-to-silver thumb and black track. */
+/* Native scrolling, with a lavender-gradient thumb and black track. */
 @supports selector(::-webkit-scrollbar) {
   html { scrollbar-color: auto; }
   ::-webkit-scrollbar { width: 12px; height: 12px; }
@@ -70,12 +70,12 @@ html {
     min-height: 44px;
     border: 3px solid #080808;
     border-radius: 999px;
-    background: linear-gradient(180deg, #454545 0%, #929292 50%, #454545 100%) padding-box;
+    background: linear-gradient(180deg, #8e68be 0%, #d9baff 50%, #a17acb 100%) padding-box;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #606060 0%, #bdbdbd 50%, #606060 100%) padding-box;
+    background: linear-gradient(180deg, #ac83db 0%, #efddff 50%, #c19ae9 100%) padding-box;
   }
-  ::-webkit-scrollbar-thumb:active { background: #bdbdbd padding-box; }
+  ::-webkit-scrollbar-thumb:active { background: linear-gradient(180deg, #c19ae9, #efddff, #ac83db) padding-box; }
   ::-webkit-scrollbar-corner { background: #080808; }
 }
 
@@ -1297,7 +1297,7 @@ body {
 .consent .practice p { color: var(--ink-2); }
 
 .footer { background: #000; color: var(--ink); border-top: 1px solid var(--line); }
-.footer .footer-h { color: var(--silver-dark); }
+.footer .footer-h { color: #c8a5fa; }
 .footer .footer-h { font-weight: 500; }
 .footer li a { color: var(--silver-mid); font-weight: 400; }
 .footer p,

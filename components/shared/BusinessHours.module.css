@@ -1,0 +1,28 @@
+.hours { position: relative; overflow: hidden; padding: 22px 24px; margin-bottom: 24px; border: 1px solid #c8a5fa30; border-radius: 16px; background: radial-gradient(ellipse at 100% 0, #ad80ec18, transparent 70%), #0b090f; }
+.header { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.icon { display: grid; place-items: center; width: 32px; height: 32px; flex-shrink: 0; border-radius: 50%; background: #c8a5fa12; color: #d4b8fa; }
+.icon svg { width: 19px; height: 19px; }
+.hours .title { margin: 0; color: #f0eaf8; font-size: .9375rem; font-weight: 500; line-height: 1.5; letter-spacing: -.015em; }
+.timezone { margin-left: auto; padding: 3px 8px; border: 1px solid #d6b8ff26; border-radius: 999px; color: #c8b5df; font-size: .6875rem; line-height: 1.5; letter-spacing: .06em; }
+.schedule { display: grid; gap: 14px; margin: 0; }
+.working { display: grid; gap: 6px; }
+.hours dt { color: #bcb2c9; font-size: .8125rem; line-height: 1.5; }
+.hours dd { margin: 0; color: #f4eefc; font-size: clamp(1.125rem, 1rem + .4vw, 1.375rem); font-weight: 450; line-height: 1.5; letter-spacing: -.025em; font-variant-numeric: tabular-nums; }
+.to { color: #9b8dab; font-size: .8125rem; font-weight: 400; letter-spacing: 0; }
+.closed { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.closed dt { display: flex; align-items: center; flex: 1; gap: 16px; min-width: 0; }
+.dayArrow { flex: 1; min-width: 24px; max-width: 72px; height: 12px; color: #c8a5fa; }
+.closed dd { color: #bcb2c9; font-size: .8125rem; font-weight: 400; letter-spacing: 0; }
+.closedBadge { display: inline-block; padding: 4px 12px; border: 1px solid #c8a5fa40; border-radius: 999px; background: #c8a5fa12; color: #dfccf7; font-size: .75rem; line-height: 1.5; }
+@media (prefers-reduced-motion: no-preference) { .dayArrow { animation: sunday-arrow 3s ease-in-out infinite; } }
+@keyframes sunday-arrow { 0%, 60%, 100% { transform: translateX(0); } 75% { transform: translateX(3px); } 88% { transform: translateX(0); } }
+.compact { max-width: 320px; margin: 24px 0 0; padding: 18px; border-radius: 12px; background: linear-gradient(120deg, #a576e40b, transparent); }
+.compact .header { gap: 8px; margin-bottom: 14px; }
+.compact .title { font-size: .8125rem; }
+.compact .icon { width: 28px; height: 28px; }
+.compact .icon svg { width: 17px; height: 17px; }
+.compact .schedule { gap: 12px; }
+.compact dd { font-size: 1rem; }
+.compact .closed dd { font-size: .75rem; }
+@media (max-width: 400px) { .hours { padding: 18px; } }
+@media (forced-colors: active) { .hours { border-color: CanvasText; background: Canvas; } .timezone, .closedBadge { border-color: CanvasText; } .closedBadge { background: Canvas; color: CanvasText; } .dayArrow { color: CanvasText; animation: none; } .hours .icon, .hours dd, .closed dd { color: CanvasText; } }

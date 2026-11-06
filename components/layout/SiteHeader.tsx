@@ -9,6 +9,12 @@ import styles from "./SiteHeader.module.css";
 type Props = { links: { href: string; label: string }[]; name: string; tagline: string };
 
 const PRODUCT_URL = "https://dashboard.strategyexperts.in/login";
+const SERVICE_PREVIEWS: Record<string, { description: string; icon: string }> = {
+  "/services/e-commerce-support": { description: "Marketplace operations. Stronger sales.", icon: "M4 7h16l1 14H3L4 7Zm4 0V6a4 4 0 0 1 8 0v1M9 12h6" },
+  "/services/restaurant-consulting": { description: "Better operations. Healthier margins.", icon: "M4 3v6a3 3 0 0 0 6 0V3M7 3v18M17 3v18m0-18c4 3 4 8 0 9" },
+  "/services/hotel-revenue-management": { description: "Smarter pricing. Stronger revenue.", icon: "M4 21V5l8-3 8 3v16M2 21h20M8 8h1m6 0h1M8 12h1m6 0h1M10 21v-5h4v5" },
+  "/services/digital-marketing": { description: "Search, social and meaningful growth.", icon: "m4 10 13-6v16L4 14v-4ZM4 10H2v4h2m3 1 2 6h3l-2-5m10-7 2-1m-2 8 2 1" },
+};
 
 export default function SiteHeader({ links, name, tagline }: Props) {
   const [open, setOpen] = useState(false);
@@ -129,7 +135,8 @@ export default function SiteHeader({ links, name, tagline }: Props) {
 
   return (
     <>
-      <header className={`nav ${styles.header}${scrolled || open ? " scrolled" : ""}`} style={open ? { background: "transparent", borderColor: "transparent", backdropFilter: "none", WebkitBackdropFilter: "none" } : undefined}>
+      <header className={`nav ${styles.header}${scrolled || open ? " scrolled" : ""}`} data-menu-open={open || undefined} style={open ? { background: "transparent", borderColor: "transparent", backdropFilter: "none", WebkitBackdropFilter: "none" } : undefined}>
+        <span className={styles.glass} aria-hidden="true" />
         <div className={`wrap nav-inner ${styles.inner}`}>
           <Link href={homeHref} aria-label={`${name} home`} style={{ position: "relative", zIndex: 120, color: open ? "#fff" : undefined }}>
             <Wordmark small={false} />
@@ -149,11 +156,19 @@ export default function SiteHeader({ links, name, tagline }: Props) {
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="m3 4.5 3 3 3-3" stroke="currentColor" strokeWidth="1.2" /></svg>
               </summary>
               <div className={styles.panel}>
-                {links.filter((link) => link.href.startsWith("/services/")).map((link) => (
-                  <Link key={link.href} href={link.href} aria-current={isActive(link.href) ? "page" : undefined}>
-                    <span>{link.label}</span>
-                  </Link>
-                ))}
+                {links.filter((link) => link.href.startsWith("/services/")).map((link) => {
+                  const preview = SERVICE_PREVIEWS[link.href];
+                  const descriptionId = `nav-service-${link.href.split("/").pop()}`;
+                  return (
+                    <Link key={link.href} href={link.href} aria-label={link.label} aria-describedby={preview ? descriptionId : undefined} aria-current={isActive(link.href) ? "page" : undefined}>
+                      {preview && <span className={styles.previewIcon} aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" focusable="false"><path d={preview.icon} /></svg></span>}
+                      <span className={styles.previewCopy}>
+                        <span className={styles.previewTitle}>{link.label}</span>
+                        {preview && <span className={styles.previewDescription} id={descriptionId}>{preview.description}</span>}
+                      </span>
+                    </Link>
+                  );
+                })}
               </div>
             </details>
             <Link href={PRODUCT_URL} target="_blank" rel="noopener noreferrer" aria-label="Product (opens in a new tab)">Product</Link>
@@ -189,7 +204,6 @@ export default function SiteHeader({ links, name, tagline }: Props) {
               <stop offset="1" stopColor="#929292" stopOpacity=".08" />
             </linearGradient>
           </defs>
-          <path d="M0 0 H1440 V1 Q720 25 0 1 Z" fill="var(--nav-glass)" />
           <path d="M0 1 Q720 25 1440 1" fill="none" stroke="url(#navigation-arc-silver)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
         </svg>
       </header>

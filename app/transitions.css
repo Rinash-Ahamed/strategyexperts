@@ -3,7 +3,10 @@
 @media (prefers-reduced-motion: no-preference) {
   @view-transition { navigation: auto; }
 
-  .nav { view-transition-name: site-navigation; }
+  /* Naming the whole header creates a backdrop boundary in Chromium and
+     prevents its glass layer from blurring page content during normal scroll.
+     Keep only navigation foreground content in the persistent snapshot. */
+  .nav-inner { view-transition-name: site-navigation; }
   ::view-transition-group(root),
   ::view-transition-group(site-navigation) { animation: none; }
   ::view-transition-old(root) { animation: page-leave 300ms cubic-bezier(.22, .8, .2, 1) both; }

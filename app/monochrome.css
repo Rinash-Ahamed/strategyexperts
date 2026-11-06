@@ -1,4 +1,14 @@
 /* Site-wide black/silver finish. Original brand assets remain unaltered. */
+/* Preserve animation phase while sections are offscreen or the tab is hidden. */
+[data-motion-region][data-motion-paused],
+[data-motion-region][data-motion-paused]::before,
+[data-motion-region][data-motion-paused]::after,
+[data-motion-region][data-motion-paused] *,
+[data-motion-region][data-motion-paused] *::before,
+[data-motion-region][data-motion-paused] *::after {
+  animation-play-state: paused !important;
+}
+
 :root,
 body .surface-ivory,
 body .surface-silver,
@@ -70,6 +80,7 @@ body .service-page.t-digital { --service-colour: #d0d0d0; --service-paper: #111;
 body .hero-background-glow { display: none; }
 /* One continuous surface from the navigation arc to the conveyor's lower edge. */
 body .hero.hero-frame {
+  z-index: 1;
   background: transparent;
   padding-bottom: 12px;
 }

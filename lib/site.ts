@@ -22,6 +22,15 @@ export const SITE = {
   instagram: "https://www.instagram.com/strategy.experts?exln=MWZpbmR0NTNzY3J5Mw%3D%3D&utm_source=qr",
   emails: contactEmails,
   email: contactEmails.join(","),
+  businessHours: {
+    days: "Monday - Saturday",
+    opens: "09:30",
+    closes: "18:30",
+    opensDisplay: "9:30 AM",
+    closesDisplay: "6:30 PM",
+    closedDay: "Sunday",
+    timezone: "IST",
+  },
   showMetrics: process.env.NEXT_PUBLIC_SHOW_METRICS === "true",
 };
 
@@ -601,20 +610,20 @@ export const getService = (slug: string) =>
 /** Suggested working framework shown on the homepage (not a formally documented process). */
 export const HOME_FRAMEWORK: Step[] = [
   {
-    title: "Understand the business",
-    body: "Where you are today: your platforms, performance, market and goals.",
+    title: "Understand Your Business",
+    body: "We assess your current performance, online presence, market position, operational challenges, and business objectives to establish a clear starting point.",
   },
   {
-    title: "Identify opportunities",
-    body: "Where visibility, pricing, listings or promotions are leaving revenue on the table.",
+    title: "Uncover Growth Opportunities",
+    body: "We identify opportunities to improve visibility, optimise menus and pricing, strengthen promotional strategies, and minimise revenue leakage.",
   },
   {
-    title: "Build the strategy",
-    body: "A plan shaped around data, trends and the realities of your business.",
+    title: "Develop a Winning Strategy",
+    body: "We build a customized action plan backed by performance data, market insights, and practical business priorities.",
   },
   {
-    title: "Execute and optimise",
-    body: "Hands-on implementation, performance tracking and steady refinement.",
+    title: "Execute, Monitor & Optimise",
+    body: "We support implementation, track key performance indicators, and continuously refine strategies to improve performance and drive sustainable growth.",
   },
 ];
 

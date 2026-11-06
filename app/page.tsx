@@ -4,13 +4,14 @@ import HeroIntro from "@/components/home/HeroIntro";
 import Ticker from "@/components/home/Ticker";
 import ClientPartners from "@/components/home/ClientPartners";
 import DashboardShowcase from "@/components/home/DashboardShowcase";
+import StrategyJourney from "@/components/home/StrategyJourney";
 import closing from "@/components/home/ClosingCta.module.css";
 
 export default function Home() {
   return (
     <>
       {/* ------------------------------------------------ Hero */}
-      <section className="hero hero-text-only hero-frame" aria-labelledby="hero-title">
+      <section className="hero hero-text-only hero-frame" aria-labelledby="hero-title" data-motion-region>
 
         <HeroIntro />
         <Ticker />
@@ -27,10 +28,11 @@ export default function Home() {
       </section>
 
       <DashboardShowcase />
+      <StrategyJourney />
       <ClientPartners />
 
       {/* ------------------------------------------------ Final CTA */}
-      <section className={closing.closing} aria-labelledby="cta-title">
+      <section className={closing.closing} aria-labelledby="cta-title" data-motion-region>
         <div className="wrap">
           <div className={closing.content}>
             <h2 className={closing.heading} id="cta-title">
@@ -43,9 +45,9 @@ export default function Home() {
             <Link href="/contact" className={`btn ${closing.button}`}>
               <span className={closing.label}>Start a Conversation</span> <Arrow />
             </Link>
-            <div className={closing.horizon} aria-hidden="true" />
           </div>
         </div>
+        <div className={closing.horizon} aria-hidden="true" />
       </section>
     </>
   );

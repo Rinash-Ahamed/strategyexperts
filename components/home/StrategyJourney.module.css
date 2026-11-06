@@ -1,58 +1,58 @@
-.journey {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  padding-block: 14px 24px;
-}
-.stage { --stage-colour: #cccccc; position: relative; min-width: 0; }
-.stage:nth-child(2) { --stage-colour: #cccccc; }
-.stage:nth-child(3) { --stage-colour: #cccccc; }
-.stage:nth-child(4) { --stage-colour: #cccccc; }
-.stage:not(:last-child)::before {
-  content: "";
-  position: absolute;
-  top: 29px;
-  left: 60px;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, #aaaaaa44, #aaaaaa66, #aaaaaa44);
-}
-.content { position: relative; }
-.marker {
-  display: grid;
-  place-items: center;
-  width: 60px;
-  height: 60px;
-  border: 1px solid color-mix(in srgb, var(--stage-colour) 24%, transparent);
-  border-radius: 50%;
-  color: var(--stage-colour);
-  background: linear-gradient(145deg, #ffffff0c, #ffffff04);
-  box-shadow: inset 0 1px 0 #ffffff12;
-  transition: transform 350ms cubic-bezier(.22, .8, .2, 1);
-}
-.marker svg { width: 25px; height: 25px; }
-.copy { padding: 28px clamp(18px, 2.8vw, 44px) 0 0; }
-.copy h3 {
-  max-width: 16ch; color: var(--stage-colour);
-  font-size: var(--type-subheading); font-weight: 450; line-height: 1.3; letter-spacing: -.02em;
-}
-.copy p { margin-top: 14px; max-width: 29ch; color: #bdbdbd; line-height: 1.75; }
-
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .stage:hover .marker { transform: translateY(-4px); }
+.section { position: relative; isolation: isolate; overflow: clip; padding-block: clamp(40px, 5vw, 72px); background: #050509; }
+.section::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(ellipse at 78% 45%, #a576df19, transparent 65%); }
+.layout { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.7fr); align-items: center; gap: clamp(36px, 5vw, 72px); }
+.introduction { position: relative; min-width: 0; }
+.heading { margin: 0; color: #f3f0f7; font-size: var(--type-section); font-weight: var(--heading-weight); line-height: var(--heading-leading); letter-spacing: var(--heading-tracking); text-wrap: balance; }
+.accent { composes: gradient from "./GradientText.module.css"; }
+.question { display: inline-block; color: #d6b9fa; transform-origin: 50% 80%; }
+.promise { max-width: 30ch; margin: 24px 0 0; color: #eee5fa; font-size: clamp(1.125rem, 1rem + .3vw, 1.375rem); font-weight: 450; line-height: 1.45; letter-spacing: -.025em; text-wrap: pretty; }
+.journey { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 28px; min-width: 0; margin: 0; padding: 0; list-style: none; }
+.stage { position: relative; min-width: 0; }
+.marker { position: relative; display: grid; place-items: center; width: 54px; height: 54px; margin-bottom: 20px; border: 1px solid #c9a3fb55; border-radius: 50%; color: #ddc8fa; background: radial-gradient(circle at 30% 20%, #c6a1ef1a, #0b0910 80%); box-shadow: inset 0 1px 0 #ffffff0d; transition: transform 220ms ease, border-color 220ms ease; }
+.marker svg { width: 24px; height: 24px; }
+.marker::after { content: ""; position: absolute; inset: -6px; border: 1px solid #d4b0ff80; border-radius: 50%; opacity: 0; pointer-events: none; }
+.copy h3 { max-width: 22ch; margin: 0; color: #f0eaf8; font-size: 1.0625rem; font-weight: var(--heading-weight); line-height: 1.4; letter-spacing: -.025em; text-wrap: pretty; }
+.copy p { max-width: 38ch; margin: 12px 0 0; color: #bcb2c9; font-size: .8125rem; line-height: 1.8; text-wrap: pretty; }
+.note { margin: 32px 0 0; color: #a99fb7; font-size: .75rem; line-height: 1.8; text-align: center; }
+@media (min-width: 1400px) {
+  .layout { grid-template-columns: minmax(0, .85fr) minmax(0, 2.15fr); gap: 56px; }
+  .journey { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
 }
 @media (max-width: 959px) {
-  .journey { grid-template-columns: 1fr; padding-block: 0 12px; }
-  .stage:not(:last-child)::before {
-    top: 52px; bottom: 0; left: 25px; right: auto; width: 1px; height: auto;
-    background: linear-gradient(#aaaaaa44, #aaaaaa66, #aaaaaa44);
-  }
-  .content { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 24px; }
-  .marker { width: 52px; height: 52px; }
-  .copy { padding: 8px 0 36px; }
-  .copy h3, .copy p { max-width: 48ch; }
+  .layout { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .introduction { max-width: 760px; }
+  .promise { max-width: 62ch; margin-top: 18px; }
+  .copy p { max-width: 54ch; font-size: .875rem; }
+}
+@media (max-width: 599px) {
+  .journey { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .stage { display: grid; grid-template-columns: 54px minmax(0, 1fr); align-items: start; gap: 20px; padding-bottom: 30px; }
+  .stage:last-child { padding-bottom: 0; }
+  .stage:not(:last-child)::before { content: ""; position: absolute; top: 62px; bottom: 8px; left: 26px; width: 1px; background: linear-gradient(#b78ae84d, #b78ae81a); }
+  .marker { margin: 0; }
+  .copy h3 { max-width: none; }
   .copy p { margin-top: 10px; }
-  .stage:last-child .copy { padding-bottom: 0; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .marker { transition: none; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) { .stage:hover .marker { transform: translateY(-3px); border-color: #e0c5ff; } }
+@media (prefers-reduced-motion: no-preference) {
+  .marker::after { animation: signal-wave 7.2s ease-out infinite; animation-delay: calc(var(--step) * 1.8s); }
+  .marker svg { animation: icon-breathe 7.2s ease-in-out infinite; animation-delay: calc(var(--step) * 1.8s); }
+  .question { animation: question-sway 3.6s ease-in-out infinite; }
 }
+@keyframes signal-wave {
+  0% { opacity: 0; transform: scale(.85); }
+  4% { opacity: .65; }
+  20%, 100% { opacity: 0; transform: scale(1.28); }
+}
+@keyframes icon-breathe {
+  0%, 24%, 100% { opacity: .8; transform: none; }
+  10% { opacity: 1; transform: translateY(-2px) scale(1.06); }
+}
+@keyframes question-sway {
+  0%, 60%, 100% { transform: none; }
+  70% { transform: translateY(-2px) rotate(-8deg); }
+  82% { transform: rotate(5deg); }
+  92% { transform: rotate(-2deg); }
+}
+@media (prefers-reduced-motion: reduce) { .marker { transition: none; } }
+@media (forced-colors: active) { .section::before, .marker::after { display: none; } .marker { border-color: CanvasText; color: CanvasText; background: Canvas; } .stage::before { background: CanvasText; } .marker svg, .question { animation: none; color: CanvasText; } }

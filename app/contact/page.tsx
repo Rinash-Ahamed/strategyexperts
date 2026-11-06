@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import ContactForm from "@/components/contact/ContactForm";
+import BusinessHours from "@/components/shared/BusinessHours";
 import { SERVICES, SITE } from "@/lib/site";
+import styles from "./contact.module.css";
 
 export const metadata: Metadata = {
   title: "Discuss Your Business",
@@ -11,11 +13,12 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="wrap">
+    <div className={styles.page} data-motion-region>
+      <div className="wrap">
       <div className="contact-grid">
-        <div className="stack-m">
+        <div className={`stack-m ${styles.intro}`}>
           <h1 className="h1">
-            Ready to grow smarter?
+            Ready to <span className={styles.accent}>grow smarter?</span>
           </h1>
           <p className="lead">
             Tell us where your business is today. We’ll help you identify where the next opportunity
@@ -44,7 +47,11 @@ export default function ContactPage() {
             </ul>
         </div>
 
-        <ContactForm whatsapp={SITE.whatsapp} email={SITE.email} services={SERVICES.map(({ slug, name }) => ({ slug, name }))} />
+        <div className={styles.formColumn}>
+          <BusinessHours />
+          <ContactForm whatsapp={SITE.whatsapp} email={SITE.email} services={SERVICES.map(({ slug, name }) => ({ slug, name }))} />
+        </div>
+      </div>
       </div>
     </div>
   );
