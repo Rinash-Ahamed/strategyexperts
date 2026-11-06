@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { readFile } from "node:fs/promises";
 import { stripTypeScriptTypes } from "node:module";
-import { validateEnquiry, enquiryText } from "../lib/enquiry.ts";
+import { validateEnquiry, enquiryText, enquiryHtml } from "../lib/enquiry.ts";
 
 const valid = { name: "Sample Visitor", email: "visitor@example.com", business: "Example Business", service: "Restaurant Consulting", message: "Please help improve our restaurant visibility.", source: "straty", consent: true, website: "" };
 
@@ -20,16 +20,34 @@ test("rejects missing consent, invalid addresses, oversized fields and header in
   }
 });
 
+test("branded HTML identifies both sources and escapes customer content", () => {
+  for (const source of ["contact", "straty"]) {
+    const enquiry = validateEnquiry({ ...valid, source, name: "<script>alert(1)</script>", business: 'A & "B"', message: '<img src=x onerror="alert(1)">\nSecond line & more' });
+    assert(enquiry);
+    const html = enquiryHtml(enquiry, "https://strategyexperts.in");
+    assert.match(html, /Strategy Experts/);
+    assert.match(html, /Your Growth Partner/);
+    assert(html.includes(source === "straty" ? "Straty support buddy" : "Contact form"));
+    assert.match(html, /&lt;script&gt;/);
+    assert.match(html, /A &amp; &quot;B&quot;/);
+    assert.match(html, /<br>Second line &amp; more/);
+    assert.doesNotMatch(html, /<script|<img|<iframe/i);
+    assert.match(html, /mailto:visitor%40example.com/);
+    assert.match(enquiryText(enquiry), /Reply email: visitor@example.com/);
+  }
+});
+
 // Execute the real route with a fake SMTP adapter: never opens a network socket.
 test("route gates origin, payload, configuration, SMTP results and repeated requests", async () => {
   const originalUser = process.env.GMAIL_SMTP_USER;
   const originalPass = process.env.GMAIL_SMTP_APP_PASSWORD;
   const delivered = [];
   let rejected = false;
-  globalThis.__enquiryTestTransport = { createTransport: (config) => ({
+  let created = 0, closed = 0;
+  globalThis.__enquiryTestTransport = { createTransport: (config) => { created++; return {
     async sendMail(message) { delivered.push({ config, message }); if (rejected) return { accepted: [] }; return { accepted: ["team@example.com"] }; },
-    close() {},
-  }) };
+    close() { closed++; },
+  }; } };
   const dataUrl = (text) => "data:text/javascript;base64," + Buffer.from(text).toString("base64");
   try {
     let route = await readFile(new URL("../app/api/enquiry/route.ts", import.meta.url), "utf8");
@@ -53,14 +71,24 @@ test("route gates origin, payload, configuration, SMTP results and repeated requ
     assert.equal((await POST(request())).status, 200);
     assert.equal(delivered[0].config.host, "smtp.gmail.com");
     assert.equal(delivered[0].config.secure, true);
+    assert.equal(delivered[0].config.pool, true);
+    assert.equal(delivered[0].config.maxConnections, 2);
     assert.deepEqual(delivered[0].message.to, ["team@example.com"]);
     assert.equal(delivered[0].message.replyTo.address, valid.email);
     assert.equal(delivered[0].message.from.address, "sender@gmail.com");
+    assert.match(delivered[0].message.html, /Strategy Experts/);
+    assert.match(delivered[0].message.html, /Straty support buddy/);
+    assert.match(delivered[0].message.text, /New enquiry via Straty support buddy/);
     rejected = true;
     assert.equal((await POST(request({ ...valid, email: "second@example.com" }))).status, 502);
     rejected = false;
     await POST(request()); await POST(request());
     assert.equal((await POST(request())).status, 429);
+    assert.equal((await POST(request({ ...valid, source: "contact", email: "contact@example.com" }))).status, 200);
+    assert.match(delivered.at(-1).message.html, /Contact form/);
+    assert.match(delivered.at(-1).message.text, /New enquiry via contact form/);
+    assert.equal(created, 1, "Warm requests should reuse the transporter");
+    assert.equal(closed, 0, "Do not close shared connections after each send");
   } finally {
     if (originalUser === undefined) delete process.env.GMAIL_SMTP_USER; else process.env.GMAIL_SMTP_USER = originalUser;
     if (originalPass === undefined) delete process.env.GMAIL_SMTP_APP_PASSWORD; else process.env.GMAIL_SMTP_APP_PASSWORD = originalPass;

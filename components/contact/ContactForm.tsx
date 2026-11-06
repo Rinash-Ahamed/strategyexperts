@@ -26,8 +26,18 @@ export default function ContactForm({ whatsapp, email, services }: Props) {
   const [status, setStatus] = useState<"idle" | "opened" | "sending" | "sent" | "error">("idle");
   const [sendError, setSendError] = useState("");
   const sendingRef = useRef(false);
+  const feedbackRef = useRef<HTMLParagraphElement>(null);
   const [consented, setConsented] = useState(false);
   const configured = Boolean(whatsapp || email);
+
+  useEffect(() => {
+    if (status !== "sent" && status !== "error") return;
+    const frame = requestAnimationFrame(() => {
+      feedbackRef.current?.focus({ preventScroll: true });
+      feedbackRef.current?.scrollIntoView({ block: "center", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [status]);
 
   const compose = (fd: FormData) => {
     const get = (k: string) => String(fd.get(k) || "").trim();
@@ -146,8 +156,8 @@ export default function ContactForm({ whatsapp, email, services }: Props) {
           Your message is ready in the app you chose. Press send there to complete it.
         </p>
       )}
-      {status === "sent" && <p className="note" role="status">Thanks! Your enquiry has been sent to Strategy Experts. We&apos;ll reply to the email you provided.</p>}
-      {status === "error" && <p className="note" role="alert">{sendError} <a href={`mailto:${email}`}>Email us directly</a>.</p>}
+      {status === "sent" && <p ref={feedbackRef} tabIndex={-1} className="note" role="status">Thanks! Your enquiry has been sent to Strategy Experts. We&apos;ll reply to the email you provided.</p>}
+      {status === "error" && <p ref={feedbackRef} tabIndex={-1} className="note" role="alert">{sendError} <a href={`mailto:${email}`}>Email us directly</a>.</p>}
     </form>
   );
 }

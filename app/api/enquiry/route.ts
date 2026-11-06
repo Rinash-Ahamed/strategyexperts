@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import nodemailer from "nodemailer";
-import { enquiryText, validateEnquiry } from "@/lib/enquiry";
+import { enquiryHtml, enquiryText, validateEnquiry } from "@/lib/enquiry";
 import { SITE } from "@/lib/site";
 
 export const runtime = "nodejs";
@@ -8,6 +8,27 @@ export const runtime = "nodejs";
 // Best-effort limits per server instance. Distributed deployments must also
 // configure a shared rate limit/WAF at their ingress (see docs/email-setup.md).
 const attempts = new Map<string, { count: number; until: number }>();
+// Reuse authenticated connections within a warm process. Creating and closing
+// a transport for every message repeats DNS/TCP/TLS/authentication work.
+let transport: ReturnType<typeof nodemailer.createTransport> | undefined;
+function getTransport(user: string, pass: string) {
+  transport ??= nodemailer.createTransport({
+    pool: true,
+    maxConnections: 2,
+    maxMessages: 30,
+    maxRequeues: 1,
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: { user, pass },
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 20000,
+    disableFileAccess: true,
+    disableUrlAccess: true,
+  });
+  return transport;
+}
 function allow(key: string, limit: number, duration: number) {
   const now = Date.now();
   for (const [entry, value] of attempts) if (value.until <= now) attempts.delete(entry);
@@ -53,24 +74,14 @@ export async function POST(request: Request) {
 
   const identity = createHash("sha256").update(enquiry.email.toLowerCase()).digest("hex");
   if (!allow(identity, 3, 15 * 60_000) || !allow("deliveries", 30, 60 * 60_000)) return failure("Too many enquiries. Please try again later or contact us directly.", 429);
-  const transport = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: { user, pass },
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 20000,
-    disableFileAccess: true,
-    disableUrlAccess: true,
-  });
   try {
-    const result = await transport.sendMail({
+    const result = await getTransport(user, pass).sendMail({
       from: { name: "Strategy Experts Website", address: user },
       to: SITE.emails,
       replyTo: { name: enquiry.name, address: enquiry.email },
       subject: `New ${enquiry.source === "straty" ? "Straty" : "website"} enquiry`,
       text: enquiryText(enquiry),
+      html: enquiryHtml(enquiry, SITE.url),
     });
     if (!result.accepted.length) throw new Error("No recipients accepted");
     return Response.json({ ok: true }, { headers: { "Cache-Control": "no-store" } });
@@ -78,5 +89,5 @@ export async function POST(request: Request) {
     // Never expose SMTP credentials, provider responses or enquiry data.
     console.error("Enquiry email delivery failed.");
     return failure("We couldn't send your enquiry. Please try again later or contact us directly.", 502);
-  } finally { transport.close(); }
+  }
 }

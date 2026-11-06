@@ -1,11 +1,20 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { submitEnquiry } from "@/lib/submit-enquiry";
 import styles from "./StratySupport.module.css";
 
 type Props = { email: string; services: { name: string }[] };
+
+function revealInPanel(panel: HTMLElement | null, target: HTMLElement | null) {
+  if (!panel || !target) return;
+  const bounds = panel.getBoundingClientRect();
+  const rect = target.getBoundingClientRect();
+  const delta = rect.top < bounds.top + 16 ? rect.top - bounds.top - 16 : Math.max(0, rect.bottom - bounds.bottom + 16);
+  if (!delta) return;
+  panel.scrollTo({ top: panel.scrollTop + delta, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+}
 
 export default function StratySupport({ email, services }: Props) {
   const dialog = useRef<HTMLDialogElement>(null);
@@ -18,24 +27,23 @@ export default function StratySupport({ email, services }: Props) {
   const needs = useRef<HTMLTextAreaElement>(null);
   const content = useRef<HTMLDivElement>(null);
   const sendButton = useRef<HTMLButtonElement>(null);
+  const feedback = useRef<HTMLParagraphElement>(null);
   const compact = Boolean(service) && !choosing;
 
   function updateConsent(checked: boolean) {
     setConsent(checked);
     if (!checked) return;
-    requestAnimationFrame(() => {
-      const panel = content.current;
-      const button = sendButton.current;
-      if (!panel || !button) return;
-      const bottom = button.getBoundingClientRect().bottom;
-      const visibleBottom = panel.getBoundingClientRect().bottom - 16;
-      if (bottom <= visibleBottom) return;
-      panel.scrollTo({
-        top: panel.scrollTop + bottom - visibleBottom,
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
-      });
-    });
+    requestAnimationFrame(() => revealInPanel(content.current, sendButton.current));
   }
+
+  useEffect(() => {
+    if (status !== "sent" && status !== "error") return;
+    const frame = requestAnimationFrame(() => {
+      revealInPanel(content.current, feedback.current);
+      if (dialog.current?.open) feedback.current?.focus({ preventScroll: true });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [status]);
 
   function chooseService(name: string) {
     setService(name);
@@ -110,8 +118,8 @@ export default function StratySupport({ email, services }: Props) {
                 <label className={styles.consent}><input type="checkbox" checked={consent} onChange={(event) => updateConsent(event.target.checked)} required /><span>I agree to be contacted by Strategy Experts about this enquiry.</span></label>
                 <button ref={sendButton} type="submit" className={styles.send} disabled={!consent || status === "sending" || status === "sent"}>{status === "sending" ? "Sending…" : status === "sent" ? "Enquiry sent" : "Send enquiry"} <span aria-hidden="true">→</span></button>
               </div>}
-              {status === "sent" && <p role="status" className={styles.status}>Thanks! Your enquiry has been sent to Strategy Experts. Our team will contact you using the email you provided.</p>}
-              {status === "error" && <p role="alert" className={styles.status}>{error} You can also <a href={`mailto:${email}`}>email our team directly</a>.</p>}
+              {status === "sent" && <p ref={feedback} tabIndex={-1} role="status" className={styles.status}>Thanks! Your enquiry has been sent to Strategy Experts. Our team will contact you using the email you provided.</p>}
+              {status === "error" && <p ref={feedback} tabIndex={-1} role="alert" className={styles.status}>{error} You can also <a href={`mailto:${email}`}>email our team directly</a>.</p>}
             </form>
             <a href="/contact" className={styles.contact}>Prefer to contact the team directly? →</a>
           </div>

@@ -13,6 +13,13 @@
 .orbit::before, .orbit::after { content: ""; position: absolute; inset: -26px; border: 1px solid #d4c2ef0c; border-radius: inherit; }
 .orbit::after { inset: 26px; border-color: #d4c2ef12; }
 .logos { position: relative; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 42px 34px; margin: 0; padding: 28px 0 56px; list-style: none; }
+@media (min-width: 1001px) {
+  /* With eleven clients, preserve the original 5 + 4 positions and center
+     the two new plaques below them. No spacer elements or asset manifest. */
+  .logos { --tail-margin: max(0px, calc((100% - 2 * min(180px, calc((100% - 136px) / 5)) - 34px) / 2 - .5px)); }
+  .logos:has(> .logoFrame:nth-child(11):last-child) > .logoFrame:nth-child(10) { margin-inline-start: var(--tail-margin); }
+  .logos:has(> .logoFrame:nth-child(11):last-child) > .logoFrame:nth-child(11) { margin-inline-end: var(--tail-margin); }
+}
 .logoFrame { --lift: 0px; --yaw: -10deg; --roll: -3deg; --delay: -1s; flex: 0 0 calc((100% - 136px) / 5); max-width: 180px; min-width: 0; aspect-ratio: 1; transform: translateY(var(--lift)); }
 .logoFrame:nth-child(5n + 2) { --lift: -20px; --yaw: 10deg; --roll: 3deg; --delay: -3s; }
 .logoFrame:nth-child(5n + 3) { --lift: 14px; --yaw: -5deg; --roll: -2deg; --delay: -5s; }

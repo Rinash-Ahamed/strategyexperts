@@ -36,7 +36,7 @@ async function readLogos(folder: string, names: Record<string, string>, preferre
     }))
     .sort((a, b) => {
       const rank = (name: string) => { const index = preferred.indexOf(name); return index === -1 ? preferred.length : index; };
-      return rank(a.name) - rank(b.name) || a.name.localeCompare(b.name, "en");
+      return rank(a.name) - rank(b.name) || a.name.localeCompare(b.name, "en", { numeric: true });
     });
 }
 

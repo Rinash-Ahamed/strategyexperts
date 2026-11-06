@@ -16,6 +16,10 @@ export default function HeroIntro() {
   return (
     <div className={`wrap ${styles.intro}`}>
       <div className={styles.copy}>
+        <p className={styles.tagline}>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false"><path d="M8 1.5 9.7 6.3 14.5 8l-4.8 1.7L8 14.5 6.3 9.7 1.5 8l4.8-1.7L8 1.5Z" fill="currentColor" /></svg>
+          Digital Growth Partner
+        </p>
         <h1 className={styles.heading} id="hero-title">
           <span className={styles.firstLine}>Empowering Businesses to</span>{" "}
           <span className={styles.statement}>Grow Smarter</span>

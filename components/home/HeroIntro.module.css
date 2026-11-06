@@ -6,6 +6,8 @@
 }
 .intro a { cursor: pointer; }
 .copy { min-width: 0; }
+.tagline { display: inline-flex; align-items: center; gap: 9px; max-width: 100%; margin: 0 0 20px; padding: 8px 14px; border: 1px solid #c8a5fa55; border-radius: 999px; background: linear-gradient(110deg, #b38ae81f, #b38ae808); color: #e6d4ff; box-shadow: inset 0 1px 0 #ffffff08; font-size: clamp(.8125rem, .78rem + .2vw, .9375rem); font-weight: 500; line-height: 1.5; letter-spacing: -.01em; }
+.tagline svg { flex-shrink: 0; color: #c9a4fc; }
 .heading { margin: 0; font-size: var(--type-page); font-weight: var(--heading-weight); line-height: var(--heading-leading); letter-spacing: var(--heading-tracking); }
 .firstLine, .statement { display: block; }
 .firstLine { color: #f5f3f8; }
@@ -48,6 +50,8 @@
   .service:hover .icon { transform: none; }
 }
 @media (forced-colors: active) {
+  .tagline { background: Canvas; border-color: CanvasText; color: CanvasText; box-shadow: none; }
+  .tagline svg { color: CanvasText; }
   .highlight { display: none; }
   .statement { background: none; color: CanvasText; animation: none; }
 }
