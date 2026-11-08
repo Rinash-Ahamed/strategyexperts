@@ -1,4 +1,5 @@
-import { readdir, stat } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import { PLATFORM_ASSETS } from "./platform-assets";
 import type { ServiceTheme } from "./site";
@@ -42,22 +43,24 @@ async function readLogos(folder: string, names: Record<string, string>, preferre
 
 // Server-rendered discovery: development refreshes and production builds pick
 // up additions/removals without changing imports or maintaining a manifest.
-export async function getClientLogos() {
-  const logos = await readLogos("clients", CLIENT_NAMES, Object.values(CLIENT_NAMES));
+async function fingerprintLogos(logos: LogoAsset[]) {
   return Promise.all(logos.map(async logo => {
-    const filename = decodeURIComponent(logo.src.slice("/clients/".length));
-    const file = await stat(path.join(process.cwd(), "public", "clients", filename));
-    // Replacing a file under the same name must invalidate optimized copies
-    // after the next render/build, without a separate asset manifest.
-    const version = `${file.size.toString(36)}-${Math.trunc(file.mtimeMs).toString(36)}`;
+    const file = await readFile(path.join(process.cwd(), "public", decodeURIComponent(logo.src.slice(1))));
+    // Content hashes survive redeploys and refresh same-name replacements.
+    // This runs at static rendering/build time, never in an image request.
+    const version = createHash("sha256").update(file).digest("hex").slice(0, 16);
     return { ...logo, src: `${logo.src}?v=${version}` };
   }));
 }
 
-export function getPlatformLogos(theme: ServiceTheme, preferred: readonly string[]) {
+export async function getClientLogos() {
+  return fingerprintLogos(await readLogos("clients", CLIENT_NAMES, Object.values(CLIENT_NAMES)));
+}
+
+export async function getPlatformLogos(theme: ServiceTheme, preferred: readonly string[]) {
   const folder = `Brand/${SERVICE_FOLDERS[theme]}`;
   const names = Object.fromEntries(Object.entries(PLATFORM_ASSETS)
     .filter(([, asset]) => asset.src.startsWith(`/${folder}/`))
     .map(([name, asset]) => [path.basename(asset.src), name]));
-  return readLogos(folder, names, preferred);
+  return fingerprintLogos(await readLogos(folder, names, preferred));
 }

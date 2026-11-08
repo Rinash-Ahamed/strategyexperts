@@ -37,14 +37,6 @@
 .pin { display: block; width: clamp(26px, 8cqw, 44px); height: auto; margin: 0 auto 10px; color: var(--orbit-accent); }
 .center strong { display: block; color: #f0f0f0; font-size: clamp(16px, 5.1cqw, 28px); font-weight: var(--heading-weight); letter-spacing: var(--heading-tracking); line-height: var(--heading-leading); }
 .center > span { display: block; margin-top: 10px; color: #bbbbbb; font-size: clamp(8px, 2cqw, 11px); }
-.caption { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px 12px; color: #a2a2a2; font-size: .72rem; line-height: 1.5; }
-.pause { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.motionControl { display: inline-flex; align-items: center; min-height: 44px; padding-inline: 8px; color: #c9c9cc; cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
-.pause:focus-visible ~ .caption .motionControl { outline: 2px solid #c9c9cc; outline-offset: 3px; }
-.resumeLabel { display: none; }
-.pause:checked ~ .scene .runner, .pause:checked ~ .scene .upright { animation-play-state: paused; }
-.pause:checked ~ .caption .pauseLabel { display: none; }
-.pause:checked ~ .caption .resumeLabel { display: inline; }
 
 @keyframes orbit { from { transform: translate(-50%, -50%) rotate(var(--angle)); } to { transform: translate(-50%, -50%) rotate(calc(var(--angle) + 360deg)); } }
 @keyframes counterOrbit { from { transform: rotate(calc(-1 * var(--angle))); } to { transform: rotate(calc(-1 * var(--angle) - 360deg)); } }
@@ -52,5 +44,4 @@
 @media (prefers-reduced-motion: reduce) {
   .runner { animation: none; transform: translate(-50%, -50%) rotate(var(--angle)); }
   .upright { animation: none; transform: rotate(calc(-1 * var(--angle))); }
-  .motionControl, .pause { display: none; }
 }

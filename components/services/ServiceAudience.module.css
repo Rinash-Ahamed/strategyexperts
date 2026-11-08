@@ -1,0 +1,31 @@
+.grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; padding: 0; margin: 0; list-style: none; }
+.accent { color: #d6b9fa; }
+.item { position: relative; isolation: isolate; display: grid; grid-template-columns: 64px minmax(0, 1fr); align-items: center; gap: 24px; min-width: 0; padding: clamp(22px, 3vw, 36px); border: 1px solid #d2b4fc24; border-radius: 32px 12px 32px 12px; background: linear-gradient(120deg, #c29bf611, #c29bf603 75%); }
+.item::after { content: ""; position: absolute; left: 36px; right: 36px; bottom: -1px; height: 1px; background: linear-gradient(90deg, transparent, #d6adff9c, transparent); opacity: .35; transform: scaleX(.45); transition: transform 300ms ease, opacity 300ms ease; }
+.icon { position: relative; display: grid; place-items: center; width: 64px; height: 64px; color: #e1c8ff; transition: transform 300ms ease; }
+.icon::before { content: ""; position: absolute; inset: 2px; z-index: -1; border: 1px solid #ceabfc4d; border-radius: 20px; background: linear-gradient(145deg, #e2caff18, #ad70e905); transform: rotate(-9deg); transition: transform 300ms ease; }
+.item:nth-child(even) .icon::before { transform: rotate(9deg); }
+.icon svg { width: 28px; height: 30px; }
+.grid .item h3 { margin: 0 0 10px; color: #f2eafc; font-size: clamp(1.125rem, 1rem + .4vw, 1.375rem); font-weight: var(--heading-weight); line-height: 1.4; letter-spacing: -.025em; }
+.grid .item p { max-width: 34ch; margin: 0; color: #bfb7cd; font-size: .9375rem; line-height: 1.7; }
+@media (min-width: 760px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; padding-bottom: 24px; }
+  .item:nth-child(even) { top: 24px; }
+}
+@media (max-width: 479px) {
+  .item { grid-template-columns: 48px minmax(0, 1fr); gap: 18px; padding: 24px 20px; }
+  .icon { width: 48px; height: 48px; }
+  .icon::before { border-radius: 15px; }
+  .icon svg { width: 24px; height: 26px; }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .item:hover .icon { transform: translateY(-3px); }
+  .item:hover .icon::before { transform: rotate(0); }
+  .item:hover::after { transform: scaleX(1); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .icon, .icon::before, .item::after { transition: none; } }
+@media (forced-colors: active) {
+  .item, .icon::before { background: Canvas; border-color: CanvasText; }
+  .accent, .icon { color: CanvasText; }
+  .item::after { display: none; }
+}

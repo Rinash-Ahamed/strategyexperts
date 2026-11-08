@@ -11,6 +11,8 @@ import RevealObserver from "@/components/effects/RevealObserver";
 import SiteFooter from "@/components/layout/SiteFooter";
 import SiteHeader from "@/components/layout/SiteHeader";
 import StratySupport from "@/components/support/StratySupport";
+import StaticImage from "@/components/shared/StaticImage";
+import stratyAvatar from "@/public/straty-chat.webp";
 import { NAV_LINKS, SERVICES, SITE } from "@/lib/site";
 import { PAGE_BOOTSTRAP } from "@/lib/page-bootstrap";
 
@@ -64,7 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteHeader links={NAV_LINKS} name={SITE.name} tagline={SITE.tagline} />
         <main id="main">{children}</main>
         <SiteFooter />
-        <StratySupport email={SITE.email} services={SERVICES.map(({ name }) => ({ name }))} />
+        <StratySupport email={SITE.email} services={SERVICES.map(({ name }) => ({ name }))} avatar={<StaticImage src={stratyAvatar} width={64} height={64} sizes="64px" slotWidth={64} quality={90} loading="eager" fetchPriority="low" alt="" />} />
         <RevealObserver />
       </body>
     </html>

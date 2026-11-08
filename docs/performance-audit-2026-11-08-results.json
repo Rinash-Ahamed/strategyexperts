@@ -1,0 +1,1130 @@
+{
+  "conditions": {
+    "baselineVersion": "2.13.1",
+    "optimizedRelease": "2.13.2",
+    "lighthouse": "13.5.0",
+    "note": "Local production; two samples per route/device; simulated throttling; resumed final desktop samples on 8 November morning; not field INP."
+  },
+  "samples": [
+    {
+      "stage": "baseline",
+      "route": "/",
+      "mode": "mobile",
+      "sample": 1,
+      "fetchTime": "2026-11-07T19:23:36.426Z",
+      "scores": {
+        "performance": 0.76,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1591.74684,
+      "lcpMs": 3545.11394,
+      "tbtMs": 438,
+      "cls": 0,
+      "bytes": 947087,
+      "benchmarkIndex": 1045.5,
+      "warnings": 0
+    },
+    {
+      "stage": "baseline",
+      "route": "/services/e-commerce-support",
+      "mode": "mobile",
+      "sample": 1,
+      "fetchTime": "2026-11-07T19:24:07.697Z",
+      "scores": {
+        "performance": 0.84,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1249.1059999999998,
+      "lcpMs": 3011.659,
+      "tbtMs": 352.49999999999955,
+      "cls": 0,
+      "bytes": 289282,
+      "benchmarkIndex": 640.5,
+      "warnings": 1
+    },
+    {
+      "stage": "baseline",
+      "route": "/services/restaurant-consulting",
+      "mode": "mobile",
+      "sample": 1,
+      "fetchTime": "2026-11-07T19:24:32.551Z",
+      "scores": {
+        "performance": 0.82,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1582.217,
+      "lcpMs": 3610.6509999999994,
+      "tbtMs": 263.4999999999991,
+      "cls": 0,
+      "bytes": 568520,
+      "benchmarkIndex": 1058,
+      "warnings": 0
+    },
+    {
+      "stage": "baseline",
+      "route": "/services/hotel-revenue-management",
+      "mode": "mobile",
+      "sample": 1,
+      "fetchTime": "2026-11-07T19:24:56.623Z",
+      "scores": {
+        "performance": 0.87,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1232.8249999999998,
+      "lcpMs": 3128.7374999999993,
+      "tbtMs": 255.0875000000001,
+      "cls": 0,
+      "bytes": 336945,
+      "benchmarkIndex": 1088.5,
+      "warnings": 0
+    },
+    {
+      "stage": "baseline",
+      "route": "/services/digital-marketing",
+      "mode": "mobile",
+      "sample": 1,
+      "fetchTime": "2026-11-07T19:25:19.839Z",
+      "scores": {
+        "performance": 0.85,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1291.871,
+      "lcpMs": 3065.6130000000003,
+      "tbtMs": 300.5000000000002,
+      "cls": 0,
+      "bytes": 284319,
+      "benchmarkIndex": 1031.5,
+      "warnings": 0
+    },
+    {
+      "stage": "baseline",
+      "route": "/pricing",
+      "mode": "mobile",
+      "sample": 1,
+      "fetchTime": "2026-11-07T19:25:43.031Z",
+      "scores": {
+        "performance": 0.85,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1245.712,
+      "lcpMs": 2887.068,
+      "tbtMs": 328,
+      "cls": 0,
+      "bytes": 261370,
+      "benchmarkIndex": 925.5,
+      "warnings": 1
+    },
+    {
+      "stage": "baseline",
+      "route": "/contact",
+      "mode": "mobile",
+      "sample": 1,
+      "fetchTime": "2026-11-07T19:26:05.378Z",
+      "scores": {
+        "performance": 0.84,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1235.0230000000001,
+      "lcpMs": 2889.069,
+      "tbtMs": 365,
+      "cls": 0,
+      "bytes": 271162,
+      "benchmarkIndex": 988,
+      "warnings": 1
+    },
+    {
+      "stage": "baseline",
+      "route": "/",
+      "mode": "mobile",
+      "sample": 2,
+      "fetchTime": "2026-11-07T19:26:28.436Z",
+      "scores": {
+        "performance": 0.75,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1592.5430000000001,
+      "lcpMs": 3543.4005000000006,
+      "tbtMs": 492.5,
+      "cls": 0,
+      "bytes": 947087,
+      "benchmarkIndex": 925,
+      "warnings": 1
+    },
+    {
+      "stage": "baseline",
+      "route": "/services/e-commerce-support",
+      "mode": "mobile",
+      "sample": 2,
+      "fetchTime": "2026-11-07T19:26:56.205Z",
+      "scores": {
+        "performance": 0.84,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1215.0344999999998,
+      "lcpMs": 2981.55175,
+      "tbtMs": 351.49999999999955,
+      "cls": 0,
+      "bytes": 289276,
+      "benchmarkIndex": 988,
+      "warnings": 1
+    },
+    {
+      "stage": "baseline",
+      "route": "/services/restaurant-consulting",
+      "mode": "mobile",
+      "sample": 2,
+      "fetchTime": "2026-11-07T19:27:22.761Z",
+      "scores": {
+        "performance": 0.75,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1544.616,
+      "lcpMs": 3936.848,
+      "tbtMs": 462.5,
+      "cls": 0,
+      "bytes": 568512,
+      "benchmarkIndex": 902.5,
+      "warnings": 1
+    },
+    {
+      "stage": "baseline",
+      "route": "/services/hotel-revenue-management",
+      "mode": "mobile",
+      "sample": 2,
+      "fetchTime": "2026-11-07T19:27:47.661Z",
+      "scores": {
+        "performance": 0.87,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1265.576,
+      "lcpMs": 3111.864,
+      "tbtMs": 238.356,
+      "cls": 0,
+      "bytes": 336929,
+      "benchmarkIndex": 779.5,
+      "warnings": 1
+    },
+    {
+      "stage": "baseline",
+      "route": "/services/digital-marketing",
+      "mode": "mobile",
+      "sample": 2,
+      "fetchTime": "2026-11-07T19:28:11.505Z",
+      "scores": {
+        "performance": 0.85,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1165.5460000000003,
+      "lcpMs": 2909.8190000000004,
+      "tbtMs": 353,
+      "cls": 0,
+      "bytes": 284316,
+      "benchmarkIndex": 836,
+      "warnings": 1
+    },
+    {
+      "stage": "baseline",
+      "route": "/pricing",
+      "mode": "mobile",
+      "sample": 2,
+      "fetchTime": "2026-11-07T19:28:36.166Z",
+      "scores": {
+        "performance": 0.86,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1219.004,
+      "lcpMs": 2858.006,
+      "tbtMs": 299,
+      "cls": 0,
+      "bytes": 261370,
+      "benchmarkIndex": 1065.5,
+      "warnings": 0
+    },
+    {
+      "stage": "baseline",
+      "route": "/contact",
+      "mode": "mobile",
+      "sample": 2,
+      "fetchTime": "2026-11-07T19:28:58.186Z",
+      "scores": {
+        "performance": 0.86,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1214.154,
+      "lcpMs": 2974.2309999999998,
+      "tbtMs": 323,
+      "cls": 0,
+      "bytes": 271162,
+      "benchmarkIndex": 861.5,
+      "warnings": 1
+    },
+    {
+      "stage": "baseline",
+      "route": "/",
+      "mode": "desktop",
+      "sample": 1,
+      "fetchTime": "2026-11-07T19:29:20.787Z",
+      "scores": {
+        "performance": 0.98,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 391.0206,
+      "lcpMs": 860.0618,
+      "tbtMs": 49.5,
+      "cls": 0,
+      "bytes": 1037759,
+      "benchmarkIndex": 1093,
+      "warnings": 0
+    },
+    {
+      "stage": "baseline",
+      "route": "/services/e-commerce-support",
+      "mode": "desktop",
+      "sample": 1,
+      "fetchTime": "2026-11-07T19:29:52.251Z",
+      "scores": {
+        "performance": 0.99,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 326.496,
+      "lcpMs": 736.488,
+      "tbtMs": 40,
+      "cls": 0,
+      "bytes": 289276,
+      "benchmarkIndex": 640.5,
+      "warnings": 0
+    },
+    {
+      "stage": "baseline",
+      "route": "/services/restaurant-consulting",
+      "mode": "desktop",
+      "sample": 1,
+      "fetchTime": "2026-11-07T19:30:16.227Z",
+      "scores": {
+        "performance": 0.99,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 396.95935,
+      "lcpMs": 789.87805,
+      "tbtMs": 30,
+      "cls": 0,
+      "bytes": 568512,
+      "benchmarkIndex": 974,
+      "warnings": 0
+    },
+    {
+      "stage": "baseline",
+      "route": "/services/hotel-revenue-management",
+      "mode": "desktop",
+      "sample": 1,
+      "fetchTime": "2026-11-07T19:30:42.608Z",
+      "scores": {
+        "performance": 0.99,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 310.7898,
+      "lcpMs": 776.3694,
+      "tbtMs": 48.5,
+      "cls": 0,
+      "bytes": 336929,
+      "benchmarkIndex": 1115.5,
+      "warnings": 0
+    },
+    {
+      "stage": "baseline",
+      "route": "/services/digital-marketing",
+      "mode": "desktop",
+      "sample": 1,
+      "fetchTime": "2026-11-07T19:31:06.483Z",
+      "scores": {
+        "performance": 1,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 313.51099999999997,
+      "lcpMs": 717.5329999999999,
+      "tbtMs": 35.5,
+      "cls": 0,
+      "bytes": 279294,
+      "benchmarkIndex": 760.5,
+      "warnings": 0
+    },
+    {
+      "stage": "baseline",
+      "route": "/pricing",
+      "mode": "desktop",
+      "sample": 1,
+      "fetchTime": "2026-11-07T19:31:28.785Z",
+      "scores": {
+        "performance": 1,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 277.0004,
+      "lcpMs": 647.0012,
+      "tbtMs": 21,
+      "cls": 0,
+      "bytes": 261370,
+      "benchmarkIndex": 1034,
+      "warnings": 0
+    },
+    {
+      "stage": "baseline",
+      "route": "/contact",
+      "mode": "desktop",
+      "sample": 1,
+      "fetchTime": "2026-11-07T19:31:49.866Z",
+      "scores": {
+        "performance": 1,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 277.32,
+      "lcpMs": 673.96,
+      "tbtMs": 36,
+      "cls": 0,
+      "bytes": 271162,
+      "benchmarkIndex": 853,
+      "warnings": 0
+    },
+    {
+      "stage": "baseline",
+      "route": "/",
+      "mode": "desktop",
+      "sample": 2,
+      "fetchTime": "2026-11-07T19:32:11.049Z",
+      "scores": {
+        "performance": 0.95,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 414.022,
+      "lcpMs": 1313.0880000000002,
+      "tbtMs": 31.5,
+      "cls": 0,
+      "bytes": 1037759,
+      "benchmarkIndex": 1044,
+      "warnings": 0
+    },
+    {
+      "stage": "baseline",
+      "route": "/services/e-commerce-support",
+      "mode": "desktop",
+      "sample": 2,
+      "fetchTime": "2026-11-07T19:32:41.220Z",
+      "scores": {
+        "performance": 0.98,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 340.682,
+      "lcpMs": 801.2280000000001,
+      "tbtMs": 91,
+      "cls": 0,
+      "bytes": 289276,
+      "benchmarkIndex": 836,
+      "warnings": 0
+    },
+    {
+      "stage": "baseline",
+      "route": "/services/restaurant-consulting",
+      "mode": "desktop",
+      "sample": 2,
+      "fetchTime": "2026-11-07T19:33:04.093Z",
+      "scores": {
+        "performance": 0.99,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 342.903,
+      "lcpMs": 786.2089999999998,
+      "tbtMs": 32,
+      "cls": 0,
+      "bytes": 568512,
+      "benchmarkIndex": 1095.5,
+      "warnings": 0
+    },
+    {
+      "stage": "baseline",
+      "route": "/services/hotel-revenue-management",
+      "mode": "desktop",
+      "sample": 2,
+      "fetchTime": "2026-11-07T19:33:26.311Z",
+      "scores": {
+        "performance": 0.99,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 310.58590000000004,
+      "lcpMs": 797.7577,
+      "tbtMs": 37.5,
+      "cls": 0,
+      "bytes": 336929,
+      "benchmarkIndex": 884,
+      "warnings": 0
+    },
+    {
+      "stage": "baseline",
+      "route": "/services/digital-marketing",
+      "mode": "desktop",
+      "sample": 2,
+      "fetchTime": "2026-11-07T19:33:48.912Z",
+      "scores": {
+        "performance": 0.99,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 295.046,
+      "lcpMs": 696.1379999999999,
+      "tbtMs": 28,
+      "cls": 0,
+      "bytes": 279294,
+      "benchmarkIndex": 1059.5,
+      "warnings": 0
+    },
+    {
+      "stage": "baseline",
+      "route": "/pricing",
+      "mode": "desktop",
+      "sample": 2,
+      "fetchTime": "2026-11-07T19:34:14.440Z",
+      "scores": {
+        "performance": 1,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 319.78999999999996,
+      "lcpMs": 707.8699999999999,
+      "tbtMs": 62.00000000000006,
+      "cls": 0,
+      "bytes": 261370,
+      "benchmarkIndex": 922,
+      "warnings": 0
+    },
+    {
+      "stage": "baseline",
+      "route": "/contact",
+      "mode": "desktop",
+      "sample": 2,
+      "fetchTime": "2026-11-07T19:34:37.418Z",
+      "scores": {
+        "performance": 0.99,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 286.07,
+      "lcpMs": 723.21,
+      "tbtMs": 39,
+      "cls": 0,
+      "bytes": 271162,
+      "benchmarkIndex": 1107.5,
+      "warnings": 0
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/",
+      "mode": "mobile",
+      "sample": 1,
+      "fetchTime": "2026-11-08T04:45:05.124Z",
+      "scores": {
+        "performance": 0.31,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 3548.76,
+      "lcpMs": 6222.759999999999,
+      "tbtMs": 12845.000000000002,
+      "cls": 0,
+      "bytes": 540616,
+      "benchmarkIndex": 640,
+      "warnings": 1
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/services/e-commerce-support",
+      "mode": "mobile",
+      "sample": 1,
+      "fetchTime": "2026-11-07T19:50:26.275Z",
+      "scores": {
+        "performance": 0.87,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1299.4541,
+      "lcpMs": 2870.3623,
+      "tbtMs": 277,
+      "cls": 0,
+      "bytes": 270178,
+      "benchmarkIndex": 773,
+      "warnings": 1
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/services/restaurant-consulting",
+      "mode": "mobile",
+      "sample": 1,
+      "fetchTime": "2026-11-08T04:46:04.042Z",
+      "scores": {
+        "performance": 0.84,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1411.69705,
+      "lcpMs": 3422.0911499999993,
+      "tbtMs": 261.9999999999998,
+      "cls": 0,
+      "bytes": 399682,
+      "benchmarkIndex": 1092.5,
+      "warnings": 0
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/services/hotel-revenue-management",
+      "mode": "mobile",
+      "sample": 1,
+      "fetchTime": "2026-11-07T19:51:13.763Z",
+      "scores": {
+        "performance": 0.88,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1248.4930000000002,
+      "lcpMs": 3004.479,
+      "tbtMs": 227,
+      "cls": 0,
+      "bytes": 327709,
+      "benchmarkIndex": 925.5,
+      "warnings": 1
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/services/digital-marketing",
+      "mode": "mobile",
+      "sample": 1,
+      "fetchTime": "2026-11-07T19:51:37.926Z",
+      "scores": {
+        "performance": 0.86,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1178.767,
+      "lcpMs": 2761.301,
+      "tbtMs": 352,
+      "cls": 0,
+      "bytes": 263012,
+      "benchmarkIndex": 1031.5,
+      "warnings": 0
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/pricing",
+      "mode": "mobile",
+      "sample": 1,
+      "fetchTime": "2026-11-07T19:52:02.291Z",
+      "scores": {
+        "performance": 0.84,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1291.6599999999999,
+      "lcpMs": 2792.9799999999996,
+      "tbtMs": 369.5,
+      "cls": 0,
+      "bytes": 237781,
+      "benchmarkIndex": 1013.5,
+      "warnings": 0
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/contact",
+      "mode": "mobile",
+      "sample": 1,
+      "fetchTime": "2026-11-07T19:52:25.340Z",
+      "scores": {
+        "performance": 0.74,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1174.8274999999999,
+      "lcpMs": 2967.5687499999995,
+      "tbtMs": 758,
+      "cls": 0,
+      "bytes": 247548,
+      "benchmarkIndex": 816.5,
+      "warnings": 1
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/",
+      "mode": "mobile",
+      "sample": 2,
+      "fetchTime": "2026-11-08T04:46:28.721Z",
+      "scores": {
+        "performance": 0.72,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1589.2430000000002,
+      "lcpMs": 3644.7289999999994,
+      "tbtMs": 596.4999999999998,
+      "cls": 0,
+      "bytes": 540616,
+      "benchmarkIndex": 823,
+      "warnings": 1
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/services/e-commerce-support",
+      "mode": "mobile",
+      "sample": 2,
+      "fetchTime": "2026-11-07T19:53:18.374Z",
+      "scores": {
+        "performance": 0.88,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1190.9640000000002,
+      "lcpMs": 2828.892,
+      "tbtMs": 268.5,
+      "cls": 0,
+      "bytes": 270178,
+      "benchmarkIndex": 951.5,
+      "warnings": 1
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/services/restaurant-consulting",
+      "mode": "mobile",
+      "sample": 2,
+      "fetchTime": "2026-11-08T04:46:58.562Z",
+      "scores": {
+        "performance": 0.84,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1440.8020000000001,
+      "lcpMs": 3395.906,
+      "tbtMs": 235.00000000000023,
+      "cls": 0,
+      "bytes": 399682,
+      "benchmarkIndex": 1078.5,
+      "warnings": 0
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/services/hotel-revenue-management",
+      "mode": "mobile",
+      "sample": 2,
+      "fetchTime": "2026-11-07T19:56:55.545Z",
+      "scores": {
+        "performance": 0.88,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1265.49,
+      "lcpMs": 3009.47,
+      "tbtMs": 232,
+      "cls": 0,
+      "bytes": 327709,
+      "benchmarkIndex": 962,
+      "warnings": 1
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/services/digital-marketing",
+      "mode": "mobile",
+      "sample": 2,
+      "fetchTime": "2026-11-07T19:57:18.877Z",
+      "scores": {
+        "performance": 0.75,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1310.1975,
+      "lcpMs": 3003.0924999999997,
+      "tbtMs": 676.4012499999999,
+      "cls": 0,
+      "bytes": 263012,
+      "benchmarkIndex": 899.5,
+      "warnings": 1
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/pricing",
+      "mode": "mobile",
+      "sample": 2,
+      "fetchTime": "2026-11-07T19:57:43.448Z",
+      "scores": {
+        "performance": 0.86,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1137.505,
+      "lcpMs": 2680.5150000000003,
+      "tbtMs": 351,
+      "cls": 0,
+      "bytes": 237781,
+      "benchmarkIndex": 921.5,
+      "warnings": 1
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/contact",
+      "mode": "mobile",
+      "sample": 2,
+      "fetchTime": "2026-11-07T19:58:05.597Z",
+      "scores": {
+        "performance": 0.83,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 1134.871,
+      "lcpMs": 2776.6130000000003,
+      "tbtMs": 446,
+      "cls": 0,
+      "bytes": 247548,
+      "benchmarkIndex": 1052.5,
+      "warnings": 0
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/",
+      "mode": "desktop",
+      "sample": 1,
+      "fetchTime": "2026-11-08T04:47:22.550Z",
+      "scores": {
+        "performance": 0.98,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 407.58799999999997,
+      "lcpMs": 826.2639999999999,
+      "tbtMs": 35,
+      "cls": 0,
+      "bytes": 556130,
+      "benchmarkIndex": 933,
+      "warnings": 0
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/services/e-commerce-support",
+      "mode": "desktop",
+      "sample": 1,
+      "fetchTime": "2026-11-07T19:58:59.303Z",
+      "scores": {
+        "performance": 0.99,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 302.31645000000003,
+      "lcpMs": 690.9493500000001,
+      "tbtMs": 52.5,
+      "cls": 0,
+      "bytes": 261186,
+      "benchmarkIndex": 965,
+      "warnings": 0
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/services/restaurant-consulting",
+      "mode": "desktop",
+      "sample": 1,
+      "fetchTime": "2026-11-08T04:47:55.773Z",
+      "scores": {
+        "performance": 0.99,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 355.671,
+      "lcpMs": 771.513,
+      "tbtMs": 26,
+      "cls": 0,
+      "bytes": 458600,
+      "benchmarkIndex": 1064,
+      "warnings": 0
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/services/hotel-revenue-management",
+      "mode": "desktop",
+      "sample": 1,
+      "fetchTime": "2026-11-07T19:59:47.618Z",
+      "scores": {
+        "performance": 0.99,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 294.286,
+      "lcpMs": 721.3580000000001,
+      "tbtMs": 23,
+      "cls": 0,
+      "bytes": 296078,
+      "benchmarkIndex": 1028,
+      "warnings": 0
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/services/digital-marketing",
+      "mode": "desktop",
+      "sample": 1,
+      "fetchTime": "2026-11-07T20:00:11.238Z",
+      "scores": {
+        "performance": 0.99,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 339.3615,
+      "lcpMs": 645.5844999999999,
+      "tbtMs": 15.5,
+      "cls": 0,
+      "bytes": 252366,
+      "benchmarkIndex": 1039.5,
+      "warnings": 0
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/pricing",
+      "mode": "desktop",
+      "sample": 1,
+      "fetchTime": "2026-11-07T20:00:33.852Z",
+      "scores": {
+        "performance": 1,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 276.582,
+      "lcpMs": 640.373,
+      "tbtMs": 48,
+      "cls": 0,
+      "bytes": 233467,
+      "benchmarkIndex": 904.5,
+      "warnings": 0
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/contact",
+      "mode": "desktop",
+      "sample": 1,
+      "fetchTime": "2026-11-07T20:00:55.364Z",
+      "scores": {
+        "performance": 0.99,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 293.77375,
+      "lcpMs": 682.82125,
+      "tbtMs": 85,
+      "cls": 0,
+      "bytes": 243234,
+      "benchmarkIndex": 978.5,
+      "warnings": 0
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/",
+      "mode": "desktop",
+      "sample": 2,
+      "fetchTime": "2026-11-08T04:48:19.944Z",
+      "scores": {
+        "performance": 0.99,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 374.379,
+      "lcpMs": 815.137,
+      "tbtMs": 73.00000000000011,
+      "cls": 0,
+      "bytes": 556130,
+      "benchmarkIndex": 926,
+      "warnings": 0
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/services/e-commerce-support",
+      "mode": "desktop",
+      "sample": 2,
+      "fetchTime": "2026-11-07T20:01:47.492Z",
+      "scores": {
+        "performance": 0.98,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 321.46459999999996,
+      "lcpMs": 746.3937999999999,
+      "tbtMs": 101,
+      "cls": 0,
+      "bytes": 261186,
+      "benchmarkIndex": 945.5,
+      "warnings": 0
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/services/restaurant-consulting",
+      "mode": "desktop",
+      "sample": 2,
+      "fetchTime": "2026-11-08T04:48:57.164Z",
+      "scores": {
+        "performance": 0.99,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 401.711,
+      "lcpMs": 796.133,
+      "tbtMs": 43.5,
+      "cls": 0,
+      "bytes": 458600,
+      "benchmarkIndex": 1025.5,
+      "warnings": 0
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/services/hotel-revenue-management",
+      "mode": "desktop",
+      "sample": 2,
+      "fetchTime": "2026-11-08T04:32:55.943Z",
+      "scores": {
+        "performance": 0.74,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 449.206,
+      "lcpMs": 872.6179999999999,
+      "tbtMs": 517.5000000000001,
+      "cls": 0,
+      "bytes": 296078,
+      "benchmarkIndex": 659.5,
+      "warnings": 0
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/services/digital-marketing",
+      "mode": "desktop",
+      "sample": 2,
+      "fetchTime": "2026-11-08T04:34:23.531Z",
+      "scores": {
+        "performance": 0.78,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 484.551,
+      "lcpMs": 978.653,
+      "tbtMs": 375.49999999999994,
+      "cls": 0,
+      "bytes": 252366,
+      "benchmarkIndex": 505.5,
+      "warnings": 0
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/pricing",
+      "mode": "desktop",
+      "sample": 2,
+      "fetchTime": "2026-11-08T04:35:27.056Z",
+      "scores": {
+        "performance": 0.93,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 490.02661,
+      "lcpMs": 935.07983,
+      "tbtMs": 171,
+      "cls": 0,
+      "bytes": 233467,
+      "benchmarkIndex": 698,
+      "warnings": 0
+    },
+    {
+      "stage": "optimized-final",
+      "route": "/contact",
+      "mode": "desktop",
+      "sample": 2,
+      "fetchTime": "2026-11-08T04:35:58.019Z",
+      "scores": {
+        "performance": 0.89,
+        "accessibility": 1,
+        "best-practices": 1,
+        "seo": 1
+      },
+      "fcpMs": 367.67404,
+      "lcpMs": 874.02212,
+      "tbtMs": 227.99999999999994,
+      "cls": 0,
+      "bytes": 243234,
+      "benchmarkIndex": 694,
+      "warnings": 0
+    }
+  ]
+}

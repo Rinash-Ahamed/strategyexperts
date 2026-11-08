@@ -48,7 +48,7 @@ try {
   };
   await send('Page.enable'); await send('Runtime.enable');
   await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
-  const routes = ['/', '/services/e-commerce-support', '/services/restaurant-consulting', '/services/hotel-revenue-management', '/services/digital-marketing', '/contact'];
+  const routes = ['/', '/services/e-commerce-support', '/services/restaurant-consulting', '/services/hotel-revenue-management', '/services/digital-marketing', '/pricing', '/contact'];
   for (const route of routes) {
     await send('Page.navigate', { url: base + route });
     let ready = false;
@@ -60,7 +60,7 @@ try {
     assert(ready, route);
     await evaluate('document.fonts.ready');
     await evaluate(axe.source);
-    for (const width of [320, 390, 768, 1024, 1280, 1440]) {
+    for (const width of [320, 360, 390, 430, 600, 768, 820, 1024, 1180, 1280, 1440, 1920]) {
       await send('Emulation.setDeviceMetricsOverride', { width, height: 1000, deviceScaleFactor: 1, mobile: width < 700 });
       await evaluate("scrollTo({top:0,behavior:'instant'})"); await delay(200);
       const layout = await evaluate(`(()=>{

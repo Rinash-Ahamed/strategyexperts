@@ -31,3 +31,32 @@ These instructions apply to the entire repository.
 - Do not add manual image imports or a separate logo manifest for new assets. Existing name overrides are optional accessibility refinements, not an inclusion list.
 - PDFs are source artwork, not browser logos. Convert and visually verify requested artwork before removing source PDFs, and only remove sources when the user authorizes it.
 - Folder discovery runs during server rendering: refresh in development; rebuild/redeploy production after adding, replacing or removing files. This is not a live-upload CMS.
+
+## Current architecture and visual contract
+
+- Read `README.md` before changing structure or deployment behaviour. Detailed service content is in `lib/service-details.ts`; shared identity, contacts and service metadata are in `lib/site.ts`. Some section copy is colocated with components.
+- Preserve native page navigation and four separate service routes. Product opens an external dashboard in a new tab; do not describe that dashboard as functionality implemented here.
+- The hero is currently text-led. The robot, opening screen and earlier brush implementations are historical, not features to restore without a new request.
+- Preserve the black/lavender/teal identity, gradient timings, icon synchronization, banner, client choreography, report switching, sticky approach headings and reduced-motion behaviour unless explicitly asked to change them. The scrollbar stays lavender, independent of the hero colour cycle.
+- Keep text readable and free of clipping. Prefer scoped CSS and inspect stylesheet import order in `app/layout.tsx` before adding global overrides. Do not add animation dependencies or per-frame React state for decorative motion.
+- Restaurant reports are Daily, Payout, Ticketing, Leaderboard, Visibility. Preserve five-second rotation, manual controls, reduced-motion support and off-screen/interaction pausing. Do not restore captions beneath images without a request.
+- Impact counters retain source values/suffixes, stable width and accessible final text. Restaurant impact claims are in `lib/service-details.ts` and are not gated by the legacy `NEXT_PUBLIC_SHOW_METRICS` flag. Never invent figures, testimonials or endorsements.
+- Both TypeScript packages have tooling consumers; verify compiler/framework usage before declaring either unused.
+
+## Enquiries and secrets
+
+- Never read or print `.env.local` or secret files just to inspect configuration. Use `.env.example` and named presence checks that do not reveal values. Keep secrets out of logs, reports, screenshots, docs and archives.
+- SMTP credentials stay server-only, without `NEXT_PUBLIC_`. If a credential is shared, do not echo it: advise revocation/replacement and restart/redeploy after rotation. Never silently rotate account credentials.
+- Contact and Straty use `/api/enquiry`. Preserve consent, validation, size limits, escaping, fixed recipients, source labels, Reply-To and honest success/error semantics. SMTP acceptance is not proof of inbox delivery.
+- Automated enquiry tests mock SMTP. Do not send actual enquiries/email, alter credentials or mutate production data without explicit authorization.
+- Hosting needs Node.js, outbound SMTP and Next image optimization. In-process enquiry limits need edge/shared protection for multi-instance deployments; do not present them as distributed rate limiting.
+
+## Audits and handoff
+
+- A request to review/check is read-only unless fixes are also requested. Preserve user-owned dirty-worktree edits; never reset the repository to obtain a clean baseline.
+- Reuse previews where possible. Never kill unrelated servers, delete Next lockfiles or start competing dev servers to bypass a lock.
+- Measure performance only on production builds. Prior build/lint permission or README commands do not authorize a fresh build/lint run in a later request.
+- Report actual commands, measurement conditions, warnings and untested areas. Distinguish mocked SMTP, local browser checks, real inbox delivery and deployed performance. Do not guarantee FPS or blanket security/accessibility compliance.
+- Historical audit reports describe their measured versions, not automatic certification of the current tree. Do not present old scores as current results.
+- For release reviews, check representative mobile/tablet/desktop layouts, links, artwork, metadata and enquiry states in proportion to scope. Use existing tools; do not install dependencies or a new audit framework without authorization.
+- Documentation must match current code. Keep credentials and machine-specific temporary paths out of durable docs. Link to `docs/email-setup.md` for SMTP details and identify unresolved deployment requirements honestly.

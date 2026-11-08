@@ -1,4 +1,4 @@
-import Image from "next/image";
+import StaticImage from "@/components/shared/StaticImage";
 import overview from "@/public/dashboard/1.webp";
 import payout from "@/public/dashboard/2.webp";
 import support from "@/public/dashboard/3.webp";
@@ -31,7 +31,7 @@ export default function DashboardShowcase() {
                 <p>{slide.description}</p>
               </figcaption>
               <div className={styles.frame}>
-                <Image src={slide.image} alt={slide.alt} className={styles.image} loading="eager" fetchPriority="low" unoptimized />
+                <StaticImage src={slide.image} alt={slide.alt} className={styles.image} sizes="(max-width: 900px) 94vw, (max-width: 1440px) 64vw, 840px" quality={90} loading="lazy" originalAtFullSize />
               </div>
             </figure>
           ))}

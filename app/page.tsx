@@ -12,7 +12,10 @@ export default function Home() {
     <>
       {/* ------------------------------------------------ Hero */}
       <section className="hero hero-text-only hero-frame" aria-labelledby="hero-title" data-motion-region>
-
+        <div className="hero-atmosphere" aria-hidden="true">
+          <span className="hero-atmosphere-lavender" />
+          <span className="hero-atmosphere-green" />
+        </div>
         <HeroIntro />
         <Ticker />
         <svg className="hero-frame-edge" viewBox="0 0 1440 24" preserveAspectRatio="none" aria-hidden="true" focusable="false">

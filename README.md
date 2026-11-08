@@ -1,12 +1,30 @@
 # Strategy Experts website
 
-Next.js (App Router, TypeScript), plain CSS, no animation libraries.
+Custom seven-page consultancy website using Next.js App Router, React, TypeScript and CSS/CSS Modules, without animation-library dependencies. The current hero is text-led; the robot and opening loading screen are no longer included.
 
-    npm install
+    npm ci
     npm run dev      # http://localhost:3000
     npm run typecheck
     npm test
-    npm run build && npm start
+    npm run build
+    npm run start -- --port 3011
+
+Use Node.js 24 LTS (or Node.js 22.18+ for the native-TypeScript tests). Copy `.env.example` to `.env.local` and configure it locally. Reuse an existing dev server instead of starting competing instances in the same directory. Development compilation time is not production performance.
+
+## Routes
+
+| Route | Purpose |
+| --- | --- |
+| `/` | Hero, synchronized platform banner, dashboard showcase, approach, clients and enquiry CTA |
+| `/services/e-commerce-support` | E-commerce services, approach and audience |
+| `/services/restaurant-consulting` | Restaurant services, report switcher, approach, impact counters and audience |
+| `/services/hotel-revenue-management` | Hotel services, approach and audience |
+| `/services/digital-marketing` | Digital services, animated connectivity circle, approach and audience |
+| `/pricing` | Starter, Pro and Custom plans, with enquiry links |
+| `/contact` | Business hours and consent-gated email/WhatsApp enquiries |
+| `/api/enquiry` | Server-only Node.js SMTP endpoint |
+
+The seven public pages are prerendered. Product opens `https://dashboard.strategyexperts.in/login` in a new tab; that application is external, not implemented here. This repository has no database, CMS or payment checkout. Straty is a guided enquiry interface, not an LLM chatbot.
 
 ## Project structure
 
@@ -15,25 +33,61 @@ Next.js (App Router, TypeScript), plain CSS, no animation libraries.
 - `components/home/` - homepage-only sections.
 - `components/services/` - service-page composition.
 - `components/contact/` - contact-page interactions.
+- `components/support/` - Straty's guided enquiry interface.
 - `components/shared/` - reusable presentational components.
 - `components/effects/` - isolated client-side behavior.
-- `lib/` - typed site configuration and content.
+- `lib/` - configuration, content, logo discovery, validation and enquiry helpers.
+- `public/` - approved artwork, platform/client logos and dashboard screenshots.
+
+Global CSS import order in `app/layout.tsx` affects the final cascade. Shared service composition is in `components/services/ServiceDetails.tsx`. Responsive image delivery is handled by `components/shared/StaticImage.tsx`.
 
 ## Configuration (.env.local - see .env.example)
-- NEXT_PUBLIC_WHATSAPP_NUMBER: optionally enable WhatsApp enquiries using an international-format number. NEXT_PUBLIC_CONTACT_EMAIL optionally overrides the confirmed business email addresses with comma-separated recipients. Email enquiries open a draft addressed to both configured recipients; visitors review and send it in their email app.
+- NEXT_PUBLIC_WHATSAPP_NUMBER: optional international-format number, digits only. WhatsApp opens a prepared message for the visitor to send.
+- NEXT_PUBLIC_CONTACT_EMAIL: optional comma-separated fixed recipients, defaulting to the business addresses in `lib/site.ts`. Public contact information, not a secret.
+- GMAIL_SMTP_USER and GMAIL_SMTP_APP_PASSWORD: server-only sender credentials. Enable Google 2-Step Verification and use an App Password, never a normal login password or a `NEXT_PUBLIC_*` secret. Contact and Straty send through `/api/enquiry`, not an email-app draft. Success waits for SMTP recipient acceptance, which does not guarantee inbox placement.
 - NEXT_PUBLIC_SITE_URL: public site origin (for example, https://www.strategyexperts.in), used for metadata, sitemap and social sharing. Bare domains are normalized to HTTPS; blank or invalid values safely use the existing fallback origin.
-- NEXT_PUBLIC_SHOW_METRICS=true: reveals the per-service impact figures (lib/site.ts). They were transcribed from screenshots and must be verified first. Each set stays scoped to its own service.
+- NEXT_PUBLIC_SHOW_METRICS: legacy shared configuration flag. It does **not** gate the detailed restaurant impact section in `lib/service-details.ts`; do not rely on it to hide those claims.
+
+See [email setup](docs/email-setup.md) for SMTP configuration, timeouts and abuse controls. Never commit or share credentials in screenshots, chat, documentation or delivery archives. If exposed, revoke and replace them, then restart/redeploy so pooled connections use the replacement. Public build-time configuration changes require a rebuild.
 
 ## Content
-All copy lives in lib/site.ts, taken from the supplied documents. Testimonials and client names are intentionally not used (approval pending). Confirmed Instagram and WhatsApp links appear in the footer. Privacy/Terms links are omitted until real pages exist.
+Shared identity, contacts and service metadata live in `lib/site.ts`; detailed service content is in `lib/service-details.ts`. Some section-specific copy remains colocated with its component or route. Approved client logos appear on the homepage. Confirm all figures, logos, pricing and claims with the client before publishing; never invent testimonials or imply platform certification.
+
+Privacy/Terms pages are not implemented. Obtain appropriate client guidance for consent/privacy wording rather than inventing legal copy.
+
+### Folder-driven assets
+
+- Clients: add artwork to `public/clients`.
+- Platforms: use `public/Brand/Restaurant`, `Hotel`, `Ecommerce` or `DigitalMarketting` (preserve the existing folder spelling).
+- PNG, JPG/JPEG, WebP, AVIF and SVG files are discovered by `lib/logo-library.ts`; do not maintain manual imports or an inclusion manifest. Descriptive filenames improve accessible names. Preserve approved proportions and colours.
+- Refresh development to discover changes; rebuild/redeploy production after additions, replacements or removals. This is not a live-upload CMS. Content-fingerprinted logo URLs invalidate same-name replacements; only versioned sources receive long-lived caching.
+- PDFs are source artwork, not browser logos. Convert and visually verify them before deletion, and remove sources only with authorization.
+- `public/dashboard/1.webp` through `5.webp` map to Daily, Payout, Ticketing, Leaderboard and Visibility. The restaurant switcher follows that order, advancing every five seconds while visible and not being interacted with. Reduced-motion users retain manual controls.
+- Restaurant impact values animate once on entry. Preserve suffixes, reserved width and accessible final text, and get client approval for the source claims.
 
 ## Verification
 
 Use Node.js 22.18+ (or Node.js 24) for the dependency-free unit tests, including native TypeScript loading.
 
 - `npm run lint`, `npm run typecheck`, `npm test` and `npm run build` are the static/unit checks.
-- With a production server running, `node scripts/verify-navigation.mjs http://localhost:3126` checks native navigation, opening behaviour and contact selection.
-- `node scripts/verify-content-colour.mjs http://localhost:3126` checks all six content routes across responsive widths and runs accessibility scans.
+- **Coding agents must not run lint/build without explicit permission in the current request.** The commands here document available checks, not standing permission; see [AGENTS.md](AGENTS.md).
+- `npm test` covers bootstrap behaviour, URL normalization, folder discovery, image delivery, validation, branded templates and the enquiry route with mocked SMTP. It does not send real mail. Native TypeScript helpers may emit Node experimental/module-format warnings; do not change package module mode blindly to silence them.
+- With a production server running, `node scripts/verify-readability.mjs http://localhost:3011 --strict` checks seven pages across responsive widths and runs axe at representative mobile/desktop sizes.
+- `node scripts/verify-navigation.mjs http://localhost:3011` checks navigation and home/contact behaviour. Older visual scripts may contain historical-design assumptions: inspect assertions before treating them as release gates.
 - Browser scripts use installed Chrome; set `CHROME_PATH` if its location differs from the Windows default.
+- Browser reports/screenshots go to the temporary directory printed by each script.
+- `scripts/performance-audit.mjs` accepts an existing Lighthouse CLI via `--lighthouse=<path>`, plus `--output=<directory>` and `--base=<production URL>`. Do not install tooling without approval. Record production measurement conditions; distinguish lab scores from real-device performance and field Core Web Vitals.
+
+The [8 November audit](docs/performance-audit-2026-11-08.md) is historical evidence, not certification of the latest version or deployment. It records unresolved mobile bottlenecks as well as improvements. Never promise guaranteed rankings, revenue gains, perfect accessibility or 120 FPS from build/axe/lab checks.
 
 Both TypeScript packages are intentional: `@typescript/native` supplies the `tsc` executable, while `typescript` provides the compiler API used by Next.js. Do not remove either based only on application imports.
+
+## Deployment and client handoff
+
+1. Use a Node.js-capable Next.js host with outbound SMTP and image optimization support. Static-only hosting cannot run the enquiry endpoint or default optimizer.
+2. Configure the production origin, public contacts and server-only SMTP credentials. Deploy the approved source and lockfile, not a development server.
+3. Preserve the image cache where supported. Verify CDN query-string cache keys, HTTPS, canonical URLs, sitemap, social previews, icons, service links and the external Product URL on the real domain.
+4. With permission, send one enquiry from Contact and one from Straty after credential rotation. Check success/error feedback, recipient inbox/spam, source labels and Reply-To. Mocked tests do not prove actual inbox delivery.
+5. Confirm client approval for logos, pricing, impact claims and consent/privacy wording. Agree on hosting ownership, support scope and future changes.
+6. Configure edge/shared rate limits for public or multi-instance deployment. Existing in-process limits reset on restart and are not distributed anti-spam protection. CSP is not configured by this repository; assess it against the deployment and inline-script requirements before adding one.
+7. Exclude `.env.local`, credentials, `node_modules`, `.next`, browser profiles and temporary audit artifacts from source handoff archives. Share production secrets only through an appropriate secret manager.

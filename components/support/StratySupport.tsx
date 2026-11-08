@@ -1,11 +1,10 @@
 "use client";
 
-import Image from "next/image";
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { submitEnquiry } from "@/lib/submit-enquiry";
 import styles from "./StratySupport.module.css";
 
-type Props = { email: string; services: { name: string }[] };
+type Props = { email: string; services: { name: string }[]; avatar: ReactNode };
 
 function revealInPanel(panel: HTMLElement | null, target: HTMLElement | null) {
   if (!panel || !target) return;
@@ -16,7 +15,7 @@ function revealInPanel(panel: HTMLElement | null, target: HTMLElement | null) {
   panel.scrollTo({ top: panel.scrollTop + delta, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
 }
 
-export default function StratySupport({ email, services }: Props) {
+export default function StratySupport({ email, services, avatar }: Props) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [service, setService] = useState("");
   const [choosing, setChoosing] = useState(true);
@@ -81,13 +80,13 @@ export default function StratySupport({ email, services }: Props) {
   return (
     <>
       <button type="button" className={styles.launcher} aria-haspopup="dialog" aria-controls="straty-support" onClick={() => dialog.current?.showModal()}>
-        <Image src="/straty-chat.webp" width={64} height={64} alt="" unoptimized />
+        {avatar}
         <span>Ask Straty<span className={styles.launcherNote}>Let’s talk growth</span></span>
       </button>
       <dialog ref={dialog} id="straty-support" className={`${styles.dialog}${compact ? ` ${styles.compact}` : ""}`} aria-labelledby="straty-title" aria-describedby={compact ? "straty-selection" : "straty-intro"} onClick={(event) => { if (event.target === dialog.current) dialog.current?.close(); }}>
         <div className={styles.sheet}>
           <header className={styles.header}>
-            <Image src="/straty-chat.webp" width={64} height={64} alt="" unoptimized />
+            {avatar}
             <div><h2 id="straty-title">Meet Straty</h2><p>Your business support buddy</p></div>
             <button type="button" className={styles.close} onClick={() => dialog.current?.close()} aria-label="Close Straty support">×</button>
           </header>

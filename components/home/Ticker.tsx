@@ -1,4 +1,4 @@
-import Image from "next/image";
+import StaticImage from "@/components/shared/StaticImage";
 import type { CSSProperties } from "react";
 import { getPlatformLogos } from "@/lib/logo-library";
 import { SERVICES, type ServiceTheme } from "@/lib/site";
@@ -28,7 +28,7 @@ export default async function Ticker() {
                 return (
                   <div className={styles.carrier} key={`${name}-${index}`} data-repeat={index >= service.platforms.length || undefined} style={{ "--slot": index } as CSSProperties}>
                     <span className={styles.logoFrame}>
-                      <Image src={asset.src} fill unoptimized sizes="160px" alt="" className={styles.logo} style={{ transform: LOGO_SCALE[name] ? `scale(${LOGO_SCALE[name]})` : undefined }} />
+                      <StaticImage src={asset.src} fill quality={90} slotWidth={160 * (LOGO_SCALE[name] ?? 1)} loading="eager" fetchPriority="low" sizes={`(max-width: 700px) ${120 * (LOGO_SCALE[name] ?? 1)}px, ${160 * (LOGO_SCALE[name] ?? 1)}px`} alt="" className={styles.logo} style={{ transform: LOGO_SCALE[name] ? `scale(${LOGO_SCALE[name]})` : undefined }} />
                     </span>
                   </div>
                 );

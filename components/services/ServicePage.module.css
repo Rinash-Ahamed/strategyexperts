@@ -1,0 +1,21 @@
+.page {
+  composes: atmosphere from "@/components/home/SectionAtmosphere.module.css";
+  min-height: 75svh;
+}
+
+/* Clip the atmosphere without creating a nested scrolling container, so
+   approach headings can follow the document scroll like Contact's intro. */
+@supports (overflow: clip) { .page { overflow: clip; } }
+
+/* Balance lavender with a persistent teal wash, including below the hero. */
+.detailed {
+  background-image: radial-gradient(ellipse at 100% 42%, #a87ceb11, transparent 46%), radial-gradient(ellipse at 0 60%, #22d3ee1c, transparent 48%), radial-gradient(ellipse at 45% 100%, #22d3ee14, transparent 42%);
+}
+
+/* Service-only palette override; shared motion, grid and other pages stay intact. */
+.page.detailed::before {
+  background: radial-gradient(ellipse at 0 45%, #22d3ee36, transparent 60%), radial-gradient(ellipse at 80% 0, #7c5cff2c, transparent 50%);
+}
+
+@media (forced-colors: active) { .detailed { background-image: none; } .page.detailed::before { display: none; } }
+

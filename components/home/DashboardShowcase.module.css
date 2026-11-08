@@ -12,7 +12,8 @@
   pointer-events: none;
   /* One continuous, static lighting field using the Pricing page palette. */
   background-color: #050509;
-  background-image: radial-gradient(ellipse at 50% 0, #7c5cff50, transparent 48%), radial-gradient(ellipse at 0 85%, #22d3ee13, transparent 38%), radial-gradient(ellipse at 100% 80%, #d946ef16, transparent 38%);
+  /* Fade only the lighting into the next section's matching base colour. */
+  background-image: linear-gradient(to top, #050509, #05050900 160px), radial-gradient(ellipse at 50% 0, #7c5cff50, transparent 48%), radial-gradient(ellipse at 0 85%, #22d3ee13, transparent 38%), radial-gradient(ellipse at 100% 80%, #d946ef16, transparent 38%);
   background-size: 100% 100%;
   background-repeat: no-repeat;
   /* Match the hero's silver quadratic exactly. The gradient and grid rise

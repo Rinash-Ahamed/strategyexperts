@@ -1,0 +1,35 @@
+.reports { display: grid; grid-template-columns: minmax(220px, .7fr) minmax(0, 1.8fr); gap: 10px 32px; align-items: start; min-width: 0; padding: 0; margin: 0; border: 0; }
+.item { display: contents; }
+.control { position: relative; grid-column: 1; grid-row: var(--report-row); display: flex; align-items: center; gap: 14px; min-width: 0; min-height: 74px; padding: 14px 16px; border: 1px solid #dac6fa18; border-radius: 14px; color: #d1c9dc; cursor: pointer; background: #ffffff03; transition: background 200ms ease, border-color 200ms ease; }
+.hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.marker { flex-shrink: 0; width: 6px; height: 6px; border: 1px solid #ae99cb; border-radius: 50%; background: transparent; }
+.title { display: block; color: inherit; font-size: .9375rem; font-weight: 500; line-height: 1.5; }
+.detail { display: block; margin-top: 4px; color: #bbb2c7; font-size: .8125rem; line-height: 1.5; }
+.control:has(input:checked) { background: linear-gradient(110deg, #b58bea1f, #b58bea06); border-color: #ca9ffb73; color: #f2e8ff; }
+.control:has(input:checked) .marker { background: #d1a9fc; border-color: #d1a9fc; }
+.control:focus-within { outline: 2px solid #d6bdfd; outline-offset: 3px; }
+.control:hover { border-color: #c6a4f05c; }
+.preview { display: none; grid-column: 2; grid-row: 1 / span 5; min-width: 0; margin: 0; }
+.item:has(input:checked) .preview { display: block; animation: reveal 220ms ease-out; }
+/* Match the tallest source ratio so switching reports never shifts the page. */
+.frame { position: relative; overflow: hidden; aspect-ratio: 1600 / 757; border: 1px solid #d8b9ff38; border-radius: 18px; background: #ffffff08; }
+.image { position: absolute; inset: 6px; display: block; width: calc(100% - 12px); height: calc(100% - 12px); object-fit: contain; border-radius: 12px; }
+@keyframes reveal { from { opacity: .35; } to { opacity: 1; } }
+@media (max-width: 899px) {
+  .reports { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .control { grid-row: auto; grid-column: auto; min-height: 64px; padding: 12px; gap: 10px; }
+  .item:last-child .control { grid-column: 1 / -1; }
+  .detail { display: none; }
+  .preview { grid-column: 1 / -1; grid-row: 4; margin-top: 8px; }
+  .frame { border-radius: 12px; }
+  .image { inset: 4px; width: calc(100% - 8px); height: calc(100% - 8px); border-radius: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .control { transition: none; }
+  .item:has(input:checked) .preview { animation: none; }
+}
+@media (forced-colors: active) {
+  .control, .frame { background: Canvas; border-color: CanvasText; }
+  .control:has(input:checked) { background: Canvas; color: Highlight; border-color: Highlight; }
+  .control:has(input:checked) .marker { background: Highlight; border-color: Highlight; }
+}

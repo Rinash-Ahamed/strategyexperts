@@ -26,7 +26,6 @@ const channels: { icon: Channel; title: string; detail: string; angle: number }[
 export default function DigitalGrowthOrbit() {
   return (
     <figure className={styles.figure} data-digital-orbit data-motion-region>
-      <input className={styles.pause} id="digital-growth-pause" type="checkbox" aria-label="Pause local-growth orbit animation" />
       <div className={styles.scene} role="img" aria-label="Your business connected to local customers through Google search, reviews, social campaigns and permission-based WhatsApp conversations.">
         <div className={styles.art} aria-hidden="true">
           <div className={`${styles.ring} ${styles.outer}`} />
@@ -56,13 +55,6 @@ export default function DigitalGrowthOrbit() {
           </div>
         </div>
       </div>
-      <figcaption className={styles.caption}>
-        <span>Be found. Build trust. Stay connected.</span>
-        <label className={styles.motionControl} htmlFor="digital-growth-pause">
-          <span className={styles.pauseLabel}>Pause motion</span>
-          <span className={styles.resumeLabel}>Resume motion</span>
-        </label>
-      </figcaption>
     </figure>
   );
 }
