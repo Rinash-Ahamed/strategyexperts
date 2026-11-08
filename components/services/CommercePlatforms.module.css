@@ -1,0 +1,27 @@
+.scene { width: 100%; max-width: 540px; margin: 0 auto; }
+.caption { margin: 0 auto 16px; max-width: 34ch; color: #e8ddf6; font-size: .9375rem; font-weight: 500; line-height: 1.6; text-align: center; }
+.stage { position: relative; isolation: isolate; padding: 24px 8px 8px; }
+.floor { position: absolute; inset: 35% 4% 8%; z-index: -1; pointer-events: none; border-radius: 50%; background: radial-gradient(ellipse, #ab7ae925, transparent 68%); }
+.platforms { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 12px; padding: 0; margin: 0; list-style: none; }
+.platform { --step: 24px; min-width: 0; padding-top: var(--step); }
+.platform:nth-child(3n + 2) { --step: 0px; }
+.platform:nth-child(3n) { --step: 48px; }
+.float { position: relative; isolation: isolate; display: grid; place-items: start center; height: 166px; }
+.art { position: relative; z-index: 2; display: block; width: min(132px, 100%); height: 52px; }
+.art img { object-fit: contain; }
+.plinth { position: absolute; top: 40px; width: 88%; aspect-ratio: 1; border: 1px solid #d8b9ff73; border-radius: 14px; background: linear-gradient(145deg, #c8a0ff16, #c8a0ff03); transform: perspective(420px) rotateX(64deg) rotateZ(-35deg); box-shadow: -5px 7px 0 -1px #130e20, -5px 7px 0 0 #c8a0ff25, -10px 14px 0 -1px #0b0812, -10px 14px 0 0 #c8a0ff12; pointer-events: none; }
+.business { position: relative; display: flex; justify-content: center; align-items: center; gap: 12px; width: fit-content; margin: 8px auto 0; padding: 14px 20px; color: #d9c1f8; }
+.business::before { content: ""; position: absolute; inset: 0; border-top: 1px solid #c4a1f04d; border-bottom: 1px solid #c4a1f01a; transform: skewX(-18deg); pointer-events: none; }
+.business svg { width: 28px; height: 30px; flex-shrink: 0; }
+.business span { color: #e9dff5; font-size: .875rem; line-height: 1.5; }
+@media (prefers-reduced-motion: no-preference) {
+  .float { animation: marketplaceFloat 7s ease-in-out var(--delay) infinite; }
+}
+@keyframes marketplaceFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@media (max-width: 479px) {
+  .platforms { gap: 16px 8px; }
+  .art { width: min(88px, 100%); height: 42px; }
+  .float { height: 136px; }
+  .plinth { top: 34px; border-radius: 10px; }
+}
+@media (forced-colors: active) { .floor, .business::before { display: none; } .plinth { background: Canvas; border-color: CanvasText; box-shadow: none; } .business, .business span { color: CanvasText; } .float { animation: none; } }

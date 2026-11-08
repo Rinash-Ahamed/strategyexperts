@@ -10,6 +10,11 @@ const contactEmails = (
   process.env.NEXT_PUBLIC_CONTACT_EMAIL || "Info.strategyexperts@gmail.com,Info@strategyexperts.in"
 ).split(",").map((email) => email.trim()).filter(Boolean);
 
+const contactPhones = [
+  { number: "+919037870007", display: "+91 9037870007" },
+  { number: "+919600421851", display: "+91 96004 21851" },
+];
+
 export const SITE = {
   name: "Strategy Experts",
   tagline: "Your Growth Partner",
@@ -17,8 +22,9 @@ export const SITE = {
     "Strategy Experts helps restaurants, hotels, e-commerce brands and local businesses perform better through platform expertise, revenue strategy and hands-on execution.",
   url: normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
   whatsapp: (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "").replace(/\D/g, ""),
-  phone: "+919037870007",
-  phoneDisplay: "+91 9037870007",
+  phone: contactPhones[0].number,
+  phoneDisplay: contactPhones[0].display,
+  phones: contactPhones,
   instagram: "https://www.instagram.com/strategy.experts?exln=MWZpbmR0NTNzY3J5Mw%3D%3D&utm_source=qr",
   emails: contactEmails,
   email: contactEmails.join(","),

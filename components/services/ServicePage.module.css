@@ -7,14 +7,14 @@
    approach headings can follow the document scroll like Contact's intro. */
 @supports (overflow: clip) { .page { overflow: clip; } }
 
-/* Balance lavender with a persistent teal wash, including below the hero. */
+/* Lavender-led service backgrounds, with teal kept as a quiet supporting tint. */
 .detailed {
-  background-image: radial-gradient(ellipse at 100% 42%, #a87ceb11, transparent 46%), radial-gradient(ellipse at 0 60%, #22d3ee1c, transparent 48%), radial-gradient(ellipse at 45% 100%, #22d3ee14, transparent 42%);
+  background-image: radial-gradient(ellipse at 100% 42%, #a87ceb20, transparent 46%), radial-gradient(ellipse at 0 60%, #22d3ee0a, transparent 48%), radial-gradient(ellipse at 45% 100%, #22d3ee08, transparent 42%);
 }
 
 /* Service-only palette override; shared motion, grid and other pages stay intact. */
 .page.detailed::before {
-  background: radial-gradient(ellipse at 0 45%, #22d3ee36, transparent 60%), radial-gradient(ellipse at 80% 0, #7c5cff2c, transparent 50%);
+  background: radial-gradient(ellipse at 0 45%, #22d3ee12, transparent 60%), radial-gradient(ellipse at 80% 0, #7c5cff50, transparent 50%);
 }
 
 @media (forced-colors: active) { .detailed { background-image: none; } .page.detailed::before { display: none; } }

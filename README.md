@@ -1,6 +1,6 @@
 # Strategy Experts website
 
-Custom seven-page consultancy website using Next.js App Router, React, TypeScript and CSS/CSS Modules, without animation-library dependencies. The current hero is text-led; the robot and opening loading screen are no longer included.
+Custom seven-page consultancy website using Next.js App Router, React, TypeScript and CSS/CSS Modules, without animation-library dependencies. The current hero is text-led; the robot and opening loading screen are no longer included. Its background and service icons stay lavender, with subtle background motion but no green/teal colour cycle.
 
     npm ci
     npm run dev      # http://localhost:3000
@@ -64,6 +64,7 @@ Privacy/Terms pages are not implemented. Obtain appropriate client guidance for 
 - PDFs are source artwork, not browser logos. Convert and visually verify them before deletion, and remove sources only with authorization.
 - `public/dashboard/1.webp` through `5.webp` map to Daily, Payout, Ticketing, Leaderboard and Visibility. The restaurant switcher follows that order, advancing every five seconds while visible and not being interacted with. Reduced-motion users retain manual controls.
 - Restaurant impact values animate once on entry. Preserve suffixes, reserved width and accessible final text, and get client approval for the source claims.
+- The e-commerce hero uses `CommercePlatforms`: folder-discovered logos float over lavender isometric platforms without white backplates or logo glow. Original artwork remains unchanged; use approved light-lettering variants where dark logos lack contrast. Motion is CSS-only, pauses through the existing visibility observer and respects reduced-motion preferences. Digital Marketing retains its separate circular illustration.
 
 ## Verification
 

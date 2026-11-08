@@ -2,6 +2,7 @@
 .hero { display: grid; align-items: center; gap: clamp(32px, 5vw, 72px); padding-bottom: clamp(40px, 6vw, 80px); }
 .intro, .platforms { min-width: 0; }
 .category { margin: 0 0 16px; color: #cbb5eb; font-size: .875rem; font-weight: 500; }
+.badge { composes: badge from "../shared/BadgeHighlight.module.css"; }
 .badge { display: inline-flex; align-items: center; gap: 9px; max-width: 100%; margin: 0 0 20px; padding: 8px 14px; border: 1px solid #c8a5fa55; border-radius: 999px; background: linear-gradient(110deg, #b38ae81f, #b38ae808); color: #e6d4ff; box-shadow: inset 0 1px 0 #ffffff08; font-size: clamp(.8125rem, .78rem + .2vw, .9375rem); font-weight: 500; line-height: 1.5; letter-spacing: -.01em; }
 .badge svg { flex-shrink: 0; color: #c9a4fc; }
 .badge span { min-width: 0; }

@@ -1,0 +1,53 @@
+.badge { position: relative; isolation: isolate; overflow: hidden; }
+.badge > svg { transform-box: fill-box; transform-origin: center; }
+
+.badge::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid #dec4ff;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* A quiet light pass behind the text; no layout or text-opacity animation. */
+.badge::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  bottom: -30%;
+  left: -60%;
+  z-index: -1;
+  width: 55%;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent, #dfc5ff30, transparent);
+  transform: translateX(0) skewX(-16deg);
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) and (forced-colors: none) {
+  .badge::before { animation: badgeShimmer 5.5s ease-in-out infinite; }
+  .badge::after { animation: badgeOutline 5.5s ease-in-out infinite; }
+  .badge > svg { animation: badgeStarTurn 12s linear infinite; }
+}
+
+@keyframes badgeStarTurn { to { transform: rotate(360deg); } }
+
+@keyframes badgeOutline {
+  0%, 60%, 100% { opacity: 0; }
+  70%, 80% { opacity: .7; }
+  92% { opacity: 0; }
+}
+
+@keyframes badgeShimmer {
+  0%, 60% { transform: translateX(0) skewX(-16deg); opacity: 0; }
+  65% { opacity: 1; }
+  88% { transform: translateX(320%) skewX(-16deg); opacity: 1; }
+  92%, 100% { transform: translateX(320%) skewX(-16deg); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .badge::before, .badge::after { display: none; }
+  .badge > svg { animation: none; }
+}

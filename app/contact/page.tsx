@@ -26,10 +26,12 @@ export default function ContactPage() {
           </p>
 
             <ul className="channel-list" style={{ marginTop: 24 }}>
-              <li>
-                <span>Phone</span>
-                <a href={`tel:${SITE.phone}`}>{SITE.phoneDisplay}</a>
-              </li>
+              {SITE.phones.map(phone => (
+                <li key={phone.number}>
+                  <span>Phone</span>
+                  <a href={`tel:${phone.number}`}>{phone.display}</a>
+                </li>
+              ))}
               {SITE.whatsapp && (
                 <li>
                   <span>WhatsApp</span>

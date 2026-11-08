@@ -95,25 +95,6 @@ body .hero.hero-frame {
 .hero-atmosphere > span { position: absolute; inset: 0; }
 .hero-atmosphere-lavender {
   background: radial-gradient(ellipse 42% 52% at 50% 42%, #ae7cfb55, #8971e522 42%, transparent 74%);
-  opacity: calc(1 - var(--hero-green-mix, 0));
-}
-.hero-atmosphere-green {
-  background: radial-gradient(ellipse 48% 58% at 50% 42%, #22d3ee60, #22d3ee2a 42%, transparent 74%);
-  opacity: var(--hero-green-mix, 0);
-}
-/* One shared clock keeps the atmosphere and service icons in sync. */
-@property --hero-green-mix {
-  syntax: "<number>";
-  inherits: true;
-  initial-value: 0;
-}
-@keyframes hero-accent-cycle {
-  0%, 41.6667%, 100% { --hero-green-mix: 0; }
-  50%, 91.6667% { --hero-green-mix: 1; }
-}
-@media (prefers-reduced-motion: no-preference) and (forced-colors: none) {
-  html:has(.hero-frame) { animation: hero-accent-cycle 48s ease-in-out infinite; }
-  html:has(.hero-frame[data-motion-paused]) { animation-play-state: paused; }
 }
 @keyframes hero-lavender-flow {
   0% { transform: translate3d(-22%, -6%, 0); opacity: .8; }
@@ -123,7 +104,6 @@ body .hero.hero-frame {
 @media (prefers-reduced-motion: reduce) {
   .hero.hero-frame .hero-atmosphere { animation: none; transform: none; opacity: .75; }
   .hero-atmosphere > span { animation: none; }
-  .hero-atmosphere-green { display: none; }
 }
 @media (forced-colors: active) {
   .hero.hero-frame .hero-atmosphere { display: none; }

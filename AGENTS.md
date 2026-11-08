@@ -37,6 +37,7 @@ These instructions apply to the entire repository.
 - Read `README.md` before changing structure or deployment behaviour. Detailed service content is in `lib/service-details.ts`; shared identity, contacts and service metadata are in `lib/site.ts`. Some section copy is colocated with components.
 - Preserve native page navigation and four separate service routes. Product opens an external dashboard in a new tab; do not describe that dashboard as functionality implemented here.
 - The hero is currently text-led. The robot, opening screen and earlier brush implementations are historical, not features to restore without a new request.
+- The hero background and service icons stay lavender. Preserve background motion, but do not restore the removed green/teal colour cycle without a request.
 - Preserve the black/lavender/teal identity, gradient timings, icon synchronization, banner, client choreography, report switching, sticky approach headings and reduced-motion behaviour unless explicitly asked to change them. The scrollbar stays lavender, independent of the hero colour cycle.
 - Keep text readable and free of clipping. Prefer scoped CSS and inspect stylesheet import order in `app/layout.tsx` before adding global overrides. Do not add animation dependencies or per-frame React state for decorative motion.
 - Restaurant reports are Daily, Payout, Ticketing, Leaderboard, Visibility. Preserve five-second rotation, manual controls, reduced-motion support and off-screen/interaction pausing. Do not restore captions beneath images without a request.

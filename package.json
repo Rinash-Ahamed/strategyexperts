@@ -1,6 +1,6 @@
 {
   "name": "strategy-experts",
-  "version": "2.13.17",
+  "version": "2.13.26",
   "private": true,
   "scripts": {
     "dev": "next dev",

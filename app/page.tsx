@@ -14,7 +14,6 @@ export default function Home() {
       <section className="hero hero-text-only hero-frame" aria-labelledby="hero-title" data-motion-region>
         <div className="hero-atmosphere" aria-hidden="true">
           <span className="hero-atmosphere-lavender" />
-          <span className="hero-atmosphere-green" />
         </div>
         <HeroIntro />
         <Ticker />

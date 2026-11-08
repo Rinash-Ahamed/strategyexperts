@@ -50,9 +50,11 @@ export default function SiteFooter() {
                   <a href={`https://wa.me/${SITE.whatsapp}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
                 </li>
               )}
-              <li>
-                <a href={`tel:${SITE.phone}`}>{SITE.phoneDisplay}</a>
-              </li>
+              {SITE.phones.map(phone => (
+                <li key={phone.number}>
+                  <a href={`tel:${phone.number}`}>{phone.display}</a>
+                </li>
+              ))}
               {SITE.emails.map((email) => (
                 <li key={email}>
                   <a href={`mailto:${email}`}>{email}</a>

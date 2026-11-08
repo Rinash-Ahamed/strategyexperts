@@ -6,6 +6,7 @@
 }
 .intro a { cursor: pointer; }
 .copy { min-width: 0; }
+.tagline { composes: badge from "../shared/BadgeHighlight.module.css"; }
 .tagline { display: inline-flex; align-items: center; gap: 9px; max-width: 100%; margin: 0 0 20px; padding: 8px 14px; border: 1px solid #c8a5fa55; border-radius: 999px; background: linear-gradient(110deg, #b38ae81f, #b38ae808); color: #e6d4ff; box-shadow: inset 0 1px 0 #ffffff08; font-size: clamp(.8125rem, .78rem + .2vw, .9375rem); font-weight: 500; line-height: 1.5; letter-spacing: -.01em; }
 .tagline svg { flex-shrink: 0; color: #c9a4fc; }
 .heading { margin: 0; font-size: var(--type-page); font-weight: var(--heading-weight); line-height: var(--heading-leading); letter-spacing: var(--heading-tracking); }
@@ -23,20 +24,14 @@
 .highlight { position: absolute; inset: 16px 0; z-index: -1; pointer-events: none; opacity: 0; background: linear-gradient(transparent, #c8a4ff, transparent) left center / 2px 100% no-repeat; }
 .service { display: grid; grid-template-columns: 44px minmax(0, 1fr); align-items: center; gap: 16px; min-height: 100px; padding: 18px 12px; border-radius: 12px; }
 .icon { position: relative; isolation: isolate; display: grid; place-items: center; width: 44px; height: 48px; border: 1px solid #c3b3de38; border-radius: 12px; color: #cbb4f1; transition: transform 240ms ease, border-color 240ms ease, background-color 240ms ease, color 240ms ease; }
-.icon {
-  color: color-mix(in srgb, #cbb4f1, #7de0d4 calc(var(--hero-green-mix, 0) * 100%));
-  border-color: color-mix(in srgb, #c3b3de38, #22d3ee55 calc(var(--hero-green-mix, 0) * 100%));
-}
 .icon svg { width: 23px; height: 23px; }
 .serviceCopy { display: grid; gap: 6px; min-width: 0; }
 .serviceTitle { color: #e5ddeb; font-size: 1rem; font-weight: 500; line-height: 1.4; letter-spacing: -.02em; }
 .serviceDescription { color: #bcb4c9; font-size: .875rem; line-height: 1.65; }
 .service:focus-visible, .cta:focus-visible { outline: 2px solid #d6bdfd; outline-offset: 4px; }
 .service:focus-visible .icon { border-color: #d8b6ff; background-color: #b38aff26; color: #fff; }
-.service:focus-visible .icon { border-color: color-mix(in srgb, #d8b6ff, #99f5df calc(var(--hero-green-mix, 0) * 100%)); background-color: color-mix(in srgb, #b38aff26, #22d3ee26 calc(var(--hero-green-mix, 0) * 100%)); }
 @media (hover: hover) and (pointer: fine) {
   .service:hover .icon { transform: translateY(-2px); border-color: #d8b6ff; background-color: #b38aff26; color: #fff; }
-  .service:hover .icon { border-color: color-mix(in srgb, #d8b6ff, #99f5df calc(var(--hero-green-mix, 0) * 100%)); background-color: color-mix(in srgb, #b38aff26, #22d3ee26 calc(var(--hero-green-mix, 0) * 100%)); }
 }
 @media (max-width: 959px) {
   .intro { grid-template-columns: minmax(0, 1fr); gap: 28px; }
