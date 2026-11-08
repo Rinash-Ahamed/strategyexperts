@@ -65,6 +65,7 @@ Privacy/Terms pages are not implemented. Obtain appropriate client guidance for 
 - `public/dashboard/1.webp` through `5.webp` map to Daily, Payout, Ticketing, Leaderboard and Visibility. The restaurant switcher follows that order, advancing every five seconds while visible and not being interacted with. Reduced-motion users retain manual controls.
 - Restaurant impact values animate once on entry. Preserve suffixes, reserved width and accessible final text, and get client approval for the source claims.
 - The e-commerce hero uses `CommercePlatforms`: folder-discovered logos float over lavender isometric platforms without white backplates or logo glow. Original artwork remains unchanged; use approved light-lettering variants where dark logos lack contrast. Motion is CSS-only, pauses through the existing visibility observer and respects reduced-motion preferences. Digital Marketing retains its separate circular illustration.
+- Restaurant uses `HospitalityPlatforms`: angled dark menu tickets with transform/opacity-only CSS motion, reduced-motion support and visibility handling. Hotel retains the original shared floating logo cards in `ServiceDetails`. Both discover all logos from their matching folders.
 
 ## Verification
 

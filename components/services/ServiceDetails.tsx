@@ -11,6 +11,7 @@ import DigitalGrowthOrbit from "./DigitalGrowthOrbit";
 import RestaurantReports from "./RestaurantReports";
 import ServiceImpact from "./ServiceImpact";
 import CommercePlatforms from "./CommercePlatforms";
+import HospitalityPlatforms from "./HospitalityPlatforms";
 
 const COMMERCE_ICONS = [
   "M8 20H4v-2a5 5 0 0 1 10 0v2h-2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8m7 3 2 2 4-4",
@@ -79,8 +80,8 @@ export default async function ServiceDetails({ service, content }: { service: Se
             <a href="#service-support" className={styles.explore}><span className={styles.exploreLabel}>Explore Our Services</span> <span aria-hidden="true">↓</span></a>
           </div>
         </div>
-        <div className={`${styles.platforms}${digital ? ` ${styles.digitalPlatforms}` : ""}`} data-service-platforms data-motion-region>
-          {commerce ? <CommercePlatforms logos={logos} title={content.platformsTitle} /> : <>
+        <div className={`${styles.platforms}${digital ? ` ${styles.digitalPlatforms}` : ""}${restaurant ? ` ${styles.hospitalityPlatforms}` : ""}`} data-service-platforms data-motion-region>
+          {commerce ? <CommercePlatforms logos={logos} title={content.platformsTitle} /> : restaurant ? <HospitalityPlatforms logos={logos} title={content.platformsTitle} /> : <>
           {digital ? <div className={styles.orbit}><DigitalGrowthOrbit /></div> : <p className={styles.platformsTitle}>{content.platformsTitle}</p>}
           <ul className={styles.logos} aria-label={`${service.name} platforms`}>
             {logos.map((logo, index) => (
