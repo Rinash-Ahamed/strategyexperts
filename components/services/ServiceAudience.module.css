@@ -25,7 +25,7 @@
 }
 @media (prefers-reduced-motion: reduce) { .icon, .icon::before, .item::after { transition: none; } }
 
-/* Digital-only editorial interlude; other services retain their dark treatment. */
+/* Shared light editorial interlude across all service pages. */
 .light {
   position: relative; isolation: isolate;
   margin-block: 28px;
@@ -39,7 +39,9 @@
 .light .lightHeader { gap: 14px; margin-bottom: clamp(28px, 4vw, 44px); }
 .light .lightHeader > p { color: #69517f; font-size: .875rem; font-weight: 500; }
 .light .lightHeader h2 { max-width: 23ch; color: #1d1d1f; text-wrap: balance; }
+.light .accent { color: #69517f; }
 .light .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; padding-bottom: 0; }
+@media (min-width: 1100px) { .light .grid:has(> :nth-child(4):last-child) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .light .item { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; top: auto; padding: 26px 22px; border: 0; border-radius: 22px; background: #fff; }
 .light .item::after { left: 22px; right: 22px; bottom: 0; background: linear-gradient(90deg, transparent, #a07ac5, transparent); }
 .light .icon { width: 48px; height: 48px; flex-shrink: 0; color: #60417e; }
@@ -60,6 +62,6 @@
   .light .item, .light .icon::before { background: Canvas; border: 1px solid CanvasText; }
   .light .lightHeader > p, .light .lightHeader h2, .light .grid .item h3, .light .grid .item p, .light .icon { color: CanvasText; }
   .item, .icon::before { background: Canvas; border-color: CanvasText; }
-  .accent, .icon { color: CanvasText; }
+  .accent, .icon, .light .accent { color: CanvasText; }
   .item::after { display: none; }
 }

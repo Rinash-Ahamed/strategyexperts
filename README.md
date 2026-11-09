@@ -43,7 +43,7 @@ Global CSS import order in `app/layout.tsx` affects the final cascade. Shared se
 
 The four service pages no longer render an Our Approach section. Supplied process copy remains in `lib/service-details.ts` as source content; the homepage's approach section is unchanged.
 
-Only Digital Marketing's Who We Work With section uses a full-width pure-white section background, white audience tiles and dark text, with no decorative corner ring (`ServiceAudience.module.css`, digital-only light variant). The other three service audience sections retain their dark design.
+All four service pages use a full-width pure-white Who We Work With section with white audience tiles and dark text, without a decorative corner ring (`ServiceAudience.module.css`). Our Services icons have black symbols on white backgrounds, a lavender outline on hover and a staggered outline sequence; benefits use small travelling line highlights where benefit items exist. Motion respects reduced-motion preferences and pauses off-screen. Each page retains its own content and logo illustration.
 
 Below 1280px, navigation opens a compact frosted sheet beneath the header rather than oversized full-screen links. Services expand inline (initially expanded on a service page); Product still opens externally. The sheet supports Escape, backdrop dismissal, visible focus, focus containment/return, background scroll locking and reduced motion. Desktop navigation remains separate and unchanged.
 
@@ -71,7 +71,7 @@ Privacy/Terms pages are not implemented. Obtain appropriate client guidance for 
 - `public/dashboard/1.webp` through `5.webp` map to Daily, Payout, Ticketing, Leaderboard and Visibility. The restaurant switcher follows that order, advancing every five seconds while visible and not being interacted with. Reduced-motion users retain manual controls.
 - Restaurant impact values animate once on entry. Preserve suffixes, reserved width and accessible final text, and get client approval for the source claims.
 - The e-commerce hero uses `CommercePlatforms`: folder-discovered logos float over lavender isometric platforms without white backplates or logo glow. Original artwork remains unchanged; use approved light-lettering variants where dark logos lack contrast. Motion is CSS-only, pauses through the existing visibility observer and respects reduced-motion preferences. Digital Marketing retains its separate circular illustration.
-- Restaurant uses `HospitalityPlatforms`: floating graphite serving platters with layered lavender-edged rims and upright original-colour logos, without white backplates or logo glow. Hotel uses `HotelPlatforms`: an open lavender wireframe hotel with unboxed, staggered platform logos floating on either side; no key tags, pale backplates or logo glow. Approved light-lettering artwork is preferable for dark marks on these surfaces. Both discover all logos from their matching folders and use transform/opacity-only CSS motion, reduced-motion support and visibility handling.
+- Restaurant uses `HospitalityPlatforms`: floating graphite serving platters with layered lavender-edged rims and upright original-colour logos, without white backplates or logo glow. Hotel uses `HotelPlatforms`: unboxed, staggered floating platform logos without rails, a centre building, key tags, pale backplates or logo glow. Approved light-lettering artwork is preferable for dark marks on these surfaces. Both discover all logos from their matching folders and use transform/opacity-only CSS motion, reduced-motion support and visibility handling.
 
 ## Verification
 

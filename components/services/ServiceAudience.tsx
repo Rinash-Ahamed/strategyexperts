@@ -31,11 +31,10 @@ const RESTAURANT_ICONS = [
 ];
 
 export default function ServiceAudience({ title, items, theme }: { title: string; items: ServiceDetails["audience"]; theme: ServiceTheme }) {
-  const light = theme === "digital";
   const icons = theme === "restaurant" ? RESTAURANT_ICONS : theme === "digital" ? DIGITAL_ICONS : theme === "hotel" ? HOTEL_ICONS : COMMERCE_ICONS;
   return (
-    <section className={`${shared.section}${light ? ` ${styles.light}` : ""}`} aria-labelledby="audience-heading">
-      <header className={`${shared.sectionHeader}${light ? ` ${styles.lightHeader}` : ""}`}>
+    <section className={`${shared.section} ${styles.light}`} aria-labelledby="audience-heading">
+      <header className={`${shared.sectionHeader} ${styles.lightHeader}`}>
         <p className={shared.category}>Who We Work With</p>
         <h2 id="audience-heading">{theme === "ecom" ? <>For Every <span className={styles.accent}><span className={shared.keepTogether}>E-Commerce</span> Business</span></> : title}</h2>
       </header>

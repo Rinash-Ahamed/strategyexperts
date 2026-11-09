@@ -91,7 +91,7 @@ export const SERVICES: Service[] = [
     slug: "e-commerce-support",
     theme: "ecom",
     name: "E-Commerce Support",
-    navName: "E-Commerce Support",
+    navName: "E-Commerce Management",
     metaTitle: "E-Commerce Support for Amazon, Flipkart & Meesho",
     metaDescription:
       "Account management, listing optimisation and sales growth strategy for brands and sellers on Amazon, Flipkart and Meesho.",
@@ -225,7 +225,7 @@ export const SERVICES: Service[] = [
     slug: "restaurant-consulting",
     theme: "restaurant",
     name: "Restaurant Consulting",
-    navName: "Restaurant Consulting",
+    navName: "Digital Restaurant Business Management",
     metaTitle: "Restaurant Consulting for Zomato & Swiggy",
     metaDescription:
       "Growth strategy, account management, promotions and menu optimisation for restaurants and cloud kitchens on Zomato and Swiggy.",
@@ -359,7 +359,7 @@ export const SERVICES: Service[] = [
     slug: "hotel-revenue-management",
     theme: "hotel",
     name: "Hotel Revenue Management",
-    navName: "Hotel Revenue Management",
+    navName: "Hospitality Growth & Revenue Strategy",
     metaTitle: "Hotel Revenue Management & OTA Optimisation",
     metaDescription:
       "OTA management, pricing and inventory, revenue strategy and forecasting for hotels: aimed at better occupancy, ADR and RevPAR.",
@@ -502,7 +502,7 @@ export const SERVICES: Service[] = [
     slug: "digital-marketing",
     theme: "digital",
     name: "Digital Marketing & WhatsApp Marketing",
-    navName: "Digital Marketing",
+    navName: "Digital Ecosystem Management",
     metaTitle: "Digital Marketing, Google Business Profile & WhatsApp",
     metaDescription:
       "Google Business Profile management, reputation and review management, local visibility, lead generation and consent-based WhatsApp marketing support.",

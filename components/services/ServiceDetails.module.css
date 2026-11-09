@@ -42,10 +42,35 @@
 .supportIcon { position: relative; display: grid; place-items: center; width: 52px; height: 52px; margin-bottom: 22px; border: 1px solid #cfb1fa3d; border-radius: 16px; background: linear-gradient(145deg, #ddc4ff10, #ddc4ff02); color: #dec8fa; box-shadow: inset 0 1px 0 #ffffff08; transition: transform 240ms ease, border-color 240ms ease; }
 .supportIcon::after { content: ""; position: absolute; inset: -1px; border-radius: inherit; background: radial-gradient(ellipse at 30% 0, #d5b3ff22, transparent 75%); opacity: 0; transition: opacity 240ms ease; }
 .supportIcon svg { width: 24px; height: 24px; }
+.highlightSupport .supportIcon { background: #fff; border-color: #fff; color: #000; }
+.highlightSupport .supportIcon { isolation: isolate; }
+.highlightSupport .supportIcon::before,
+.highlightSupport .supportIcon::after { content: ""; position: absolute; inset: -5px; border: 1px solid #cba5fa; border-radius: 20px; background: transparent; opacity: 0; pointer-events: none; }
+@media (prefers-reduced-motion: no-preference) and (forced-colors: none) {
+  .highlightSupport .supportIcon::before { animation: serviceIconOutline var(--service-pulse-duration, 9.6s) ease-in-out var(--service-pulse-delay) infinite; }
+  .highlightSupport.supportSeven .supportIcon::before { animation-name: serviceIconOutlineSeven; }
+}
+@keyframes serviceIconOutline {
+  0%, 16.6667%, 100% { opacity: 0; }
+  5%, 11% { opacity: .85; }
+}
+@keyframes serviceIconOutlineSeven {
+  0%, 14.2857%, 100% { opacity: 0; }
+  4%, 9% { opacity: .85; }
+}
 .support li h3 { max-width: 23ch; font-size: 1rem; line-height: 1.5; }
 .benefitList { display: grid; gap: 28px 36px; padding: 0; margin: 0; list-style: none; }
 .benefitList li { position: relative; padding-top: 20px; }
 .benefitList li::before { content: ""; position: absolute; left: 0; top: 0; width: 36px; height: 2px; background: linear-gradient(90deg, #c7a5f1, #c7a5f133); }
+.animatedBenefits li::after { content: ""; position: absolute; left: 0; top: 0; width: 12px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, transparent, #ecd9ff, transparent); opacity: 0; pointer-events: none; }
+@media (prefers-reduced-motion: no-preference) and (forced-colors: none) {
+  .animatedBenefits li::after { animation: benefitLineLight 3.6s ease-in-out var(--benefit-delay) infinite; }
+}
+@keyframes benefitLineLight {
+  0%, 20% { transform: translateX(0); opacity: 0; }
+  35% { opacity: 1; }
+  70%, 100% { transform: translateX(24px); opacity: 0; }
+}
 .closing { text-align: center; }
 .closing h2 { margin-inline: auto; }
 .closing > p { max-width: 64ch; margin: 20px auto 0; color: #bfb7cd; line-height: 1.8; }
@@ -54,7 +79,7 @@
 .impact { display: grid; gap: 28px; margin: 0; padding: 0; }
 .impact > div { display: flex; flex-direction: column-reverse; align-items: flex-start; gap: 10px; padding-top: 22px; border-top: 1px solid #cda8fa30; }
 .impact dt { color: #c8bdd5; font-size: .9375rem; line-height: 1.5; }
-.impact dd { margin: 0; color: #dbc1fb; font-size: clamp(2rem, 1.6rem + 1.5vw, 3rem); font-weight: var(--heading-weight); line-height: 1.1; letter-spacing: -.05em; font-variant-numeric: tabular-nums; }
+.impact dd { margin: 0; color: #fff; font-size: clamp(2rem, 1.6rem + 1.5vw, 3rem); font-weight: var(--heading-weight); line-height: 1.1; letter-spacing: -.05em; font-variant-numeric: tabular-nums; }
 .impactNote { margin-top: 20px; color: #bbb1c8; font-size: .8125rem; line-height: 1.6; }
 .impactValue { display: inline-grid; }
 .impactReserve, .impactNumber { grid-area: 1 / 1; }
@@ -106,9 +131,10 @@
   .supportIcon, .supportIcon::after { transition: none; }
 }
 @media (forced-colors: active) {
+  .highlightSupport .supportIcon { background: Canvas; border-color: CanvasText; color: CanvasText; }
   .badge { background: Canvas; border-color: CanvasText; color: CanvasText; box-shadow: none; }
   .badge svg { color: CanvasText; }
-  .platforms::before, .supportIcon::after { display: none; }
+  .platforms::before, .supportIcon::after, .highlightSupport .supportIcon::before { display: none; }
   .logo, .supportIcon { background: Canvas; border-color: CanvasText; box-shadow: none; }
   .support li { border-color: CanvasText; }
   .supportIcon { color: CanvasText; }

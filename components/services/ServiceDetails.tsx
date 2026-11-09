@@ -93,9 +93,9 @@ export default async function ServiceDetails({ service, content }: { service: Se
             <h2 id="support-heading">{content.servicesTitle}</h2>
             <p>{content.servicesIntro}</p>
           </header>
-          <ul className={`${styles.support}${content.services.length === 6 ? ` ${styles.supportSix}` : content.services.length === 7 ? ` ${styles.supportSeven}` : ""}`}>
+          <ul className={`${styles.support} ${styles.highlightSupport}${content.services.length === 6 ? ` ${styles.supportSix}` : content.services.length === 7 ? ` ${styles.supportSeven}` : ""}`} data-motion-region style={{ "--service-pulse-duration": `${content.services.length * 1.6}s` } as CSSProperties}>
             {content.services.map((item, index) => (
-              <li key={item.title}>
+              <li key={item.title} style={{ "--service-pulse-delay": `${index * 1.6}s` } as CSSProperties}>
                 <span className={styles.supportIcon} aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" focusable="false"><path d={serviceIcons[index]} /></svg>
                 </span>
@@ -113,8 +113,8 @@ export default async function ServiceDetails({ service, content }: { service: Se
             {content.benefitsContext && <p>{content.benefitsContext}</p>}
           </header>
           {restaurant && <RestaurantReports />}
-          {content.benefits.length > 0 && <ul className={`${styles.benefitList}${content.benefits.length === 5 ? ` ${styles.benefitsFive}` : ""}`}>
-            {content.benefits.map(item => <li key={item.title}><h3>{item.title}</h3><p>{item.body}</p></li>)}
+          {content.benefits.length > 0 && <ul className={`${styles.benefitList} ${styles.animatedBenefits}${content.benefits.length === 5 ? ` ${styles.benefitsFive}` : ""}`} data-motion-region>
+            {content.benefits.map((item, index) => <li key={item.title} style={{ "--benefit-delay": `${index * .5}s` } as CSSProperties}><h3>{item.title}</h3><p>{item.body}</p></li>)}
           </ul>}
         </section>
 
