@@ -65,6 +65,10 @@ export default function SiteFooter() {
         </div>
         <div className="footer-base">
           <span>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</span>
+          <nav aria-label="Legal" style={{ display: "flex", flexWrap: "wrap", gap: "12px 24px" }}>
+            <Link href="/terms">Terms of Use</Link>
+            <Link href="/privacy-policy">Privacy Policy</Link>
+          </nav>
           <span>Strategy · Expertise · Execution</span>
         </div>
       </div>

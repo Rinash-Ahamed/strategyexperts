@@ -16,14 +16,14 @@
   background-image: linear-gradient(to top, #050509, #05050900 160px), radial-gradient(ellipse at 50% 0, #7c5cff50, transparent 48%), radial-gradient(ellipse at 0 85%, #22d3ee13, transparent 38%), radial-gradient(ellipse at 100% 80%, #d946ef16, transparent 38%);
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  /* Match the hero's silver quadratic exactly. The gradient and grid rise
+  /* Match the hero's silver quadratic exactly. The gradients rise
      into the arc instead of starting at a separate rectangular boundary. */
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 24' preserveAspectRatio='none'%3E%3Cpath d='M0 23 Q720 -19 1440 23 V24 H0 Z' fill='white'/%3E%3C/svg%3E"), linear-gradient(#000, #000);
   mask-size: 100% var(--section-curve-depth), 100% calc(100% - var(--section-curve-depth));
   mask-position: top, bottom;
   mask-repeat: no-repeat;
 }
-.section > .surface::before { display: none; }
+.section > .surface::before, .section > .surface::after { display: none; }
 .heading { max-width: 850px; margin: 0 auto; color: #f3f0f7; font-size: var(--type-section); font-weight: var(--heading-weight); line-height: var(--heading-leading); letter-spacing: var(--heading-tracking); text-align: center; text-wrap: balance; }
 .accent { composes: gradient from "./GradientText.module.css"; display: block; margin-top: 8px; }
 .introduction { max-width: 52ch; margin: 20px auto clamp(40px, 5vw, 72px); color: #beb5cc; font-size: clamp(.9375rem, .9rem + .2vw, 1.0625rem); line-height: 1.7; text-align: center; text-wrap: pretty; }

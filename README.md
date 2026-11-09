@@ -1,6 +1,6 @@
 # Strategy Experts website
 
-Custom seven-page consultancy website using Next.js App Router, React, TypeScript and CSS/CSS Modules, without animation-library dependencies. The current hero is text-led; the robot and opening loading screen are no longer included. Its background and service icons stay lavender, with subtle background motion but no green/teal colour cycle.
+Custom nine-page consultancy website using Next.js App Router, React, TypeScript and CSS/CSS Modules, without animation-library dependencies. The current hero is text-led; the robot and opening loading screen are no longer included. Its background and service icons stay lavender, with subtle background motion but no green/teal colour cycle.
 
     npm ci
     npm run dev      # http://localhost:3000
@@ -22,9 +22,11 @@ Use Node.js 24 LTS (or Node.js 22.18+ for the native-TypeScript tests). Copy `.e
 | `/services/digital-marketing` | Digital services, animated connectivity circle, benefits and audience |
 | `/pricing` | Starter, Pro and Custom plans, with enquiry links |
 | `/contact` | Business hours and consent-gated email/WhatsApp enquiries |
+| `/terms` | Website terms of use |
+| `/privacy-policy` | Website enquiry privacy notice |
 | `/api/enquiry` | Server-only Node.js SMTP endpoint |
 
-The seven public pages are prerendered. Product opens `https://dashboard.strategyexperts.in/login` in a new tab; that application is external, not implemented here. This repository has no database, CMS or payment checkout. Straty is a guided enquiry interface, not an LLM chatbot.
+The nine public pages are prerendered. Product opens `https://dashboard.strategyexperts.in/login` in a new tab; that application is external, not implemented here. This repository has no database, CMS or payment checkout. Straty is a guided enquiry interface, not an LLM chatbot.
 
 ## Project structure
 
@@ -59,7 +61,7 @@ See [email setup](docs/email-setup.md) for SMTP configuration, timeouts and abus
 ## Content
 Shared identity, contacts and service metadata live in `lib/site.ts`; detailed service content is in `lib/service-details.ts`. Some section-specific copy remains colocated with its component or route. Approved client logos appear on the homepage. Confirm all figures, logos, pricing and claims with the client before publishing; never invent testimonials or imply platform certification.
 
-Privacy/Terms pages are not implemented. Obtain appropriate client guidance for consent/privacy wording rather than inventing legal copy.
+Terms and Privacy Policy pages are linked from the footer. Their initial website-specific wording requires client/legal approval before delivery, including confirmation of the operator identity, hosting providers, retention practice and privacy-request handling. They are not a compliance certification or a replacement for a signed service agreement. Add the privacy notice to consent journeys if required after legal review.
 
 ### Folder-driven assets
 
@@ -71,7 +73,7 @@ Privacy/Terms pages are not implemented. Obtain appropriate client guidance for 
 - `public/dashboard/1.webp` through `5.webp` map to Daily, Payout, Ticketing, Leaderboard and Visibility. The restaurant switcher follows that order, advancing every five seconds while visible and not being interacted with. Reduced-motion users retain manual controls.
 - Restaurant impact values animate once on entry. Preserve suffixes, reserved width and accessible final text, and get client approval for the source claims.
 - The e-commerce hero uses `CommercePlatforms`: folder-discovered logos float over lavender isometric platforms without white backplates or logo glow. Original artwork remains unchanged; use approved light-lettering variants where dark logos lack contrast. Motion is CSS-only, pauses through the existing visibility observer and respects reduced-motion preferences. Digital Marketing retains its separate circular illustration.
-- Restaurant uses `HospitalityPlatforms`: floating graphite serving platters with layered lavender-edged rims and upright original-colour logos, without white backplates or logo glow. Hotel uses `HotelPlatforms`: unboxed, staggered floating platform logos without rails, a centre building, key tags, pale backplates or logo glow. Approved light-lettering artwork is preferable for dark marks on these surfaces. Both discover all logos from their matching folders and use transform/opacity-only CSS motion, reduced-motion support and visibility handling.
+- Restaurant uses `HospitalityPlatforms`: floating graphite serving platters with layered lavender-edged rims and upright original-colour logos, without white backplates or logo glow. Hotel uses `HotelPlatforms`: an invisible S-shaped ribbon of floating logos at varied scales/depths, without rails, a centre building, key tags, pale backplates or logo glow. `HotelLogoDepth` adds local, requestAnimationFrame-coalesced cursor tilt only for fine-pointer hover devices without reduced motion; touch keeps CSS drift without tracking. Extra folder logos add another spatial band, not a manual asset list. Approved light-lettering artwork is preferable for dark marks on these surfaces. Both discover all logos from their matching folders and use transform/opacity-only CSS motion, reduced-motion support and visibility handling.
 
 ## Verification
 

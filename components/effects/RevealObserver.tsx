@@ -32,17 +32,21 @@ export default function RevealObserver() {
     // or React state updates are needed, and markup stays visible without JS.
     const regions = Array.from(document.querySelectorAll<HTMLElement>("[data-motion-region]"));
     const visible = new Set<Element>();
-    const updateMotion = () => {
-      for (const region of regions) {
-        region.toggleAttribute("data-motion-paused", document.hidden || !visible.has(region));
+    const updateRegion = (region: Element) => {
+      const paused = document.hidden || !visible.has(region);
+      if (region.hasAttribute("data-motion-paused") !== paused) {
+        region.toggleAttribute("data-motion-paused", paused);
       }
+    };
+    const updateMotion = () => {
+      regions.forEach(updateRegion);
     };
     const motionObserver = new IntersectionObserver(entries => {
       for (const entry of entries) {
         if (entry.isIntersecting) visible.add(entry.target);
         else visible.delete(entry.target);
+        updateRegion(entry.target);
       }
-      updateMotion();
     }, { rootMargin: "200px" });
     regions.forEach(region => motionObserver.observe(region));
     document.addEventListener("visibilitychange", updateMotion);

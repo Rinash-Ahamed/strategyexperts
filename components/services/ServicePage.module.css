@@ -3,6 +3,9 @@
   min-height: 75svh;
 }
 
+/* Service pages retain atmospheric lighting without the shared grid overlay. */
+.page::after { display: none; }
+
 /* Clip the atmosphere without creating a nested scrolling container, so
    approach headings can follow the document scroll like Contact's intro. */
 @supports (overflow: clip) { .page { overflow: clip; } }
