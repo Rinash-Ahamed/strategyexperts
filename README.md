@@ -16,10 +16,10 @@ Use Node.js 24 LTS (or Node.js 22.18+ for the native-TypeScript tests). Copy `.e
 | Route | Purpose |
 | --- | --- |
 | `/` | Hero, synchronized platform banner, dashboard showcase, approach, clients and enquiry CTA |
-| `/services/e-commerce-support` | E-commerce services, approach and audience |
-| `/services/restaurant-consulting` | Restaurant services, report switcher, approach, impact counters and audience |
-| `/services/hotel-revenue-management` | Hotel services, approach and audience |
-| `/services/digital-marketing` | Digital services, animated connectivity circle, approach and audience |
+| `/services/e-commerce-support` | E-commerce services, benefits and audience |
+| `/services/restaurant-consulting` | Restaurant services, report switcher, impact counters and audience |
+| `/services/hotel-revenue-management` | Hotel services, benefits and audience |
+| `/services/digital-marketing` | Digital services, animated connectivity circle, benefits and audience |
 | `/pricing` | Starter, Pro and Custom plans, with enquiry links |
 | `/contact` | Business hours and consent-gated email/WhatsApp enquiries |
 | `/api/enquiry` | Server-only Node.js SMTP endpoint |
@@ -40,6 +40,12 @@ The seven public pages are prerendered. Product opens `https://dashboard.strateg
 - `public/` - approved artwork, platform/client logos and dashboard screenshots.
 
 Global CSS import order in `app/layout.tsx` affects the final cascade. Shared service composition is in `components/services/ServiceDetails.tsx`. Responsive image delivery is handled by `components/shared/StaticImage.tsx`.
+
+The four service pages no longer render an Our Approach section. Supplied process copy remains in `lib/service-details.ts` as source content; the homepage's approach section is unchanged.
+
+Only Digital Marketing's Who We Work With section uses a full-width pure-white section background, white audience tiles and dark text, with no decorative corner ring (`ServiceAudience.module.css`, digital-only light variant). The other three service audience sections retain their dark design.
+
+Below 1280px, navigation opens a compact frosted sheet beneath the header rather than oversized full-screen links. Services expand inline (initially expanded on a service page); Product still opens externally. The sheet supports Escape, backdrop dismissal, visible focus, focus containment/return, background scroll locking and reduced motion. Desktop navigation remains separate and unchanged.
 
 ## Configuration (.env.local - see .env.example)
 - NEXT_PUBLIC_WHATSAPP_NUMBER: optional international-format number, digits only. WhatsApp opens a prepared message for the visitor to send.
@@ -65,7 +71,7 @@ Privacy/Terms pages are not implemented. Obtain appropriate client guidance for 
 - `public/dashboard/1.webp` through `5.webp` map to Daily, Payout, Ticketing, Leaderboard and Visibility. The restaurant switcher follows that order, advancing every five seconds while visible and not being interacted with. Reduced-motion users retain manual controls.
 - Restaurant impact values animate once on entry. Preserve suffixes, reserved width and accessible final text, and get client approval for the source claims.
 - The e-commerce hero uses `CommercePlatforms`: folder-discovered logos float over lavender isometric platforms without white backplates or logo glow. Original artwork remains unchanged; use approved light-lettering variants where dark logos lack contrast. Motion is CSS-only, pauses through the existing visibility observer and respects reduced-motion preferences. Digital Marketing retains its separate circular illustration.
-- Restaurant uses `HospitalityPlatforms`: angled dark menu tickets with transform/opacity-only CSS motion, reduced-motion support and visibility handling. Hotel retains the original shared floating logo cards in `ServiceDetails`. Both discover all logos from their matching folders.
+- Restaurant uses `HospitalityPlatforms`: floating graphite serving platters with layered lavender-edged rims and upright original-colour logos, without white backplates or logo glow. Hotel uses `HotelPlatforms`: an open lavender wireframe hotel with unboxed, staggered platform logos floating on either side; no key tags, pale backplates or logo glow. Approved light-lettering artwork is preferable for dark marks on these surfaces. Both discover all logos from their matching folders and use transform/opacity-only CSS motion, reduced-motion support and visibility handling.
 
 ## Verification
 

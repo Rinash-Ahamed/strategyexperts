@@ -16,7 +16,7 @@ const SERVICE_PREVIEWS: Record<string, { description: string; icon: string }> = 
   "/services/digital-marketing": { description: "Search, social and meaningful growth.", icon: "m4 10 13-6v16L4 14v-4ZM4 10H2v4h2m3 1 2 6h3l-2-5m10-7 2-1m-2 8 2 1" },
 };
 
-export default function SiteHeader({ links, name, tagline }: Props) {
+export default function SiteHeader({ links, name }: Props) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
@@ -105,9 +105,9 @@ export default function SiteHeader({ links, name, tagline }: Props) {
         setOpen(false);
       }
       if (event.key !== "Tab") return;
-      const targets = [burgerRef.current, ...Array.from(menuRef.current?.querySelectorAll<HTMLAnchorElement>("a[href]") ?? [])]
-        .filter((element): element is HTMLButtonElement | HTMLAnchorElement => Boolean(element));
-      const index = targets.indexOf(document.activeElement as HTMLButtonElement | HTMLAnchorElement);
+      const targets = [burgerRef.current, ...Array.from(menuRef.current?.querySelectorAll<HTMLElement>("a[href], summary") ?? [])]
+        .filter((element): element is HTMLElement => Boolean(element && element.getClientRects().length));
+      const index = targets.indexOf(document.activeElement as HTMLElement);
       if (index === -1 || (event.shiftKey && index === 0) || (!event.shiftKey && index === targets.length - 1)) {
         event.preventDefault();
         targets[event.shiftKey ? targets.length - 1 : 0]?.focus();
@@ -126,11 +126,10 @@ export default function SiteHeader({ links, name, tagline }: Props) {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
   const homeHref = pathname === "/" ? "#" : "/";
-  const linkHref = (href: string) => href === "/" ? homeHref : href;
   const mobileLinks = [
-    ...links,
     { href: PRODUCT_URL, label: "Product" },
     { href: "/pricing", label: "Pricing" },
+    { href: "/contact", label: "Contact" },
   ];
 
   return (
@@ -208,25 +207,43 @@ export default function SiteHeader({ links, name, tagline }: Props) {
         </svg>
       </header>
 
-      <div id="mobile-menu" ref={menuRef} className={`menu${open ? " open" : ""}`} aria-hidden={!open}>
+      <div id="mobile-menu" ref={menuRef} className={`menu ${styles.mobileMenu}${open ? " open" : ""}`} aria-hidden={!open} inert={!open} onClick={(event) => { if (event.target === event.currentTarget) setOpen(false); }}>
+        <div className={styles.mobileSurface}>
         <nav aria-label="Mobile">
-          <ol>
+          <ul className={styles.mobileLinks}>
+            <li><Link href={homeHref} aria-current={pathname === "/" ? "page" : undefined} onClick={() => setOpen(false)}>Home</Link></li>
+            <li>
+              <details className={styles.mobileServices} key={open ? "open" : "closed"} open={open && pathname.startsWith("/services/") ? true : undefined}>
+                <summary data-active={pathname.startsWith("/services/") || undefined}>
+                  Services
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="m4 5.5 3 3 3-3" stroke="currentColor" strokeWidth="1.3" /></svg>
+                </summary>
+                <ul className={styles.mobileServiceLinks}>
+                  {links.filter(link => link.href.startsWith("/services/")).map(link => (
+                    <li key={link.href}>
+                      <Link href={link.href} aria-current={isActive(link.href) ? "page" : undefined} onClick={() => setOpen(false)}>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={SERVICE_PREVIEWS[link.href]?.icon} /></svg>
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            </li>
             {mobileLinks.map((l) => (
               <li key={l.href}>
-                <Link href={linkHref(l.href)} target={l.href === PRODUCT_URL ? "_blank" : undefined} rel={l.href === PRODUCT_URL ? "noopener noreferrer" : undefined} aria-label={l.href === PRODUCT_URL ? "Product (opens in a new tab)" : undefined} aria-current={isActive(l.href) ? "page" : undefined} onClick={() => setOpen(false)} tabIndex={open ? 0 : -1}>
+                <Link href={l.href} target={l.href === PRODUCT_URL ? "_blank" : undefined} rel={l.href === PRODUCT_URL ? "noopener noreferrer" : undefined} aria-label={l.href === PRODUCT_URL ? "Product (opens in a new tab)" : undefined} aria-current={isActive(l.href) ? "page" : undefined} onClick={() => setOpen(false)} tabIndex={open ? 0 : -1}>
                   {l.label}
                 </Link>
               </li>
             ))}
-          </ol>
+          </ul>
         </nav>
-        <div className="menu-foot">
+        <div className={styles.mobileFoot}>
           <Link href="/contact" className="btn btn-light" onClick={() => setOpen(false)} tabIndex={open ? 0 : -1}>
             Discuss Your Business <span className="arr" aria-hidden="true">→</span>
           </Link>
-          <p className="muted" style={{ fontSize: ".85rem" }}>
-            {name} - {tagline}
-          </p>
+        </div>
         </div>
       </div>
     </>

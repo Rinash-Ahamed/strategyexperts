@@ -150,6 +150,69 @@
 }
 .header .cta:hover { background: #fff; }
 .actions { justify-self: end; }
+
+/* Compact mobile sheet. Keep the backdrop separate from the glass surface. */
+.mobileMenu:global(.menu) {
+  inset: 76px 0 0;
+  display: block;
+  padding: 16px max(16px, env(safe-area-inset-right)) 24px max(16px, env(safe-area-inset-left));
+  background: #0006;
+  clip-path: none;
+  transform: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 180ms ease, visibility 0s 180ms;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.mobileMenu:global(.open) { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity 180ms ease; }
+.mobileSurface {
+  width: 100%; max-width: 440px; margin-left: auto;
+  padding: 14px;
+  border: 1px solid #ffffff24;
+  border-radius: 24px 8px 24px 24px;
+  background: #101014f5;
+  box-shadow: 0 20px 56px #0008, inset 0 1px 0 #ffffff08;
+  transform: translateY(-8px);
+  transition: transform 220ms cubic-bezier(.22, .8, .2, 1);
+}
+.mobileMenu:global(.open) .mobileSurface { transform: none; }
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .mobileSurface { background: #101014d9; -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); }
+}
+.mobileLinks { margin: 0; padding: 0; list-style: none; }
+.mobileMenu .mobileLinks li { border: 0; overflow: visible; }
+.mobileMenu .mobileLinks a, .mobileServices > summary {
+  position: relative; display: flex; align-items: center; gap: 12px;
+  min-height: 48px; padding: 12px 16px; border-radius: 12px;
+  color: #d4cfdc; font-size: 1rem; font-weight: 500;
+  line-height: 1.5; letter-spacing: -.015em;
+  transform: none; transition: background-color 180ms ease, color 180ms ease;
+}
+.mobileMenu .mobileLinks a:hover, .mobileServices > summary:hover { color: #fff; background: #ffffff08; }
+.mobileMenu:global(.open) .mobileLinks li a { transition-delay: 0s; }
+.mobileMenu .mobileLinks a[aria-current="page"], .mobileServices > summary[data-active] { color: #e6d4ff; background: #bc91ee10; }
+.mobileMenu .mobileLinks a[aria-current="page"]::before { content: ""; position: absolute; left: 5px; width: 3px; height: 16px; border-radius: 3px; background: #d0a8ff; }
+.mobileServices > summary { justify-content: space-between; cursor: pointer; list-style: none; }
+.mobileServices > summary::-webkit-details-marker { display: none; }
+.mobileServices > summary svg { transition: transform 180ms ease; }
+.mobileServices[open] > summary svg { transform: rotate(180deg); }
+.mobileServiceLinks { margin: 6px 0 10px 17px; padding: 0 0 0 10px; border-left: 1px solid #cba7f333; list-style: none; }
+.mobileMenu .mobileServiceLinks a { font-size: .875rem; font-weight: 400; min-height: 46px; padding: 10px 12px; }
+.mobileServiceLinks svg { flex: 0 0 19px; width: 19px; height: 19px; color: #c5a6eb; }
+.mobileFoot { margin-top: 10px; padding: 14px 4px 4px; border-top: 1px solid #ffffff14; }
+.mobileFoot :global(.btn) { width: 100%; min-height: 48px; padding: 12px; border-radius: 12px; font-size: .875rem; white-space: normal; }
+.mobileSurface :focus-visible { outline: 2px solid #d6bdfd; outline-offset: 2px; }
+@media (min-width: 1280px) { .mobileMenu:global(.menu) { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .mobileMenu:global(.menu), .mobileSurface, .mobileMenu .mobileLinks a, .mobileServices > summary, .mobileServices > summary svg { transition: none; }
+}
+@media (forced-colors: active) {
+  .mobileSurface { background: Canvas; border-color: CanvasText; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .mobileMenu .mobileLinks a, .mobileServices > summary, .mobileServiceLinks svg { color: CanvasText; }
+  .mobileMenu .mobileLinks a[aria-current="page"]::before { background: Highlight; }
+}
 @media (min-width: 1280px) {
   .header .inner { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }
   .inner > a { justify-self: start; }

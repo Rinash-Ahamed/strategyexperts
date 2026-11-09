@@ -1,4 +1,5 @@
 export type ServiceDetails = {
+  badge: string;
   headline: string;
   accent: string;
   intro: string;
@@ -23,6 +24,7 @@ export type ServiceDetails = {
 // and reference-site navigation/footer instructions.
 export const SERVICE_DETAILS: Partial<Record<string, ServiceDetails>> = {
   "restaurant-consulting": {
+    badge: "Digital Restaurant Business Management",
     headline: "More Visibility. Higher Orders.", accent: "Greater Revenue.",
     intro: "We help restaurants grow on Zomato and Swiggy through data-driven strategies, platform expertise and hands-on support. From menus and promotions to daily operations, we help turn digital channels into stronger revenue opportunities.",
     platformsTitle: "Platform Expertise. Connected to Your Restaurant.",
@@ -61,6 +63,7 @@ export const SERVICE_DETAILS: Partial<Record<string, ServiceDetails>> = {
     closingBody: "Get a free consultation and a personalised growth plan for your restaurant.",
   },
   "digital-marketing": {
+    badge: "Digital Ecosystem Management",
     headline: "Stronger Local Presence. More Customers.", accent: "Greater Growth.",
     intro: "We help businesses increase their online visibility, build a stronger reputation and attract more customers through expert Google Business Profile management and result-driven digital marketing strategies.",
     platformsTitle: "Google. Meta. WhatsApp.",
@@ -104,6 +107,7 @@ export const SERVICE_DETAILS: Partial<Record<string, ServiceDetails>> = {
     closingBody: "Get a free consultation and discover new ways to reach more customers.",
   },
   "e-commerce-support": {
+    badge: "E-Commerce Management",
     headline: "More Visibility. Better Listings.", accent: "Higher Sales.",
     intro: "We help brands and sellers grow on Amazon, Flipkart and Meesho with end-to-end e-commerce consulting, account management, product optimisation and performance-driven strategies.",
     platformsTitle: "Three Platforms. Endless Opportunities.",
@@ -143,6 +147,7 @@ export const SERVICE_DETAILS: Partial<Record<string, ServiceDetails>> = {
     closingBody: "Get a free consultation and discover new opportunities to grow your brand.",
   },
   "hotel-revenue-management": {
+    badge: "Hospitality Growth & Revenue Strategy",
     headline: "Higher Occupancy. Better Rates.", accent: "Greater Revenue.",
     intro: "We help hotels maximise their online revenue through data-driven strategies, expert OTA management and performance-focused execution. From pricing and inventory to visibility and distribution, we turn your digital channels into consistent revenue drivers.",
     platformsTitle: "Manage & Optimise Across Leading OTAs",

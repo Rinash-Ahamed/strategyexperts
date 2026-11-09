@@ -51,20 +51,6 @@
 .closing > p { max-width: 64ch; margin: 20px auto 0; color: #bfb7cd; line-height: 1.8; }
 .closing .actions { justify-content: center; }
 .closing::before { content: ""; display: block; width: 48px; height: 2px; margin: 0 auto 24px; background: linear-gradient(90deg, transparent, #c7a5f1, transparent); }
-.approach { display: grid; align-items: start; gap: 36px clamp(36px, 7vw, 100px); }
-.approachHeader { min-width: 0; margin-bottom: 0; }
-.approachHeader h2 { max-width: 22ch; }
-.journey { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; padding: 0; margin: 0; list-style: none; }
-.journey::before { content: ""; position: absolute; left: 25px; top: 26px; bottom: 45px; width: 1px; background: linear-gradient(#c6a0f488, #c6a0f429 80%, transparent); }
-.journey li { position: relative; display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 24px; align-items: start; padding: 0 0 30px; min-width: 0; }
-.journey li:last-child { padding-bottom: 0; }
-.journey li > div { padding: 8px 0 0; }
-.journey li h3 { font-size: 1.125rem; font-weight: 500; animation: journeyHeadingSignal 15s ease-in-out var(--stage-delay) infinite; }
-.journeyHeadingText { position: relative; display: block; }
-.journeyHeadingLight { position: absolute; inset: 0; color: #dac0fb; opacity: 0; pointer-events: none; user-select: none; animation: journeyHeadingLight 15s ease-in-out var(--stage-delay) infinite; }
-.journeyIcon { position: relative; display: grid; place-items: center; width: 52px; height: 52px; border: 1px solid #d0a8ff5c; border-radius: 50%; background: #100b19; color: #dac0fb; transition: transform 240ms ease, border-color 240ms ease; }
-.journeyIcon::after { content: ""; position: absolute; inset: -6px; border: 1px solid #ceabfc70; border-radius: inherit; opacity: 0; animation: journeySignal 15s ease-in-out var(--stage-delay) infinite; }
-.journeyIcon svg { width: 23px; height: 23px; }
 .impact { display: grid; gap: 28px; margin: 0; padding: 0; }
 .impact > div { display: flex; flex-direction: column-reverse; align-items: flex-start; gap: 10px; padding-top: 22px; border-top: 1px solid #cda8fa30; }
 .impact dt { color: #c8bdd5; font-size: .9375rem; line-height: 1.5; }
@@ -78,25 +64,13 @@
   .supportSeven li:last-child { grid-column: span 2; }
   .supportSeven li:last-child p { max-width: 52ch; }
 }
-@keyframes journeySignal { 0%, 20%, 100% { opacity: 0; transform: scale(.92); } 6%, 13% { opacity: .8; transform: scale(1); } }
-@keyframes journeyHeadingSignal {
-  0%, 20%, 100% { transform: translate3d(0, 0, 0); }
-  6%, 13% { transform: translate3d(0, -2px, 0); }
-}
-@keyframes journeyHeadingLight { 0%, 20%, 100% { opacity: 0; } 6%, 13% { opacity: 1; } }
 @keyframes float { from { transform: translate3d(0, 5px, 0) rotate(-1deg); } to { transform: translate3d(0, -7px, 0) rotate(1deg); } }
 @media (min-width: 960px) {
-  .approach { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
   .hero { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
   .reversed { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); }
   .reversed .intro { grid-column: 2; grid-row: 1; }
   .reversed .platforms { grid-column: 1; grid-row: 1; }
   .benefitList { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-}
-@supports (overflow: clip) {
-  @media (min-width: 960px) and (min-height: 800px) {
-    .approachHeader { position: sticky; top: 116px; align-self: start; }
-  }
 }
 @media (min-width: 1100px) {
   .support { grid-template-columns: repeat(5, minmax(0, 1fr)); }
@@ -122,18 +96,14 @@
   .support { gap: 24px; }
   .support li { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 18px; padding: 0; border-left: 0; }
   .supportIcon { width: 48px; height: 48px; margin: 0; border-radius: 16px; }
-  .journey li { gap: 18px; }
 }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .support li:hover .supportIcon { transform: translateY(-4px); border-color: #cfb1faa6; }
   .support li:hover .supportIcon::after { opacity: 1; }
-  .journey li:hover .journeyIcon { transform: translateY(-2px); border-color: #dfc6ff; }
 }
 @media (prefers-reduced-motion: reduce) {
   .logo { animation: none; }
-  .supportIcon, .supportIcon::after, .journeyIcon { transition: none; }
-  .journeyIcon::after, .journey li h3, .journeyHeadingLight { animation: none; }
-  .journeyHeadingLight { display: none; }
+  .supportIcon, .supportIcon::after { transition: none; }
 }
 @media (forced-colors: active) {
   .badge { background: Canvas; border-color: CanvasText; color: CanvasText; box-shadow: none; }
@@ -145,9 +115,4 @@
   .benefitList li::before, .closing::before { background: CanvasText; }
   .impact > div { border-color: CanvasText; }
   .impact dd { color: CanvasText; }
-  .journey::before { background: CanvasText; }
-  .journeyIcon { background: Canvas; border-color: CanvasText; color: CanvasText; }
-  .journeyIcon::after { display: none; }
-  .journey li h3 { animation: none; color: CanvasText; }
-  .journeyHeadingLight { display: none; animation: none; }
 }

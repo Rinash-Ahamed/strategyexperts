@@ -12,6 +12,7 @@ import RestaurantReports from "./RestaurantReports";
 import ServiceImpact from "./ServiceImpact";
 import CommercePlatforms from "./CommercePlatforms";
 import HospitalityPlatforms from "./HospitalityPlatforms";
+import HotelPlatforms from "./HotelPlatforms";
 
 const COMMERCE_ICONS = [
   "M8 20H4v-2a5 5 0 0 1 10 0v2h-2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8m7 3 2 2 4-4",
@@ -27,14 +28,6 @@ const HOTEL_ICONS = [
   "M3 20h18M5 16l5-6 4 3 6-9m-6 0h6v6",
   COMMERCE_ICONS[3],
 ];
-const APPROACH_ICONS = [
-  "M10.5 17a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13Zm5-1.5L21 21M8 10h5m-2.5-2.5v5",
-  "M4 7h10m4 0h2M4 17h2m4 0h10M14 4v6M6 14v6",
-  "M12 3v5m0 0H5v5m7-5h7v5M5 17v4m14-4v4M2 13h6v4H2v-4Zm14 0h6v4h-6v-4Z",
-  "m14 3 7 7-8 8-7-7 8-8ZM6 11l-3 1-1 5 5-1m6 2-1 3-5 1 1-5M15 7h.01M3 21l2-2",
-  "M3 20h18M5 15l5-5 4 3 6-9m-5 0h5v5",
-];
-const HOTEL_APPROACH_ICONS = [APPROACH_ICONS[0], APPROACH_ICONS[2], APPROACH_ICONS[3], COMMERCE_ICONS[3], APPROACH_ICONS[1]];
 const DIGITAL_ICONS = [
   "M12 22s8-8 8-13a8 8 0 1 0-16 0c0 5 8 13 8 13Zm0-10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z",
   "m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z",
@@ -43,7 +36,6 @@ const DIGITAL_ICONS = [
   "M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM2 21v-2a6 6 0 0 1 12 0v2m3-12h5m-2-2 2 2-2 2m-3 5h5m-2-2 2 2-2 2",
   "M21 11.5a9 9 0 0 1-13 8L3 21l1.5-5a9 9 0 1 1 16.5-4.5ZM8 12h.01M12 12h.01M16 12h.01",
 ];
-const DIGITAL_APPROACH_ICONS = [APPROACH_ICONS[0], APPROACH_ICONS[1], DIGITAL_ICONS[5], COMMERCE_ICONS[4], APPROACH_ICONS[4]];
 const RESTAURANT_ICONS = [
   "M3 20h18M5 15l5-5 4 3 6-9m-5 0h5v5",
   "M4 13v-3a8 8 0 0 1 16 0v3M4 10H2v7h5v-7H4Zm16 0h2v7h-5v-7h3Zm0 7v2l-6 2",
@@ -53,7 +45,6 @@ const RESTAURANT_ICONS = [
   "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-14v5l4 2",
   HOTEL_ICONS[1],
 ];
-const RESTAURANT_APPROACH_ICONS = [APPROACH_ICONS[0], APPROACH_ICONS[2], APPROACH_ICONS[3], COMMERCE_ICONS[3], APPROACH_ICONS[1]];
 
 export default async function ServiceDetails({ service, content }: { service: Service; content: Details }) {
   const logos = await getPlatformLogos(service.theme, service.platforms);
@@ -63,7 +54,6 @@ export default async function ServiceDetails({ service, content }: { service: Se
   const restaurant = service.theme === "restaurant";
   const commerce = service.theme === "ecom";
   const serviceIcons = restaurant ? RESTAURANT_ICONS : digital ? DIGITAL_ICONS : hotel ? HOTEL_ICONS : COMMERCE_ICONS;
-  const approachIcons = restaurant ? RESTAURANT_APPROACH_ICONS : digital ? DIGITAL_APPROACH_ICONS : hotel ? HOTEL_APPROACH_ICONS : APPROACH_ICONS;
 
   return (
     <div className={`wrap ${styles.content}`}>
@@ -71,7 +61,7 @@ export default async function ServiceDetails({ service, content }: { service: Se
         <div className={styles.intro}>
           <p className={styles.badge}>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false"><path d="M8 1.5 9.7 6.3 14.5 8l-4.8 1.7L8 14.5 6.3 9.7 1.5 8l4.8-1.7L8 1.5Z" fill="currentColor" /></svg>
-            <span>{service.name}</span>
+            <span>{content.badge}</span>
           </p>
           <h1 id="service-heading">{content.headline} <span className={styles.accent}>{content.accent}</span></h1>
           <p className={styles.lead}>{content.intro}</p>
@@ -80,8 +70,8 @@ export default async function ServiceDetails({ service, content }: { service: Se
             <a href="#service-support" className={styles.explore}><span className={styles.exploreLabel}>Explore Our Services</span> <span aria-hidden="true">↓</span></a>
           </div>
         </div>
-        <div className={`${styles.platforms}${digital ? ` ${styles.digitalPlatforms}` : ""}${restaurant ? ` ${styles.hospitalityPlatforms}` : ""}`} data-service-platforms data-motion-region>
-          {commerce ? <CommercePlatforms logos={logos} title={content.platformsTitle} /> : restaurant ? <HospitalityPlatforms logos={logos} title={content.platformsTitle} /> : <>
+        <div className={`${styles.platforms}${digital ? ` ${styles.digitalPlatforms}` : ""}${restaurant || hotel ? ` ${styles.hospitalityPlatforms}` : ""}`} data-service-platforms data-motion-region>
+          {commerce ? <CommercePlatforms logos={logos} title={content.platformsTitle} /> : restaurant ? <HospitalityPlatforms logos={logos} title={content.platformsTitle} /> : hotel ? <HotelPlatforms logos={logos} title={content.platformsTitle} /> : <>
           {digital ? <div className={styles.orbit}><DigitalGrowthOrbit /></div> : <p className={styles.platformsTitle}>{content.platformsTitle}</p>}
           <ul className={styles.logos} aria-label={`${service.name} platforms`}>
             {logos.map((logo, index) => (
@@ -126,26 +116,6 @@ export default async function ServiceDetails({ service, content }: { service: Se
           {content.benefits.length > 0 && <ul className={`${styles.benefitList}${content.benefits.length === 5 ? ` ${styles.benefitsFive}` : ""}`}>
             {content.benefits.map(item => <li key={item.title}><h3>{item.title}</h3><p>{item.body}</p></li>)}
           </ul>}
-        </section>
-
-        <section className={`${styles.section} ${styles.approach}`} aria-labelledby="process-heading" data-motion-region>
-          <header className={`${styles.sectionHeader} ${styles.approachHeader}`}>
-            <p className={styles.category}>Our Approach</p>
-            <h2 id="process-heading">{content.processTitle.split(/(E-Commerce)/).map((part, index) => part === "E-Commerce" ? <span className={styles.keepTogether} key={index}>{part}</span> : part)}</h2>
-          </header>
-          <ol className={styles.journey}>
-            {content.process.map((item, index) => (
-              <li key={item.title} style={{ "--stage-delay": `${index * 3}s` } as CSSProperties}>
-                <span className={styles.journeyIcon} aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" focusable="false"><path d={approachIcons[index]} /></svg>
-                </span>
-                <div>
-                  <h3><span className={styles.journeyHeadingText}>{item.title}<span className={styles.journeyHeadingLight} aria-hidden="true">{item.title}</span></span></h3>
-                  <p>{item.body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
         </section>
 
         {content.impact && (
