@@ -777,6 +777,10 @@ body { min-height: 100dvh; }
 /* safe areas on notched devices */
 .menu { padding-bottom: calc(32px + env(safe-area-inset-bottom)); padding-left: max(var(--gutter), env(safe-area-inset-left)); padding-right: max(var(--gutter), env(safe-area-inset-right)); }
 .footer-base { padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+/* Keep legal links and the tagline above Straty at the bottom of small screens. */
+@media (max-width: 1024px) {
+  .footer-base { padding-bottom: calc(104px + env(safe-area-inset-bottom, 0px)); }
+}
 
 /* very small phones (320–360px) */
 @media (max-width: 380px) {
