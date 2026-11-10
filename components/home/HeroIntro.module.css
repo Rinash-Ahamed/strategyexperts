@@ -36,6 +36,7 @@
 @media (max-width: 959px) {
   .intro { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   .heading { font-size: clamp(2.25rem, 6.5vw, 3.7rem); max-width: 18ch; }
+  .firstLine { text-wrap: balance; }
   .description { max-width: 55ch; }
   .services { padding: 0; }
 }

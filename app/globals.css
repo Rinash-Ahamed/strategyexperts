@@ -166,7 +166,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .on-dark .eyebrow { color: var(--silver-dark); }
 
 /* ---------- Layout ---------- */
-.wrap { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+.wrap { width: 100%; max-width: var(--max); margin-inline: auto; padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); }
 .section { padding-block: clamp(72px, 11vw, 168px); position: relative; }
 .section-tight { padding-block: clamp(48px, 7vw, 96px); }
 .rule { border: 0; border-top: 1px solid var(--line); margin: 0; }

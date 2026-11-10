@@ -90,7 +90,7 @@ export default function ContactForm({ whatsapp, email, services }: Props) {
   };
 
   return (
-    <form className="form" noValidate onSubmit={(e) => e.preventDefault()} aria-busy={status === "sending"} onChange={() => { if (!sendingRef.current) setStatus("idle"); }} aria-describedby={status === "opened" ? "form-note" : undefined}>
+    <form className="form" data-contact-form noValidate onSubmit={(e) => e.preventDefault()} aria-busy={status === "sending"} onChange={() => { if (!sendingRef.current) setStatus("idle"); }} aria-describedby={status === "opened" ? "form-note" : undefined}>
       <div className={styles.honeypot} aria-hidden="true"><label>Leave this blank<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
       <div className="form-row">
         <div className="field">

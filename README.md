@@ -49,6 +49,10 @@ All four service pages use a full-width pure-white Who We Work With section with
 
 Below 1280px, navigation opens a compact frosted sheet beneath the header rather than oversized full-screen links. Services expand inline (initially expanded on a service page); Product still opens externally. The sheet supports Escape, backdrop dismissal, visible focus, focus containment/return, background scroll locking and reduced motion. Desktop navigation remains separate and unchanged.
 
+At widths up to 820px, Straty's floating launcher steps aside while the contact form is in or near the viewport and returns when the form is off-screen. This uses IntersectionObserver, without a scroll loop or per-frame React updates. The support dialog and enquiry flow remain unchanged.
+
+Shared content wrappers and legal pages respect horizontal safe-area insets on notched devices. While Straty is open, VisualViewport events cap and reposition its scrollable panel when the on-screen keyboard reduces the visible area. Listeners are removed on close; pinch zoom and existing panel sizing remain unchanged. Chrome notch/viewport simulations are not a substitute for physical iPhone/iPad Safari keyboard testing.
+
 ## Configuration (.env.local - see .env.example)
 - NEXT_PUBLIC_WHATSAPP_NUMBER: optional international-format number, digits only. WhatsApp opens a prepared message for the visitor to send.
 - NEXT_PUBLIC_CONTACT_EMAIL: optional comma-separated fixed recipients, defaulting to the business addresses in `lib/site.ts`. Public contact information, not a secret.

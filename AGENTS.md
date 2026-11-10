@@ -62,3 +62,11 @@ These instructions apply to the entire repository.
 - Historical audit reports describe their measured versions, not automatic certification of the current tree. Do not present old scores as current results.
 - For release reviews, check representative mobile/tablet/desktop layouts, links, artwork, metadata and enquiry states in proportion to scope. Use existing tools; do not install dependencies or a new audit framework without authorization.
 - Documentation must match current code. Keep credentials and machine-specific temporary paths out of durable docs. Link to `docs/email-setup.md` for SMTP details and identify unresolved deployment requirements honestly.
+
+## Temporary audit cleanup
+
+- After browser checks or audits, remove temporary directories created by the agent for that task, including disposable browser profiles, caches, screenshots and reports. Keep only artifacts the user explicitly asks to retain, copying them to the agreed destination before cleanup.
+- Record the exact temporary directory when creating it. Before recursive removal, resolve its absolute path and verify it is the task-owned directory inside the intended temporary root, not the root itself. Never select deletion targets using broad prefixes, wildcards or an age-based sweep.
+- Close and wait for the task's own browser/helper processes to exit before cleanup. Use a finally/cleanup path for success and failure, including one-off audit commands, so normal failures do not leave profiles behind. Do not stop unrelated processes or delete personal browser profiles.
+- Do not remove pre-existing audit folders, unrelated Temp files or user-owned artifacts without separate authorization. Respect filesystem approvals and any later user instruction revoking cleanup.
+- If cleanup is blocked by permissions or locked files, report the remaining directory and reason; do not broaden deletion scope or bypass a denial. Confirm what was removed at handoff and do not claim cleanup succeeded without verifying it.

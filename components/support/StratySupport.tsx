@@ -17,6 +17,8 @@ function revealInPanel(panel: HTMLElement | null, target: HTMLElement | null) {
 
 export default function StratySupport({ email, services, avatar }: Props) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const launcher = useRef<HTMLButtonElement>(null);
+  const [supportOpen, setSupportOpen] = useState(false);
   const [service, setService] = useState("");
   const [choosing, setChoosing] = useState(true);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -28,6 +30,61 @@ export default function StratySupport({ email, services, avatar }: Props) {
   const sendButton = useRef<HTMLButtonElement>(null);
   const feedback = useRef<HTMLParagraphElement>(null);
   const compact = Boolean(service) && !choosing;
+
+  useEffect(() => {
+    const viewport = window.visualViewport;
+    const modal = dialog.current;
+    if (!supportOpen || !viewport || !modal) return;
+    let frame = 0;
+    const clear = () => {
+      modal.style.removeProperty("--support-keyboard-bottom");
+      modal.style.removeProperty("--support-available-height");
+    };
+    const update = () => {
+      frame = 0;
+      // The keyboard can shrink Safari's visual viewport without resizing its
+      // layout viewport. Do not mistake pinch zoom for keyboard occlusion.
+      const occluded = Math.max(0, document.documentElement.clientHeight - viewport.height - viewport.offsetTop);
+      if (Math.abs(viewport.scale - 1) > .01 || occluded < 1) {
+        clear();
+        return;
+      }
+      modal.style.setProperty("--support-keyboard-bottom", `${occluded + 16}px`);
+      modal.style.setProperty("--support-available-height", `${Math.max(0, viewport.height - 32)}px`);
+      const active = document.activeElement;
+      if (active instanceof HTMLElement && content.current?.contains(active)) {
+        revealInPanel(content.current, active);
+      }
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    viewport.addEventListener("resize", schedule, { passive: true });
+    viewport.addEventListener("scroll", schedule, { passive: true });
+    modal.addEventListener("focusin", schedule);
+    schedule();
+    return () => {
+      cancelAnimationFrame(frame);
+      viewport.removeEventListener("resize", schedule);
+      viewport.removeEventListener("scroll", schedule);
+      modal.removeEventListener("focusin", schedule);
+      clear();
+    };
+  }, [supportOpen]);
+
+  useEffect(() => {
+    const button = launcher.current;
+    const form = document.querySelector("[data-contact-form]");
+    if (!button || !form || !("IntersectionObserver" in window)) return;
+    // Keep the floating helper clear of the separate contact form on small
+    // screens. Observe visibility rather than doing work on every scroll.
+    const observer = new IntersectionObserver(([entry]) => {
+      button.toggleAttribute("data-contact-form-visible", entry.isIntersecting);
+    }, { rootMargin: "0px 0px 80px 0px" });
+    observer.observe(form);
+    return () => {
+      observer.disconnect();
+      button.removeAttribute("data-contact-form-visible");
+    };
+  }, []);
 
   function updateConsent(checked: boolean) {
     setConsent(checked);
@@ -79,11 +136,11 @@ export default function StratySupport({ email, services, avatar }: Props) {
 
   return (
     <>
-      <button type="button" className={styles.launcher} aria-haspopup="dialog" aria-controls="straty-support" onClick={() => dialog.current?.showModal()}>
+      <button ref={launcher} type="button" className={styles.launcher} aria-haspopup="dialog" aria-controls="straty-support" onClick={() => { dialog.current?.showModal(); setSupportOpen(true); }}>
         {avatar}
         <span>Ask Straty<span className={styles.launcherNote}>Let’s talk growth</span></span>
       </button>
-      <dialog ref={dialog} id="straty-support" className={`${styles.dialog}${compact ? ` ${styles.compact}` : ""}`} aria-labelledby="straty-title" aria-describedby={compact ? "straty-selection" : "straty-intro"} onClick={(event) => { if (event.target === dialog.current) dialog.current?.close(); }}>
+      <dialog ref={dialog} id="straty-support" className={`${styles.dialog}${compact ? ` ${styles.compact}` : ""}`} aria-labelledby="straty-title" aria-describedby={compact ? "straty-selection" : "straty-intro"} onClose={() => setSupportOpen(false)} onClick={(event) => { if (event.target === dialog.current) dialog.current?.close(); }}>
         <div className={styles.sheet}>
           <header className={styles.header}>
             {avatar}

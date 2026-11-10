@@ -1,4 +1,6 @@
-.page { padding: clamp(104px, 8vw, 120px) 24px 72px; background: radial-gradient(ellipse at 65% 0, #7c5cff24, transparent 55%), #050509; color: #f4f2ed; }
+/* The sticky navbar already occupies space in the document flow. */
+.page { padding: clamp(32px, 4vw, 48px) 24px 72px; background: radial-gradient(ellipse at 65% 0, #7c5cff24, transparent 55%), #050509; color: #f4f2ed; }
+.page { padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
 .document { max-width: 800px; margin-inline: auto; overflow-wrap: anywhere; }
 .document h1 { margin: 0 0 24px; font-size: var(--type-section); font-weight: var(--heading-weight); line-height: var(--heading-leading); letter-spacing: var(--heading-tracking); }
 .document h2 { margin: 36px 0 12px; font-size: clamp(1.25rem, 1.1rem + .5vw, 1.55rem); font-weight: var(--heading-weight); color: #dfcaff; }

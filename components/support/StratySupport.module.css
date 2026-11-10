@@ -2,11 +2,14 @@
 .launcher img { width: 58px; height: 58px; object-fit: contain; }
 .launcherNote { display: block; margin-top: 3px; color: #bfc0c2; font-size: .6875rem; }
 .launcher:hover { border-color: #ffffff60; }
+@media (max-width: 820px) {
+  .launcher[data-contact-form-visible] { visibility: hidden; pointer-events: none; }
+}
 .launcher:focus-visible, .dialog :focus-visible { outline: 2px solid #bfc0c2; outline-offset: 3px; }
-.dialog { --panel-height: min(620px, 70dvh); position: fixed; inset: auto max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) auto; width: min(420px, calc(100vw - 32px)); max-width: none; max-height: var(--panel-height); margin: 0; padding: 0; overflow: hidden; border: 1px solid #ffffff26; border-radius: 24px; background: #0c0c0c; color: #f4f2ed; box-shadow: 0 24px 80px #0009; }
+.dialog { --panel-height: min(620px, 70dvh); position: fixed; inset: auto max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom), var(--support-keyboard-bottom, 0px)) auto; width: min(420px, calc(100vw - max(16px, env(safe-area-inset-left)) - max(20px, env(safe-area-inset-right)))); max-width: none; max-height: min(var(--panel-height), var(--support-available-height, 100dvh)); margin: 0; padding: 0; overflow: hidden; border: 1px solid #ffffff26; border-radius: 24px; background: #0c0c0c; color: #f4f2ed; box-shadow: 0 24px 80px #0009; }
 .compact { --panel-height: min(520px, 56dvh); }
 .dialog::backdrop { background: #0004; }
-.sheet { display: flex; flex-direction: column; max-height: calc(var(--panel-height) - 2px); }
+.sheet { display: flex; flex-direction: column; max-height: min(calc(var(--panel-height) - 2px), calc(var(--support-available-height, 100dvh) - 2px)); }
 .header { display: flex; align-items: center; gap: 10px; flex-shrink: 0; padding: 16px; border-bottom: 1px solid #ffffff14; }
 .header img { width: 58px; height: 58px; object-fit: contain; }
 .header h2 { margin: 0; color: #fff; font-size: 1.125rem; line-height: 1.4; font-weight: 500; }
@@ -47,6 +50,6 @@
 .status { margin: 0; color: #bfc0c2; font-size: .75rem; line-height: 1.65; border-left: 2px solid #bfc0c2; padding-left: 12px; overflow-wrap: anywhere; }
 .status a { text-decoration: underline; }
 .contact { display: inline-block; margin-top: 22px; color: #bfc0c2; font-size: .75rem; line-height: 1.6; text-decoration: underline; text-underline-offset: 4px; }
-@media (max-width: 480px) { .dialog { right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); } .launcher { right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); } .launcher img { width: 46px; height: 46px; } }
+@media (max-width: 480px) { .dialog { right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom), var(--support-keyboard-bottom, 0px)); width: min(420px, calc(100vw - max(16px, env(safe-area-inset-left)) - max(16px, env(safe-area-inset-right)))); } .launcher { right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); } .launcher img { width: 46px; height: 46px; } }
 @media (prefers-reduced-motion: reduce) { .send span { transition: none; } }
 @media (forced-colors: active) { .launcher, .dialog, .close, .choice span, .details input, .details textarea, .send { background: Canvas; color: CanvasText; border: 1px solid CanvasText; } .choice input:checked + span { background: Highlight; color: HighlightText; } }
