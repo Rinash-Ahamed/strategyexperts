@@ -13,7 +13,6 @@ export const PLATFORM_ASSETS: Record<string, { src: string; width: number; heigh
   Goibibo: { src: "/Brand/Hotel/goibibo.png", width: 166, height: 49 },
   Expedia: { src: "/Brand/Hotel/expedia.png", width: 2500, height: 708 },
   Cleartrip: { src: "/Brand/Hotel/cleartrip.png", width: 2189, height: 443 },
-  EaseMyTrip: { src: "/Brand/Hotel/EaseMyTrip.png", width: 820, height: 351 },
   Yatra: { src: "/Brand/Hotel/yatra.png", width: 400, height: 181 },
   Google: { src: "/Brand/DigitalMarketting/Google.png", width: 800, height: 253 },
   Meta: { src: "/Brand/DigitalMarketting/Meta.png", width: 800, height: 345 },

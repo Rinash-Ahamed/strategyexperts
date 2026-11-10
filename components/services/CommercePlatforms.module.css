@@ -14,6 +14,16 @@
 .business::before { content: ""; position: absolute; inset: 0; border-top: 1px solid #c4a1f04d; border-bottom: 1px solid #c4a1f01a; transform: skewX(-18deg); pointer-events: none; }
 .business svg { width: 28px; height: 30px; flex-shrink: 0; }
 .business span { color: #e9dff5; font-size: .875rem; line-height: 1.5; }
+/* Hotel channels share the pedestal treatment, with centred rows for more logos. */
+.hotel .platforms { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px 12px; }
+.hotel .platform { --hotel-step: 0px; flex: 0 0 calc((100% - 36px) / 4); padding-top: var(--hotel-step); }
+.hotel .platform:nth-child(4n + 2) { --hotel-step: 28px; }
+.hotel .platform:nth-child(4n + 3) { --hotel-step: 8px; }
+.hotel .platform:nth-child(4n) { --hotel-step: 42px; }
+.hotel .float { height: 128px; }
+.hotel .art { width: min(112px, 100%); height: 44px; }
+.hotel .plinth { top: 34px; }
+.hotel .hexagon { height: auto; overflow: visible; border: 0; border-radius: 0; background: none; box-shadow: none; }
 @media (prefers-reduced-motion: no-preference) {
   .float { animation: marketplaceFloat 7s ease-in-out var(--delay) infinite; }
 }
@@ -23,5 +33,10 @@
   .art { width: min(88px, 100%); height: 42px; }
   .float { height: 136px; }
   .plinth { top: 34px; border-radius: 10px; }
+  .hotel .platform { flex-basis: calc((100% - 16px) / 3); }
+  .hotel .platforms { gap: 12px 8px; }
+  .hotel .float { height: 112px; }
+  .hotel .art { width: min(88px, 100%); height: 42px; }
 }
 @media (forced-colors: active) { .floor, .business::before { display: none; } .plinth { background: Canvas; border-color: CanvasText; box-shadow: none; } .business, .business span { color: CanvasText; } .float { animation: none; } }
+@media (forced-colors: active) { .hexagon polygon { fill: Canvas; stroke: CanvasText; } .hexagon path { fill: CanvasText; stroke: none; } }
