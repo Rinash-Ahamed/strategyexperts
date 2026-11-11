@@ -1,0 +1,756 @@
+{
+  "base": "http://localhost:3011",
+  "conditions": "Local production; cold browser cache per page, server image cache retained; DPR 2; Chrome headless; mobile 1.6Mbps/150ms, desktop unthrottled; one run per route/device, not Lighthouse or field metrics.",
+  "runs": [
+    {
+      "route": "/",
+      "width": 390,
+      "lcp": 2316,
+      "cls": 0,
+      "load": 3624.7000000476837,
+      "images": 58,
+      "broken": [],
+      "overflow": false,
+      "resources": [
+        {
+          "url": "/_next/image?url=%2FBrand%2FRestaurant%2FZomata.png%3Fv%3D6d57a77ba3f4f373&w=256&q=90",
+          "bytes": 8562,
+          "duration": 1450.9000000953674
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FRestaurant%2FSwiggy.png%3Fv%3D4ceedb957241b9c4&w=256&q=90",
+          "bytes": 8132,
+          "duration": 1446.5999999046326
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FRestaurant%2Ftoing.png%3Fv%3Dbc022b27d62c95d6&w=256&q=90",
+          "bytes": 11762,
+          "duration": 1931.2999999523163
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FRestaurant%2FFlipkart_Minutes.png%3Fv%3Dd562ef9e429cdf6d&w=320&q=90",
+          "bytes": 6114,
+          "duration": 1854.0999999046326
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fmmt.png%3Fv%3D444f4bc5e7d24114&w=256&q=90",
+          "bytes": 7484,
+          "duration": 2395.2999999523163
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fbooking.com.png%3Fv%3Dcdc84b0d4aa338f0&w=256&q=90",
+          "bytes": 7756,
+          "duration": 2357.100000143051
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fagoda.png%3Fv%3Dbc1da58839d6f009&w=256&q=90",
+          "bytes": 13534,
+          "duration": 2437.2000000476837
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fgoibibo.png%3Fv%3D850090b5070d5319&w=256&q=90",
+          "bytes": 2388,
+          "duration": 2437.5999999046326
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fexpedia.png%3Fv%3Df2dac85e1cfb5e31&w=256&q=90",
+          "bytes": 7986,
+          "duration": 2739.5999999046326
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fcleartrip.png%3Fv%3D158c153434f249ba&w=256&q=90",
+          "bytes": 7338,
+          "duration": 2790.4000000953674
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fyatra.png%3Fv%3D4d4c74e9ccd023ae&w=256&q=90",
+          "bytes": 12786,
+          "duration": 2893.7999999523163
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FEcommerce%2FAmazon.png%3Fv%3Df85b625c2d3c3521&w=256&q=90",
+          "bytes": 10092,
+          "duration": 2870.7999999523163
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FEcommerce%2FFlipkart_Logo.png%3Fv%3Ddc0cc0aa9502429e&w=256&q=90",
+          "bytes": 7804,
+          "duration": 2833.5
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FEcommerce%2Fmeesho.png%3Fv%3D154de6f5ab8ce5e4&w=256&q=90",
+          "bytes": 2768,
+          "duration": 2978.7000000476837
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FDigitalMarketting%2FGoogle.png%3Fv%3D2101baa7a90e6878&w=256&q=90",
+          "bytes": 10800,
+          "duration": 3059.5999999046326
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FDigitalMarketting%2FMeta.png%3Fv%3D1ce666fddd1cbce2&w=384&q=90",
+          "bytes": 9392,
+          "duration": 3175.7999999523163
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FDigitalMarketting%2Fwhatsapp.png%3Fv%3Dacc6d25704a5465b&w=256&q=90",
+          "bytes": 9592,
+          "duration": 3216.4000000953674
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fstraty-chat.44l3q0fntu-iv.webp&w=128&q=90",
+          "bytes": 7038,
+          "duration": 3170.9000000953674
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F1.2pobzj92kztsp.webp&w=750&q=90",
+          "bytes": 14148,
+          "duration": 2175.7999999523163
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F2.12u7icnxl0lhc.webp&w=750&q=90",
+          "bytes": 25100,
+          "duration": 1201.2999999523163
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F3.44x3hwjdepiyw.webp&w=750&q=90",
+          "bytes": 8982,
+          "duration": 1046.7999999523163
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F4.19956dzcc2rx2.webp&w=750&q=90",
+          "bytes": 37902,
+          "duration": 1250.1000001430511
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F5.0epl8912_oth1.webp&w=750&q=90",
+          "bytes": 22828,
+          "duration": 1086.1000001430511
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F1.png%3Fv%3D716f7e5c9a578213&w=320&q=75",
+          "bytes": 5238,
+          "duration": 755.5
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F2.png%3Fv%3D4fb6e5902f4c44c0&w=320&q=75",
+          "bytes": 5492,
+          "duration": 784.9000000953674
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F3.png%3Fv%3D458d6e4a37889b43&w=320&q=75",
+          "bytes": 7016,
+          "duration": 1162.2000000476837
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F4.png%3Fv%3D23cfa39fe9b3736a&w=320&q=75",
+          "bytes": 4286,
+          "duration": 1036.4000000953674
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F5.png%3Fv%3Da2194c986b201f5e&w=320&q=75",
+          "bytes": 6622,
+          "duration": 850.7999999523163
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F6.png%3Fv%3D38bd961a8e4da920&w=320&q=75",
+          "bytes": 9898,
+          "duration": 1114.2999999523163
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F7.png%3Fv%3Dd1a3ac4465a2ed84&w=320&q=75",
+          "bytes": 5094,
+          "duration": 965.5
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F8.png%3Fv%3D63f237f412b409b5&w=320&q=75",
+          "bytes": 3408,
+          "duration": 1002.6000001430511
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F9.png%3Fv%3D376be1b6da63d5bb&w=320&q=75",
+          "bytes": 6064,
+          "duration": 1121.2000000476837
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F10.webp%3Fv%3D1ad2a12c87b74a2c&w=320&q=75",
+          "bytes": 5766,
+          "duration": 1075.5
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F11.webp%3Fv%3D60e3caa50b9d5f78&w=320&q=75",
+          "bytes": 2502,
+          "duration": 823.5
+        }
+      ],
+      "optimizerRequests": 34,
+      "potentialOptimizerVariants": 172,
+      "bytes": 321674
+    },
+    {
+      "route": "/services/e-commerce-support",
+      "width": 390,
+      "lcp": 1076,
+      "cls": 0,
+      "load": 1959.5,
+      "images": 5,
+      "broken": [],
+      "overflow": false,
+      "resources": [
+        {
+          "url": "/_next/image?url=%2FBrand%2FEcommerce%2FAmazon.png%3Fv%3Df85b625c2d3c3521&w=256&q=90",
+          "bytes": 10092,
+          "duration": 1269.3999998569489
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FEcommerce%2FFlipkart_Logo.png%3Fv%3Ddc0cc0aa9502429e&w=256&q=90",
+          "bytes": 7804,
+          "duration": 1271.3999998569489
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FEcommerce%2Fmeesho.png%3Fv%3D154de6f5ab8ce5e4&w=256&q=90",
+          "bytes": 2768,
+          "duration": 1232.7000000476837
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fstraty-chat.44l3q0fntu-iv.webp&w=128&q=90",
+          "bytes": 7038,
+          "duration": 1460
+        }
+      ],
+      "optimizerRequests": 4,
+      "potentialOptimizerVariants": 21,
+      "bytes": 27702
+    },
+    {
+      "route": "/services/restaurant-consulting",
+      "width": 390,
+      "lcp": 1032,
+      "cls": 0,
+      "load": 2595.7000000476837,
+      "images": 11,
+      "broken": [],
+      "overflow": false,
+      "resources": [
+        {
+          "url": "/_next/image?url=%2FBrand%2FRestaurant%2FZomata.png%3Fv%3D6d57a77ba3f4f373&w=256&q=90",
+          "bytes": 8562,
+          "duration": 1238.9000000953674
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FRestaurant%2FSwiggy.png%3Fv%3D4ceedb957241b9c4&w=256&q=90",
+          "bytes": 8132,
+          "duration": 1274.7999999523163
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FRestaurant%2Ftoing.png%3Fv%3Dbc022b27d62c95d6&w=256&q=90",
+          "bytes": 11762,
+          "duration": 1405.2000000476837
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FRestaurant%2FFlipkart_Minutes.png%3Fv%3Dd562ef9e429cdf6d&w=256&q=90",
+          "bytes": 4904,
+          "duration": 1455.2999999523163
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F1.2pobzj92kztsp.webp&w=750&q=90",
+          "bytes": 14148,
+          "duration": 1710.7999999523163
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F2.12u7icnxl0lhc.webp&w=750&q=90",
+          "bytes": 25100,
+          "duration": 2131.0999999046326
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F3.44x3hwjdepiyw.webp&w=750&q=90",
+          "bytes": 8982,
+          "duration": 1810.3000001907349
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F4.19956dzcc2rx2.webp&w=750&q=90",
+          "bytes": 37902,
+          "duration": 2319.899999856949
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F5.0epl8912_oth1.webp&w=750&q=90",
+          "bytes": 22828,
+          "duration": 2193.7999999523163
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fstraty-chat.44l3q0fntu-iv.webp&w=128&q=90",
+          "bytes": 7038,
+          "duration": 2080.2999999523163
+        }
+      ],
+      "optimizerRequests": 10,
+      "potentialOptimizerVariants": 51,
+      "bytes": 149358
+    },
+    {
+      "route": "/services/hotel-revenue-management",
+      "width": 390,
+      "lcp": 1012,
+      "cls": 0,
+      "load": 2221.899999856949,
+      "images": 9,
+      "broken": [],
+      "overflow": false,
+      "resources": [
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fmmt.png%3Fv%3D444f4bc5e7d24114&w=192&q=90",
+          "bytes": 5390,
+          "duration": 1172.5
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fbooking.com.png%3Fv%3Dcdc84b0d4aa338f0&w=192&q=90",
+          "bytes": 5476,
+          "duration": 1238.4000000953674
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fagoda.png%3Fv%3Dbc1da58839d6f009&w=192&q=90",
+          "bytes": 10308,
+          "duration": 1370.6000001430511
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fgoibibo.png%3Fv%3D850090b5070d5319&w=192&q=90",
+          "bytes": 2388,
+          "duration": 1404.8999998569489
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fexpedia.png%3Fv%3Df2dac85e1cfb5e31&w=192&q=90",
+          "bytes": 5788,
+          "duration": 1487.9000000953674
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fcleartrip.png%3Fv%3D158c153434f249ba&w=192&q=90",
+          "bytes": 5380,
+          "duration": 1538.3999998569489
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fyatra.png%3Fv%3D4d4c74e9ccd023ae&w=192&q=90",
+          "bytes": 9666,
+          "duration": 1867
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fstraty-chat.44l3q0fntu-iv.webp&w=128&q=90",
+          "bytes": 7038,
+          "duration": 1832.7000000476837
+        }
+      ],
+      "optimizerRequests": 8,
+      "potentialOptimizerVariants": 48,
+      "bytes": 51434
+    },
+    {
+      "route": "/services/digital-marketing",
+      "width": 390,
+      "lcp": 1280,
+      "cls": 0,
+      "load": 2031.5999999046326,
+      "images": 5,
+      "broken": [],
+      "overflow": false,
+      "resources": [
+        {
+          "url": "/_next/image?url=%2FBrand%2FDigitalMarketting%2FGoogle.png%3Fv%3D2101baa7a90e6878&w=128&q=90",
+          "bytes": 4676,
+          "duration": 1120.8000001907349
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FDigitalMarketting%2FMeta.png%3Fv%3D1ce666fddd1cbce2&w=128&q=90",
+          "bytes": 2550,
+          "duration": 1115.6000001430511
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FDigitalMarketting%2Fwhatsapp.png%3Fv%3Dacc6d25704a5465b&w=128&q=90",
+          "bytes": 3774,
+          "duration": 1176.2000000476837
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fstraty-chat.44l3q0fntu-iv.webp&w=128&q=90",
+          "bytes": 7038,
+          "duration": 1379.3000001907349
+        }
+      ],
+      "optimizerRequests": 4,
+      "potentialOptimizerVariants": 24,
+      "bytes": 18038
+    },
+    {
+      "route": "/",
+      "width": 1440,
+      "lcp": 684,
+      "cls": 0,
+      "load": 856.2999999523163,
+      "images": 58,
+      "broken": [],
+      "overflow": false,
+      "resources": [
+        {
+          "url": "/_next/image?url=%2FBrand%2FRestaurant%2FZomata.png%3Fv%3D6d57a77ba3f4f373&w=320&q=90",
+          "bytes": 10930,
+          "duration": 481.5
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FRestaurant%2FSwiggy.png%3Fv%3D4ceedb957241b9c4&w=320&q=90",
+          "bytes": 10606,
+          "duration": 504.60000014305115
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FRestaurant%2Ftoing.png%3Fv%3Dbc022b27d62c95d6&w=320&q=90",
+          "bytes": 14354,
+          "duration": 503.09999990463257
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FRestaurant%2FFlipkart_Minutes.png%3Fv%3Dd562ef9e429cdf6d&w=640&q=90",
+          "bytes": 12746,
+          "duration": 534.7999999523163
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fmmt.png%3Fv%3D444f4bc5e7d24114&w=320&q=90",
+          "bytes": 9256,
+          "duration": 537.8999998569489
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fbooking.com.png%3Fv%3Dcdc84b0d4aa338f0&w=320&q=90",
+          "bytes": 9662,
+          "duration": 562.2999999523163
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fagoda.png%3Fv%3Dbc1da58839d6f009&w=320&q=90",
+          "bytes": 16354,
+          "duration": 602
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fgoibibo.png%3Fv%3D850090b5070d5319&w=320&q=90",
+          "bytes": 2388,
+          "duration": 564
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fexpedia.png%3Fv%3Df2dac85e1cfb5e31&w=320&q=90",
+          "bytes": 10374,
+          "duration": 602
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fcleartrip.png%3Fv%3D158c153434f249ba&w=320&q=90",
+          "bytes": 9434,
+          "duration": 636.8000001907349
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fyatra.png%3Fv%3D4d4c74e9ccd023ae&w=320&q=90",
+          "bytes": 16380,
+          "duration": 665.1999998092651
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FEcommerce%2FAmazon.png%3Fv%3Df85b625c2d3c3521&w=320&q=90",
+          "bytes": 12476,
+          "duration": 665.1000001430511
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FEcommerce%2FFlipkart_Logo.png%3Fv%3Ddc0cc0aa9502429e&w=320&q=90",
+          "bytes": 9938,
+          "duration": 671.9000000953674
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FEcommerce%2Fmeesho.png%3Fv%3D154de6f5ab8ce5e4&w=320&q=90",
+          "bytes": 2768,
+          "duration": 672.2000000476837
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FDigitalMarketting%2FGoogle.png%3Fv%3D2101baa7a90e6878&w=320&q=90",
+          "bytes": 13546,
+          "duration": 682.5999999046326
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FDigitalMarketting%2FMeta.png%3Fv%3D1ce666fddd1cbce2&w=640&q=90",
+          "bytes": 15880,
+          "duration": 697.7000000476837
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FDigitalMarketting%2Fwhatsapp.png%3Fv%3Dacc6d25704a5465b&w=320&q=90",
+          "bytes": 12658,
+          "duration": 701.4000000953674
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fstraty-chat.44l3q0fntu-iv.webp&w=128&q=90",
+          "bytes": 7038,
+          "duration": 702.5
+        },
+        {
+          "url": "/_next/static/media/1.2pobzj92kztsp.webp",
+          "bytes": 33430,
+          "duration": 295.2999999523163
+        },
+        {
+          "url": "/_next/static/media/2.12u7icnxl0lhc.webp",
+          "bytes": 55616,
+          "duration": 593.6000001430511
+        },
+        {
+          "url": "/_next/static/media/3.44x3hwjdepiyw.webp",
+          "bytes": 23920,
+          "duration": 44.299999952316284
+        },
+        {
+          "url": "/_next/static/media/4.19956dzcc2rx2.webp",
+          "bytes": 91704,
+          "duration": 51.299999952316284
+        },
+        {
+          "url": "/_next/static/media/5.0epl8912_oth1.webp",
+          "bytes": 56842,
+          "duration": 58.39999985694885
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F1.png%3Fv%3D716f7e5c9a578213&w=320&q=75",
+          "bytes": 5238,
+          "duration": 51.700000047683716
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F2.png%3Fv%3D4fb6e5902f4c44c0&w=320&q=75",
+          "bytes": 5492,
+          "duration": 51
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F3.png%3Fv%3D458d6e4a37889b43&w=320&q=75",
+          "bytes": 7016,
+          "duration": 37.5
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F4.png%3Fv%3D23cfa39fe9b3736a&w=320&q=75",
+          "bytes": 4286,
+          "duration": 59.200000047683716
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F5.png%3Fv%3Da2194c986b201f5e&w=320&q=75",
+          "bytes": 6622,
+          "duration": 66.29999995231628
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F6.png%3Fv%3D38bd961a8e4da920&w=320&q=75",
+          "bytes": 9898,
+          "duration": 52.40000009536743
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F7.png%3Fv%3Dd1a3ac4465a2ed84&w=320&q=75",
+          "bytes": 5094,
+          "duration": 53.90000009536743
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F8.png%3Fv%3D63f237f412b409b5&w=320&q=75",
+          "bytes": 3408,
+          "duration": 50.90000009536743
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F9.png%3Fv%3D376be1b6da63d5bb&w=320&q=75",
+          "bytes": 6064,
+          "duration": 70
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F10.webp%3Fv%3D1ad2a12c87b74a2c&w=320&q=75",
+          "bytes": 5766,
+          "duration": 72.29999995231628
+        },
+        {
+          "url": "/_next/image?url=%2Fclients%2F11.webp%3Fv%3D60e3caa50b9d5f78&w=320&q=75",
+          "bytes": 2502,
+          "duration": 73
+        }
+      ],
+      "optimizerRequests": 29,
+      "potentialOptimizerVariants": 172,
+      "bytes": 519686
+    },
+    {
+      "route": "/services/e-commerce-support",
+      "width": 1440,
+      "lcp": 520,
+      "cls": 0,
+      "load": 410.7000000476837,
+      "images": 5,
+      "broken": [],
+      "overflow": false,
+      "resources": [
+        {
+          "url": "/_next/image?url=%2FBrand%2FEcommerce%2FAmazon.png%3Fv%3Df85b625c2d3c3521&w=320&q=90",
+          "bytes": 12476,
+          "duration": 177
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FEcommerce%2FFlipkart_Logo.png%3Fv%3Ddc0cc0aa9502429e&w=320&q=90",
+          "bytes": 9938,
+          "duration": 174.29999995231628
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FEcommerce%2Fmeesho.png%3Fv%3D154de6f5ab8ce5e4&w=320&q=90",
+          "bytes": 2768,
+          "duration": 173.60000014305115
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fstraty-chat.44l3q0fntu-iv.webp&w=128&q=90",
+          "bytes": 7038,
+          "duration": 180.5
+        }
+      ],
+      "optimizerRequests": 4,
+      "potentialOptimizerVariants": 21,
+      "bytes": 32220
+    },
+    {
+      "route": "/services/restaurant-consulting",
+      "width": 1440,
+      "lcp": 548,
+      "cls": 0,
+      "load": 413.60000014305115,
+      "images": 11,
+      "broken": [],
+      "overflow": false,
+      "resources": [
+        {
+          "url": "/_next/image?url=%2FBrand%2FRestaurant%2FZomata.png%3Fv%3D6d57a77ba3f4f373&w=320&q=90",
+          "bytes": 10930,
+          "duration": 147.59999990463257
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FRestaurant%2FSwiggy.png%3Fv%3D4ceedb957241b9c4&w=320&q=90",
+          "bytes": 10606,
+          "duration": 154
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FRestaurant%2Ftoing.png%3Fv%3Dbc022b27d62c95d6&w=320&q=90",
+          "bytes": 14354,
+          "duration": 152.70000004768372
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FRestaurant%2FFlipkart_Minutes.png%3Fv%3Dd562ef9e429cdf6d&w=320&q=90",
+          "bytes": 6114,
+          "duration": 160.5
+        },
+        {
+          "url": "/_next/static/media/1.2pobzj92kztsp.webp",
+          "bytes": 33430,
+          "duration": 160.70000004768372
+        },
+        {
+          "url": "/_next/static/media/2.12u7icnxl0lhc.webp",
+          "bytes": 55616,
+          "duration": 167.5
+        },
+        {
+          "url": "/_next/static/media/3.44x3hwjdepiyw.webp",
+          "bytes": 23920,
+          "duration": 173.20000004768372
+        },
+        {
+          "url": "/_next/static/media/4.19956dzcc2rx2.webp",
+          "bytes": 91704,
+          "duration": 199.5
+        },
+        {
+          "url": "/_next/static/media/5.0epl8912_oth1.webp",
+          "bytes": 56842,
+          "duration": 200.60000014305115
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fstraty-chat.44l3q0fntu-iv.webp&w=128&q=90",
+          "bytes": 7038,
+          "duration": 204.09999990463257
+        }
+      ],
+      "optimizerRequests": 5,
+      "potentialOptimizerVariants": 51,
+      "bytes": 310554
+    },
+    {
+      "route": "/services/hotel-revenue-management",
+      "width": 1440,
+      "lcp": 816,
+      "cls": 0,
+      "load": 536.2000000476837,
+      "images": 9,
+      "broken": [],
+      "overflow": false,
+      "resources": [
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fmmt.png%3Fv%3D444f4bc5e7d24114&w=256&q=90",
+          "bytes": 7484,
+          "duration": 324.7999999523163
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fbooking.com.png%3Fv%3Dcdc84b0d4aa338f0&w=256&q=90",
+          "bytes": 7756,
+          "duration": 330.09999990463257
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fagoda.png%3Fv%3Dbc1da58839d6f009&w=256&q=90",
+          "bytes": 13534,
+          "duration": 334.2000000476837
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fgoibibo.png%3Fv%3D850090b5070d5319&w=256&q=90",
+          "bytes": 2388,
+          "duration": 328.5
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fexpedia.png%3Fv%3Df2dac85e1cfb5e31&w=256&q=90",
+          "bytes": 7986,
+          "duration": 342.40000009536743
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fcleartrip.png%3Fv%3D158c153434f249ba&w=256&q=90",
+          "bytes": 7338,
+          "duration": 343.7000000476837
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FHotel%2Fyatra.png%3Fv%3D4d4c74e9ccd023ae&w=256&q=90",
+          "bytes": 12786,
+          "duration": 353.7000000476837
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fstraty-chat.44l3q0fntu-iv.webp&w=128&q=90",
+          "bytes": 7038,
+          "duration": 352.7999999523163
+        }
+      ],
+      "optimizerRequests": 8,
+      "potentialOptimizerVariants": 48,
+      "bytes": 66310
+    },
+    {
+      "route": "/services/digital-marketing",
+      "width": 1440,
+      "lcp": 640,
+      "cls": 0,
+      "load": 475.7999999523163,
+      "images": 5,
+      "broken": [],
+      "overflow": false,
+      "resources": [
+        {
+          "url": "/_next/image?url=%2FBrand%2FDigitalMarketting%2FGoogle.png%3Fv%3D2101baa7a90e6878&w=128&q=90",
+          "bytes": 4676,
+          "duration": 142.40000009536743
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FDigitalMarketting%2FMeta.png%3Fv%3D1ce666fddd1cbce2&w=128&q=90",
+          "bytes": 2550,
+          "duration": 141.59999990463257
+        },
+        {
+          "url": "/_next/image?url=%2FBrand%2FDigitalMarketting%2Fwhatsapp.png%3Fv%3Dacc6d25704a5465b&w=128&q=90",
+          "bytes": 3774,
+          "duration": 150.10000014305115
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fstraty-chat.44l3q0fntu-iv.webp&w=128&q=90",
+          "bytes": 7038,
+          "duration": 151.40000009536743
+        }
+      ],
+      "optimizerRequests": 4,
+      "potentialOptimizerVariants": 24,
+      "bytes": 18038
+    }
+  ]
+}

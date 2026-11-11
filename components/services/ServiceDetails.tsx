@@ -77,7 +77,7 @@ export default async function ServiceDetails({ service, content }: { service: Se
             {logos.map((logo, index) => (
               <li className={styles.logo} key={logo.src} style={{ "--phase": `${-index * 1.3}s` } as CSSProperties}>
                 <span className={styles.logoArt}>
-                  <StaticImage src={logo.src} alt={logo.name} fill quality={90} slotWidth={digital ? 64 : 132} loading="eager" fetchPriority="low" sizes={digital ? "64px" : "(max-width: 599px) 112px, 132px"} />
+                  <StaticImage src={logo.src} variants={logo.variants} alt={logo.name} fill quality={90} slotWidth={digital ? 64 : 132} loading="eager" fetchPriority="low" sizes={digital ? "64px" : "(max-width: 599px) 112px, 132px"} />
                 </span>
               </li>
             ))}

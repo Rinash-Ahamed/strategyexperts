@@ -1,0 +1,756 @@
+{
+  "base": "http://localhost:3011",
+  "conditions": "Local production; cold browser cache per page, server image cache retained; DPR 2; Chrome headless; mobile 1.6Mbps/150ms, desktop unthrottled; one run per route/device, not Lighthouse or field metrics.",
+  "runs": [
+    {
+      "route": "/",
+      "width": 390,
+      "lcp": 1648,
+      "cls": 0,
+      "load": 2594.5999999046326,
+      "images": 58,
+      "broken": [],
+      "overflow": false,
+      "resources": [
+        {
+          "url": "/_images/logo-d096dda926bae910f1d02e07-256.webp",
+          "bytes": 8468,
+          "duration": 1201
+        },
+        {
+          "url": "/_images/logo-109036a12e9cd4449d0939da-256.webp",
+          "bytes": 8092,
+          "duration": 1211
+        },
+        {
+          "url": "/_images/logo-dad0b63065a83676be375ca3-256.webp",
+          "bytes": 11614,
+          "duration": 1334.6000001430511
+        },
+        {
+          "url": "/_images/logo-857aea88d17c531452d0d74a-320.webp",
+          "bytes": 6094,
+          "duration": 1317.0999999046326
+        },
+        {
+          "url": "/_images/logo-501e22537a5a2b7eba6638cc-256.webp",
+          "bytes": 7416,
+          "duration": 1526.2999999523163
+        },
+        {
+          "url": "/_images/logo-5e3f729a3e822402dc9acb9e-256.webp",
+          "bytes": 7686,
+          "duration": 1559.3000001907349
+        },
+        {
+          "url": "/_images/logo-66b6c6bd93cea64e1b4db919-256.webp",
+          "bytes": 13374,
+          "duration": 1717.0999999046326
+        },
+        {
+          "url": "/Brand/Hotel/goibibo.png?v=850090b5070d5319",
+          "bytes": 2200,
+          "duration": 1551.2999999523163
+        },
+        {
+          "url": "/_images/logo-071ea3ebab87adc7f45e4838-256.webp",
+          "bytes": 7982,
+          "duration": 1835.6000001430511
+        },
+        {
+          "url": "/_images/logo-dbac36ea194ca26981f7d533-256.webp",
+          "bytes": 7272,
+          "duration": 1878.8999998569489
+        },
+        {
+          "url": "/_images/logo-a81b942f1bd7839fa8fa23a1-256.webp",
+          "bytes": 12772,
+          "duration": 1996.0999999046326
+        },
+        {
+          "url": "/_images/logo-b5c8b3a2b798cdcb3f3e68d0-256.webp",
+          "bytes": 10016,
+          "duration": 1981.2999999523163
+        },
+        {
+          "url": "/_images/logo-94550e4d4a1de436ca196d4e-256.webp",
+          "bytes": 7766,
+          "duration": 2028.9000000953674
+        },
+        {
+          "url": "/Brand/Ecommerce/meesho.png?v=154de6f5ab8ce5e4",
+          "bytes": 5251,
+          "duration": 2020
+        },
+        {
+          "url": "/_images/logo-1b8a195a3f65d0a7cb9df223-256.webp",
+          "bytes": 10702,
+          "duration": 2085.7999999523163
+        },
+        {
+          "url": "/_images/logo-751ff118bbf1a37de95d102c-640.webp",
+          "bytes": 15836,
+          "duration": 2267.7000000476837
+        },
+        {
+          "url": "/_images/logo-5e05eb20c17f3bc0149b5f42-256.webp",
+          "bytes": 9512,
+          "duration": 2238.4000000953674
+        },
+        {
+          "url": "/_next/static/media/straty-chat-128.1ciesaizn_r4m.webp",
+          "bytes": 6996,
+          "duration": 2218.699999809265
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F1.2pobzj92kztsp.webp&w=750&q=90",
+          "bytes": 14148,
+          "duration": 2412.7000000476837
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F2.12u7icnxl0lhc.webp&w=750&q=90",
+          "bytes": 25100,
+          "duration": 360.09999990463257
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F3.44x3hwjdepiyw.webp&w=750&q=90",
+          "bytes": 8982,
+          "duration": 292.39999985694885
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F4.19956dzcc2rx2.webp&w=750&q=90",
+          "bytes": 37902,
+          "duration": 622.3999998569489
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F5.0epl8912_oth1.webp&w=750&q=90",
+          "bytes": 22828,
+          "duration": 540
+        },
+        {
+          "url": "/_images/logo-8661d057d576ca68a9a5c64e-320.webp",
+          "bytes": 5152,
+          "duration": 340.7999999523163
+        },
+        {
+          "url": "/_images/logo-fdded5da78a804c55f8b55f2-320.webp",
+          "bytes": 5432,
+          "duration": 337.89999985694885
+        },
+        {
+          "url": "/_images/logo-5c4848e327cb90fb2fa4d1c6-320.webp",
+          "bytes": 6950,
+          "duration": 373.39999985694885
+        },
+        {
+          "url": "/_images/logo-73e3c51649532be0b7118c16-320.webp",
+          "bytes": 4300,
+          "duration": 335.10000014305115
+        },
+        {
+          "url": "/_images/logo-24b9aa8107161c280c0a5a9c-320.webp",
+          "bytes": 6540,
+          "duration": 649.2000000476837
+        },
+        {
+          "url": "/_images/logo-f191a97af5770d12386b7e21-320.webp",
+          "bytes": 9806,
+          "duration": 701
+        },
+        {
+          "url": "/_images/logo-b288b5d4d14031abfa0629e0-320.webp",
+          "bytes": 5070,
+          "duration": 517.8999998569489
+        },
+        {
+          "url": "/_images/logo-3f9850707e9fe04a824b1a32-320.webp",
+          "bytes": 3412,
+          "duration": 474.90000009536743
+        },
+        {
+          "url": "/_images/logo-28f43df2e4ad95175b3ec0d1-320.webp",
+          "bytes": 5976,
+          "duration": 541.7999999523163
+        },
+        {
+          "url": "/_images/logo-0bd50e8875fbed1a4a945717-320.webp",
+          "bytes": 5570,
+          "duration": 569.7000000476837
+        },
+        {
+          "url": "/_images/logo-c3274b724dd006abe63e3961-320.webp",
+          "bytes": 2504,
+          "duration": 674.3000001907349
+        }
+      ],
+      "optimizerRequests": 5,
+      "potentialOptimizerVariants": 25,
+      "bytes": 328721
+    },
+    {
+      "route": "/services/e-commerce-support",
+      "width": 390,
+      "lcp": 944,
+      "cls": 0,
+      "load": 1804.2000000476837,
+      "images": 5,
+      "broken": [],
+      "overflow": false,
+      "resources": [
+        {
+          "url": "/_images/logo-b5c8b3a2b798cdcb3f3e68d0-192.webp",
+          "bytes": 6736,
+          "duration": 1178
+        },
+        {
+          "url": "/_images/logo-94550e4d4a1de436ca196d4e-192.webp",
+          "bytes": 5446,
+          "duration": 1143.8999998569489
+        },
+        {
+          "url": "/Brand/Ecommerce/meesho.png?v=154de6f5ab8ce5e4",
+          "bytes": 5251,
+          "duration": 1199.4000000953674
+        },
+        {
+          "url": "/_next/static/media/straty-chat-128.1ciesaizn_r4m.webp",
+          "bytes": 6996,
+          "duration": 1383.7999999523163
+        }
+      ],
+      "optimizerRequests": 0,
+      "potentialOptimizerVariants": 0,
+      "bytes": 24429
+    },
+    {
+      "route": "/services/restaurant-consulting",
+      "width": 390,
+      "lcp": 1032,
+      "cls": 0,
+      "load": 2572.100000143051,
+      "images": 11,
+      "broken": [],
+      "overflow": false,
+      "resources": [
+        {
+          "url": "/_images/logo-d096dda926bae910f1d02e07-256.webp",
+          "bytes": 8468,
+          "duration": 1255
+        },
+        {
+          "url": "/_images/logo-109036a12e9cd4449d0939da-256.webp",
+          "bytes": 8092,
+          "duration": 1273.6999998092651
+        },
+        {
+          "url": "/_images/logo-dad0b63065a83676be375ca3-256.webp",
+          "bytes": 11614,
+          "duration": 1423.3000001907349
+        },
+        {
+          "url": "/_images/logo-857aea88d17c531452d0d74a-256.webp",
+          "bytes": 4864,
+          "duration": 1434
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F1.2pobzj92kztsp.webp&w=750&q=90",
+          "bytes": 14148,
+          "duration": 1672.7000000476837
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F2.12u7icnxl0lhc.webp&w=750&q=90",
+          "bytes": 25100,
+          "duration": 1989.3999998569489
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F3.44x3hwjdepiyw.webp&w=750&q=90",
+          "bytes": 8982,
+          "duration": 1804.5
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F4.19956dzcc2rx2.webp&w=750&q=90",
+          "bytes": 37902,
+          "duration": 2283.7999999523163
+        },
+        {
+          "url": "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F5.0epl8912_oth1.webp&w=750&q=90",
+          "bytes": 22828,
+          "duration": 2174.399999856949
+        },
+        {
+          "url": "/_next/static/media/straty-chat-128.1ciesaizn_r4m.webp",
+          "bytes": 6996,
+          "duration": 2020.5999999046326
+        }
+      ],
+      "optimizerRequests": 5,
+      "potentialOptimizerVariants": 25,
+      "bytes": 148994
+    },
+    {
+      "route": "/services/hotel-revenue-management",
+      "width": 390,
+      "lcp": 1032,
+      "cls": 0,
+      "load": 2148.2000000476837,
+      "images": 9,
+      "broken": [],
+      "overflow": false,
+      "resources": [
+        {
+          "url": "/_images/logo-501e22537a5a2b7eba6638cc-192.webp",
+          "bytes": 5340,
+          "duration": 1134.9000000953674
+        },
+        {
+          "url": "/_images/logo-5e3f729a3e822402dc9acb9e-192.webp",
+          "bytes": 5412,
+          "duration": 1282.1999998092651
+        },
+        {
+          "url": "/_images/logo-66b6c6bd93cea64e1b4db919-192.webp",
+          "bytes": 10198,
+          "duration": 1520.2000000476837
+        },
+        {
+          "url": "/Brand/Hotel/goibibo.png?v=850090b5070d5319",
+          "bytes": 2200,
+          "duration": 1398.3999998569489
+        },
+        {
+          "url": "/_images/logo-071ea3ebab87adc7f45e4838-192.webp",
+          "bytes": 5740,
+          "duration": 1536.0999999046326
+        },
+        {
+          "url": "/_images/logo-dbac36ea194ca26981f7d533-192.webp",
+          "bytes": 5338,
+          "duration": 1556.2999999523163
+        },
+        {
+          "url": "/_images/logo-a81b942f1bd7839fa8fa23a1-192.webp",
+          "bytes": 9656,
+          "duration": 1728.1000001430511
+        },
+        {
+          "url": "/_next/static/media/straty-chat-128.1ciesaizn_r4m.webp",
+          "bytes": 6996,
+          "duration": 1722.5999999046326
+        }
+      ],
+      "optimizerRequests": 0,
+      "potentialOptimizerVariants": 0,
+      "bytes": 50880
+    },
+    {
+      "route": "/services/digital-marketing",
+      "width": 390,
+      "lcp": 992,
+      "cls": 0,
+      "load": 1778.2000000476837,
+      "images": 5,
+      "broken": [],
+      "overflow": false,
+      "resources": [
+        {
+          "url": "/_images/logo-1b8a195a3f65d0a7cb9df223-128.webp",
+          "bytes": 4622,
+          "duration": 1108.1999998092651
+        },
+        {
+          "url": "/_images/logo-751ff118bbf1a37de95d102c-128.webp",
+          "bytes": 2538,
+          "duration": 1116.0999999046326
+        },
+        {
+          "url": "/_images/logo-5e05eb20c17f3bc0149b5f42-128.webp",
+          "bytes": 3752,
+          "duration": 1176.2000000476837
+        },
+        {
+          "url": "/_next/static/media/straty-chat-128.1ciesaizn_r4m.webp",
+          "bytes": 6996,
+          "duration": 1384.5
+        }
+      ],
+      "optimizerRequests": 0,
+      "potentialOptimizerVariants": 0,
+      "bytes": 17908
+    },
+    {
+      "route": "/",
+      "width": 1440,
+      "lcp": 412,
+      "cls": 0,
+      "load": 635.7999999523163,
+      "images": 58,
+      "broken": [],
+      "overflow": false,
+      "resources": [
+        {
+          "url": "/_images/logo-d096dda926bae910f1d02e07-320.webp",
+          "bytes": 10822,
+          "duration": 275.89999985694885
+        },
+        {
+          "url": "/_images/logo-109036a12e9cd4449d0939da-320.webp",
+          "bytes": 10544,
+          "duration": 275.2000000476837
+        },
+        {
+          "url": "/_images/logo-dad0b63065a83676be375ca3-320.webp",
+          "bytes": 14236,
+          "duration": 274.10000014305115
+        },
+        {
+          "url": "/_images/logo-857aea88d17c531452d0d74a-640.webp",
+          "bytes": 12664,
+          "duration": 272.7999999523163
+        },
+        {
+          "url": "/_images/logo-501e22537a5a2b7eba6638cc-320.webp",
+          "bytes": 9162,
+          "duration": 332.2999999523163
+        },
+        {
+          "url": "/_images/logo-5e3f729a3e822402dc9acb9e-320.webp",
+          "bytes": 9554,
+          "duration": 333.7000000476837
+        },
+        {
+          "url": "/_images/logo-66b6c6bd93cea64e1b4db919-320.webp",
+          "bytes": 16204,
+          "duration": 359.2999999523163
+        },
+        {
+          "url": "/Brand/Hotel/goibibo.png?v=850090b5070d5319",
+          "bytes": 2200,
+          "duration": 355.2000000476837
+        },
+        {
+          "url": "/_images/logo-071ea3ebab87adc7f45e4838-320.webp",
+          "bytes": 10292,
+          "duration": 357.7000000476837
+        },
+        {
+          "url": "/_images/logo-dbac36ea194ca26981f7d533-320.webp",
+          "bytes": 9370,
+          "duration": 357.19999980926514
+        },
+        {
+          "url": "/_images/logo-a81b942f1bd7839fa8fa23a1-320.webp",
+          "bytes": 16308,
+          "duration": 356.7000000476837
+        },
+        {
+          "url": "/_images/logo-b5c8b3a2b798cdcb3f3e68d0-320.webp",
+          "bytes": 12276,
+          "duration": 354.60000014305115
+        },
+        {
+          "url": "/_images/logo-94550e4d4a1de436ca196d4e-320.webp",
+          "bytes": 9850,
+          "duration": 421.89999985694885
+        },
+        {
+          "url": "/Brand/Ecommerce/meesho.png?v=154de6f5ab8ce5e4",
+          "bytes": 5251,
+          "duration": 421.5
+        },
+        {
+          "url": "/_images/logo-1b8a195a3f65d0a7cb9df223-320.webp",
+          "bytes": 13436,
+          "duration": 420.89999985694885
+        },
+        {
+          "url": "/_images/logo-751ff118bbf1a37de95d102c-640.webp",
+          "bytes": 15836,
+          "duration": 420.2999999523163
+        },
+        {
+          "url": "/_images/logo-5e05eb20c17f3bc0149b5f42-320.webp",
+          "bytes": 12488,
+          "duration": 419.90000009536743
+        },
+        {
+          "url": "/_next/static/media/straty-chat-128.1ciesaizn_r4m.webp",
+          "bytes": 6996,
+          "duration": 418.7000000476837
+        },
+        {
+          "url": "/_next/static/media/1.2pobzj92kztsp.webp",
+          "bytes": 33430,
+          "duration": 45.700000047683716
+        },
+        {
+          "url": "/_next/static/media/2.12u7icnxl0lhc.webp",
+          "bytes": 55616,
+          "duration": 172.29999995231628
+        },
+        {
+          "url": "/_next/static/media/3.44x3hwjdepiyw.webp",
+          "bytes": 23920,
+          "duration": 26.5
+        },
+        {
+          "url": "/_next/static/media/4.19956dzcc2rx2.webp",
+          "bytes": 91704,
+          "duration": 29
+        },
+        {
+          "url": "/_next/static/media/5.0epl8912_oth1.webp",
+          "bytes": 56842,
+          "duration": 9.200000047683716
+        },
+        {
+          "url": "/_images/logo-8661d057d576ca68a9a5c64e-320.webp",
+          "bytes": 5152,
+          "duration": 19.899999856948853
+        },
+        {
+          "url": "/_images/logo-fdded5da78a804c55f8b55f2-320.webp",
+          "bytes": 5432,
+          "duration": 17.200000047683716
+        },
+        {
+          "url": "/_images/logo-5c4848e327cb90fb2fa4d1c6-320.webp",
+          "bytes": 6950,
+          "duration": 20.09999990463257
+        },
+        {
+          "url": "/_images/logo-73e3c51649532be0b7118c16-320.webp",
+          "bytes": 4300,
+          "duration": 20.200000047683716
+        },
+        {
+          "url": "/_images/logo-24b9aa8107161c280c0a5a9c-320.webp",
+          "bytes": 6540,
+          "duration": 24.600000143051147
+        },
+        {
+          "url": "/_images/logo-f191a97af5770d12386b7e21-320.webp",
+          "bytes": 9806,
+          "duration": 20.299999952316284
+        },
+        {
+          "url": "/_images/logo-b288b5d4d14031abfa0629e0-320.webp",
+          "bytes": 5070,
+          "duration": 20.5
+        },
+        {
+          "url": "/_images/logo-3f9850707e9fe04a824b1a32-320.webp",
+          "bytes": 3412,
+          "duration": 19.5
+        },
+        {
+          "url": "/_images/logo-28f43df2e4ad95175b3ec0d1-320.webp",
+          "bytes": 5976,
+          "duration": 24.699999809265137
+        },
+        {
+          "url": "/_images/logo-0bd50e8875fbed1a4a945717-320.webp",
+          "bytes": 5570,
+          "duration": 25.09999990463257
+        },
+        {
+          "url": "/_images/logo-c3274b724dd006abe63e3961-320.webp",
+          "bytes": 2504,
+          "duration": 24.700000047683716
+        }
+      ],
+      "optimizerRequests": 0,
+      "potentialOptimizerVariants": 25,
+      "bytes": 519713
+    },
+    {
+      "route": "/services/e-commerce-support",
+      "width": 1440,
+      "lcp": 436,
+      "cls": 0,
+      "load": 344.59999990463257,
+      "images": 5,
+      "broken": [],
+      "overflow": false,
+      "resources": [
+        {
+          "url": "/_images/logo-b5c8b3a2b798cdcb3f3e68d0-320.webp",
+          "bytes": 12276,
+          "duration": 140.89999985694885
+        },
+        {
+          "url": "/_images/logo-94550e4d4a1de436ca196d4e-320.webp",
+          "bytes": 9850,
+          "duration": 142.70000004768372
+        },
+        {
+          "url": "/Brand/Ecommerce/meesho.png?v=154de6f5ab8ce5e4",
+          "bytes": 5251,
+          "duration": 141
+        },
+        {
+          "url": "/_next/static/media/straty-chat-128.1ciesaizn_r4m.webp",
+          "bytes": 6996,
+          "duration": 188.79999995231628
+        }
+      ],
+      "optimizerRequests": 0,
+      "potentialOptimizerVariants": 0,
+      "bytes": 34373
+    },
+    {
+      "route": "/services/restaurant-consulting",
+      "width": 1440,
+      "lcp": 536,
+      "cls": 0,
+      "load": 429.39999985694885,
+      "images": 11,
+      "broken": [],
+      "overflow": false,
+      "resources": [
+        {
+          "url": "/_images/logo-d096dda926bae910f1d02e07-320.webp",
+          "bytes": 10822,
+          "duration": 228.39999985694885
+        },
+        {
+          "url": "/_images/logo-109036a12e9cd4449d0939da-320.webp",
+          "bytes": 10544,
+          "duration": 231.90000009536743
+        },
+        {
+          "url": "/_images/logo-dad0b63065a83676be375ca3-320.webp",
+          "bytes": 14236,
+          "duration": 232.5
+        },
+        {
+          "url": "/_images/logo-857aea88d17c531452d0d74a-320.webp",
+          "bytes": 6094,
+          "duration": 233.10000014305115
+        },
+        {
+          "url": "/_next/static/media/1.2pobzj92kztsp.webp",
+          "bytes": 33430,
+          "duration": 246.5
+        },
+        {
+          "url": "/_next/static/media/2.12u7icnxl0lhc.webp",
+          "bytes": 55616,
+          "duration": 250.20000004768372
+        },
+        {
+          "url": "/_next/static/media/3.44x3hwjdepiyw.webp",
+          "bytes": 23920,
+          "duration": 250.70000004768372
+        },
+        {
+          "url": "/_next/static/media/4.19956dzcc2rx2.webp",
+          "bytes": 91704,
+          "duration": 258.5
+        },
+        {
+          "url": "/_next/static/media/5.0epl8912_oth1.webp",
+          "bytes": 56842,
+          "duration": 257.59999990463257
+        },
+        {
+          "url": "/_next/static/media/straty-chat-128.1ciesaizn_r4m.webp",
+          "bytes": 6996,
+          "duration": 257.90000009536743
+        }
+      ],
+      "optimizerRequests": 0,
+      "potentialOptimizerVariants": 25,
+      "bytes": 310204
+    },
+    {
+      "route": "/services/hotel-revenue-management",
+      "width": 1440,
+      "lcp": 520,
+      "cls": 0,
+      "load": 368,
+      "images": 9,
+      "broken": [],
+      "overflow": false,
+      "resources": [
+        {
+          "url": "/_images/logo-501e22537a5a2b7eba6638cc-256.webp",
+          "bytes": 7416,
+          "duration": 180.90000009536743
+        },
+        {
+          "url": "/_images/logo-5e3f729a3e822402dc9acb9e-256.webp",
+          "bytes": 7686,
+          "duration": 190.09999990463257
+        },
+        {
+          "url": "/_images/logo-66b6c6bd93cea64e1b4db919-256.webp",
+          "bytes": 13374,
+          "duration": 199.30000019073486
+        },
+        {
+          "url": "/Brand/Hotel/goibibo.png?v=850090b5070d5319",
+          "bytes": 2200,
+          "duration": 190.39999985694885
+        },
+        {
+          "url": "/_images/logo-071ea3ebab87adc7f45e4838-256.webp",
+          "bytes": 7982,
+          "duration": 200.09999990463257
+        },
+        {
+          "url": "/_images/logo-dbac36ea194ca26981f7d533-256.webp",
+          "bytes": 7272,
+          "duration": 203.40000009536743
+        },
+        {
+          "url": "/_images/logo-a81b942f1bd7839fa8fa23a1-256.webp",
+          "bytes": 12772,
+          "duration": 203.70000004768372
+        },
+        {
+          "url": "/_next/static/media/straty-chat-128.1ciesaizn_r4m.webp",
+          "bytes": 6996,
+          "duration": 204.79999995231628
+        }
+      ],
+      "optimizerRequests": 0,
+      "potentialOptimizerVariants": 0,
+      "bytes": 65698
+    },
+    {
+      "route": "/services/digital-marketing",
+      "width": 1440,
+      "lcp": 520,
+      "cls": 0,
+      "load": 386.5,
+      "images": 5,
+      "broken": [],
+      "overflow": false,
+      "resources": [
+        {
+          "url": "/_images/logo-1b8a195a3f65d0a7cb9df223-128.webp",
+          "bytes": 4622,
+          "duration": 171.30000019073486
+        },
+        {
+          "url": "/_images/logo-751ff118bbf1a37de95d102c-128.webp",
+          "bytes": 2538,
+          "duration": 172.59999990463257
+        },
+        {
+          "url": "/_images/logo-5e05eb20c17f3bc0149b5f42-128.webp",
+          "bytes": 3752,
+          "duration": 173.10000014305115
+        },
+        {
+          "url": "/_next/static/media/straty-chat-128.1ciesaizn_r4m.webp",
+          "bytes": 6996,
+          "duration": 173.79999995231628
+        }
+      ],
+      "optimizerRequests": 0,
+      "potentialOptimizerVariants": 0,
+      "bytes": 17908
+    }
+  ]
+}

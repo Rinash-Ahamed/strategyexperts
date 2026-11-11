@@ -12,7 +12,8 @@ import SiteFooter from "@/components/layout/SiteFooter";
 import SiteHeader from "@/components/layout/SiteHeader";
 import StratySupport from "@/components/support/StratySupport";
 import StaticImage from "@/components/shared/StaticImage";
-import stratyAvatar from "@/public/straty-chat.webp";
+import stratyAvatar from "@/public/straty-chat-small.webp";
+import stratyAvatar128 from "@/public/straty-chat-128.webp";
 import { NAV_LINKS, SERVICES, SITE } from "@/lib/site";
 import { PAGE_BOOTSTRAP } from "@/lib/page-bootstrap";
 
@@ -66,7 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteHeader links={NAV_LINKS} name={SITE.name} tagline={SITE.tagline} />
         <main id="main">{children}</main>
         <SiteFooter />
-        <StratySupport email={SITE.email} services={SERVICES.map(({ name }) => ({ name }))} avatar={<StaticImage src={stratyAvatar} width={64} height={64} sizes="64px" slotWidth={64} quality={90} loading="eager" fetchPriority="low" alt="" />} />
+        <StratySupport email={SITE.email} services={SERVICES.map(({ name }) => ({ name }))} avatar={<StaticImage src={stratyAvatar} width={64} height={64} sizes="64px" variants={[{ src: stratyAvatar128.src, width: 128 }, { src: stratyAvatar.src, width: 192 }]} loading="eager" fetchPriority="low" alt="" />} />
         <RevealObserver />
       </body>
     </html>

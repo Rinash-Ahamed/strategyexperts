@@ -31,6 +31,7 @@ These instructions apply to the entire repository.
 - Do not add manual image imports or a separate logo manifest for new assets. Existing name overrides are optional accessibility refinements, not an inclusion list.
 - PDFs are source artwork, not browser logos. Convert and visually verify requested artwork before removing source PDFs, and only remove sources when the user authorizes it.
 - Folder discovery runs during server rendering: refresh in development; rebuild/redeploy production after adding, replacing or removing files. This is not a live-upload CMS.
+- Preserve the build-time logo derivatives in `lib/logo-variants.ts` and `scripts/prepare-images.mjs`. Generated variants are not a manual logo manifest. Keep originals intact, retain transparent backgrounds and existing quality levels, and pass discovered variants to every logo consumer. Use `npm run build` so preparation precedes production asset packaging. Unprepared imagery must retain Next optimization; do not disable it globally.
 
 ## Current architecture and visual contract
 

@@ -23,10 +23,14 @@ const nextConfig = {
     // Match small logo slots, including their 2x variants, without changing CSS.
     imageSizes: [32, 48, 64, 96, 128, 160, 192, 256, 320, 384],
     formats: ["image/webp"],
+    // Stable source hashes invalidate replacements; retain fallback transforms
+    // for a month instead of frequently reprocessing unchanged artwork.
+    minimumCacheTTL: 2592000,
   },
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },
+      { source: "/_images/:path*", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
       // Only fingerprinted URLs are immutable. Bare filenames still revalidate
       // so replacing artwork and rebuilding never strands an old browser copy.
       ...["/Brand/:path*", "/clients/:path*"].map(source => ({ source, has: [{ type: "query", key: "v" }], headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] })),

@@ -20,7 +20,7 @@ export default async function ClientPartners() {
         <ul className={styles.logos} aria-label="Our restaurant clients">
           {clients.map(client => (
             <li className={styles.logoFrame} key={client.src}>
-              <span className={styles.plaque}><span className={styles.logoBox}><StaticImage src={client.src} alt={client.name} className={styles.logo} fill slotWidth={156} loading="lazy" sizes="(max-width: 600px) 130px, 156px" /></span></span>
+              <span className={styles.plaque}><span className={styles.logoBox}><StaticImage src={client.src} variants={client.variants} alt={client.name} className={styles.logo} fill slotWidth={156} loading="lazy" sizes="(max-width: 600px) 130px, 156px" /></span></span>
             </li>
           ))}
         </ul>

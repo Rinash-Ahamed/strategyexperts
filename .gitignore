@@ -4,6 +4,7 @@
 # Next.js output
 /.next
 /out
+/public/_images/
 
 # Local environment files (keep the documented template)
 .env*

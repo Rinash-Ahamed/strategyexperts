@@ -1,8 +1,10 @@
 {
   "name": "strategy-experts",
-  "version": "2.14.19",
+  "version": "2.14.20",
   "private": true,
   "scripts": {
+    "predev": "node scripts/prepare-images.mjs",
+    "prebuild": "node scripts/prepare-images.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -15,7 +17,8 @@
     "next": "^16.4.2",
     "nodemailer": "^10.3.1",
     "react": "^19.3.1",
-    "react-dom": "^19.3.1"
+    "react-dom": "^19.3.1",
+    "sharp": "0.35.5"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",

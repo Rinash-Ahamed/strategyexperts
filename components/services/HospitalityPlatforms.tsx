@@ -15,7 +15,7 @@ export default function HospitalityPlatforms({ logos, title }: {
           <li className={styles.tile} key={logo.src} style={{ "--delay": `${-index * 1.4}s` } as CSSProperties}>
             <span className={styles.platter} aria-hidden="true" />
             <span className={styles.art}>
-              <StaticImage src={logo.src} alt={logo.name} fill quality={90} slotWidth={132} loading="eager" fetchPriority="low" sizes="(max-width: 479px) 112px, 132px" />
+              <StaticImage src={logo.src} variants={logo.variants} alt={logo.name} fill quality={90} slotWidth={132} loading="eager" fetchPriority="low" sizes="(max-width: 479px) 112px, 132px" />
             </span>
           </li>
         ))}

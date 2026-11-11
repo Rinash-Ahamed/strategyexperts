@@ -3,13 +3,21 @@ import { getImageProps, type ImageProps } from "next/image";
 type StaticImageProps = Omit<ImageProps, "onLoad" | "onError" | "onLoadingComplete" | "placeholder" | "blurDataURL" | "preload" | "priority"> & {
   slotWidth?: number;
   originalAtFullSize?: boolean;
+  variants?: readonly { src: string; width: number }[];
 };
 
 /** Next's responsive optimizer, without a client image component per artwork.
  * Use only for server-rendered images without load callbacks or blur state.
  * See the installed Next.js Image documentation's getImageProps section. */
-export default function StaticImage({ slotWidth, originalAtFullSize, ...props }: StaticImageProps) {
-  const { props: image } = getImageProps(props);
+export default function StaticImage({ slotWidth, originalAtFullSize, variants, ...props }: StaticImageProps) {
+  const prepared = variants && variants.length > 0;
+  const vector = typeof props.src === "string" && /\.svg(?:\?|$)/i.test(props.src);
+  const { props: image } = getImageProps({ ...props, ...(prepared || vector ? { unoptimized: true } : {}) });
+  if (prepared) {
+    image.src = variants[variants.length - 1].src;
+    image.srcSet = variants.length > 1 ? variants.map(v => `${v.src} ${v.width}w`).join(", ") : undefined;
+    image.sizes = image.srcSet ? props.sizes : undefined;
+  }
   // Already-compressed artwork needs smaller derivatives, not a larger or
   // recompressed full-size copy. Static imports have immutable hashed URLs.
   const original = typeof props.src === "object" && "src" in props.src ? props.src : null;

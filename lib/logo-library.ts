@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import path from "node:path";
 import { PLATFORM_ASSETS } from "./platform-assets";
 import type { ServiceTheme } from "./site";
+import { prepareLogoVariants, type ImageVariant } from "./logo-variants";
 
 const IMAGE_EXTENSION = /\.(png|jpe?g|webp|avif|svg)$/i;
 const SERVICE_FOLDERS: Record<ServiceTheme, string> = {
@@ -20,7 +21,7 @@ const CLIENT_NAMES: Record<string, string> = {
   "terminal-2-tamil.png": "Terminal 2",
 };
 
-export type LogoAsset = { name: string; src: string };
+export type LogoAsset = { name: string; src: string; variants?: ImageVariant[] };
 
 async function readLogos(folder: string, names: Record<string, string>, preferred: readonly string[]): Promise<LogoAsset[]> {
   let entries;
@@ -49,7 +50,8 @@ async function fingerprintLogos(logos: LogoAsset[]) {
     // Content hashes survive redeploys and refresh same-name replacements.
     // This runs at static rendering/build time, never in an image request.
     const version = createHash("sha256").update(file).digest("hex").slice(0, 16);
-    return { ...logo, src: `${logo.src}?v=${version}` };
+    const src = `${logo.src}?v=${version}`;
+    return { ...logo, src, variants: await prepareLogoVariants(file, src) };
   }));
 }
 

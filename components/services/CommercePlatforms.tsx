@@ -29,7 +29,7 @@ export default function CommercePlatforms({ logos, title, variant = "commerce" }
             <li className={styles.platform} key={logo.src} style={{ "--delay": `${-index * 1.8}s`, ...(position ? { "--hotel-x": `${position.x}%`, "--hotel-y": position.y, "--hotel-scale": position.scale, "--hotel-layer": position.layer, "--hotel-band": Math.floor(index / HOTEL_POSITIONS.length) } : {}) } as CSSProperties}>
               <div className={styles.float}>
                 <span className={styles.art}>
-                  <StaticImage src={logo.src} alt={logo.name} fill quality={90} slotWidth={hotel ? 112 : 132} loading="eager" fetchPriority="low" sizes={hotel ? "(max-width: 479px) 88px, 112px" : "(max-width: 479px) 88px, 132px"} />
+                  <StaticImage src={logo.src} variants={logo.variants} alt={logo.name} fill quality={90} slotWidth={hotel ? 112 : 132} loading="eager" fetchPriority="low" sizes={hotel ? "(max-width: 479px) 88px, 112px" : "(max-width: 479px) 88px, 132px"} />
                 </span>
                 {hotel ? (
                   <svg className={`${styles.plinth} ${styles.hexagon}`} viewBox="0 0 120 120" aria-hidden="true" focusable="false">
